@@ -1,0 +1,16 @@
+{
+  "name": "@anthropics/figma-to-code",
+  "version": "1.0.0",
+  "description": "Pixel-perfect Figma-to-code implementation skill. Extracts designs via Figma MCP, translates every visual property to exact CSS, builds design token systems, and verifies fidelity with screenshot comparison.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
