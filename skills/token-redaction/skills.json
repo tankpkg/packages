@@ -1,7 +1,7 @@
 {
   "name": "@tank/token-redaction",
-  "version": "0.0.3",
-  "description": "Detect and redact API tokens, keys, bearer values, and JWTs in local OpenCode SQLite session stores with backup and verification.",
+  "version": "0.1.0",
+  "description": "Detect and redact API tokens, keys, bearer values, and JWTs in local OpenCode SQLite session stores. Covers backup-first workflow, pattern matching for common token formats, dry-run verification, database integrity checks, and session cleanup. Triggers: redact, token, API key, secret, JWT, bearer, session store, SQLite, cleanup, sensitive data, credential leak, key rotation, security.",
   "permissions": {
     "network": {
       "outbound": []

@@ -1,7 +1,7 @@
 {
   "name": "@tank/tank-package-publisher",
-  "version": "1.0.0",
-  "description": "Manage, validate, and publish skills to Tank with dry-run-first workflow, manifest checks, and release troubleshooting.",
+  "version": "1.1.0",
+  "description": "Package lifecycle specialist for Tank directory publishing. Covers dry-run-first workflow, manifest validation (skills.json), version bumping (semver), permission auditing, .tankignore patterns, CI/CD pipelines, and error remediation. Sources: Tank CLI docs. Triggers: tank publish, publish skill, dry run, skills.json, version bump, manifest, package, release, Tank directory, publish error, version exists, tank login, tank info, tank verify.",
   "permissions": {
     "network": {
       "outbound": [

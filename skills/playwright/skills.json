@@ -1,7 +1,7 @@
 {
   "name": "@tank/playwright",
-  "version": "1.0.1",
-  "description": "Browser automation and testing with Playwright. Auto-detect dev servers, write test scripts, take screenshots, validate UX.",
+  "version": "1.1.0",
+  "description": "Browser automation and end-to-end testing with Playwright. Covers test writing (locators, assertions, fixtures), auto-waiting, network interception, visual regression, authentication state reuse, parallel execution, mobile emulation, and CI/CD integration. Synthesized from Playwright official docs, Hands-On Playwright (Kelhini/Mayhew). Triggers: playwright, e2e test, browser test, locator, assertion, screenshot, network intercept, fixture, page object, visual regression, mobile testing, accessibility, CI test, browser automation, test runner.",
   "permissions": {
     "network": {
       "outbound": [

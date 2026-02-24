@@ -1,7 +1,7 @@
 {
   "name": "@tank/google-docs",
-  "version": "1.0.3",
-  "description": "Create, edit, format, and collaborate on Google Docs via the Google Docs API and Google Drive API.",
+  "version": "1.1.0",
+  "description": "Create, edit, format, and collaborate on Google Docs programmatically. Covers document creation, batch updates, text manipulation with character indexes, paragraph styling, table operations, inline images, headers/footers, sharing permissions, and export to PDF/DOCX. Sources: Google Docs API docs, Google Drive API docs. Triggers: google docs, document, create document, edit document, format text, batch update, paragraph style, table, export PDF, share document, comments, Google Docs API.",
   "permissions": {
     "network": {
       "outbound": [

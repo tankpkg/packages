@@ -1,7 +1,7 @@
 {
   "name": "@tank/skill-creator",
-  "version": "1.0.1",
-  "description": "Create skills that extend AI agent capabilities with synthesized domain expertise from books, web research, and reusable resources.",
+  "version": "1.1.0",
+  "description": "Create AI agent skills by synthesizing domain expertise from authoritative books and web research. Covers skill anatomy (SKILL.md, references, scripts, assets), progressive disclosure, research workflow (6-10 books), writing conventions, frontmatter, reference file structure (250-450 lines), and Tank ecosystem patterns. Synthesized from analysis of 20+ production skills. Triggers: create skill, new skill, build skill, skill about, write skill, update skill, improve skill, skill structure, SKILL.md, reference file, skill template, agent skill, domain expertise.",
   "permissions": {
     "network": {
       "outbound": []

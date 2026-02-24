@@ -1,7 +1,7 @@
 {
   "name": "@tank/slack",
-  "version": "1.0.1",
-  "description": "Send messages, manage channels, search conversations, and automate workflows in Slack via the Web API.",
+  "version": "1.1.0",
+  "description": "Send messages, manage channels, search conversations, and automate workflows in Slack. Covers messaging (threads, ephemeral, scheduled), Block Kit (sections, buttons, select menus, modals), channel management, file uploads, user lookups, and mrkdwn formatting. Sources: Slack Web API docs, Block Kit Builder. Triggers: slack, message, channel, thread, Block Kit, modal, button, select menu, mrkdwn, emoji, file upload, search, DM, ephemeral, Slack API, webhook, bot.",
   "permissions": {
     "network": {
       "outbound": [

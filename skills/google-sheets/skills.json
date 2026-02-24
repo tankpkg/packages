@@ -1,7 +1,7 @@
 {
   "name": "@tank/google-sheets",
-  "version": "1.0.2",
-  "description": "Read, write, format, and analyze spreadsheet data through the Google Sheets API.",
+  "version": "1.1.0",
+  "description": "Read, write, format, and analyze spreadsheet data through the Google Sheets API. Covers cell and range operations (A1 notation), batch updates, conditional formatting, data validation, chart creation, named ranges, sheet management, and formula support. Sources: Google Sheets API docs. Triggers: google sheets, spreadsheet, cell, range, formula, chart, conditional formatting, data validation, batch update, append rows, named range, Google Sheets API, CSV, pivot table.",
   "permissions": {
     "network": {
       "outbound": [

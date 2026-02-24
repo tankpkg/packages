@@ -1,7 +1,7 @@
 {
   "name": "@tank/figma-plugin",
-  "version": "1.0.1",
-  "description": "Expert guidance for building Figma plugins — architecture, Plugin API (nodes, styles, variables, components, text), UI development (iframe, React, message passing), Dev Mode codegen, publishing, and monetization.",
+  "version": "1.1.0",
+  "description": "Expert guidance for building Figma plugins. Covers architecture (sandbox vs iframe), Plugin API (nodes, styles, variables, components, text), UI development (iframe, React, message passing), Dev Mode codegen, widget development, publishing, and monetization. Synthesized from Figma Plugin API docs, community plugin analysis. Triggers: figma plugin, figma API, plugin development, figma widget, Dev Mode, codegen, figma node, figma styles, figma variables, iframe, message passing, plugin UI, figma publish, figma marketplace.",
   "permissions": {
     "network": {
       "outbound": []

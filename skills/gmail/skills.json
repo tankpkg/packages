@@ -1,7 +1,7 @@
 {
   "name": "@tank/gmail",
-  "version": "1.0.3",
-  "description": "Send, read, search, label, and manage email through the Gmail API with thread-aware operations.",
+  "version": "1.1.0",
+  "description": "Send, read, search, label, and manage email through the Gmail API. Covers composing (plain text, HTML, attachments), thread-aware replies, Gmail search query syntax (from:, to:, has:attachment, after:), label management, filter automation, and draft workflows. Sources: Gmail API official docs. Triggers: gmail, email, send email, read email, search email, attachment, label, filter, thread, draft, Gmail API, compose, reply, forward, inbox, MIME.",
   "permissions": {
     "network": {
       "outbound": [

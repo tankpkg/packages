@@ -1,7 +1,7 @@
 {
   "name": "@tank/systematic-debugging",
-  "version": "1.0.1",
-  "description": "Systematic debugging methodology: root cause investigation, pattern analysis, hypothesis testing, and the 3-strike error protocol.",
+  "version": "1.1.0",
+  "description": "Systematic debugging methodology for isolating and fixing software defects. Covers hypothesis-driven investigation (observe, hypothesize, test), binary search isolation, the 3-Strike Error Protocol, log analysis, state inspection, and regression prevention. Synthesized from Debugging (Agans), Why Programs Fail (Zeller). Triggers: debug, debugging, bug, error, fix, root cause, stack trace, breakpoint, log, isolate, reproduce, regression, hypothesis, bisect, investigation, troubleshoot.",
   "permissions": {
     "network": {
       "outbound": []
