@@ -1,7 +1,7 @@
 {
   "name": "@tank/planning",
-  "version": "1.0.1",
-  "description": "File-based planning for complex tasks. Creates persistent task_plan.md, findings.md, and progress.md as working memory on disk.",
+  "version": "2.0.0",
+  "description": "Comprehensive planning methodology for complex software tasks. Covers task decomposition (WBS, micro-tasks), plan writing (zero-context specs), plan execution (batched with checkpoints), prioritization (RICE, MoSCoW, ICE), estimation, risk assessment, and persistent context management. Synthesized from Shape Up, Agile Estimating and Planning, obra/superpowers, ReAct/Plan-and-Solve. Triggers: plan, planning, break down, decompose, task breakdown, prioritize, estimate, risk, project plan, implementation plan, work breakdown, dependencies, scope, how to approach, complex task, multi-step.",
   "permissions": {
     "network": {
       "outbound": []
