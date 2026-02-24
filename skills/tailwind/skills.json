@@ -1,17 +1,10 @@
 {
   "name": "@tank/tailwind",
-  "version": "1.0.1",
-  "description": "Tailwind CSS best practices for utility-first styling, responsive design, component patterns, dark mode, and performance.",
+  "version": "2.0.0",
+  "description": "Production Tailwind CSS patterns and component recipes. Covers responsive design (mobile-first breakpoints, container queries), component recipes (buttons, cards, forms, navigation, modals), dark mode strategies, custom theme configuration, plugin development, animation utilities, arbitrary values, and CSS variable integration. Includes shadcn/ui patterns. Synthesized from Tailwind CSS official docs, Refactoring UI (Wathan/Schoger), and community patterns. Triggers: tailwind, CSS, utility class, responsive, dark mode, theme, plugin, animation, shadow, gradient, flex, grid, container query, breakpoint, hover, focus, arbitrary value, shadcn, component styling, design tokens.",
   "permissions": {
-    "network": {
-      "outbound": []
-    },
-    "filesystem": {
-      "read": [
-        "**/*"
-      ],
-      "write": []
-    },
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
     "subprocess": false
   },
   "repository": "https://github.com/tankpkg/skills"
