@@ -1,17 +1,10 @@
 {
   "name": "@tank/security-review",
-  "version": "1.0.1",
-  "description": "Security best practices review for web applications. Language and framework-specific guidance for Python, JavaScript, TypeScript, and Go.",
+  "version": "2.0.0",
+  "description": "Security best practices review for web applications with language-specific guidance. Covers OWASP Top 10, input validation, authentication (JWT, session, OAuth), authorization (RBAC, ABAC), XSS prevention, CSRF protection, SQL injection, secrets management, dependency auditing, and secure headers. Includes framework-specific references for JavaScript/TypeScript, Python, and Node.js backends. Synthesized from OWASP guidelines, CWE database, and production security patterns. Triggers: security, vulnerability, XSS, CSRF, SQL injection, authentication, authorization, OWASP, input validation, sanitization, encryption, secrets, JWT, session, CORS, CSP, security headers, dependency audit, security review, penetration testing.",
   "permissions": {
-    "network": {
-      "outbound": []
-    },
-    "filesystem": {
-      "read": [
-        "**/*"
-      ],
-      "write": []
-    },
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
     "subprocess": false
   },
   "repository": "https://github.com/tankpkg/skills"
