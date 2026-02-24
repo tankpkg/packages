@@ -1,17 +1,10 @@
 {
   "name": "@tank/react",
-  "version": "1.0.1",
-  "description": "React best practices for functional components, hooks, state management, performance optimization, testing, and accessibility.",
+  "version": "2.0.0",
+  "description": "Expert React patterns for production applications. Covers component composition (compound, render props, slots), hooks mastery (custom hooks, useReducer patterns, useEffect cleanup), state architecture (local vs global, server state with TanStack Query), performance (React.memo, useMemo, code splitting, React Compiler), React 19 features (use(), Actions, Server Components), and testing with React Testing Library. Synthesized from React official docs, Kent C. Dodds patterns, and production codebases. Triggers: react, component, hook, useState, useEffect, useReducer, context, render, JSX, props, state management, React 19, server component, suspense, memo, performance, testing, custom hook.",
   "permissions": {
-    "network": {
-      "outbound": []
-    },
-    "filesystem": {
-      "read": [
-        "**/*"
-      ],
-      "write": []
-    },
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
     "subprocess": false
   },
   "repository": "https://github.com/tankpkg/skills"

@@ -1,73 +1,152 @@
-# React Best Practices
+---
+name: "@tank/react"
+description: "Expert React patterns for production apps. Triggers: react, component, hook, useState, useEffect, useReducer, useMemo, useCallback, context, render, JSX, props, state, state management, server state, TanStack Query, suspense, memo, performance, testing, React 19, server component."
+---
+# React
 
-## Component Structure
-- Use functional components over class components
-- Keep components small and focused
-- Extract reusable logic into custom hooks
-- Use composition over inheritance
-- Implement proper prop types with TypeScript
-- Split large components into smaller, focused ones
+## Core Philosophy
+- Composition over configuration: shape APIs with children, slots, and small props.
+- Colocation principle: keep state, view, and data fetching near the consumer.
+- Derive, don't sync: compute from source of truth, avoid mirror state.
+- Make invalid states unrepresentable: model state transitions explicitly.
+- Optimize for change: prefer patterns that localize edits.
+- Keep effects reactive: side effects follow data, not events.
+- Name state by intent, not by UI widget.
 
-## Hooks
-- Follow the Rules of Hooks
-- Use custom hooks for reusable logic
-- Keep hooks focused and simple
-- Use appropriate dependency arrays in useEffect
-- Implement cleanup in useEffect when needed
-- Avoid nested hooks
+## Component Decision Tree
+| When you need | Use | Why | Notes |
+| --- | --- | --- | --- |
+| Static UI with simple props | Simple component | Lowest overhead | Keep props shallow |
+| Shared state across related pieces | Compound component | Implicit coordination | Use context + slots |
+| Behavior injection into layout | Render prop | Flexible control | Prefer stable function identity |
+| Wrap a 3rd-party API | HOC | Encapsulate wiring | Avoid for new component APIs |
+| Reuse logic without UI | Custom hook | Share behavior | Return data + actions |
 
-## State Management
-- Use useState for local component state
-- Implement useReducer for complex state logic
-- Use Context API for shared state
-- Keep state as close to where it's used as possible
-- Avoid prop drilling through proper state management
-- Use state management libraries only when necessary
+## State Management Decision Tree
+| Situation | Use | Rationale | Tradeoffs |
+| --- | --- | --- | --- |
+| Single field or UI toggle | useState | Direct, local | Avoid derived duplicates |
+| Multi-step workflow | useReducer | Explicit transitions | Slightly more boilerplate |
+| Shared local UI state | Context | Avoid prop drilling | Split by concern |
+| Cross-route app state | External store | Centralized access | Use selectors |
+| Server data cache | TanStack Query | Cache + sync | Learn invalidation |
 
-## Performance
-- Implement proper memoization (useMemo, useCallback)
-- Use React.memo for expensive components
-- Avoid unnecessary re-renders
-- Implement proper lazy loading
-- Use proper key props in lists
-- Profile and optimize render performance
+## Hooks Rules of Thumb
+- Start with state local; lift only when 2+ siblings depend on it.
+- Prefer `useReducer` when updates depend on the previous state in many places.
+- Put async data in a server-state tool; don't mirror it in `useState`.
+- Make effects about synchronization, not computation.
+- Stabilize callbacks only when you pass them to memoized children.
+- Store derived values with `useMemo` only when recomputation is expensive.
+- Avoid `useEffect` for DOM reads; reach for refs and layout effects intentionally.
+- If a hook returns both data and actions, keep the action names stable.
+- Minimize hook parameters; prefer passing config objects.
 
-## Forms
-- Use controlled components for form inputs
-- Implement proper form validation
-- Handle form submission states properly
-- Show appropriate loading and error states
-- Use form libraries for complex forms
-- Implement proper accessibility for forms
+## React 19 Features Quick Reference
+| Feature | What it enables | When to use | Pitfall |
+| --- | --- | --- | --- |
+| `use()` | Read promises/context in render | Server and client data boundaries | Requires Suspense |
+| Actions | Async mutations with form integration | Form submissions | Avoid manual loading flags |
+| `useOptimistic` | Instant UI while awaiting server | Mutations with predictable rollback | Ensure reconciliation |
+| Server Components | Zero-bundle UI on server | Read-only, data-heavy views | Requires boundary discipline |
 
-## Error Handling
-- Implement Error Boundaries
-- Handle async errors properly
-- Show user-friendly error messages
-- Implement proper fallback UI
-- Log errors appropriately
-- Handle edge cases gracefully
+## Anti-Patterns
+| Don't | Do Instead | Why |
+| --- | --- | --- |
+| Prop drill through 4+ layers | Introduce Context boundary | Reduce wiring churn |
+| Copy props into state | Derive in render | Avoid divergence |
+| `useEffect` to compute derived values | `useMemo` or inline | Keep data flow explicit |
+| Store server data in `useState` | Use query cache | Built-in invalidation |
+| Overuse `React.memo` | Memoize only hotspots | Extra work otherwise |
+| Inline object props every render | Memoize or hoist | Stabilize referential equality |
+| One global Context for everything | Split by domain | Reduce rerenders |
+| Event handlers that depend on stale state | Use functional updates | Avoid stale closure bugs |
+| Keys from array index | Stable domain IDs | Preserve item identity |
 
-## Testing
-- Write unit tests for components
-- Implement integration tests for complex flows
-- Use React Testing Library
-- Test user interactions
-- Test error scenarios
-- Implement proper mock data
+## Component API Checklist
+- Expose the minimum props needed to express intent.
+- Prefer boolean props for mode switches; prefer enums for variants.
+- Use `children` for structure and provide slots for customization.
+- Keep side-effecting props explicit (`onOpen`, `onClose`, `onSubmit`).
+- Return primitive data from hooks, not JSX.
+- If a prop can be derived, remove it from the public API.
+- Keep controlled and uncontrolled modes separate and obvious.
+- Document default behavior with tests.
 
-## Accessibility
-- Use semantic HTML elements
-- Implement proper ARIA attributes
-- Ensure keyboard navigation
-- Test with screen readers
-- Handle focus management
-- Provide proper alt text for images
+## Effect Design Checklist
+- Identify the external system being synchronized.
+- Keep the dependency list aligned with the system inputs.
+- Use `AbortController` for fetch cancellation.
+- Prefer `useLayoutEffect` only for layout reads or measurement.
+- Cleanup always mirrors setup; avoid conditional cleanup.
+- Avoid `setState` in effects when value can be derived.
+- Never wire effects to user events; use event handlers.
+- Promote repeated effect patterns into a custom hook.
 
-## Code Organization
-- Group related components together
-- Use proper file naming conventions
-- Implement proper directory structure
-- Keep styles close to components
-- Use proper imports/exports
-- Document complex component logic
+## Suspense and Data Boundaries
+- Add Suspense at product-level latency points, not every component.
+- Keep fallback UI representative of the final layout.
+- Isolate error boundaries per feature area.
+- Avoid shared mutable state across server and client components.
+- Use data loaders at route boundaries to avoid waterfalls.
+- Prefer streaming for long-tail data, keep critical path small.
+- Avoid hiding errors by catching promises without rendering.
+
+## Testing Heuristics
+- Test the user-visible output, not internal state.
+- Prefer React Testing Library queries that match user intent.
+- Avoid snapshot tests for dynamic content; assert specific UI.
+- Use MSW or a query cache to model server responses.
+- Separate unit tests for hooks from integration tests for screens.
+- Assert optimistic updates and rollback behavior explicitly.
+- Keep test data realistic to catch rendering edge cases.
+- When in doubt, test the boundary between components.
+
+## TypeScript Integration
+- Model props with discriminated unions for variant-driven UIs.
+- Type `children` explicitly when slots are required.
+- Use `ComponentPropsWithoutRef<"button">` for pass-through props.
+- Prefer `satisfies` to keep config objects narrow.
+- Keep hooks generic only when the type pays for itself.
+- Treat `as` polymorphism as part of the public API contract.
+
+## Operational Workflow
+- Start by modeling state transitions in a reducer or state chart.
+- Build the smallest component tree that expresses the intent.
+- Add composition points only after usage shows friction.
+- Introduce Suspense and streaming after data paths are stable.
+- Profile before memoization to avoid premature tuning.
+- Document invariants with tests instead of comments.
+
+## Performance Posture
+- Prefer fewer renders over cheaper renders when possible.
+- Avoid re-render cascades by splitting context providers.
+- Use virtualization when list size > 200 or rendering cost is high.
+- Treat `memo` and `useCallback` as opt-in tools, not defaults.
+- Split bundles by route first, then by heavy widget.
+- Inspect bundle output to validate tree-shaking.
+- Defer non-critical work with `useTransition` or Actions.
+- Use stable keys and stable item identity for lists.
+
+## Migration Notes
+- Prefer incremental refactors; wrap new components under old API.
+- Introduce adapters for legacy props; deprecate in types.
+- Use codemods for prop renames and hook replacements.
+- Keep fallback UI identical during data-layer changes.
+- Add feature flags for high-risk UI rewrites.
+- Gate server component adoption per route.
+- Keep a clear rollback path for Actions adoption.
+- Remove dead code after two releases.
+
+## Refactor Triggers
+- Prop lists exceed 8-10 items or include derived values.
+- Effects contain more than one external resource.
+- A component has more than 2 responsibilities.
+- A hook has side effects and state but no cleanup.
+- Re-render time dominates in the profiler.
+- Teams repeatedly add exceptions to the API.
+
+## Reference Index
+- `skills/react/references/component-patterns.md`
+- `skills/react/references/hooks-and-state.md`
+- `skills/react/references/performance.md`
