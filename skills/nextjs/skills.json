@@ -1,17 +1,10 @@
 {
   "name": "@tank/nextjs",
-  "version": "1.0.2",
-  "description": "Next.js with TypeScript and Tailwind best practices for App Router, Server Components, data fetching, and performance optimization.",
+  "version": "2.0.0",
+  "description": "Expert Next.js 14/15 patterns for the App Router. Covers Server Components vs Client Components (decision tree), data fetching (server actions, route handlers, RSC async), caching hierarchy (request memoization, data cache, full route cache, router cache), streaming SSR with Suspense, parallel and intercepting routes, middleware patterns, and deployment optimization. Synthesized from Next.js official docs, Vercel patterns, and production architectures. Triggers: nextjs, next.js, app router, server component, client component, server action, route handler, middleware, SSR, SSG, ISR, caching, revalidation, streaming, suspense, parallel routes, intercepting routes, next/image, metadata, layout.",
   "permissions": {
-    "network": {
-      "outbound": []
-    },
-    "filesystem": {
-      "read": [
-        "**/*"
-      ],
-      "write": []
-    },
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
     "subprocess": false
   },
   "repository": "https://github.com/tankpkg/skills"
