@@ -1,5 +1,5 @@
 {
-  "name": "@anthropics/figma-to-code",
+  "name": "@tank/figma-to-code",
   "version": "1.1.0",
   "description": "Pixel-perfect Figma-to-code implementation. Extracts designs via Figma MCP, translates to CSS, builds design tokens, verifies fidelity. Covers auto-layout, responsive breakpoints, variants, and accessibility. Triggers: figma to code, design to code, figma implementation, pixel perfect, auto layout, design tokens, figma component, responsive design, CSS from figma, figma MCP, visual fidelity.",
   "permissions": {
