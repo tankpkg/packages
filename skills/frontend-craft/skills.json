@@ -1,7 +1,7 @@
 {
   "name": "@tank/frontend-craft",
   "version": "0.0.1",
-  "description": "Expert frontend craft for building apps that feel fast, polished, and delightful. Covers micro-interactions (Framer Motion, spring physics, gestures), perceived performance (skeletons, optimistic updates, prefetch), premium components (TanStack Table, cmdk, React Hook Form, Sonner), visual polish (shadows, spacing, typography), state choreography, and component architecture (shadcn/ui, Radix, CVA). Triggers: micro-interaction, animation, skeleton, optimistic update, framer motion, command palette, data table, TanStack Table, toast, sonner, cmdk, shadcn, UI polish, premium feel, perceived performance, page transition, empty state, error state, form UX.",
+  "description": "Frontend craft for apps that feel fast, polished, and delightful. Micro-interactions (Framer Motion, spring physics), perceived performance (skeletons, optimistic updates), premium components (TanStack Table, cmdk, Sonner), visual polish, state choreography, component architecture (shadcn/ui, Radix, CVA). Triggers: micro-interaction, animation, skeleton, optimistic update, framer motion, command palette, data table, toast, sonner, cmdk, shadcn, UI polish, premium feel, page transition, form UX.",
   "permissions": {
     "network": { "outbound": [] },
     "filesystem": { "read": ["**/*"], "write": [] },
