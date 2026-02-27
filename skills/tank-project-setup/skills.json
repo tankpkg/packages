@@ -1,0 +1,16 @@
+{
+  "name": "@tank/tank-project-setup",
+  "version": "1.0.0",
+  "description": "Auto-detect project stack and integrate Tank skills with CI/CD. Scans for framework indicators, recommends skills, creates skills.json, runs tank install, sets up GitHub Actions/GitLab CI. Triggers: set up tank, tank init project, tank cicd, detect project type, add tank to ci, install tank skills, configure tank, project skills setup.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": ["skills.json", "skills.lock", ".gitignore", ".github/**", ".gitlab-ci.yml"]
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

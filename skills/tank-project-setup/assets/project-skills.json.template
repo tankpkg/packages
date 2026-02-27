@@ -1,0 +1,5 @@
+{
+  "skills": {
+    "@tank/clean-code": "^3.0.0"
+  }
+}

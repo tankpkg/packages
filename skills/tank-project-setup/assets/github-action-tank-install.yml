@@ -1,0 +1,45 @@
+# Tank Skills — GitHub Actions Workflow
+#
+# Installs Tank skills from lockfile for deterministic, verified builds.
+# Add this file to .github/workflows/tank-install.yml
+#
+# Prerequisites:
+#   - skills.json at project root (declares skill dependencies)
+#   - skills.lock committed to git (created by `tank install`)
+
+name: Tank Skills
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  install-skills:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Cache Tank skills
+        uses: actions/cache@v4
+        with:
+          path: .tank
+          key: tank-skills-${{ hashFiles('skills.lock') }}
+          restore-keys: |
+            tank-skills-
+
+      - name: Install Tank CLI
+        run: npm install -g @tankpkg/cli
+
+      - name: Install skills from lockfile
+        run: tank install
+
+      - name: Verify integrity
+        run: tank verify
