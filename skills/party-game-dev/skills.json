@@ -1,0 +1,16 @@
+{
+  "name": "party-game-dev",
+  "version": "1.0.0",
+  "description": "Build real-time multiplayer party games (Jackbox-style) with full-stack TypeScript. Covers host-player architecture, Socket.IO networking, game state machines, room/lobby management, voting/scoring systems, and BDD testing for multiplayer with multiple browser contexts. Triggers: party game, jackbox, multiplayer game, real-time game, game room, lobby system, room code, socket.io game, websocket game, game state machine, voting game, drawing game, trivia game, quiplash, drawful, host screen, player controller, multiplayer testing, game server, party game backend, prompt response game, audience voting",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
