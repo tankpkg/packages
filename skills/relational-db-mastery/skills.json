@@ -1,0 +1,11 @@
+{
+  "name": "@tank/relational-db-mastery",
+  "version": "1.0.0",
+  "description": "Relational database performance for PostgreSQL and MySQL. Indexing (B-tree, GIN, GiST, BRIN, composite, partial, covering), query optimization (JOINs, CTEs, pagination, N+1), EXPLAIN ANALYZE, schema design, PostgreSQL tuning (VACUUM, pg_stat_statements), MySQL/InnoDB tuning, monitoring. Triggers: slow query, database performance, index, EXPLAIN ANALYZE, query plan, schema design, composite index, N+1, pagination, VACUUM, autovacuum, table bloat, PostgreSQL, MySQL, InnoDB, SQL performance.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
