@@ -1,0 +1,22 @@
+{
+  "lockfileVersion": 1,
+  "skills": {
+    "@tank/skill-creator@1.1.1": {
+      "resolved": "https://lcsbcruorskqflcwlvgj.supabase.co/storage/v1/object/sign/packages/skills/287ac646-654b-4580-901a-18781c64920d/1.1.1.tgz?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wMjNiODBkNC05MzFhLTRmODctOTA1Ni03YmMwMjczNDFiMTUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJwYWNrYWdlcy9za2lsbHMvMjg3YWM2NDYtNjU0Yi00NTgwLTkwMWEtMTg3ODFjNjQ5MjBkLzEuMS4xLnRneiIsImlhdCI6MTc3MjIzMjg2MiwiZXhwIjoxNzcyMjM2NDYyfQ.ZzbqpuNPs9yEALjqTGgvNNDDEDDeiK0z8YmJlQqGyUw",
+      "integrity": "sha512-e6s9e0szXJWAi4fesnkCHEmuLst8Mojl3r3Q7sEkZJ7G+57J3Qz3C/62EhJeIW1qS7fB7U1cAkrjFNeZWdwcZQ==",
+      "permissions": {
+        "network": {
+          "outbound": []
+        },
+        "filesystem": {
+          "read": [
+            "**/*"
+          ],
+          "write": []
+        },
+        "subprocess": false
+      },
+      "audit_score": 8
+    }
+  }
+}

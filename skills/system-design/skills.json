@@ -1,0 +1,11 @@
+{
+  "name": "@tank/system-design",
+  "version": "1.0.0",
+  "description": "Practical system design for production distributed systems. Scalability (load balancing, horizontal scaling, CDN, auto-scaling), data layer (database selection, replication, sharding, consistency models, CAP), caching (cache-aside, write-through, invalidation, stampede), messaging (queues, event-driven, CQRS, saga, delivery guarantees), reliability (circuit breakers, bulkheads, retries, rate limiting, timeouts), service architecture (monolith vs microservices, API gateway, service mesh), capacity planning (estimation, SLOs, monitoring, tracing). Triggers: system design, distributed systems, scalability, load balancing, sharding, replication, caching strategy, message queue, event-driven, Kafka, circuit breaker, rate limiting, microservices, monolith, API gateway, CAP theorem, consistency, CQRS, saga pattern, SLO, capacity planning, distributed tracing, back pressure.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
