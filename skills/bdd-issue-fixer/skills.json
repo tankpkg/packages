@@ -1,0 +1,11 @@
+{
+  "name": "@tank/bdd-issue-fixer",
+  "version": "1.0.0",
+  "description": "Resolve GitHub issues using BDD. Triage issues, write Gherkin tests, run RED-GREEN fix cycle (up to 5 iterations), verify with regression checks, submit PR with evidence. Covers triage, issue-to-Gherkin, fix verification, related issue detection, batch fixing. Triggers: fix issue, resolve issue, BDD fix, issue to test, red green fix, triage issue, duplicate issue, related issues, issue fixer, auto-fix, resolve bug report.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
