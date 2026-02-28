@@ -1,0 +1,11 @@
+{
+  "name": "@tank/api-design-mastery",
+  "version": "1.0.0",
+  "description": "REST, GraphQL, and tRPC API design for backend engineers. Endpoint design (resource modeling, HTTP methods, status codes, idempotency), API versioning (URL path, header, deprecation, Sunset header), error contracts (RFC 7807/9457 Problem Details, field validation), pagination (offset, cursor, keyset, GraphQL Relay connections), filtering, sorting, authentication (API keys, JWT, OAuth 2.0 PKCE, Client Credentials), RBAC, rate limiting. Triggers: REST API, GraphQL schema, tRPC, API design, endpoint design, API versioning, error response, problem details, RFC 7807, pagination, cursor pagination, GraphQL connections, Relay spec, API auth, API keys, JWT, OAuth 2.0, PKCE, rate limiting, RBAC, HTTP status codes, GraphQL N+1, DataLoader, tRPC middleware, breaking changes, Sunset header.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
