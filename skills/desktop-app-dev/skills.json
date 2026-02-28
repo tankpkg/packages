@@ -1,7 +1,7 @@
 {
   "name": "@tank/desktop-app-dev",
   "version": "1.0.0",
-  "description": "Build, convert, and ship cross-platform desktop applications from web projects using Electron, Tauri v2, or Wails. Covers framework selection and project detection, architecture and IPC patterns, native desktop APIs (menus, tray, notifications, file system, dialogs, shortcuts, clipboard), packaging and distribution (installers, code signing, notarization, auto-update), migration patterns (web-to-desktop conversion, Electron-to-Tauri migration), and CI/CD build pipelines. Synthesizes Electron v40 docs, Tauri v2 docs, Wails v2/v3 docs, and 2025-2026 ecosystem research. Triggers: Electron, Tauri, Wails, desktop app, desktop application, web to desktop, convert to desktop, cross-platform app, native app, electron-builder, electron-forge, electron-vite, tauri-apps, system tray, auto-update, code signing, notarize, DMG, MSI, AppImage, package desktop app, IPC, main process, preload script, BrowserWindow, tauri command, wails build, desktop wrapper, ship desktop app, distribute desktop app.",
+  "description": "Build and ship cross-platform desktop apps from web projects using Electron, Tauri v2, or Wails. Covers framework selection, IPC, native APIs (menus, tray, dialogs), packaging, code signing, auto-update, and migration. Triggers: Electron, Tauri, Wails, desktop app, web to desktop, electron-builder, electron-vite, tauri command, system tray, auto-update, code signing, DMG, MSI, AppImage, IPC, preload script, BrowserWindow, wails build, desktop wrapper, ship desktop app.",
   "permissions": {
     "network": { "outbound": [] },
     "filesystem": { "read": ["**/*"], "write": [] },
