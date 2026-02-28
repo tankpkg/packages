@@ -1,6 +1,6 @@
 ---
 name: "@tank/react"
-description: "Expert React patterns for production apps. Triggers: react, component, hook, useState, useEffect, useReducer, useMemo, useCallback, context, render, JSX, props, state, state management, server state, TanStack Query, suspense, memo, performance, testing, React 19, server component."
+description: "Expert React patterns for production apps. Covers linting with React Doctor. Triggers: react, component, hook, useState, useEffect, useReducer, useMemo, useCallback, context, render, JSX, props, state, state management, server state, TanStack Query, suspense, memo, performance, testing, React 19, server component, react-doctor, linter, health score, dead code."
 ---
 # React
 
@@ -146,7 +146,95 @@ description: "Expert React patterns for production apps. Triggers: react, compon
 - Re-render time dominates in the profiler.
 - Teams repeatedly add exceptions to the API.
 
+## Linting with React Doctor
+React Doctor is a CLI linter that scans React codebases for anti-patterns and outputs a 0–100 health score with actionable diagnostics. It auto-detects your framework (Next.js, Vite, Remix, React Native) and React version.
+
+### Quick Start
+```bash
+npx -y react-doctor@latest .
+```
+
+### Key CLI Flags
+| Flag | Purpose |
+| --- | --- |
+| `--verbose` | Show file paths and line numbers per rule |
+| `--diff main` | Scan only files changed vs base branch |
+| `--score` | Output only the numeric score (CI-friendly) |
+| `--no-lint` | Skip lint checks, run dead code only |
+| `--no-dead-code` | Skip dead code detection, run lint only |
+| `--fix` | Open Ami to auto-fix issues |
+| `-y` | Skip prompts, scan all workspace projects |
+
+### Configuration
+Create `react-doctor.config.json` at project root:
+```json
+{
+  "ignore": {
+    "rules": ["react/no-danger", "knip/exports"],
+    "files": ["src/generated/**"]
+  },
+  "lint": true,
+  "deadCode": true,
+  "verbose": false,
+  "diff": "main"
+}
+```
+Or use the `reactDoctor` key in `package.json`.
+
+### Rule Categories Overview
+| Category | Focus | Example Rules |
+| --- | --- | --- |
+| State & Effects | Derived state, fetch in effect, cascading setState | `no-derived-state-effect`, `no-fetch-in-effect` |
+| Architecture | Giant components, render-in-render | `no-giant-component`, `no-nested-component-definition` |
+| Performance | Memoization misuse, layout animations, hydration | `no-usememo-simple-expression`, `no-layout-property-animation` |
+| Security | eval usage, hardcoded secrets | `no-eval`, `no-secrets-in-client-code` |
+| Bundle Size | Barrel imports, full lodash, moment.js | `no-barrel-import`, `no-full-lodash-import`, `no-moment` |
+| Correctness | Array index keys, conditional rendering | `no-array-index-as-key`, `rendering-conditional-render` |
+| Next.js | Image, link, metadata, server data | `nextjs-no-img-element`, `nextjs-missing-metadata` |
+| React Native | Raw text, deprecated modules, Reanimated | `rn-no-raw-text`, `rn-prefer-reanimated` |
+
+### Score Interpretation
+| Range | Label | Action |
+| --- | --- | --- |
+| 75–100 | Great | Maintain current quality |
+| 50–74 | Needs work | Address errors first, then warnings |
+| 0–49 | Critical | Prioritize security and correctness rules |
+
+### CI/CD Integration (GitHub Actions)
+```yaml
+- uses: actions/checkout@v5
+  with:
+    fetch-depth: 0
+- uses: millionco/react-doctor@main
+  with:
+    diff: main
+    github-token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+### Programmatic API
+```ts
+import { diagnose } from "react-doctor/api";
+
+const result = await diagnose("./path/to/project", {
+  lint: true,
+  deadCode: true,
+});
+
+console.log(result.score);       // { score: 82, label: "Good" }
+console.log(result.diagnostics); // Array of Diagnostic objects
+console.log(result.project);     // Detected framework, React version
+```
+
+### When to Suppress Rules
+- `react/no-danger`: When rendering trusted sanitized HTML.
+- `knip/exports`: For public library entry points consumed externally.
+- `no-barrel-import`: For small internal barrels with few re-exports.
+- Add suppressions to `ignore.rules` in config, not inline comments.
+
+See `skills/react/references/react-doctor.md` for the full rule reference.
+
 ## Reference Index
 - `skills/react/references/component-patterns.md`
 - `skills/react/references/hooks-and-state.md`
 - `skills/react/references/performance.md`
+- `skills/react/references/react-doctor.md`
