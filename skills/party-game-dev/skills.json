@@ -1,7 +1,7 @@
 {
   "name": "@tank/party-game-dev",
-  "version": "1.0.0",
-  "description": "Build Jackbox-style multiplayer party games with TypeScript. Covers host-player architecture, VIP role (player with elevated control), Socket.IO networking, game state machines, room/lobby management, kick/ban system, content safety and moderation (profanity filtering, family mode, VIP censoring), voting/scoring, and BDD multiplayer testing. Triggers: party game, jackbox, multiplayer game, VIP, game VIP, room owner, kick player, game room, socket.io game, game state machine, voting game, drawing game, trivia game, quiplash, host screen, player controller, content moderation, profanity filter, family friendly, multiplayer testing, game server",
+  "version": "1.1.0",
+  "description": "Build Jackbox-style multiplayer party games with TypeScript. Covers host-player architecture, VIP role, Socket.IO networking, game state machines, room/lobby management, content safety, voting/scoring, and BDD testing. Triggers: party game, jackbox, multiplayer game, VIP, kick player, game room, socket.io game, game state machine, voting game, drawing game, trivia game, quiplash, host screen, player controller, content moderation, profanity filter, multiplayer testing",
   "permissions": {
     "network": {
       "outbound": []
