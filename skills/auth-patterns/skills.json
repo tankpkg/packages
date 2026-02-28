@@ -1,8 +1,11 @@
 {
-  "network": [],
-  "filesystem": {
-    "read": ["**/*"],
-    "write": []
+  "name": "@tank/auth-patterns",
+  "version": "1.0.0",
+  "description": "Authentication and authorization patterns for any language or framework. JWT (structure, algorithms, attacks, validation), OAuth2 (Authorization Code, PKCE, Client Credentials, Device Code), session management (cookies, expiry, fixation), RBAC/ABAC/ReBAC (role modeling, authorization policies, Zanzibar), OpenID Connect and social login (ID tokens, account linking), MFA (TOTP, WebAuthn/passkeys, backup codes, step-up auth), and auth security (XSS/CSRF, token storage, credential stuffing, rate limiting). Triggers: JWT, OAuth2, session management, RBAC, ABAC, role-based access, OpenID Connect, OIDC, social login, MFA, multi-factor authentication, TOTP, WebAuthn, passkeys, refresh token, access token, PKCE, auth flow, implement authentication, cookie security, HttpOnly, SameSite, token storage, credential stuffing, account linking, backup codes, permission system.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
   },
-  "subprocess": false
+  "repository": "https://github.com/tankpkg/skills"
 }
