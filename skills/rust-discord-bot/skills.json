@@ -1,0 +1,11 @@
+{
+  "name": "@tank/rust-discord-bot",
+  "version": "1.0.0",
+  "description": "Build high-performance Discord bots in Rust with serenity, poise, and twilight. Covers framework selection, slash/prefix commands, components, intents, event handling, state management, voice/audio (Songbird), performance, and deployment. Triggers: discord bot rust, serenity-rs, poise discord, twilight-rs, slash command rust, discord gateway, songbird voice, discord music bot, discord embed, discord button, poise framework, serenity event, discord sharding, discord sqlx",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
