@@ -1,6 +1,6 @@
 {
   "name": "@tank/vector-graphics-gen",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Generate vector graphics (SVG) using AI APIs. QuiverAI Arrow (#1 SVG Arena) and fal.ai Recraft V4 for native SVG, image-to-SVG conversion, prompt engineering, SVGO optimization, web integration (React, Vue, sprites, dark mode).\n\nTrigger phrases: \"generate SVG\", \"SVG icon\", \"vector illustration\", \"fal.ai\", \"recraft\", \"quiverai\", \"arrow\", \"text to SVG\", \"image to SVG\", \"vectorize\", \"vector logo\", \"icon generation\", \"SVG for web\", \"fal-ai/recraft\", \"vector pattern\", \"production SVG\"",
   "permissions": {
     "network": {
