@@ -1,0 +1,11 @@
+{
+  "name": "@tank/sublime-package-dev",
+  "version": "0.0.1",
+  "description": "Create, develop, test, and publish Sublime Text packages. Full lifecycle: Python plugin API (commands, events, views), package structure, syntax definitions (.sublime-syntax), color schemes, themes, snippets, completions, build systems, publishing to Package Control.\n\nTriggers: \"sublime package\", \"sublime plugin\", \"sublime-syntax\", \"color scheme\", \"sublime theme\", \"package control\", \"TextCommand\", \"WindowCommand\", \"EventListener\", \"sublime API\", \"sublime snippet\", \"scope naming\"",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
