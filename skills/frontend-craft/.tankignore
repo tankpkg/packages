@@ -1,5 +1,6 @@
 scripts/.cache/
 .bdd/
+.venv/
 pyrightconfig.json
 __pycache__/
 *.py[cod]
