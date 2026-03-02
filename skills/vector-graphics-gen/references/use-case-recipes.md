@@ -6,14 +6,16 @@ Covers: complete end-to-end code for common vector graphics tasks. Copy and adap
 
 ## Shared Setup
 
-All recipes use this boilerplate. Install: `npm install @fal-ai/client svgo`.
+All recipes use this boilerplate. Install: `npm install @fal-ai/client @quiverai/sdk svgo`.
 
 ```javascript
 import { fal } from "@fal-ai/client";
+import QuiverAI from "@quiverai/sdk";
 import { optimize } from "svgo";
 import fs from "fs/promises";
 
 fal.config({ credentials: process.env.FAL_KEY });
+const quiver = new QuiverAI({ apiKey: process.env.QUIVER_API_KEY });
 
 const svgoConfig = {
   multipass: true,
@@ -29,11 +31,14 @@ async function fetchSvg(url) {
 }
 ```
 
-**Two-step pipeline** (Recraft V3 — raster-style, then vectorize):
-`fal-ai/recraft/v3/text-to-image` → `fal-ai/recraft/vectorize`
+**Highest quality** (QuiverAI Arrow — premium generation):
+`QuiverAI Arrow` → SVGO
 
-**One-step pipeline** (Recraft V4 — native SVG):
-`fal-ai/recraft/v4/text-to-vector`
+**Native SVG (fal.ai)** (Recraft V4 — one step):
+`fal-ai/recraft/v4/text-to-vector` → SVGO
+
+**Styled SVG (fal.ai)** (Recraft V3 — raster-style, then vectorize):
+`fal-ai/recraft/v3/text-to-image` → `fal-ai/recraft/vectorize` → SVGO
 
 ---
 
@@ -73,6 +78,17 @@ await generateAppIconSet("Taskflow", "checkmark inside a circle", { r: 99, g: 10
 ```
 
 **Integration**: Use `icon.svg` inline for crisp rendering at any size. Use `icon-512.png` for app store submissions, `icon-32.png` for favicons.
+
+**Alternative (QuiverAI Arrow)**: Use Arrow for highest-quality output when budget allows.
+
+```javascript
+const arrowResult = await quiver.arrow.generate({
+  prompt: `App icon for ${appName}: ${description}. Flat design, single centered symbol, minimal geometric shapes, solid colors only, white background, no text`,
+  output_format: "svg",
+});
+const svg = optimize(arrowResult.svg, svgoConfig).data;
+await fs.writeFile(`./icons/${appName.toLowerCase()}/icon.svg`, svg);
+```
 
 ---
 
@@ -125,21 +141,30 @@ await generateLogoVariants({
 
 **Integration**: Use `logo-full.svg` in the site header. Use `logo-icon.svg` for favicons. Apply `logo-reversed.svg` on dark backgrounds.
 
+**Alternative (QuiverAI Arrow)**: Arrow produces cleaner path structure for logos that will be used at large print sizes.
+
+```javascript
+const arrowResult = await quiver.arrow.generate({
+  prompt: `Professional logo for "${name}" — ${tagline}. Symbol left, company name right. Clean vector, flat, minimal, 2 colors, white background`,
+  output_format: "svg",
+});
+const svg = optimize(arrowResult.svg, svgoConfig).data;
+await fs.writeFile(`./logos/${name.toLowerCase().replace(/\s+/g, "-")}/logo-full.svg`, svg);
+```
+
 ---
 
 ## Recipe 3: Hero Illustration
 
 Generate a large illustration for a landing page hero, optimized for web delivery.
 
-**Model**: `fal-ai/recraft/v3/text-to-image` with `style: "vector_illustration"`, `substyle: "emotional_flat"`. Follow with vectorize step.
+**Model**: `fal-ai/recraft/v4/pro/text-to-vector` — highest-quality native SVG, no vectorize step needed.
 
 ```javascript
 async function generateHeroIllustration(concept, palette) {
-  const rasterResult = await fal.subscribe("fal-ai/recraft/v3/text-to-image", {
+  const result = await fal.subscribe("fal-ai/recraft/v4/pro/text-to-vector", {
     input: {
       prompt: `${concept}. Flat vector illustration, editorial style, bold shapes, limited color palette, no text, no gradients, clean composition`,
-      style: "vector_illustration",
-      substyle: "emotional_flat",
       image_size: "landscape_16_9",
       colors: palette,
     },
@@ -147,12 +172,7 @@ async function generateHeroIllustration(concept, palette) {
     onQueueUpdate: (u) => u.status === "IN_PROGRESS" && u.logs.forEach((l) => console.log(l.message)),
   });
 
-  const vectorResult = await fal.subscribe("fal-ai/recraft/vectorize", {
-    input: { image_url: rasterResult.data.images[0].url },
-    logs: false,
-  });
-
-  const svg = await fetchSvg(vectorResult.data.images[0].url);
+  const svg = await fetchSvg(result.data.images[0].url);
   await fs.writeFile("./hero-illustration.svg", svg);
   console.log(`SVG: ${(svg.length / 1024).toFixed(1)}KB`);
 }
@@ -162,6 +182,8 @@ await generateHeroIllustration(
   [{ r: 99, g: 102, b: 241 }, { r: 236, g: 72, b: 153 }, { r: 248, g: 250, b: 252 }]
 );
 ```
+
+**Note**: For specific V3 sub-style control (e.g., `emotional_flat`, `editorial`), use the V3 + vectorize pipeline instead: `fal-ai/recraft/v3/text-to-image` with `style: "vector_illustration"` → `fal-ai/recraft/vectorize`.
 
 **Integration**:
 
@@ -283,6 +305,8 @@ await generateSeamlessPattern("small leaves and botanical elements", [
 ]);
 ```
 
+**Note**: The `seamless_pattern` sub-style requires V3. V4 does not support sub-styles, so the two-step pipeline is mandatory here. For a generic geometric tile without seamless-specific styling, `fal-ai/recraft/v4/text-to-vector` with a tiling prompt works as a simpler alternative.
+
 **Integration**: Apply `.pattern-bg` to any container. Adjust `background-size` to control tile density.
 
 ---
@@ -323,7 +347,7 @@ await photoToVector("./logo-photo.png", "./logo-vector.svg", true);
 
 Generate a matching set of gamification badges with consistent visual style.
 
-**Model**: `fal-ai/recraft/v3/text-to-image` with `style: "vector_illustration"`, `substyle: "bold_stroke"`.
+**Model**: `fal-ai/recraft/v4/text-to-vector` — native SVG, no vectorize step needed. Saves $0.01/badge vs V3 + vectorize.
 
 ```javascript
 const BADGES = [
@@ -338,13 +362,11 @@ async function generateBadgeSet() {
   const outDir = "./badges";
   await fs.mkdir(outDir, { recursive: true });
 
-  const rasterResults = await Promise.all(
+  const results = await Promise.all(
     BADGES.map((b) =>
-      fal.subscribe("fal-ai/recraft/v3/text-to-image", {
+      fal.subscribe("fal-ai/recraft/v4/text-to-vector", {
         input: {
           prompt: `Achievement badge: ${b.symbol}. Circular badge shape, bold stroke outline, flat vector, centered symbol, no text, white background`,
-          style: "vector_illustration",
-          substyle: "bold_stroke",
           image_size: "square_hd",
           colors: [b.color, { r: 255, g: 255, b: 255 }],
         },
@@ -353,11 +375,8 @@ async function generateBadgeSet() {
     )
   );
 
-  for (const { badge, url } of rasterResults) {
-    const vectorResult = await fal.subscribe("fal-ai/recraft/vectorize", {
-      input: { image_url: url }, logs: false,
-    });
-    const svg = await fetchSvg(vectorResult.data.images[0].url);
+  for (const { badge, url } of results) {
+    const svg = await fetchSvg(url);
     await fs.writeFile(`${outDir}/${badge.id}.svg`, svg);
   }
 }
@@ -384,7 +403,7 @@ function AchievementBadge({ id, label, earned }) {
 
 Generate section dividers and wave separators for landing pages.
 
-**Model**: `fal-ai/recraft/v3/text-to-image` with `style: "vector_illustration"`, `substyle: "thin"`.
+**Model**: `fal-ai/recraft/v4/text-to-vector` — native SVG, single step.
 
 ```javascript
 const DIVIDERS = [
@@ -398,28 +417,24 @@ async function generateDividerSet(accentColor) {
   await fs.mkdir(outDir, { recursive: true });
 
   for (const divider of DIVIDERS) {
-    const rasterResult = await fal.subscribe("fal-ai/recraft/v3/text-to-image", {
+    const result = await fal.subscribe("fal-ai/recraft/v4/text-to-vector", {
       input: {
         prompt: `${divider.prompt}. Flat vector, no gradients, white background`,
-        style: "vector_illustration",
-        substyle: "thin",
         image_size: "landscape_16_9",
         colors: [accentColor, { r: 255, g: 255, b: 255 }],
       },
       logs: false,
     });
 
-    const vectorResult = await fal.subscribe("fal-ai/image2svg", {
-      input: { image_url: rasterResult.data.images[0].url }, logs: false,
-    });
-
-    const svg = await fetchSvg(vectorResult.data.images[0].url);
+    const svg = await fetchSvg(result.data.images[0].url);
     await fs.writeFile(`${outDir}/${divider.id}.svg`, svg);
   }
 }
 
 await generateDividerSet({ r: 99, g: 102, b: 241 });
 ```
+
+**Note**: For hairline or ultra-thin stroke dividers, use the V3 pipeline with `substyle: "thin"`: `fal-ai/recraft/v3/text-to-image` → `fal-ai/image2svg`. V4 does not expose the `thin` sub-style.
 
 **Integration**:
 
@@ -430,7 +445,5 @@ await generateDividerSet({ r: 99, g: 102, b: 241 });
 </div>
 <section class="features">...</section>
 ```
-
----
 
 For prompt engineering patterns that improve output quality across all recipes, see `references/prompt-engineering.md`. For SVGO configuration details, see `references/svg-optimization.md`. For model selection guidance, see `references/fal-api-reference.md`.

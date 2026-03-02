@@ -1,29 +1,91 @@
 # Text-to-Vector Models
 
-Sources: fal.ai documentation (2025-2026), Recraft API docs, model benchmarks
+Sources: fal.ai documentation (2026), Recraft API docs, QuiverAI Arrow documentation, SVG Arena benchmarks (March 2026)
 
-Covers: All text-to-vector and vector-style image endpoints on fal.ai — Recraft V4, V4 Pro, V3 — with complete parameter references, model comparison, code examples, and the two-step raster-to-SVG pipeline.
+Covers: All text-to-vector endpoints as of March 2026 — QuiverAI Arrow 1 (standalone API), Recraft V4/V4 Pro/V3 on fal.ai — with complete parameter references, model comparison, SVG Arena rankings, code examples, and the two-step raster-to-SVG pipeline.
 
 ## Model Overview
 
-Three primary paths to vector output via fal.ai:
+Four primary paths to vector output:
 
-1. **Native SVG** — Recraft V4 and V4 Pro produce true SVG files directly from text
-2. **Vector-style raster** — Recraft V3 with `vector_illustration` style produces raster images optimized for vectorization
-3. **Two-step pipeline** — Generate with V3 vector style, then convert to SVG via `fal-ai/recraft/vectorize`
+1. **QuiverAI Arrow 1** — purpose-built SVG model, #1 on SVG Arena, standalone API (not on fal.ai)
+2. **Native SVG via fal.ai** — Recraft V4 and V4 Pro produce true SVG files directly from text
+3. **Vector-style raster** — Recraft V3 with `vector_illustration` style produces raster images optimized for vectorization
+4. **Two-step pipeline** — Generate with V3 vector style, then convert to SVG via `fal-ai/recraft/vectorize`
 
 For image-to-SVG conversion endpoints, see `references/image-to-svg-conversion.md`.
 
+## SVG Arena Rankings
+
+SVG Arena is the primary benchmark for text-to-SVG quality as of March 2026. Rankings use Elo scoring from head-to-head comparisons.
+
+| Rank | Model | Elo | Type |
+|------|-------|-----|------|
+| #1 | QuiverAI Arrow 1 | 1583 | Purpose-built SVG model |
+| #2 | Gemini 3.1 Pro | 1421 | General LLM (generates SVG code) |
+| #3 | Claude Opus 4.1 | ~1350 | General LLM (generates SVG code) |
+| #4 | GPT-5 | ~1340 | General LLM (generates SVG code) |
+
+Note: LLMs generate SVG as text code. Arrow 1 and Recraft produce true vector paths natively — better path quality, editability, and file size.
+
 ## Model Comparison Table
 
-| Model | Endpoint | Output Format | Price | Quality | Speed | Best For |
-|-------|----------|---------------|-------|---------|-------|----------|
-| Recraft V4 | `fal-ai/recraft/v4/text-to-vector` | True SVG | $0.08/image | High | Medium | Logos, icons, brand assets |
-| Recraft V4 Pro | `fal-ai/recraft/v4/pro/text-to-vector` | True SVG | $0.30/image | Highest | Slow | Production assets, complex illustrations |
-| Recraft V3 | `fal-ai/recraft/v3/text-to-image` | Raster PNG | $0.08/image (vector style) | High | Fast | Vector-style illustrations, two-step pipeline |
-| Recraft V3 (raster) | `fal-ai/recraft/v3/text-to-image` | Raster PNG | $0.04/image | High | Fast | Non-vector styles, photorealistic |
+| Model | Platform | Output | Price | SVG Arena Elo | Best For |
+|-------|----------|--------|-------|---------------|----------|
+| QuiverAI Arrow 1 | api.quiver.ai | True SVG | Free tier (20/week) / paid | 1583 (#1) | Highest quality SVGs |
+| Recraft V4 Pro | fal.ai | True SVG | $0.30/image | — | High-detail production SVG on fal.ai |
+| Recraft V4 | fal.ai | True SVG | $0.08/image | — | Cost-effective native SVG on fal.ai |
+| Recraft V3 | fal.ai | Raster PNG | $0.08/image (vector style) | — | Sub-style control (22 styles) |
 
-**Default choice**: Recraft V4 for direct SVG output. Use V4 Pro when quality is critical and cost is secondary. Use V3 + vectorize pipeline when you need fine-grained style control from V3's 22 sub-styles.
+**Default choice**: Arrow 1 for highest quality SVG. Use Recraft V4 for cost-effective SVG on fal.ai. Use V4 Pro when quality is critical within fal.ai. Use V3 + vectorize pipeline for fine-grained style control.
+
+---
+
+## QuiverAI Arrow 1
+
+**API**: `api.quiver.ai`
+**SDK**: `@quiverai/sdk` (npm)
+**Output**: True SVG (clean, layered, editable paths)
+**Price**: Free tier — 20 SVGs/week; paid plans for higher volume
+**Released**: February 25, 2026
+**SVG Arena Elo**: 1583 (#1)
+
+Arrow 1 is a purpose-built vector-native model, not a general LLM adapted for SVG. It generates from text prompts and images (multimodal), outputs clean layered SVG with editable paths, and supports real-time streaming. Not available on fal.ai — use the standalone API directly.
+
+### Installation
+
+```bash
+npm install @quiverai/sdk
+```
+
+Set `QUIVER_API_KEY` in your environment. Obtain a key at `api.quiver.ai`.
+
+### JavaScript Example
+
+```javascript
+import QuiverAI from "@quiverai/sdk";
+
+const quiver = new QuiverAI({ apiKey: process.env.QUIVER_API_KEY });
+
+const response = await quiver.svgs.generate({
+  model: "arrow-1",
+  prompt: "A minimalist mountain logo with clean geometric shapes"
+});
+
+const svgUrl = response.data[0].url;
+const res = await fetch(svgUrl);
+const svgContent = await res.text();
+```
+
+### When to Use Arrow 1 vs Recraft
+
+| Scenario | Use |
+|----------|-----|
+| Highest quality SVG, platform-agnostic | Arrow 1 |
+| Already using fal.ai infrastructure | Recraft V4 or V4 Pro |
+| Need 22 illustration sub-styles | Recraft V3 + vectorize |
+| Free tier sufficient (20 SVGs/week) | Arrow 1 free tier |
+| Batch generation at scale on fal.ai | Recraft V4 ($0.08) |
 
 ---
 
@@ -94,30 +156,8 @@ const result = await fal.subscribe("fal-ai/recraft/v4/text-to-vector", {
 });
 
 const svgUrl = result.data.images[0].url;
-// Download SVG
 const response = await fetch(svgUrl);
 const svgContent = await response.text();
-```
-
-### Python Example
-
-```python
-import fal_client
-
-result = fal_client.subscribe(
-    "fal-ai/recraft/v4/text-to-vector",
-    arguments={
-        "prompt": "A minimalist mountain logo with clean geometric shapes",
-        "image_size": "square_hd",
-        "colors": [
-            {"r": 59, "g": 130, "b": 246},
-            {"r": 30, "g": 64, "b": 175}
-        ],
-        "background_color": {"r": 255, "g": 255, "b": 255}
-    }
-)
-
-svg_url = result["images"][0]["url"]
 ```
 
 ---
@@ -141,7 +181,7 @@ Parameters are identical to Recraft V4 — replace the endpoint string with `fal
 | Complex illustration with fine detail | V4 Pro |
 | Simple icon or logo | V4 |
 | Budget-constrained project | V4 |
-| Quality is the only constraint | V4 Pro |
+| Quality is the only constraint within fal.ai | V4 Pro |
 
 ---
 
@@ -233,41 +273,19 @@ const imageUrl = result.data.images[0].url;
 // This is a raster PNG — pass to vectorize endpoint to get SVG
 ```
 
-### Python Example
-
-```python
-import fal_client
-
-result = fal_client.subscribe(
-    "fal-ai/recraft/v3/text-to-image",
-    arguments={
-        "prompt": "A coffee cup with steam rising, flat design",
-        "style": "vector_illustration",
-        "style_id": "bold_stroke",
-        "image_size": "square_hd",
-        "colors": [
-            {"r": 120, "g": 53, "b": 15},
-            {"r": 254, "g": 243, "b": 199}
-        ]
-    }
-)
-
-image_url = result["images"][0]["url"]
-```
-
 ---
 
 ## Two-Step Pipeline: V3 Vector Style + Vectorize
 
 Use this pipeline when you need a specific V3 sub-style (e.g., `engraving`, `linocut`, `seamless_pattern`) and require true SVG output. Total cost: $0.08 (V3) + $0.01 (vectorize) = $0.09/image.
 
-### When to Use the Pipeline vs Direct V4
+### When to Use the Pipeline vs Direct Options
 
 | Scenario | Approach |
 |----------|----------|
 | Need a specific V3 sub-style (e.g., linocut, engraving) | V3 + vectorize |
-| Need true SVG, style doesn't matter | V4 direct ($0.08) |
-| Need highest quality SVG | V4 Pro direct ($0.30) |
+| Need true SVG on fal.ai, style doesn't matter | V4 direct ($0.08) |
+| Need highest quality SVG, any platform | Arrow 1 |
 | Need seamless/tileable pattern as SVG | V3 seamless_pattern + vectorize |
 | Iterating on style before committing to SVG | V3 raster first, vectorize when satisfied |
 
@@ -276,7 +294,6 @@ Use this pipeline when you need a specific V3 sub-style (e.g., `engraving`, `lin
 ```javascript
 import { fal } from "@fal-ai/client";
 
-// Step 1: Generate vector-style raster
 const rasterResult = await fal.subscribe("fal-ai/recraft/v3/text-to-image", {
   input: {
     prompt: "A vintage compass rose, engraving style",
@@ -287,23 +304,16 @@ const rasterResult = await fal.subscribe("fal-ai/recraft/v3/text-to-image", {
 });
 
 const rasterUrl = rasterResult.data.images[0].url;
-console.log("Raster generated:", rasterUrl);
 ```
 
 ### Step 2: Vectorize the Raster
 
 ```javascript
-// Step 2: Convert raster to SVG
 const svgResult = await fal.subscribe("fal-ai/recraft/vectorize", {
-  input: {
-    image_url: rasterUrl
-  }
+  input: { image_url: rasterUrl }
 });
 
 const svgUrl = svgResult.data.image.url;
-console.log("SVG generated:", svgUrl);
-
-// Download SVG content
 const response = await fetch(svgUrl);
 const svgContent = await response.text();
 ```
@@ -315,11 +325,6 @@ import fal_client
 import requests
 
 def generate_vector_svg(prompt: str, style_id: str, colors: list = None) -> str:
-    """
-    Two-step pipeline: V3 vector style → vectorize → SVG string.
-    Returns SVG content as string.
-    """
-    # Step 1: Generate vector-style raster
     raster_args = {
         "prompt": prompt,
         "style": "vector_illustration",
@@ -335,18 +340,14 @@ def generate_vector_svg(prompt: str, style_id: str, colors: list = None) -> str:
     )
     raster_url = raster_result["images"][0]["url"]
 
-    # Step 2: Vectorize
     svg_result = fal_client.subscribe(
         "fal-ai/recraft/vectorize",
         arguments={"image_url": raster_url}
     )
     svg_url = svg_result["image"]["url"]
 
-    # Download and return SVG content
-    response = requests.get(svg_url)
-    return response.text
+    return requests.get(svg_url).text
 
-# Usage
 svg = generate_vector_svg(
     prompt="A vintage compass rose",
     style_id="engraving",
@@ -360,13 +361,9 @@ with open("compass.svg", "w") as f:
 
 ## Colors Parameter Reference
 
-All three endpoints accept a `colors` array to constrain the model's palette to brand colors. Pass up to 5 colors for best results.
+All Recraft endpoints accept a `colors` array to constrain the model's palette to brand colors. Pass up to 5 colors for best results. QuiverAI Arrow 1 does not use this parameter — guide palette through the prompt instead.
 
 ```javascript
-// Single brand color
-colors: [{ r: 59, g: 130, b: 246 }]
-
-// Full brand palette
 colors: [
   { r: 59, g: 130, b: 246 },   // primary blue
   { r: 30, g: 64, b: 175 },    // dark blue
@@ -387,7 +384,6 @@ function hexToRgb(hex) {
   } : null;
 }
 
-// Usage
 const brandColors = ["#3b82f6", "#1e40af", "#ffffff"].map(hexToRgb);
 ```
 
@@ -399,24 +395,26 @@ const brandColors = ["#3b82f6", "#1e40af", "#ffffff"].map(hexToRgb);
 
 | You need... | Use |
 |-------------|-----|
-| True SVG file, standard quality | `fal-ai/recraft/v4/text-to-vector` |
-| True SVG file, maximum quality | `fal-ai/recraft/v4/pro/text-to-vector` |
-| Raster with vector aesthetic | `fal-ai/recraft/v3/text-to-image` + `vector_illustration` |
+| Absolute best SVG quality | QuiverAI Arrow 1 (`api.quiver.ai`) |
+| True SVG on fal.ai, standard quality | `fal-ai/recraft/v4/text-to-vector` |
+| True SVG on fal.ai, maximum quality | `fal-ai/recraft/v4/pro/text-to-vector` |
 | SVG with specific illustration style | V3 + `fal-ai/recraft/vectorize` pipeline |
 
 ### By Budget
 
 | Budget per asset | Approach |
 |-----------------|----------|
+| Free (up to 20/week) | Arrow 1 free tier |
 | Under $0.05 | V3 raster only ($0.04), no SVG |
 | $0.08-0.09 | V4 direct SVG or V3 + vectorize pipeline |
-| $0.30 | V4 Pro for highest quality SVG |
+| $0.30 | V4 Pro for highest quality SVG on fal.ai |
 
 ### By Style Need
 
 | Style | Endpoint | style_id |
 |-------|----------|----------|
-| Clean logo/icon | V4 direct | — |
+| Clean logo/icon, best quality | Arrow 1 | — |
+| Clean logo/icon on fal.ai | V4 direct | — |
 | Vintage/etched | V3 + vectorize | `engraving` or `linocut` |
 | Sticker/badge | V3 + vectorize | `bold_stroke` or `colored_sticker` |
 | Seamless pattern | V3 + vectorize | `seamless_pattern` |
@@ -431,9 +429,9 @@ const brandColors = ["#3b82f6", "#1e40af", "#ffffff"].map(hexToRgb);
 
 | HTTP Status | Cause | Action |
 |-------------|-------|--------|
-| 401 | Invalid or missing FAL_KEY | Check `FAL_KEY` env var or `fal.config({credentials})` |
+| 401 | Invalid or missing API key | Check `FAL_KEY` (fal.ai) or `QUIVER_API_KEY` (Arrow 1) |
 | 422 | Invalid parameter type or value | Check `style_id` spelling, `colors` format `{r,g,b}`, `image_size` value |
-| 429 | Rate limit exceeded | Implement exponential backoff; use queue pattern for batch jobs |
+| 429 | Rate limit exceeded | Implement exponential backoff; Arrow 1 free tier limit returns quota message |
 | 500 | Model inference failure | Retry once; if persistent, simplify prompt or switch endpoint |
 
 Wrap `fal.subscribe()` calls in try/catch and inspect `error.status` and `error.body` for validation details. The `422` body typically names the offending field.

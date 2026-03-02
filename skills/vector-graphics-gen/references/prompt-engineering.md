@@ -8,6 +8,8 @@ Covers: prompt anatomy, style selection, color control, icon/logo patterns, illu
 
 Effective vector prompts follow a four-part anatomy. Each part is optional but order matters — specificity increases left to right.
 
+The prompt quality principles in this file apply across all models — QuiverAI Arrow, Recraft V4, and Recraft V3. Model choice affects output format and available sub-styles, not the fundamentals of prompt construction. Write strong prompts first; select the model second.
+
 ```
 [Subject] + [Style descriptor] + [Composition] + [Constraints]
 ```
@@ -41,7 +43,7 @@ Effective vector prompts follow a four-part anatomy. Each part is optional but o
 
 ## 2. Style Control
 
-Recraft V3 exposes 22 sub-styles under `vector_illustration`. Pass the sub-style as the `style_name` parameter alongside `style: "vector_illustration"`.
+Recraft V3 exposes 22 sub-styles under `vector_illustration`. Pass the sub-style as the `style_name` parameter alongside `style: "vector_illustration"`. Use V3 sub-styles via the two-step pipeline (V3 raster → vectorize) when you need specific illustration styles. For general vector generation, prefer Recraft V4 or QuiverAI Arrow.
 
 ### Sub-Style Visual Reference
 
@@ -286,7 +288,7 @@ Append to any vector prompt: `no gradients, no shadows, no textures, solid color
 
 Copy-paste templates for common use cases. Replace bracketed placeholders.
 
-All templates use `fal-ai/recraft/v3/text-to-image` unless noted. Size defaults to `square_hd`.
+Templates below show `fal-ai/recraft/v4/text-to-vector` for native SVG output. For sub-style control, use `fal-ai/recraft/v3/text-to-image` with the two-step pipeline. For highest quality, use QuiverAI Arrow (`@quiverai/sdk`). Size defaults to `square_hd`.
 
 ### Template 1: App Icon (Flat)
 ```
@@ -412,7 +414,7 @@ Make one change per iteration — changing multiple variables simultaneously mak
 | Failure | Alternative |
 |---------|------------|
 | Needs true SVG output | `fal-ai/recraft/v4/text-to-vector` |
-| Needs text in the image | `fal-ai/ideogram/v3` (superior typography) |
+| Needs text in the image | `fal-ai/ideogram/v2a` (Ideogram has no native SVG — produces raster only, good for text-heavy images that can be vectorized) |
 | Needs highest quality | `fal-ai/recraft/v4/pro/text-to-vector` |
 | Need speed, raster acceptable | `fal-ai/nano-banana-2` then vectorize |
 
