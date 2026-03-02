@@ -1,11 +1,11 @@
 {
   "name": "@tank/frontend-craft",
-  "version": "0.0.1",
-  "description": "Frontend craft for apps that feel fast, polished, and delightful. Micro-interactions (Framer Motion, spring physics), perceived performance (skeletons, optimistic updates), premium components (TanStack Table, cmdk, Sonner), visual polish, state choreography, component architecture (shadcn/ui, Radix, CVA). Triggers: micro-interaction, animation, skeleton, optimistic update, framer motion, command palette, data table, toast, sonner, cmdk, shadcn, UI polish, premium feel, page transition, form UX.",
+  "version": "0.0.6",
+  "description": "Frontend craft for apps that feel fast, polished, and delightful. Micro-interactions, perceived performance, premium components, visual polish, state choreography, component architecture (shadcn/ui, Radix, CVA), and shadcn registry discovery (Aceternity UI, 21st.dev, React Bits, Fancy Components, Shadcn Space, and more). Triggers: micro-interaction, animation, skeleton, optimistic update, framer motion, command palette, data table, toast, sonner, cmdk, shadcn, aceternity, shadcn space, shadcnspace, 21st.dev, react bits, reactbits, fancy components, fancycomponents, UI polish, premium feel, page transition, form UX, 3d card, parallax, text effect, animated background, hero section, spotlight, bento grid, typewriter, sparkles, dashboard blocks, marketing blocks, physics animation, variable font, letter swap, gravity effect, neumorphism, animated button, animated component.",
   "permissions": {
-    "network": { "outbound": [] },
-    "filesystem": { "read": ["**/*"], "write": [] },
-    "subprocess": false
+    "network": { "outbound": ["ui.shadcn.com", "shadcn.com"] },
+    "filesystem": { "read": ["**/*"], "write": ["scripts/.cache/**"] },
+    "subprocess": true
   },
   "repository": "https://github.com/tankpkg/skills"
 }

@@ -3,18 +3,30 @@ name: frontend-craft
 description: |
   Expert frontend craft for building apps that make users go "wow, this is
   fast and easy." Covers micro-interactions, perceived performance, premium
-  component patterns, visual polish, state choreography, and component
-  architecture. Synthesizes Saffer (Microinteractions), Wathan/Schoger
-  (Refactoring UI), Krug (Don't Make Me Think), Yablonski (Laws of UX),
-  Nabors (Animation at Work), Tidwell (Designing Interfaces), plus
-  production patterns from Linear, Vercel, and Notion.
+  component patterns, visual polish, state choreography, component
+  architecture, and shadcn registry discovery via the CLI.
+  Synthesizes Saffer (Microinteractions), Wathan/Schoger (Refactoring UI),
+  Krug (Don't Make Me Think), Yablonski (Laws of UX), Nabors (Animation at
+  Work), Tidwell (Designing Interfaces), plus production patterns from
+  Linear, Vercel, Notion, and the external component ecosystem.
 
   Trigger phrases: "micro-interaction", "make it feel fast", "loading state",
   "skeleton screen", "optimistic update", "framer motion", "animation",
   "command palette", "data table", "TanStack Table", "toast notification",
   "sonner", "cmdk", "shadcn", "UI polish", "wow factor", "delightful UI",
   "premium feel", "perceived performance", "empty state", "page transition",
-  "error state", "form UX", "modal pattern", "visual polish", "spring animation"
+  "error state", "form UX", "modal pattern", "visual polish", "spring animation",
+  "aceternity", "aceternity ui", "3d card", "parallax scroll", "text effect",
+  "animated background", "hero section", "spotlight effect", "aurora background",
+  "bento grid", "card hover", "typewriter effect", "text generate",
+  "floating navbar", "background beams", "lamp effect", "sparkles",
+  "shadcn space", "shadcnspace", "dashboard blocks", "marketing blocks",
+  "landing page blocks", "pricing section", "testimonials", "feature section",
+  "animated button", "animated component", "21st.dev", "21st dev",
+  "react bits", "reactbits", "fancy components", "fancycomponents",
+  "physics animation",
+  "variable font", "letter swap", "gravity effect", "elastic line",
+  "scramble text", "pixel trail", "css buttons", "neumorphism"
 ---
 
 # Frontend Craft
@@ -46,9 +58,11 @@ description: |
 
 ### Problem: "The UI feels dead"
 
-1. Add `whileHover` scale 1.02 and `whileTap` scale 0.98 to buttons.
-2. Use staggered entrance animations for lists (staggerChildren: 0.05).
-3. Animate page transitions with `AnimatePresence mode="wait"`.
+1. Check Aceternity UI catalog for pre-built animated components first.
+   -> See `references/aceternity-ui-catalog.md`
+2. Add `whileHover` scale 1.02 and `whileTap` scale 0.98 to buttons.
+3. Use staggered entrance animations for lists (staggerChildren: 0.05).
+4. Animate page transitions with `AnimatePresence mode="wait"`.
    -> See `references/micro-interactions.md`
 
 ### Problem: "I need a premium data table"
@@ -57,6 +71,40 @@ description: |
 2. Add column resizing, faceted filtering, and inline editing.
 3. Wrap in shadcn/ui DataTable component pattern.
    -> See `references/premium-components.md`
+
+### Problem: "I need an animated hero / landing section"
+
+1. Browse Aceternity components: `hero-parallax`, `lamp`, `spotlight`,
+   `aurora-background`, `background-beams`, `background-gradient-animation`.
+2. Add text effects: `text-generate-effect`, `typewriter-effect`, `flip-words`.
+3. Install via `npx shadcn@latest add @aceternity/<component>`.
+4. Fetch source from `https://ui.aceternity.com/registry/<name>.json`.
+   -> See `references/aceternity-ui-catalog.md`
+
+### Problem: "I need a specific component type (button, card, hero, etc.)"
+
+1. Run the search script to find components across shadcn registries:
+   `python scripts/search-components.py button`
+   `python scripts/search-components.py "text animation"`
+2. Filter by group (27 categories):
+   `python scripts/search-components.py --group animation`
+   `python scripts/search-components.py button --group forms`
+3. Filter by tag (3,500+ granular tags):
+   `python scripts/search-components.py --tag glassmorphism`
+   `python scripts/search-components.py --tag parallax --group backgrounds`
+4. List available groups and tags:
+   `python scripts/search-components.py --groups`
+   `python scripts/search-components.py --tags`
+5. Install directly: `python scripts/search-components.py --install @acme/ui:hero-parallax`
+6. First run pulls registries via shadcn CLI. Cache refreshes every 24 hours.
+   -> See `scripts/search-components.py --help`
+
+### Problem: "I need ready-made page sections / blocks"
+
+1. Search blocks: `python scripts/search-components.py hero`
+2. Use registries that focus on marketing and dashboard blocks.
+3. Use Aceternity blocks for visual-heavy sections (paid all-access).
+   -> See `references/aceternity-ui-catalog.md`
 
 ### Problem: "The design looks amateur"
 
@@ -101,6 +149,17 @@ description: |
 | Contextual side panel | Sheet | @radix-ui/react-dialog (side) |
 | Destructive confirmation | AlertDialog | @radix-ui/react-alert-dialog |
 | Component variants | CVA | class-variance-authority |
+| Animated background effects | Aceternity UI | @aceternity/* via shadcn CLI |
+| 3D card / hover effects | Aceternity UI | @aceternity/3d-card, card-hover-effect |
+| Text animations | Aceternity UI | @aceternity/text-generate-effect, etc. |
+| Parallax / scroll effects | Aceternity UI | @aceternity/parallax-scroll, hero-parallax |
+| Hero section with wow factor | Aceternity UI | @aceternity/lamp, spotlight, aurora |
+| Ready-made marketing blocks | Shadcn registries | shadcn CLI registry search |
+| Ready-made dashboard blocks | Shadcn registries | shadcn CLI registry search |
+| Animated interaction components | React Bits | shadcn CLI registry search |
+| Physics / variable font effects | Fancy Components | shadcn CLI registry search |
+
+-> Full catalogs: `references/component-discovery-sources.md`
 
 ### Visual Polish Priority
 
@@ -117,16 +176,30 @@ description: |
 ## The Premium Stack
 
 ```
-Radix UI          → Accessible, unstyled primitives
-  + shadcn/ui     → Styled component library (copy-paste)
-  + CVA           → Type-safe variant system
-  + Tailwind      → Utility CSS with design tokens
-  + Framer Motion → Animation and gestures
-  + TanStack      → Headless table, virtual scrolling
-  + cmdk          → Command palette
-  + Sonner        → Toast notifications
+Radix UI             → Accessible, unstyled primitives
+  + shadcn/ui        → Styled component library (copy-paste)
+  + Registry ecosystem → 50+ registries, 11K+ components (see below)
+  + CVA              → Type-safe variant system
+  + Tailwind         → Utility CSS with design tokens
+  + Framer Motion    → Animation and gestures
+  + TanStack         → Headless table, virtual scrolling
+  + cmdk             → Command palette
+  + Sonner           → Toast notifications
   + React Hook Form + Zod → Forms with schema validation
 ```
+
+**Always search external sources first** — even for primitives.
+
+| Source | Strength | Install |
+|--------|----------|---------|
+| Shadcn registries | 50+ quality registries, 11K+ components | `npx shadcn@latest add @registry/name` |
+| 21st.dev | Largest single catalog (1500+), MCP server | shadcn CLI |
+| React Bits | Creative animations (110+), 36K stars | shadcn CLI |
+| Aceternity UI | Visual effects, 3D, parallax, backgrounds | shadcn CLI |
+| Magic UI | Animated UI components, 20K stars | shadcn CLI |
+| Fancy Components | Physics, variable fonts, award-site effects | shadcn CLI |
+
+-> Full details: `references/component-discovery-sources.md`
 
 ## Reference Files
 
@@ -138,3 +211,7 @@ Radix UI          → Accessible, unstyled primitives
 | `references/visual-polish.md` | Shadow systems, spacing scales, typography, gradients, backdrop blur, dark mode, focus states |
 | `references/state-choreography.md` | Loading/error/empty/success states, page transitions, layout animations, skeleton reveals |
 | `references/component-architecture.md` | shadcn/ui + Radix + CVA patterns, design tokens, variant systems, composition, accessibility |
+| `references/aceternity-ui-catalog.md` | Aceternity UI detailed component catalog with registry API endpoints |
+| `references/component-discovery-sources.md` | Shadcn registry ecosystem — 50+ quality registries, install methods, source selection by component type |
+| `scripts/search-components.py` | **CLI tool** — offline-first search across 50+ shadcn registries (8K+ components). Supports `--group` (27 categories) and `--tag` (3,500+ tags) filters. Install via shadcn CLI. Cache auto-refreshes every 24h. |
+| `scripts/pull-all-registries.py` | **Data puller** — parallel fetch of all shadcn registries into one JSON cache with auto-generated groups and tags. Run with `--help` for options. |

@@ -6,16 +6,28 @@ Covers: shadcn/ui patterns, Radix UI primitives, CVA variant system, design toke
 
 ## 1. The Stack
 
-Premium UI development relies on a multi-layered approach that decouples accessibility, styling logic, and visual implementation. Each layer solves a specific problem in the component lifecycle.
+Premium UI development relies on a multi-layered approach that decouples accessibility, styling logic, visual implementation, and animated effects. Each layer solves a specific problem in the component lifecycle.
 
 | Layer | Technology | Primary Responsibility |
 |-------|------------|------------------------|
 | **Primitive** | Radix UI | Headless logic, ARIA attributes, keyboard navigation, focus management. |
 | **Logic/Variant** | CVA (Class Variance Authority) | Mapping component props to specific Tailwind class sets in a type-safe manner. |
 | **Styling** | Tailwind CSS | Utility-first styling engine using design tokens for visual consistency. |
-| **Glue** | shadcn/ui Patterns | The architectural convention for combining primitives, variants, and utilities. |
+| **Functional UI** | shadcn/ui Patterns | Buttons, dialogs, forms, tables — the architectural convention for functional components. |
+| **Visual Effects** | Aceternity UI | Animated backgrounds, 3D cards, text effects, parallax — copy-paste via same shadcn CLI. |
 | **Utility** | cn() (clsx + tailwind-merge) | Resolving class conflicts and conditional logic at runtime. |
 | **Composition** | Radix Slot | Enabling polymorphic components via the asChild pattern. |
+
+### shadcn/ui vs External Component Sources
+
+shadcn/ui, Aceternity UI, and all third-party registries use the same CLI and coexist in `components/ui/`.
+
+- **shadcn/ui**: Functional UI primitives — Button, Dialog, Table, Select, Form.
+- **Aceternity UI**: Visual effects — animated backgrounds, 3D cards, text animations, parallax. Install: `npx shadcn@latest add @aceternity/<name>`
+- **Shadcn Registries**: 50+ quality registries (Magic UI, React Bits, Cult UI, Kibo UI, etc.) — all installable via `npx shadcn@latest add @registry/component`.
+- **Search across all**: `python scripts/search-components.py <query>` (11K+ cached components).
+
+For full catalogs and decision trees, see `references/component-discovery-sources.md`.
 
 ## 2. Design Tokens with CSS Custom Properties
 

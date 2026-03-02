@@ -3,3 +3,7 @@ __pycache__/
 .ruff_cache/
 .DS_Store
 .sisyphus/
+.cache/
+.venv/
+.tank/
+pyrightconfig.json
