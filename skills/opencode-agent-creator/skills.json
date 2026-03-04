@@ -1,0 +1,20 @@
+{
+  "name": "@tank/opencode-agent-creator",
+  "version": "0.0.1",
+  "description": "Create specialized OpenCode agents that assume specific roles. Covers agent anatomy, role design, prompt engineering, skill-to-agent conversion, and oh-my-opencode integration.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": [
+        "~/.config/opencode/agent/**",
+        ".opencode/agent/**",
+        "~/.config/opencode/oh-my-opencode.json"
+      ]
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
