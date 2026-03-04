@@ -1,8 +1,11 @@
 {
-  "network": [],
-  "filesystem": {
-    "read": ["**/*"],
-    "write": []
+  "name": "@tank/framer-motion",
+  "version": "1.0.0",
+  "description": "Motion for React animation mastery. Covers motion component, AnimatePresence, layout animations, spring physics, scroll animations, gestures, motion values, useAnimate, variants, drag, LazyMotion, and accessibility. Triggers: framer motion, motion/react, AnimatePresence, layout animation, layoutId, spring animation, useAnimate, useScroll, useMotionValue, whileHover, whileTap, whileInView, parallax, variants, staggerChildren, page transition, keyframes, reduced motion.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
   },
-  "subprocess": false
+  "repository": "https://github.com/tankpkg/skills"
 }
