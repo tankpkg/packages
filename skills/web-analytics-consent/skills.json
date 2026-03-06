@@ -1,7 +1,7 @@
 {
   "name": "@tank/web-analytics-consent",
   "version": "0.0.2",
-  "description": "Privacy-compliant web analytics and cookie consent. Covers PostHog, GA4, Plausible, Umami, Clarity, vanilla-cookieconsent v3, GDPR/CCPA, consent-gated scripts, Google Consent Mode v2, funnels, session recordings, heatmaps, tracking plan design, server-side tracking, ad blocker resilience, A/B testing, feature flags, and Next.js integration. Triggers: analytics, cookie consent, GDPR, cookie banner, PostHog, GA4, Plausible, Umami, Clarity, session recording, heatmap, consent mode, privacy, CCPA, cookieconsent, funnel, event tracking, tracking plan, server-side tracking, ad blocker, reverse proxy, A/B testing, feature flags, experiment.",
+  "description": "Privacy-compliant web analytics and cookie consent. Covers PostHog, GA4, Plausible, Umami, Clarity, vanilla-cookieconsent v3, GDPR/CCPA, Google Consent Mode v2, funnels, heatmaps, tracking plans, server-side tracking, ad blocker resilience, A/B testing, feature flags. Triggers: analytics, cookie consent, GDPR, PostHog, GA4, Plausible, consent mode, heatmap, funnel, tracking plan, server-side tracking, reverse proxy, A/B testing, feature flags, experiment.",
   "permissions": {
     "network": {
       "outbound": []
