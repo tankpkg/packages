@@ -1,0 +1,22 @@
+{
+  "name": "@tank/idd-bdd-pack",
+  "version": "1.0.0",
+  "description": "Orchestrator pack combining Intent-Driven Development (IDD) with BDD E2E testing. Installs both @tank/idd and @tank/bdd-e2e-testing and provides the bridge workflow for using .idd/ and .bdd/ folders together. Triggers: IDD BDD, intent and behavior, intent to BDD, BDD from intent, intent verified testing, intent behavior pack, combine IDD BDD, IDD BDD orchestrator, intent driven BDD, intent plus BDD, full testing workflow.",
+  "skills": {
+    "@tank/idd": "^1.0.0",
+    "@tank/bdd-e2e-testing": "^1.1.0"
+  },
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
