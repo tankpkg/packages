@@ -1,15 +1,15 @@
 ---
 name: "@tank/web-analytics-consent"
-description: "Privacy-compliant web analytics and cookie consent implementation. Covers
-tool selection (PostHog, GA4, Plausible, Umami, Clarity), cookie consent banners
-(vanilla-cookieconsent v3, GDPR/CCPA compliance), consent-gated script loading,
-Google Consent Mode v2, funnel analysis, session recordings, heatmaps, Next.js
-integration patterns, and opt-in/opt-out architecture with free-tier pricing
-comparison.\n\nTrigger phrases: \"analytics\", \"cookie consent\", \"GDPR\",
-\"cookie banner\", \"PostHog\", \"Google Analytics\", \"GA4\", \"Plausible\",
-\"Umami\", \"Microsoft Clarity\", \"session recording\", \"heatmap\",
-\"consent mode\", \"privacy compliance\", \"CCPA\", \"cookieconsent\",
-\"funnel analysis\", \"event tracking\", \"opt-in\", \"opt-out\""
+description: "Privacy-compliant web analytics and cookie consent. Covers tool selection
+(PostHog, GA4, Plausible, Umami, Clarity), cookie consent (vanilla-cookieconsent
+v3, GDPR/CCPA), Google Consent Mode v2, funnels, session recordings, heatmaps,
+tracking plans, server-side tracking, ad blocker resilience, A/B testing,
+feature flags, and Next.js integration.\n\nTrigger phrases: \"analytics\",
+\"cookie consent\", \"GDPR\", \"PostHog\", \"GA4\", \"Plausible\", \"Umami\",
+\"Clarity\", \"session recording\", \"heatmap\", \"consent mode\", \"CCPA\",
+\"cookieconsent\", \"funnel\", \"event tracking\", \"opt-in\", \"opt-out\",
+\"tracking plan\", \"server-side tracking\", \"ad blocker\", \"A/B testing\",
+\"feature flags\", \"reverse proxy analytics\""
 triggers:
 - analytics
 - cookie consent
@@ -34,6 +34,11 @@ triggers:
 - vanilla-cookieconsent
 - consent-gated
 - ePrivacy
+- tracking plan
+- server-side tracking
+- reverse proxy analytics
+- A/B testing
+- feature flags
 ---
 
 # Core Philosophy
@@ -84,6 +89,9 @@ Does the tool set cookies or access device storage?
 4. **If using Google products**: Implement Consent Mode v2. See `references/google-consent-mode.md`.
 5. **Integrate analytics tool**: PostHog with consent gating. See `references/posthog-integration.md`.
 6. **Set up advanced features**: Funnels, session recordings, heatmaps. See `references/funnels-sessions-heatmaps.md`.
+7. **Design tracking plan**: Event taxonomy, TypeScript typed wrappers, governance. See `references/tracking-plan.md`.
+8. **Add server-side tracking**: Reverse proxy, Node SDK, hybrid architecture. See `references/server-side-tracking.md`.
+9. **Run experiments**: Feature flags, A/B tests, statistical rigor. See `references/ab-testing-feature-flags.md`.
 
 # Common Patterns
 
@@ -186,3 +194,6 @@ export function CookieBanner() {
 - `references/posthog-integration.md` — PostHog with Next.js and consent gating
 - `references/google-consent-mode.md` — Consent Mode v2, GA4, GTM, and Clarity
 - `references/funnels-sessions-heatmaps.md` — Event taxonomy, funnels, recordings, and heatmaps
+- `references/tracking-plan.md` — Tracking plan design, typed events, governance, and identity resolution
+- `references/server-side-tracking.md` — Server-side tracking, reverse proxy, ad blocker resilience
+- `references/ab-testing-feature-flags.md` — A/B testing, feature flags, experiments, and statistical rigor
