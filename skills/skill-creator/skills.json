@@ -1,7 +1,7 @@
 {
   "name": "@tank/skill-creator",
   "version": "2.0.0",
-  "description": "Create, evaluate, and improve AI agent skills by synthesizing domain expertise from books and research. Covers skill anatomy, progressive disclosure, research workflow, writing conventions, evaluation and iteration workflow (test cases, grading, benchmarking), description optimization for trigger accuracy, quality assurance agents (grader, blind comparator), and validation tooling. Triggers: create skill, new skill, build skill, skill about, write skill, update skill, improve skill, evaluate skill, test skill, validate skill, skill structure, SKILL.md, reference file, skill template, agent skill, domain expertise, skill description, trigger phrases.",
+  "description": "Create, evaluate, and improve AI agent skills from books and research. Covers skill anatomy, progressive disclosure, research workflow, writing conventions, evaluation (test cases, grading, iteration), description optimization, quality agents, and validation. Triggers: create skill, new skill, build skill, write skill, update skill, improve skill, evaluate skill, validate skill, SKILL.md, reference file, skill template, domain expertise.",
   "permissions": {
     "network": {
       "outbound": []
