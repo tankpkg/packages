@@ -1,0 +1,18 @@
+{
+  "name": "@tank/web-analytics-consent",
+  "version": "0.0.1",
+  "description": "Privacy-compliant web analytics and cookie consent implementation. Covers tool selection (PostHog, GA4, Plausible, Umami, Clarity), cookie consent banners (vanilla-cookieconsent v3, GDPR/CCPA compliance), consent-gated script loading, Google Consent Mode v2, funnel analysis, session recordings, heatmaps, Next.js integration patterns, and opt-in/opt-out architecture with free-tier pricing comparison. Triggers: analytics, cookie consent, GDPR, cookie banner, PostHog, Google Analytics, GA4, Plausible, Umami, Microsoft Clarity, session recording, heatmap, consent mode, privacy compliance, CCPA, cookieconsent, funnel analysis, event tracking, opt-in, opt-out.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
