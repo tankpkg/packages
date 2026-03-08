@@ -1,0 +1,16 @@
+{
+  "name": "@tank/ast-linter-codemod",
+  "version": "1.0.0",
+  "description": "Build custom linters with auto-fix, write codemods, and run large-scale code migrations using ts-morph, jscodeshift, ESLint custom rules, ast-grep, and Babel plugins. Covers Fixer API, Collection API, YAML rules, fixture testing, migration strategies, formatting preservation. Triggers: codemod, linter, custom lint rule, ESLint rule, auto-fix, ts-morph, jscodeshift, ast-grep, AST, code migration, Fixer API, RuleTester, babel plugin, recast, API rename, typed linting.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
