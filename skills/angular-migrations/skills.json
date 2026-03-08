@@ -1,7 +1,7 @@
 {
   "name": "@tank/angular-migrations",
   "version": "1.0.0",
-  "description": "Expert Angular migration guidance for version upgrades from v18 through v21. Covers every migration path (v18 to v19, v19 to v20, v20 to v21), breaking changes, official migration schematics, signals adoption, zoneless transition, Karma-to-Vitest migration, and build tooling changes. Provides step-by-step upgrade procedures, compatibility matrices, and enterprise migration strategies. Triggers: angular migration, angular upgrade, ng update, angular 18, angular 19, angular 20, angular 21, upgrade angular, migrate angular, angular breaking changes, angular version upgrade, standalone migration, signals migration, zoneless, zone.js removal, karma to vitest, control flow migration, angular update guide, angular compatibility, angular deprecation.",
+  "description": "Angular migration expert for v18 through v21 upgrades. Covers breaking changes, 14 official schematics, signals adoption, zoneless transition, Karma-to-Vitest, and build tooling. Triggers: angular migration, angular upgrade, ng update, angular 18, angular 19, angular 20, angular 21, migrate angular, angular breaking changes, standalone migration, signals migration, zoneless, zone.js removal, karma to vitest, control flow migration, angular update guide, angular deprecation.",
   "permissions": {
     "network": {
       "outbound": []
