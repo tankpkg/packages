@@ -1,0 +1,18 @@
+{
+  "name": "@tank/macos-maintenance",
+  "version": "1.0.0",
+  "description": "macOS health checks, security audit, and maintenance. Diagnoses disk SMART, battery, memory pressure, security (SIP, Gatekeeper, FileVault, firewall), updates, Time Machine, network, launch daemons. Scored checkup script. Triggers: mac health check, system checkup, is my mac ok, mac maintenance, mac running slow, battery health, SMART status, memory pressure, security audit, firewall status, periodic maintenance, flush DNS, rebuild spotlight, Wi-Fi issues, mac slow, fan loud.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
