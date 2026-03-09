@@ -1,7 +1,7 @@
 {
   "name": "@tank/windows-cleanup",
   "version": "1.0.0",
-  "description": "Windows 10/11 disk space recovery and cleanup for developers. Scans and cleans temp files, Windows Update cache, WinSxS, browser caches, stale node_modules, Docker WSL2, NuGet/npm/pip/Cargo caches, hibernation file, Recycle Bin. Risk-aware PowerShell workflows. Triggers: disk cleanup, free disk space, clean up windows, disk full, running out of space, clear cache, ccleaner, windows cleanup, temp files, cleanmgr, WinSxS, node_modules cleanup, docker disk, npm cache, pip cache, NuGet cache, reclaim space, hiberfil.sys, Windows.old.",
+  "description": "Windows 10/11 disk space recovery for developers. Cleans temp files, Windows Update cache, WinSxS, browser caches, stale node_modules, Docker WSL2, NuGet/npm/pip/Cargo caches, hibernation file, Recycle Bin. Risk-aware PowerShell workflows. Triggers: disk cleanup, free disk space, clean up windows, disk full, clear cache, ccleaner, windows cleanup, temp files, cleanmgr, WinSxS, node_modules cleanup, docker disk, npm cache, pip cache, NuGet cache, reclaim space, hiberfil.sys.",
   "permissions": {
     "network": {
       "outbound": []
