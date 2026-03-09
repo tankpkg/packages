@@ -1,7 +1,7 @@
 {
   "name": "@tank/macos-cleanup",
   "version": "1.0.0",
-  "description": "macOS disk space recovery and system cleanup for developers. Scans and cleans caches, Xcode DerivedData, Docker images, stale node_modules, Homebrew, npm/pip/cargo caches, logs, iOS backups, and more. Risk-aware with dry-run analysis. Triggers: disk cleanup, free disk space, clean up my mac, disk full, running out of space, clear cache, clean storage, ccleaner, node_modules cleanup, docker disk space, xcode cleanup, DerivedData, brew cleanup, npm cache, pip cache, cargo clean, reclaim space, system data large, other storage, purge caches.",
+  "description": "macOS disk space recovery and cleanup for developers. Scans and cleans caches, Xcode DerivedData, Docker, stale node_modules, Homebrew, npm/pip/cargo caches, logs, iOS backups. Risk-aware with dry-run analysis. Triggers: disk cleanup, free disk space, clean up my mac, disk full, running out of space, clear cache, ccleaner, node_modules cleanup, docker disk space, xcode cleanup, DerivedData, brew cleanup, npm cache, pip cache, cargo clean, reclaim space, system data large, purge caches.",
   "permissions": {
     "network": {
       "outbound": []
