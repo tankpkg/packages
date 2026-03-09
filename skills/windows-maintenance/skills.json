@@ -1,0 +1,18 @@
+{
+  "name": "@tank/windows-maintenance",
+  "version": "1.0.0",
+  "description": "Windows 10/11 health checks, security audit, and maintenance. Diagnoses disk SMART, sfc/DISM integrity, Defender, firewall, BitLocker, UAC, Secure Boot, TPM, battery, memory, updates, event log errors, driver health. Scored checkup script. Triggers: windows health check, system checkup, is my pc ok, windows maintenance, pc running slow, sfc scannow, DISM repair, check Defender, BitLocker, firewall status, BSOD, blue screen, startup programs, event log errors, driver issues, windows update, system check.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
