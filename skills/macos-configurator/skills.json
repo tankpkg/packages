@@ -1,7 +1,7 @@
 {
   "name": "@tank/macos-configurator",
   "version": "1.0.0",
-  "description": "macOS system configuration via command line. Covers defaults write, networksetup, pmset, systemsetup, scutil, hidutil, and PlistBuddy for configuring keyboard, trackpad, Dock, Finder, screenshots, network (DNS, proxy, Wi-Fi), power management, display, sound, security, and per-app settings. Includes setup script generation and current-config reading. Companion to @tank/macos-cleanup (space) and @tank/macos-maintenance (health). Triggers: defaults write, configure mac, mac setup, new mac setup, macos defaults, mac preferences, system preferences, system settings, key repeat, trackpad settings, dock settings, finder preferences, change dns, set proxy, dark mode, hot corners, screenshot settings, modifier keys, caps lock remap, power settings, sleep timer, configure keyboard, mac configuration, setup script, dotfiles.",
+  "description": "macOS system configuration via CLI. Covers defaults write, networksetup, pmset, systemsetup, scutil, hidutil, and PlistBuddy for keyboard, trackpad, Dock, Finder, network (DNS, proxy, Wi-Fi), power, display, sound, security, and per-app settings. Generates idempotent setup scripts. Companion to @tank/macos-cleanup and @tank/macos-maintenance. Triggers: configure mac, mac setup, macos defaults, key repeat, dock settings, change dns, dark mode, hot corners, caps lock remap, dotfiles.",
   "permissions": {
     "network": {
       "outbound": []
