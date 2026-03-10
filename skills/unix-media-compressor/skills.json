@@ -1,0 +1,17 @@
+{
+  "name": "@tank/unix-media-compressor",
+  "version": "1.0.0",
+  "description": "Compress any file on macOS/Linux. Images (JPEG, PNG, WebP, AVIF, GIF), video (H.264/H.265/AV1), audio (MP3/AAC/Opus/FLAC), PDFs (Ghostscript), archives (zip, tar.gz, 7z, zstd, brotli). Auto-detects tools, guides installation, batch operations. Triggers: compress, shrink, optimize, reduce file size, image compression, video compression, compress PDF, archive, convert to WebP, ffmpeg compress, optimize images, batch compress, pngquant, oxipng, cwebp, avifenc, ghostscript, zstd, brotli.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": true
+  }
+}
