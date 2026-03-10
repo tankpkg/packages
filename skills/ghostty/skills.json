@@ -1,7 +1,7 @@
 {
   "name": "@tank/ghostty",
   "version": "1.0.0",
-  "description": "Expert Ghostty terminal emulator configuration, themes, keybindings, and shell integration. Covers config file format, 500+ built-in themes with light/dark switching, custom theme authoring, keybind syntax with all actions (splits, tabs, search, quick terminal), shell integration auto-injection for zsh/bash/fish/elvish, SSH/sudo wrapping, $TERM and terminfo, platform differences between macOS and Linux (GTK/Wayland), and migration from iTerm2, kitty, alacritty, and WezTerm. Trigger phrases: ghostty config, ghostty theme, ghostty keybind, ghostty keybinding, ghostty shell integration, ghostty split, ghostty tab, ghostty font, ghostty quick terminal, quake terminal ghostty, configure ghostty, ghostty setup, ghostty dotfiles, ghostty theme list, ghostty opacity, ghostty background, ghostty linux, ghostty macos, migrate to ghostty, ghostty vs kitty, ghostty vs wezterm, jump to prompt ghostty, ghostty terminfo, ghostty ssh, ghostty reload config, ghostty color scheme",
+  "description": "Ghostty terminal config, themes, keybindings, shell integration. 500+ themes with light/dark switching, custom theme authoring, full keybind catalog (splits, tabs, search, quick terminal, key tables), shell integration for zsh/bash/fish, SSH/sudo wrapping, macOS vs Linux differences, migration from iTerm2/kitty/alacritty/WezTerm. Triggers: ghostty config, ghostty theme, ghostty keybind, ghostty split, ghostty font, ghostty quick terminal, configure ghostty, ghostty ssh, migrate to ghostty",
   "permissions": {
     "network": {
       "outbound": []
