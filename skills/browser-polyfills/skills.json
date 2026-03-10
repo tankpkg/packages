@@ -1,0 +1,16 @@
+{
+  "name": "browser-polyfills",
+  "version": "1.0.0",
+  "description": "Diagnose and fix browser compatibility issues in Next.js apps. Covers Safari/iOS Safari JavaScript API polyfills, CSS workarounds, Next.js polyfill configuration (App Router + Pages Router), browserslist setup, feature detection patterns, and safe polyfill delivery. Synthesizes caniuse.com (2026), WebKit Bug Tracker, MDN Web Docs, and production Next.js codebase patterns. Triggers: polyfill, Safari broken, works in Chrome not Safari, iOS Safari bug, WebKit issue, browserslist, browser compatibility, cross-browser, caniuse, feature detection, @supports, requestIdleCallback, 100vh Safari, dvh, svh, input zoom iOS, backdrop-filter Safari, Safari date parsing, scroll lock iOS, position sticky Safari, gap flexbox Safari, @next/polyfill, polyfill.io alternative, Safari PWA, smooth scroll Safari.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
