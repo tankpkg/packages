@@ -1,7 +1,7 @@
 {
-  "name": "intercom-frontend",
+  "name": "@tank/intercom-frontend",
   "version": "1.0.0",
-  "description": "Intercom frontend integration expert. Covers the JavaScript Messenger SDK (@intercom/messenger-js-sdk), framework-specific patterns (React, Next.js, Angular, Vue/Nuxt), programmatic messenger control, custom launchers, phone/video calling workarounds, product tours, surveys, checklists, identity verification (JWT/HMAC), trackEvent automation, and performance optimization. Triggers: intercom, intercom messenger, intercom widget, intercom SDK, @intercom/messenger-js-sdk, react-use-intercom, intercom boot, intercom custom launcher, startTour, startSurvey, intercom identity verification, intercom trackEvent, intercom phone call, intercom Angular, intercom Next.js, intercom Vue, intercom performance, showNewMessage, showSpace, intercom JWT.",
+  "description": "Intercom frontend integration. Covers Messenger JS SDK, React/Next.js/Angular/Vue patterns, custom launchers, calling workarounds, tours, surveys, checklists, identity verification (JWT/HMAC), trackEvent, and performance. Triggers: intercom, intercom messenger, intercom SDK, react-use-intercom, intercom boot, custom launcher, startTour, startSurvey, identity verification, trackEvent, intercom phone call, intercom Angular, intercom Next.js, intercom Vue, showNewMessage, showSpace, intercom JWT.",
   "permissions": {
     "network": {
       "outbound": []
