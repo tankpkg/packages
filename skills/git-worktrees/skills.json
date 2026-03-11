@@ -1,7 +1,7 @@
 {
   "name": "@tank/git-worktrees",
   "version": "1.0.0",
-  "description": "Git worktree lifecycle management — create, work, resolve, clean up. Covers all git worktree subcommands (add, list, remove, prune, lock, unlock, move, repair), common workflows (hotfix, PR review, parallel development, AI agent isolation), directory conventions, bare repo patterns, and proactive cleanup to prevent worktree sprawl. Triggers: git worktree, worktree, worktrees, parallel branches, work on two branches, hotfix while on feature, review PR without switching, multiple working directories, branch already checked out, clean up worktrees, bare repo worktrees, context switch without stash.",
+  "description": "Git worktree lifecycle — create, work, resolve, clean up. All subcommands (add, list, remove, prune, lock, unlock, move, repair), workflows (hotfix, PR review, parallel dev, AI agents), bare repo patterns, proactive cleanup. Triggers: git worktree, worktree, worktrees, parallel branches, hotfix while on feature, review PR, branch already checked out, clean up worktrees, bare repo worktrees, context switch without stash.",
   "permissions": {
     "network": {
       "outbound": []
