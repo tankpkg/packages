@@ -1,0 +1,73 @@
+{
+  "skill_name": "@tank/monorepo-mastery",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have 8 TypeScript packages (shared utils, 3 microservices, 2 React apps, a CLI, and a types package). Currently they're all separate repos with duplicated CI configs and version drift. I want to consolidate them into a monorepo. What tool should I use and how do I set it up? Also need CI that only builds what changed.",
+      "expected_output": "Recommends pnpm workspaces + Turborepo (or Nx) for JS/TS at this scale. Provides step-by-step monorepo setup including pnpm-workspace.yaml config, turbo.json pipeline config, and GitHub Actions CI with affected-only builds. Covers migration strategy for moving existing repos (git subtree or git-filter-repo to preserve history). Mentions remote caching.",
+      "files": [],
+      "assertions": [
+        "Recommends a specific workspace manager (pnpm, npm, or yarn) with reasoning",
+        "Recommends a specific orchestrator (Turborepo or Nx) with reasoning for this scale",
+        "Provides actual pnpm-workspace.yaml or equivalent config content",
+        "Provides turbo.json or nx.json pipeline/task config content",
+        "Includes CI workflow snippet with affected-only builds",
+        "Mentions migration strategy for preserving git history",
+        "Mentions remote caching (Vercel Remote Cache or Nx Cloud)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "our monorepo CI takes 45 minutes on every PR even for a 1-line readme change. we use github actions, turborepo, pnpm. 30 packages. what can we do?",
+      "expected_output": "Diagnoses the likely issue: missing affected-only filtering and/or remote caching. Provides concrete steps in priority order: (1) turbo --filter with git diff, (2) enable Vercel Remote Cache, (3) shallow clone in CI, (4) parallelize independent tasks, (5) sparse checkout for large repos. Includes actual turbo.json and GitHub Actions YAML snippets.",
+      "files": [],
+      "assertions": [
+        "Identifies affected-only builds as the primary fix",
+        "Provides turbo --filter command or GitHub Actions conditional logic",
+        "Mentions remote caching with setup instructions",
+        "Includes shallow clone (fetch-depth) recommendation for CI",
+        "Provides at least one concrete YAML or config snippet",
+        "Orders recommendations by impact (highest first)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Setting up a monorepo with Go backend services, a React frontend, and Python ML pipeline. These need to share protobuf definitions. What's the best structure and tooling?",
+      "expected_output": "Recommends a polyglot orchestrator (Bazel, Pants, or Moon) and a domain-first directory structure. Covers shared proto/ directory with generated code per language, cross-language dependency management, and CODEOWNERS. Provides actual directory tree and config examples.",
+      "files": [],
+      "assertions": [
+        "Recommends a polyglot-capable orchestrator (Bazel, Pants, or Moon) — not Turborepo",
+        "Provides a directory structure showing all three languages coexisting",
+        "Addresses protobuf sharing with a shared definitions directory and per-language codegen",
+        "Mentions CODEOWNERS or ownership model",
+        "Includes at least one config example for the chosen orchestrator"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We publish 12 npm packages from our Nx monorepo. Some are independent libs, some are tightly coupled (our component library + its theme package + its icon set). How should we version and publish these?",
+      "expected_output": "Recommends Changesets (or Lerna with conventional commits) for mixed independent/grouped versioning. Explains how to group tightly-coupled packages while keeping others independent. Covers CI-automated publishing workflow, changelog generation, and pre-release handling.",
+      "files": [],
+      "assertions": [
+        "Recommends a specific versioning tool (Changesets, Lerna, or semantic-release)",
+        "Explains grouped/fixed versioning for coupled packages vs independent for others",
+        "Provides Changesets config or equivalent showing package grouping",
+        "Mentions automated CI publishing workflow",
+        "Addresses changelog generation"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "I just want to split my Node.js app into a shared lib and the main app in the same repo. Nothing fancy, maybe 2 packages. What's the simplest setup?",
+      "expected_output": "Recommends the simplest viable approach: npm or pnpm workspaces without a heavyweight orchestrator. Shows minimal package.json workspace config, tsconfig references, and a basic npm script to build both. Does NOT recommend Bazel, Pants, or other complex tools for this scale.",
+      "files": [],
+      "assertions": [
+        "Recommends npm workspaces or pnpm workspaces (not a heavy orchestrator)",
+        "Does NOT recommend Bazel, Pants, Buck2, or Rush for 2 packages",
+        "Provides a minimal workspace config (package.json or pnpm-workspace.yaml)",
+        "Shows basic project structure with shared lib and app",
+        "Keeps the solution simple — no unnecessary tooling"
+      ]
+    }
+  ]
+}

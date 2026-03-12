@@ -1,0 +1,12 @@
+{
+  "eval_id": 4,
+  "eval_name": "versioning-publishing",
+  "prompt": "We publish 12 npm packages from our Nx monorepo. Some are independent libs, some are tightly coupled (our component library + its theme package + its icon set). How should we version and publish these?",
+  "assertions": [
+    "Recommends a specific versioning tool (Changesets, Lerna, or semantic-release)",
+    "Explains grouped/fixed versioning for coupled packages vs independent for others",
+    "Provides Changesets config or equivalent showing package grouping",
+    "Mentions automated CI publishing workflow",
+    "Addresses changelog generation"
+  ]
+}
