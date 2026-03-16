@@ -1,0 +1,16 @@
+{
+  "name": "@tank/character-creator",
+  "version": "1.0.0",
+  "description": "Create complete characters — AI-generated visual sheets (turnarounds, expressions, poses) plus written character bibles. Discovery interview, archetype-to-visual mapping, AI generation via Flux Kontext and GPT-Image-1. Any style: anime, realistic, pixel art, cartoon, vector. Triggers: character design, character sheet, create a character, expression sheet, character bible, OC design, game character, NPC design, villain design, pose sheet, model sheet.",
+  "permissions": {
+    "network": {
+      "outbound": ["fal.ai", "api.openai.com"]
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": ["**/*"]
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
