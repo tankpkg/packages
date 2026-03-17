@@ -24,9 +24,12 @@ description: |
   "landing page blocks", "pricing section", "testimonials", "feature section",
   "animated button", "animated component", "21st.dev", "21st dev",
   "react bits", "reactbits", "fancy components", "fancycomponents",
-  "physics animation",
-  "variable font", "letter swap", "gravity effect", "elastic line",
-  "scramble text", "pixel trail", "css buttons", "neumorphism"
+  "physics animation", "variable font", "letter swap", "gravity effect",
+  "elastic line", "scramble text", "pixel trail", "css buttons", "neumorphism",
+  "typography", "font pairing", "OKLCH", "color system", "tinted neutrals",
+  "dark mode", "responsive design", "mobile first", "container query",
+  "focus visible", "interaction design", "UX writing", "error message",
+  "button label", "AI slop", "design looks generic", "looks like AI"
 ---
 
 # Frontend Craft
@@ -44,6 +47,9 @@ description: |
    are not afterthoughts. Design them with the same care as the happy path.
 5. **Accessibility is not optional** — Reduced motion, focus management,
    keyboard navigation, screen readers. Premium means premium for everyone.
+6. **Distinctive beats generic** — If someone immediately thinks "AI made
+   this," the design failed. Avoid the AI fingerprints: Inter font, purple
+   gradients, card-in-card, gray-on-color text, bounce easing.
 
 ## Quick-Start: Make It Feel Fast
 
@@ -81,37 +87,28 @@ description: |
 4. Fetch source from `https://ui.aceternity.com/registry/<name>.json`.
    -> See `references/aceternity-ui-catalog.md`
 
-### Problem: "I need a specific component type (button, card, hero, etc.)"
+### Problem: "I need a component, block, or section"
 
-1. Run the search script to find components across shadcn registries:
-   `python scripts/search-components.py button`
-   `python scripts/search-components.py "text animation"`
-2. Filter by group (27 categories):
-   `python scripts/search-components.py --group animation`
-   `python scripts/search-components.py button --group forms`
-3. Filter by tag (3,500+ granular tags):
-   `python scripts/search-components.py --tag glassmorphism`
-   `python scripts/search-components.py --tag parallax --group backgrounds`
-4. List available groups and tags:
-   `python scripts/search-components.py --groups`
-   `python scripts/search-components.py --tags`
-5. Install directly: `python scripts/search-components.py --install @acme/ui:hero-parallax`
-6. First run pulls registries via shadcn CLI. Cache refreshes every 24 hours.
+1. Search across 50+ registries: `python scripts/search-components.py <query>`
+2. Filter: `--group animation`, `--tag glassmorphism`, `--groups` / `--tags` to list
+3. Install: `python scripts/search-components.py --install @acme/ui:hero-parallax`
    -> See `scripts/search-components.py --help`
 
-### Problem: "I need ready-made page sections / blocks"
+### Problem: "The design looks generic / like AI made it"
 
-1. Search blocks: `python scripts/search-components.py hero`
-2. Use registries that focus on marketing and dashboard blocks.
-3. Use Aceternity blocks for visual-heavy sections (paid all-access).
-   -> See `references/aceternity-ui-catalog.md`
+1. Review the AI slop fingerprints checklist and eliminate every match.
+   -> See `references/visual-polish.md` (AI Slop Test section)
+2. Replace overused fonts (Inter, Roboto) with distinctive alternatives.
+3. Switch from HSL to OKLCH. Tint all neutrals toward brand hue.
+4. Commit to a bold design direction before writing any CSS.
+   -> See `references/design-foundations.md`
 
 ### Problem: "The design looks amateur"
 
 1. Apply a 5-level shadow elevation system consistently.
-2. Stick to 4px/8px spacing grid — no arbitrary values.
-3. Use HSL-based design tokens with CSS custom properties.
-   -> See `references/visual-polish.md`
+2. Stick to 4pt spacing grid — no arbitrary values.
+3. Use OKLCH-based design tokens with CSS custom properties.
+   -> See `references/visual-polish.md` + `references/design-foundations.md`
 
 ## Decision Trees
 
@@ -149,15 +146,9 @@ description: |
 | Contextual side panel | Sheet | @radix-ui/react-dialog (side) |
 | Destructive confirmation | AlertDialog | @radix-ui/react-alert-dialog |
 | Component variants | CVA | class-variance-authority |
-| Animated background effects | Aceternity UI | @aceternity/* via shadcn CLI |
-| 3D card / hover effects | Aceternity UI | @aceternity/3d-card, card-hover-effect |
-| Text animations | Aceternity UI | @aceternity/text-generate-effect, etc. |
-| Parallax / scroll effects | Aceternity UI | @aceternity/parallax-scroll, hero-parallax |
-| Hero section with wow factor | Aceternity UI | @aceternity/lamp, spotlight, aurora |
-| Ready-made marketing blocks | Shadcn registries | shadcn CLI registry search |
-| Ready-made dashboard blocks | Shadcn registries | shadcn CLI registry search |
-| Animated interaction components | React Bits | shadcn CLI registry search |
-| Physics / variable font effects | Fancy Components | shadcn CLI registry search |
+| Visual effects, 3D, parallax, hero | Aceternity UI | `npx shadcn@latest add @aceternity/*` |
+| Marketing / dashboard blocks | Shadcn registries | `python scripts/search-components.py` |
+| Creative animations, physics | React Bits, Fancy Components | shadcn CLI registry search |
 
 -> Full catalogs: `references/component-discovery-sources.md`
 
@@ -175,18 +166,7 @@ description: |
 
 ## The Premium Stack
 
-```
-Radix UI             → Accessible, unstyled primitives
-  + shadcn/ui        → Styled component library (copy-paste)
-  + Registry ecosystem → 50+ registries, 11K+ components (see below)
-  + CVA              → Type-safe variant system
-  + Tailwind         → Utility CSS with design tokens
-  + Framer Motion    → Animation and gestures
-  + TanStack         → Headless table, virtual scrolling
-  + cmdk             → Command palette
-  + Sonner           → Toast notifications
-  + React Hook Form + Zod → Forms with schema validation
-```
+Radix UI → shadcn/ui → Registry ecosystem (50+ registries, 11K+ components) → CVA → Tailwind → Framer Motion → TanStack → cmdk → Sonner → React Hook Form + Zod.
 
 **Always search external sources first** — even for primitives.
 
@@ -208,7 +188,9 @@ Radix UI             → Accessible, unstyled primitives
 | `references/micro-interactions.md` | Framer Motion patterns, spring physics, gesture interactions, CSS transitions, timing, reduced motion |
 | `references/perceived-performance.md` | Skeleton screens, optimistic updates, progressive loading, prefetch, SWR, loading thresholds |
 | `references/premium-components.md` | TanStack Table, cmdk command palettes, React Hook Form + Zod, modals/sheets, Sonner toasts |
-| `references/visual-polish.md` | Shadow systems, spacing scales, typography, gradients, backdrop blur, dark mode, focus states |
+| `references/design-foundations.md` | Typography (font selection, pairing, OKLCH, OpenType), Color (OKLCH, tinted neutrals, palettes, dark mode), Spatial Design (4pt grid, hierarchy, container queries) |
+| `references/responsive-interaction.md` | Responsive (mobile-first, input detection, safe areas, srcset), Interaction (8 states, focus-visible, dialog, popover API, keyboard nav), UX Writing (button labels, error formulas, empty states, i18n) |
+| `references/visual-polish.md` | Shadow systems, spacing scales, gradients, backdrop blur, dark mode transitions, focus states, AI slop anti-patterns |
 | `references/state-choreography.md` | Loading/error/empty/success states, page transitions, layout animations, skeleton reveals |
 | `references/component-architecture.md` | shadcn/ui + Radix + CVA patterns, design tokens, variant systems, composition, accessibility |
 | `references/aceternity-ui-catalog.md` | Aceternity UI detailed component catalog with registry API endpoints |
