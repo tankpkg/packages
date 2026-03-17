@@ -1,0 +1,11 @@
+{
+  "name": "@tank/nextjs-to-tanstack",
+  "version": "1.0.0",
+  "description": "Migrate Next.js applications to TanStack Start — escape Vercel lock-in with a client-first, type-safe, deploy-anywhere React framework. Covers routing, data fetching, components, auth, deployment, and migration strategy.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
