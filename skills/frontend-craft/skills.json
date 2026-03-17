@@ -1,7 +1,7 @@
 {
   "name": "@tank/frontend-craft",
-  "version": "1.1.0",
-  "description": "Frontend craft for polished, delightful apps. Micro-interactions, perceived performance, premium components, visual polish, state choreography, shadcn registry search (8K+ components, 34+ registries, group/tag filtering). Triggers: animation, skeleton, optimistic update, framer motion, command palette, data table, toast, sonner, cmdk, shadcn, aceternity, 21st.dev, react bits, UI polish, premium feel, parallax, text effect, hero section, bento grid, sparkles, marketing blocks.",
+  "version": "1.2.0",
+  "description": "Frontend craft for polished, distinctive apps. Micro-interactions, perceived performance, premium components, visual polish, state choreography, design foundations (typography, OKLCH color, spatial design), responsive design, interaction patterns, UX writing, AI slop detection, shadcn registry search (11K+ components, 50+ registries). Triggers: animation, skeleton, optimistic update, framer motion, command palette, data table, toast, sonner, cmdk, shadcn, aceternity, 21st.dev, react bits, UI polish, premium feel, parallax, text effect, hero section, typography, font pairing, OKLCH, color system, tinted neutrals, dark mode, responsive, mobile first, container query, focus visible, interaction design, UX writing, error message, button label, AI slop, design looks generic.",
   "permissions": {
     "network": {
       "outbound": [
