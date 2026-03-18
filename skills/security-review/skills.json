@@ -1,0 +1,18 @@
+{
+  "name": "@tank/security-review",
+  "version": "1.0.0",
+  "description": "Comprehensive security review for any codebase, PR, or architecture. Covers OWASP Top 10 (2021) and API Security Top 10 (2023), CWE Top 25, code review methodology (differential and full audit), SAST tools (Semgrep, CodeQL, Bandit, ESLint security), dependency and supply chain scanning (npm audit, Trivy, Snyk, OSV-Scanner, SBOM), secret detection (Gitleaks, TruffleHog), IaC scanning (Checkov, tfsec), threat modeling (STRIDE, PASTA), language-specific vulnerability patterns (JS/TS, Python, Go, Rust, Java), and remediation patterns for every vulnerability class. Synthesizes OWASP Foundation standards, MITRE CWE, NIST NVD, Trail of Bits audit methodology, and OWASP Testing Guide (WSTG v5). Triggers: security review, security audit, OWASP, vulnerability, CVE, CWE, code audit, threat model, STRIDE, PASTA, Semgrep, CodeQL, SAST, DAST, dependency scan, npm audit, Trivy, Snyk, Gitleaks, TruffleHog, secret scanning, supply chain, XSS, SQL injection, SSRF, CSRF, IDOR, Checkov, tfsec, IaC security, security scanning, secure code review, attack surface, SBOM, ASVS, security checklist.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
