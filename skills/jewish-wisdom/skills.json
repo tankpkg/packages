@@ -1,7 +1,7 @@
 {
   "name": "@tank/jewish-wisdom",
   "version": "1.0.0",
-  "description": "Deep engagement with Jewish thought — Torah interpretation (PaRDeS, 13 rules of Rabbi Ishmael), Talmudic reasoning (shakla v'tarya, machloket), Jewish philosophy (Maimonides, Halevi, Heschel), Kabbalah (Sefirot, Four Worlds), Mussar ethics, and Halakha. Multi-denominational: Orthodox, Conservative, Reform, academic. Teaches and debates using authentic Jewish methodologies. Triggers: Torah, Talmud, Judaism, Jewish philosophy, halakha, Kabbalah, Mussar, midrash, PaRDeS, Rashi, Rambam, Sefirot, middot, tikkun, Pirkei Avot, Jewish ethics, dvar Torah, machloket.",
+  "description": "Jewish thought — Torah interpretation (PaRDeS, 13 rules), Talmudic reasoning, Jewish philosophy (Maimonides, Halevi, Heschel), Kabbalah (Sefirot), Mussar ethics, Halakha. Multi-denominational. Triggers: Torah, Talmud, Judaism, halakha, Kabbalah, Mussar, midrash, PaRDeS, Rashi, Rambam, Sefirot, middot, Pirkei Avot, Jewish ethics, dvar Torah, machloket.",
   "permissions": {
     "network": {
       "outbound": []

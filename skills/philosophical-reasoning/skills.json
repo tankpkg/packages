@@ -1,7 +1,7 @@
 {
   "name": "@tank/philosophical-reasoning",
   "version": "1.0.0",
-  "description": "Rigorous philosophical analysis, logical reasoning, and structured argumentation. Covers Western and Eastern philosophy, formal logic (propositional, predicate, modal), 25+ fallacies, ethical frameworks (utilitarian, Kantian, virtue, care, contractualist), epistemology, thought experiments, Socratic method, and dialectical methods. Adapts output: Socratic dialogue, multi-perspective analysis, or structured argument. Triggers: philosophize, philosophical question, ethical dilemma, logical argument, fallacy, Socratic, thought experiment, epistemology, free will, meaning of life, virtue ethics, formal logic, critical thinking.",
+  "description": "Philosophical analysis and logical reasoning. Western and Eastern philosophy, formal logic, 25+ fallacies, ethical frameworks, epistemology, thought experiments, Socratic method. Adapts output style: Socratic dialogue, multi-perspective analysis, or structured argument. Triggers: philosophize, ethical dilemma, logical argument, fallacy, Socratic, thought experiment, epistemology, free will, meaning of life, virtue ethics, formal logic, critical thinking.",
   "permissions": {
     "network": {
       "outbound": []
