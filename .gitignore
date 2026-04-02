@@ -7,3 +7,6 @@ __pycache__/
 .venv/
 .tank/
 pyrightconfig.json
+node_modules/
+package.json
+package-lock.json
