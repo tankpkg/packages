@@ -1,0 +1,16 @@
+{
+  "name": "@tank/agents-md",
+  "version": "1.0.0",
+  "description": "Write, audit, and manage AI coding agent instruction files (AGENTS.md, CLAUDE.md, .cursorrules, copilot-instructions.md, .windsurfrules, GEMINI.md). Covers the AGENTS.md standard (Linux Foundation AAIF), every major tool format, cross-tool compatibility, monorepo patterns, writing effective rules, and migration between formats. Triggers: AGENTS.md, CLAUDE.md, cursorrules, cursor rules, AI agent instructions, copilot instructions, windsurf rules, GEMINI.md, OpenCode rules, agent config, instruction file.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
