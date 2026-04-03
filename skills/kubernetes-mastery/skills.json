@@ -1,0 +1,16 @@
+{
+  "name": "@tank/kubernetes-mastery",
+  "version": "1.0.0",
+  "description": "Production Kubernetes operations and architecture. Covers workloads (Pods, Deployments, StatefulSets), networking (Services, Ingress), Helm/Kustomize, RBAC, Pod Security Standards, storage, autoscaling (HPA/VPA), health probes, kubectl debugging, observability (Prometheus/Grafana), and GitOps (ArgoCD/Flux). Triggers: kubernetes, k8s, kubectl, helm, deployment, ingress, RBAC, HPA, autoscaling, pod, service, persistent volume, gitops, argocd.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
