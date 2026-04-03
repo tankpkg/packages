@@ -141,6 +141,70 @@ Separate channels reduce pressure to treat every build as final.
 
 Performance is not finished at submission time; release telemetry should close the loop.
 
+## Startup Performance Checklist
+
+| Concern | Action |
+|--------|--------|
+| too much sync initialization | defer non-critical startup work |
+| large first-route widget tree | simplify above-the-fold UI |
+| eager plugin initialization | load lazily where safe |
+
+Launch-time performance shapes perceived quality more than many micro-optimizations later in the session.
+
+## Release Build Hygiene
+
+| Check | Why |
+|------|-----|
+| build in release mode | realistic runtime characteristics |
+| verify flavor-specific config | prevent wrong backend or keys |
+| archive symbols / debugging metadata | crash diagnosis |
+| validate signing material | release safety |
+
+## Store Submission Workflow
+
+1. generate release notes and changelog
+2. validate screenshots and metadata per platform
+3. confirm version/build numbers
+4. submit to internal/beta track first when possible
+5. monitor rollout and halt if crash/error metrics spike
+
+## Desktop and Web Release Notes
+
+| Target | Extra review |
+|-------|--------------|
+| web | asset caching, PWA/service worker behavior, bundle size |
+| desktop | installer packaging, auto-update path, file-system permissions |
+
+Do not treat mobile deployment assumptions as automatically correct for web and desktop outputs.
+
+## Crash and Error Instrumentation
+
+| Concern | Recommendation |
+|--------|----------------|
+| uncaught Flutter errors | wire crash reporting early |
+| API version drift | tag telemetry with app version/build |
+| release-specific regressions | compare metrics by channel/version |
+
+Without release telemetry, performance and reliability regressions become anecdotal.
+
+## Build Variant Discipline
+
+| Variant rule | Why |
+|-------------|-----|
+| keep dev/staging/prod clearly separated | prevent wrong-service accidents |
+| align analytics/crash keys with environment | clean data |
+| document signing and provisioning paths | repeatable releases |
+
+## Rollout Strategy
+
+| Strategy | Use |
+|---------|-----|
+| internal-only build | engineering/QA verification |
+| limited beta rollout | validate stability on real users/devices |
+| staged production rollout | reduce blast radius |
+
+Staged rollout is a performance and reliability tool, not just a product-management preference.
+
 ## Release Readiness Checklist
 
 - [ ] App is profiled in profile/release mode, not only debug
