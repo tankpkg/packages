@@ -1,0 +1,16 @@
+{
+  "name": "@tank/terraform-mastery",
+  "version": "1.0.0",
+  "description": "Production-grade Terraform and OpenTofu for any cloud. Covers HCL syntax, providers, modules, state management, testing, CI/CD pipelines, Terragrunt, security, and cost estimation. Triggers: terraform, terraform module, terraform state, HCL, opentofu, terragrunt, IaC, infracost.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
