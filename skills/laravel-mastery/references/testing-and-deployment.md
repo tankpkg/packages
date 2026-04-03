@@ -227,6 +227,17 @@ Keep deployment steps scripted and repeatable.
 4. Review logs for migration or boot errors
 5. Smoke critical auth and CRUD flows
 
+## CI Baseline for Laravel Apps
+
+| Step | Purpose |
+|-----|---------|
+| code style / Pint | formatting consistency |
+| static analysis | catch obvious correctness issues |
+| feature tests | app behavior confidence |
+| build artifact/image | deployment readiness |
+
+Keep CI short enough for frequent use, but broad enough to catch route, model, and deployment regressions.
+
 ## Octane-Specific Review
 
 | Concern | Why |
