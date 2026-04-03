@@ -1,0 +1,16 @@
+{
+  "name": "@tank/zod-patterns",
+  "version": "1.0.0",
+  "description": "Zod schema validation patterns for TypeScript. Schema primitives, composition, transforms, pipes, refinements, error handling, type inference, branded types, coercion, Zod 4 features (Mini, metadata, JSON Schema). Integrations: React Hook Form, tRPC, Next.js, Express/Hono. Recipes: env vars, config parsing, API validation. Comparison: Zod vs Valibot vs ArkType vs Yup. Triggers: zod, zod schema, zod validation, zod infer, zod transform, zod refine, safeParse, zodResolver, zod trpc, zod cheat sheet.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
