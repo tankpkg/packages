@@ -226,6 +226,28 @@ This table should drive stack selection more than hype cycles.
 
 Choose the stack that matches maintenance reality after launch.
 
+## Auth UX Composition Patterns
+
+| Need | Pattern |
+|-----|---------|
+| simple login/register/reset | Breeze defaults |
+| 2FA and account sessions | Jetstream or custom Fortify flow |
+| admin-only auth surface | dedicated routes + policies, same auth core where possible |
+
+Keep auth UX layered: transport/UI, auth engine, and authorization rules should stay conceptually separate.
+
+## Policy Usage in Views
+
+Use policies consistently in controllers, components, and views.
+
+```php
+@can('update', $post)
+    <a href="{{ route('posts.edit', $post) }}">Edit</a>
+@endcan
+```
+
+View-level checks are for UX. They do not replace controller or action authorization.
+
 ## Release Readiness Checklist
 
 - [ ] Frontend stack matches team skills and UI complexity

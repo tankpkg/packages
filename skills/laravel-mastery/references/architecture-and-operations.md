@@ -221,6 +221,28 @@ Retries are a product decision, not just an infrastructure toggle.
 
 These checks catch drift as the slim skeleton evolves.
 
+## Queue Operational Checkpoints
+
+| Check | Why |
+|------|-----|
+| failed jobs are visible and monitored | recovery requires visibility |
+| queue workers restart on deploy | code and container consistency |
+| timeouts and backoff are explicit | avoid runaway retries |
+
+Operational maturity matters more than just “we use queues”.
+
+## Command Scheduling Notes
+
+Use the scheduler for periodic, deterministic operational work.
+
+| Good fit | Example |
+|---------|---------|
+| cache warmups | rebuild summary cache |
+| report generation | daily exports |
+| data hygiene | cleanup stale drafts |
+
+Prefer idempotent scheduled commands and make logging visible.
+
 ## Release Readiness Checklist
 
 - [ ] Default Laravel structure is preserved unless clear pressure justified extraction
