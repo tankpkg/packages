@@ -205,6 +205,35 @@ Without release telemetry, performance and reliability regressions become anecdo
 
 Staged rollout is a performance and reliability tool, not just a product-management preference.
 
+## Team Release Checklist
+
+| Owner | Responsibility |
+|------|----------------|
+| engineering | build, sign, validate env config |
+| QA | regression pass on representative devices |
+| product | release notes, rollout decision |
+
+Shared release ownership prevents last-minute surprises and missing metadata.
+
+## Real-Device Verification
+
+1. test low-memory or older device class where possible
+2. verify first-launch and upgrade flows
+3. confirm crash reporting and analytics are active in the intended environment
+4. verify deep links / push navigation if the app depends on them
+
+Desktop, web, and mobile should each get at least one target-specific sanity pass.
+
+## Performance Regression Policy
+
+| Regression type | Response |
+|----------------|----------|
+| startup slower than previous release | inspect init path and flavor config |
+| frame drops on key screens | profile rebuilds, paint, and scrolling |
+| increased binary size | audit dependencies and assets before release |
+
+Treat performance regressions like functional bugs when they affect critical flows.
+
 ## Release Readiness Checklist
 
 - [ ] App is profiled in profile/release mode, not only debug
