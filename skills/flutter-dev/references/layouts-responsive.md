@@ -229,6 +229,37 @@ Design responsive components, not just responsive pages.
 3. Verify contrast and spacing in dense layouts
 4. Ensure important controls remain reachable with keyboard/switch access on supported platforms
 
+## Real-Device Layout Review
+
+| Device class | What to inspect |
+|-------------|-----------------|
+| small phone | keyboard overlap, tight content, bottom nav reachability |
+| large phone | excessive whitespace or stretched controls |
+| tablet | shell adaptation, list/detail opportunities |
+| desktop | pointer spacing, width capping, side navigation |
+
+Emulators are useful, but final layout trust should come from at least a few real-device checks.
+
+## Animation and Layout Interaction
+
+| Pattern | Watch out for |
+|--------|---------------|
+| animated size changes | overflow during transition |
+| hero transitions | clipping and mismatched bounds |
+| sliver app bars | scroll performance and snapping behavior |
+
+Layout and animation should be profiled together when screens feel janky.
+
+## Theming and Layout Tokens
+
+| Token type | Why it helps |
+|-----------|--------------|
+| spacing scale | consistent rhythm |
+| radius scale | cohesive component language |
+| breakpoint constants | predictable responsive behavior |
+
+Keep layout decisions consistent across screens by centralizing spacing and breakpoint vocabulary.
+
 ## Common Layout Mistakes
 
 | Mistake | Problem | Fix |

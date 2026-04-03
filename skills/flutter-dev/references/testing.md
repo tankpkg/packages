@@ -178,7 +178,60 @@ Check semantic labels and interactions for high-value widgets.
 | text field hints/labels | form clarity |
 | focus order | keyboard/device navigation |
 
-## Release Readiness Checklist
+## State-Driven Test Matrix
+
+| State kind | Minimum test surface |
+|-----------|----------------------|
+| initial/default | renders correctly |
+| loading | progress / skeleton / disabled UI |
+| success | expected data shown |
+| empty | friendly fallback |
+| error | retry or error messaging |
+
+If your widget has five states, write tests that prove all five.
+
+## CI Strategy for Flutter Tests
+
+| Step | Why |
+|-----|-----|
+| `flutter test` | fast behavior coverage |
+| targeted golden tests | visual regressions |
+| selected integration suite | critical journey confidence |
+
+Keep CI focused enough to stay fast, but broad enough to catch regressions before release.
+
+## Practical Test Layer Selection
+
+| Scenario | Best layer |
+|---------|------------|
+| text formatter, mapper, parser | unit |
+| reusable button/form widget | widget |
+| auth flow across screens | integration |
+| visual design-system component | golden + widget |
+
+Choose the layer that proves the risk with the least runtime cost.
+
+## Test Harness Patterns
+
+| Need | Pattern |
+|-----|---------|
+| app theme/media setup | wrap in `MaterialApp` / app shell |
+| provider injection | `ProviderScope` / `MultiBlocProvider` |
+| localization | test harness with delegates/locales |
+
+Build a reusable harness for app-wide test setup rather than copying wrappers in every file.
+
+## Failure Diagnostics
+
+When tests fail, make the signal useful.
+
+| Technique | Benefit |
+|----------|---------|
+| named test cases | easier triage |
+| explicit state assertions | less ambiguity |
+| smaller widget surfaces | failures isolate faster |
+
+Test readability is a maintenance feature, not just nicety.
 
 ## Common Testing Mistakes
 
