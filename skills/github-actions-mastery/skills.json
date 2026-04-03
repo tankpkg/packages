@@ -1,0 +1,16 @@
+{
+  "name": "@tank/github-actions-mastery",
+  "version": "1.0.0",
+  "description": "GitHub Actions workflow authoring, optimization, and security. Covers workflow syntax, triggers, matrix strategies, caching, reusable workflows, composite actions, secrets/OIDC, self-hosted runners, security hardening (SHA pinning, supply chain), monorepo patterns, concurrency, and CI/CD recipes (test, deploy, release, Docker). Triggers: github actions, workflow, matrix, cache, secrets, OIDC, reusable workflow, composite action, self-hosted runner, security, deploy, docker, monorepo, concurrency, workflow_dispatch, CI/CD pipeline.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
