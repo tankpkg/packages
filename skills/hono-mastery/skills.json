@@ -1,0 +1,16 @@
+{
+  "name": "@tank/hono-mastery",
+  "version": "1.0.0",
+  "description": "Build and deploy multi-runtime TypeScript APIs with Hono. Covers routing, Context API, built-in and custom middleware, Zod/Valibot validation, RPC mode with hc client, OpenAPI integration, testing, error handling, and deployment to Cloudflare Workers, Bun, Deno, Node.js, AWS Lambda, and Vercel. Triggers: hono, hono js, hono framework, hono vs express, hono cloudflare workers, hono rpc, hono middleware, hono zod openapi, hono d1, hono bun, hono deno.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
