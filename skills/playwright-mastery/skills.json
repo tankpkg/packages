@@ -1,0 +1,16 @@
+{
+  "name": "@tank/playwright-mastery",
+  "version": "1.0.0",
+  "description": "End-to-end testing mastery with Playwright Test. Covers locators, auto-waiting assertions, Page Object Model with fixtures, test configuration, authentication state reuse, network mocking, visual regression, API testing, CI/CD integration, debugging with Trace Viewer, and accessibility testing. Triggers: playwright, e2e test, playwright fixture, playwright page object, playwright CI, playwright visual testing.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
