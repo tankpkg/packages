@@ -1,0 +1,16 @@
+{
+  "name": "@tank/cloudflare-workers",
+  "version": "1.0.0",
+  "description": "Cloudflare Workers platform patterns covering runtime basics, Wrangler, KV, D1, R2, Durable Objects, Queues, Workers AI, Hono integration, testing, performance, and deployment. Triggers: cloudflare workers, wrangler, workers kv, d1 database, r2 storage, durable objects.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
