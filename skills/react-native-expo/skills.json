@@ -1,0 +1,16 @@
+{
+  "name": "@tank/react-native-expo",
+  "version": "1.0.0",
+  "description": "Production React Native development with Expo. Covers Expo Router, EAS Build/Submit/Update, New Architecture, Reanimated animations, styling (NativeWind, Unistyles), state management (Zustand, TanStack Query), native modules, performance, testing, push notifications, and app store publishing.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
