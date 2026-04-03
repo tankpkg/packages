@@ -182,6 +182,53 @@ Material 3 encourages more adaptive surfaces and spacing-aware layout patterns.
 
 Use Material 3 as a design system, not just a color change.
 
+## Cupertino Adaptation Notes
+
+| Concern | Recommendation |
+|--------|----------------|
+| navigation bars | use Cupertino patterns where the iOS expectation is strong |
+| action sheets / dialogs | prefer platform-consistent presentation |
+| mixed-platform apps | adapt at the shell and key interaction points |
+
+Do not force every screen into a perfect platform fork. Adapt where it changes usability.
+
+## Form Layout Patterns
+
+| Screen size | Pattern |
+|------------|---------|
+| phone | single-column form |
+| tablet | split or two-column form where labels and actions remain clear |
+| desktop | centered content area with supporting side panels when needed |
+
+Keep validation messages, keyboard avoidance, and tap targets in mind while laying out forms.
+
+## Safe Areas and Insets
+
+| Concern | Tool |
+|--------|------|
+| system notches / cutouts | `SafeArea` |
+| keyboard overlap | `MediaQuery.viewInsets` or scaffold behavior |
+| immersive content | opt out intentionally, then handle padding yourself |
+
+Ignoring safe areas produces bugs that only show up on real devices.
+
+## Responsive Component Patterns
+
+| Component | Compact pattern | Expanded pattern |
+|----------|-----------------|------------------|
+| settings page | stacked sections | sidebar + detail pane |
+| dashboard cards | single column list | grid / multi-column layout |
+| nav shell | bottom nav | rail / sidebar |
+
+Design responsive components, not just responsive pages.
+
+## Accessibility Layout Checks
+
+1. Test large text scaling
+2. Check touch target sizes
+3. Verify contrast and spacing in dense layouts
+4. Ensure important controls remain reachable with keyboard/switch access on supported platforms
+
 ## Common Layout Mistakes
 
 | Mistake | Problem | Fix |

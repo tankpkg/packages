@@ -112,6 +112,35 @@ Do not assume one Flutter target behaves like another just because the widget co
 | giant unoptimized asset bundles | slow installs/startup | audit assets and dependencies |
 | ad hoc store release steps | brittle delivery | script or automate with CI/Fastlane |
 
+## App Size Review
+
+| Concern | Action |
+|--------|--------|
+| oversized assets | compress, resize, deduplicate |
+| unused dependencies | remove packages and generated code paths |
+| heavy icons/fonts | subset or replace where possible |
+
+Track binary size per release rather than discovering regressions in the store pipeline.
+
+## Release Channel Strategy
+
+| Channel | Use |
+|--------|-----|
+| internal/dev | fast QA and engineering feedback |
+| beta/testflight/internal testing | product validation |
+| production | store-reviewed stable release |
+
+Separate channels reduce pressure to treat every build as final.
+
+## Monitoring After Release
+
+1. watch crash-free sessions
+2. review startup time on real devices
+3. monitor API error spikes by app version
+4. compare frame/jank metrics across releases when available
+
+Performance is not finished at submission time; release telemetry should close the loop.
+
 ## Release Readiness Checklist
 
 - [ ] App is profiled in profile/release mode, not only debug

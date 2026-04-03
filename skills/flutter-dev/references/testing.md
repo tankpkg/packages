@@ -137,6 +137,49 @@ Keys are useful when text and structure are unstable, but do not add meaningless
 
 Explicitly test loading, success, and error states for async widgets.
 
+## Golden Test Workflow
+
+| Step | Purpose |
+|-----|---------|
+| stabilize fonts/assets | reduce flaky diffs |
+| pump deterministic state | consistent render |
+| capture baseline | visual reference |
+| review diff intentionally | catch real regressions |
+
+Golden tests work best when the component is stable and intentionally visual.
+
+## Navigation and Router Testing
+
+| Need | Pattern |
+|-----|---------|
+| route push/pop | widget/integration test with router shell |
+| deep link handling | integration test |
+| guarded redirect | integration or high-level widget test |
+
+Routing bugs often show up only when multiple providers, auth state, and async loading interact.
+
+## Test Data Strategy
+
+| Pattern | Benefit |
+|--------|---------|
+| small builders / fixtures | readable setup |
+| named fake states | clear intent |
+| provider overrides | isolate only what matters |
+
+Avoid huge hand-authored test trees that no one understands six weeks later.
+
+## Accessibility Testing Notes
+
+Check semantic labels and interactions for high-value widgets.
+
+| Concern | Example |
+|--------|---------|
+| button labels | discoverable actions |
+| text field hints/labels | form clarity |
+| focus order | keyboard/device navigation |
+
+## Release Readiness Checklist
+
 ## Common Testing Mistakes
 
 | Mistake | Problem | Fix |
