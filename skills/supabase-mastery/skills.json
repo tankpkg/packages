@@ -1,0 +1,16 @@
+{
+  "name": "@tank/supabase-mastery",
+  "version": "1.0.0",
+  "description": "Full-stack Supabase patterns for production apps. RLS policies (multi-tenant, CRUD, performance), Auth (email, OAuth, magic link, MFA, custom claims, hooks), Database (functions, triggers, migrations, type generation), Realtime (Postgres Changes, Broadcast, Presence), Edge Functions (Deno, webhooks, secrets), Storage (uploads, signed URLs, transforms, policies), supabase-js v2 client, CLI, Next.js integration (@supabase/ssr), and self-hosting. Triggers: supabase, supabase auth, supabase rls, row level security, supabase realtime, supabase edge functions, supabase storage, supabase next.js, supabase-js, supabase cli, supabase migration, auth.uid(), supabase gen types.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
