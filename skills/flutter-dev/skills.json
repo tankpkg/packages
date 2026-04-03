@@ -1,0 +1,16 @@
+{
+  "name": "@tank/flutter-dev",
+  "version": "1.0.0",
+  "description": "Production Flutter and Dart development patterns. Covers widget architecture, state management (Riverpod, BLoC, Provider), navigation (GoRouter), Dart 3 patterns, layouts, testing, performance profiling, platform channels, and deployment. Triggers: flutter, dart, riverpod, bloc, go_router, widget test, flutter deployment.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
