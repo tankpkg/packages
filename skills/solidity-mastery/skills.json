@@ -1,0 +1,16 @@
+{
+  "name": "@tank/solidity-mastery",
+  "version": "1.0.0",
+  "description": "Solidity smart contract development, security, and tooling for EVM chains. Covers Solidity 0.8.x patterns, security vulnerabilities (reentrancy, flash loans, audit checklists), gas optimization, ERC standards (ERC-20/721/1155/4626), upgradeable contracts (UUPS, transparent proxy), Foundry toolchain (forge test, script, fuzz/invariant testing), OpenZeppelin 5.x, and multi-chain deployment.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
