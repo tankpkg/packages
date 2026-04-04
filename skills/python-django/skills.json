@@ -1,0 +1,16 @@
+{
+  "name": "@tank/python-django",
+  "version": "1.0.0",
+  "description": "Production Django patterns covering models, ORM optimization, views, templates, DRF, Django Ninja, HTMX, Celery, testing, migrations, caching, and deployment. Triggers: django, drf, django orm, django htmx, django celery, django ninja.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
