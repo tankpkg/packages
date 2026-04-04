@@ -1,0 +1,16 @@
+{
+  "name": "@tank/llm-observability",
+  "version": "1.0.0",
+  "description": "Production LLM observability and evaluation patterns covering tracing, prompt versioning, regression testing, RAG evaluation, cost and latency monitoring, dashboards, and platform trade-offs across Langfuse, LangSmith, Phoenix, Helicone, and related tooling.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
