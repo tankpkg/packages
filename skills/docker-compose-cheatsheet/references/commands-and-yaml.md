@@ -249,3 +249,9 @@ If they fail, the file needs simplification.
 - [ ] service definitions emphasize the most-used keys
 - [ ] healthchecks, profiles, volumes, and networks are used intentionally
 - [ ] the file stays readable for day-to-day engineering use
+
+## Compose Review Questions
+
+1. Can a new engineer start the stack and debug one failing service quickly?
+2. Are persistence and bind-mount decisions obvious from the file?
+3. Are optional services isolated with profiles instead of always-on complexity?

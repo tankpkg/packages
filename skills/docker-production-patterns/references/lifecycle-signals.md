@@ -8,7 +8,7 @@ Covers: the PID 1 problem in containers, SIGTERM and SIGKILL behavior, init syst
 
 In a Linux container, the first process (PID 1) has special kernel behavior:
 
-- Does NOT receive default signal handlers — SIGTERM is ignored unless explicitly handled
+- Has special signal-handling semantics compared with ordinary processes; applications should explicitly handle or forward SIGTERM for graceful shutdown
 - Is responsible for reaping zombie child processes
 - If PID 1 exits, the container stops
 
@@ -214,6 +214,20 @@ HEALTHCHECK --interval=30s --timeout=5s --retries=3 --start-period=15s \
 | `unless-stopped` | Like always, but not after manual stop | `restart: unless-stopped` | Standard production |
 | `on-failure` | Restart only on non-zero exit | `restart: on-failure` | Workers, batch |
 | `on-failure:5` | Restart on failure, max 5 attempts | `restart: "on-failure:5"` | Crash loops |
+
+## Lifecycle Review Questions
+
+1. Is the main process actually PID 1, or hidden behind a shell wrapper?
+2. Will this container receive and honor SIGTERM with enough time to drain work?
+3. Are child processes or zombie reaping concerns handled explicitly?
+
+### Lifecycle Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| shell form ENTRYPOINT/CMD in production | signals lost or misrouted |
+| no timeout-aware shutdown path in app code | dropped requests/work |
+| restart policy chosen by habit, not failure mode | crash loops or poor recovery |
 
 ## Graceful Shutdown Patterns
 

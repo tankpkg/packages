@@ -326,3 +326,17 @@ server.registerTool('read-file', {
 | Accepting arbitrary JSON | Injection surface | Use strict schemas with `additionalProperties: false` |
 | Tool name matches another server's tool | Shadowing attack vector | Namespace: `myserver-tool-name` |
 | Description says "internal use only" | LLM ignores it anyway | Remove the tool or restrict via capabilities |
+
+## Tool Design Review Questions
+
+1. Is this tool one clear capability, or a hidden workflow bundle?
+2. Can an LLM choose the tool correctly from its name and description alone?
+3. Are inputs constrained tightly enough to reduce ambiguity and abuse?
+
+## Tooling Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| tool description too vague to guide selection | wrong tool choices |
+| schema allows too much free-form structure | injection and ambiguity risk |
+| no progress or pagination story for large operations | poor UX and agent behavior |

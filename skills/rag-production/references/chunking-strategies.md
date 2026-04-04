@@ -275,3 +275,9 @@ for i, chunk in enumerate(chunks):
 | No metadata | Cannot filter by source/date | Enrich at ingestion time |
 | Chunks too large (>2048) | Noise drowns signal | Prefer 512-1024 for general use |
 | Re-chunking on every query | Wasted computation | Chunk once at ingestion, store permanently |
+
+## Chunking Review Questions
+
+1. Is this chunking strategy matched to the actual document type and retrieval task?
+2. Are metadata fields rich enough to support filtering and debugging later?
+3. Would smaller or more semantically aligned chunks improve retrieval more than more model tuning?

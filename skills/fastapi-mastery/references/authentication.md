@@ -279,3 +279,17 @@ Never store tokens in localStorage or sessionStorage -- XSS vulnerabilities expo
 | Returning user object with hashed_password | Password hash exposed | Use response model to exclude |
 | Trusting `alg` from JWT header | Algorithm confusion attack | Pin algorithm in `jwt.decode()` |
 | Same secret for all environments | Production token works in staging | Per-environment secrets |
+
+## Authentication Review Questions
+
+1. Is this endpoint authenticating identity, authorizing permission, or both?
+2. Are access and refresh token semantics separated clearly?
+3. Can revoked or disabled users still succeed unexpectedly?
+
+## Auth Design Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| token validation spread across routes | inconsistent security |
+| refresh token treated like access token | privilege confusion |
+| missing rate limits on login/reset | brute-force exposure |

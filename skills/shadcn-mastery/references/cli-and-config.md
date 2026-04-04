@@ -331,4 +331,18 @@ npx shadcn@latest add @internal/data-grid
 
 The `{name}` placeholder is replaced with the resource name. Environment variables in `${VAR_NAME}` format are expanded automatically.
 
+## Registry Review Questions
+
+1. Is the registry primarily internal, public, or both?
+2. Are auth headers and token expansion scoped safely?
+3. Will component consumers understand where generated code comes from and how updates are managed?
+
+## CLI/Config Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| multiple undocumented registry sources | install confusion |
+| no policy for local customization after generation | drift and overwrite surprises |
+| auth-bearing registry config copied casually | security risk |
+
 -> See `references/registry-system.md` for building custom registries.

@@ -288,3 +288,11 @@ These three questions prevent a huge amount of wasted kubectl time.
 1. Is this a read/debug task or a desired-state change?
 2. Do I know exactly which resources I’m targeting?
 3. Am I using output shaping to avoid extra commands?
+
+## Operator Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| context/namespace not checked before mutation | cluster blast radius risk |
+| relying on delete/restart before understanding state | hides root cause |
+| skipping `describe` and events | misses the fastest diagnosis path |

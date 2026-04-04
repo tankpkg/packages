@@ -377,3 +377,17 @@ Libraries that generate OpenAPI from Zod:
 | External API responses | `safeParse` + log violations |
 | Error response format | Consistent structure across endpoints |
 | Content-Type | Verify JSON before parsing body |
+
+## Review Questions
+
+1. Is this schema validating the transport boundary or business rules that belong deeper?
+2. Are coercions explicit enough that callers understand how strings become typed values?
+3. Is the error shape stable enough for clients and logs?
+
+## API Boundary Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| validating too late in service code | transport drift leaks inward |
+| no response validation on unstable upstream data | silent contract breakage |
+| multiple error shapes across routes | client complexity |

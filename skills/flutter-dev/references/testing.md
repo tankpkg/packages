@@ -1,251 +1,320 @@
 # Testing
 
-Sources: Flutter official documentation (testing, widget tests, integration tests, golden tests), Dart testing docs, mocktail package docs, Riverpod and flutter_bloc testing guidance, community production practices
+Sources: Flutter testing documentation (flutter.dev 2025-2026), flutter_test API reference, integration_test package, bloc_test documentation, Mocktail package documentation
 
-Covers: widget tests, integration tests, golden tests, Riverpod and BLoC testing patterns, mocking, async rendering, and practical testing strategy for Flutter apps.
+Covers: widget tests, integration tests, golden tests, finder/matcher patterns, Riverpod and BLoC testing, mocking with Mocktail, and test organization.
 
-## Prefer Widget Tests as the Default
+## Test Pyramid
 
-Widget tests give high confidence at good speed.
+| Level | Speed | Scope | Tool |
+|-------|-------|-------|------|
+| Unit | Fast (ms) | Function, class, provider | `test` package |
+| Widget | Medium (ms-s) | Single widget or small tree | `flutter_test` |
+| Integration | Slow (s-min) | Full app or feature flow | `integration_test` |
+| Golden | Medium | Visual regression | `flutter_test` + `matchesGoldenFile` |
 
-| Test type | Best for |
-|----------|----------|
-| unit test | pure functions and domain logic |
-| widget test | UI behavior and rendering |
-| integration test | full app flows, plugins, navigation |
-| golden test | visual regression for stable components |
+Many unit tests, moderate widget tests, few integration tests. Test logic with unit tests, UI behavior with widget tests, critical journeys with integration tests.
 
-Do not jump straight to integration tests for behavior that widget tests can cover faster.
+## Widget Tests
 
-## Widget Test Basics
+### Basic Structure
 
 ```dart
-testWidgets('increments counter', (tester) async {
-  await tester.pumpWidget(const MyApp());
-  await tester.tap(find.text('Increment'));
-  await tester.pump();
-  expect(find.text('1'), findsOneWidget);
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  testWidgets('shows greeting with name', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(home: GreetingCard(name: 'Alice')),
+    );
+    expect(find.text('Hello, Alice!'), findsOneWidget);
+    expect(find.byIcon(Icons.person), findsOneWidget);
+  });
+}
+```
+
+### Finders
+
+| Finder | Use |
+|--------|-----|
+| `find.text('Hello')` | Exact text |
+| `find.textContaining('Hell')` | Partial text |
+| `find.byType(ElevatedButton)` | Widget type |
+| `find.byIcon(Icons.add)` | Icon data |
+| `find.byKey(Key('submit'))` | By Key (most reliable) |
+| `find.descendant(of: parent, matching: child)` | Scoped search |
+| `find.ancestor(of: child, matching: parent)` | Upward search |
+
+### Matchers
+
+| Matcher | Asserts |
+|---------|---------|
+| `findsOneWidget` | Exactly one |
+| `findsNothing` | Zero |
+| `findsNWidgets(n)` | Exactly n |
+| `findsAtLeast(n)` | At least n |
+
+### Interactions
+
+```dart
+testWidgets('submits form on tap', (tester) async {
+  await tester.pumpWidget(MaterialApp(home: LoginForm()));
+
+  await tester.enterText(find.byKey(Key('email')), 'alice@example.com');
+  await tester.enterText(find.byKey(Key('password')), 'secret123');
+  await tester.tap(find.byType(FilledButton));
+  await tester.pumpAndSettle();
+
+  expect(find.text('Welcome'), findsOneWidget);
 });
 ```
 
-### Good widget-test targets
+### pump vs pumpAndSettle
 
-| Target | Why |
-|-------|-----|
-| form validation | UI + logic boundary |
-| loading/error/data states | rendering correctness |
-| button interactions | user-visible behavior |
-| navigation triggers | routing intent |
+| Method | Behavior | Use When |
+|--------|----------|----------|
+| `pump()` | One frame | Synchronous state change |
+| `pump(Duration(seconds: 1))` | One frame at offset | Animations at specific points |
+| `pumpAndSettle()` | Until no pending frames | Async, animations |
 
-## `pump`, `pumpAndSettle`, and Time
+`pumpAndSettle` throws if animations never settle (e.g., infinite repeat). Use `pump` with explicit durations.
 
-| Method | Use |
-|-------|-----|
-| `pump()` | render one frame / short update |
-| `pump(Duration(...))` | advance animations/timers deliberately |
-| `pumpAndSettle()` | wait until animations/futures settle |
-
-Do not abuse `pumpAndSettle()` when a targeted `pump(Duration...)` is more precise.
-
-## Testing Riverpod
-
-Wrap widgets in `ProviderScope` and override providers when needed.
+### Scrolling
 
 ```dart
-await tester.pumpWidget(
-  ProviderScope(
-    overrides: [
-      currentUserProvider.overrideWith((ref) => fakeUser),
-    ],
-    child: const MyApp(),
-  ),
-);
+testWidgets('scrolls to find item', (tester) async {
+  await tester.pumpWidget(MaterialApp(home: LongList()));
+  await tester.scrollUntilVisible(
+    find.text('Item 50'), 500.0,
+    scrollable: find.byType(Scrollable),
+  );
+});
 ```
-
-### Riverpod test rules
-
-| Rule | Why |
-|-----|-----|
-| override providers, don’t rewire app code | test isolation |
-| test providers separately for business logic | faster feedback |
-| watch selected state only where relevant | less brittle assertions |
-
-## Testing BLoC / Cubit
-
-Use real or mocked cubits/blocs at the boundary depending on what is under test.
-
-| Goal | Pattern |
-|-----|---------|
-| test bloc logic | bloc unit tests |
-| test widget with bloc state | `BlocProvider.value` + fake bloc |
-| test end-to-end flow | integration or widget + real bloc wiring |
 
 ## Golden Tests
 
-Golden tests help catch visual regressions in stable, presentation-heavy widgets.
+Compare rendering against reference images. Detect unintended visual changes.
 
-| Good fit | Example |
-|---------|---------|
-| design-system components | buttons, cards, nav bars |
-| complex static visual states | empty/error/list variants |
-| marketing-like Flutter screens | hero/banner cards |
+```dart
+testWidgets('button matches golden', (tester) async {
+  tester.view.physicalSize = const Size(400, 300);
+  tester.view.devicePixelRatio = 1.0;
+  addTearDown(tester.view.resetPhysicalSize);
 
-Golden tests are less useful for highly dynamic or unstable pixel output.
+  await tester.pumpWidget(
+    MaterialApp(home: Scaffold(body: Center(child: PrimaryButton(label: 'Submit')))),
+  );
+  await expectLater(
+    find.byType(PrimaryButton),
+    matchesGoldenFile('goldens/primary_button.png'),
+  );
+});
+```
+
+### Golden Workflow
+
+```bash
+flutter test --update-goldens  # Generate/update reference images
+flutter test                   # Compare against references
+```
+
+### Best Practices
+
+- Store in `test/goldens/` and commit to version control
+- Platform-dependent rendering — generate on CI platform
+- Set explicit `physicalSize` and `devicePixelRatio` for deterministic output
+- Use `Tags('golden')` to separate from unit tests
+
+## Testing with Riverpod
+
+### Override Providers
+
+```dart
+testWidgets('displays user name', (tester) async {
+  await tester.pumpWidget(
+    ProviderScope(
+      overrides: [
+        userProvider.overrideWith((ref) => AsyncData(User(name: 'Alice'))),
+      ],
+      child: const MaterialApp(home: ProfileScreen()),
+    ),
+  );
+  await tester.pumpAndSettle();
+  expect(find.text('Alice'), findsOneWidget);
+});
+```
+
+### Unit Test with ProviderContainer
+
+```dart
+test('todosNotifier fetches from repository', () async {
+  final container = ProviderContainer(
+    overrides: [
+      todoRepositoryProvider.overrideWithValue(FakeTodoRepository()),
+    ],
+  );
+  addTearDown(container.dispose);
+
+  await container.read(todosProvider.future);
+  final todos = container.read(todosProvider).valueOrNull;
+  expect(todos, hasLength(3));
+});
+```
+
+### Test Loading/Error States
+
+```dart
+testWidgets('shows loading indicator', (tester) async {
+  await tester.pumpWidget(
+    ProviderScope(
+      overrides: [todosProvider.overrideWith(() => _NeverCompletesNotifier())],
+      child: const MaterialApp(home: TodoListScreen()),
+    ),
+  );
+  expect(find.byType(CircularProgressIndicator), findsOneWidget);
+});
+```
+
+## Testing with BLoC
+
+### blocTest
+
+```dart
+import 'package:bloc_test/bloc_test.dart';
+
+blocTest<AuthBloc, AuthState>(
+  'emits [Loading, Authenticated] on login success',
+  setUp: () {
+    when(() => mockRepo.login(any(), any()))
+        .thenAnswer((_) async => testUser);
+  },
+  build: () => AuthBloc(mockRepo),
+  act: (bloc) => bloc.add(
+    AuthLoginRequested(email: 'a@b.com', password: 'pw')),
+  expect: () => [
+    isA<AuthLoading>(),
+    isA<AuthAuthenticated>()
+        .having((s) => s.user.email, 'email', 'a@b.com'),
+  ],
+  verify: (_) {
+    verify(() => mockRepo.login('a@b.com', 'pw')).called(1);
+  },
+);
+```
+
+### Widget Test with BLoC
+
+```dart
+testWidgets('shows user name from BLoC', (tester) async {
+  final mockBloc = MockUserBloc();
+  when(() => mockBloc.state).thenReturn(UserLoaded(testUser));
+
+  await tester.pumpWidget(MaterialApp(
+    home: BlocProvider<UserBloc>.value(
+      value: mockBloc, child: const UserScreen()),
+  ));
+  expect(find.text(testUser.name), findsOneWidget);
+});
+```
+
+## Mocking with Mocktail
+
+No code generation required (unlike Mockito with build_runner).
+
+```dart
+import 'package:mocktail/mocktail.dart';
+
+class MockUserRepository extends Mock implements UserRepository {}
+
+void main() {
+  late MockUserRepository mockRepo;
+  setUp(() { mockRepo = MockUserRepository(); });
+
+  test('fetches user by id', () async {
+    when(() => mockRepo.getUser('123'))
+        .thenAnswer((_) async => User(id: '123', name: 'Alice'));
+
+    final user = await mockRepo.getUser('123');
+    expect(user.name, 'Alice');
+    verify(() => mockRepo.getUser('123')).called(1);
+  });
+}
+
+// Register fallback values for non-nullable params in any()
+setUpAll(() {
+  registerFallbackValue(User(id: '', name: ''));
+});
+```
 
 ## Integration Tests
 
-Use integration tests for real navigation, plugin behavior, auth flows, and app-wide interactions.
+```dart
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+import 'package:my_app/main.dart' as app;
 
-| Flow | Why integration matters |
-|-----|--------------------------|
-| login flow | text fields, navigation, async auth |
-| deep linking | router + state restore |
-| camera/file plugins | device/runtime integration |
-| multi-screen checkout/onboarding | full app shell behavior |
+void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-Keep the suite lean and focused on critical journeys.
+  testWidgets('full login flow', (tester) async {
+    app.main();
+    await tester.pumpAndSettle();
 
-## Mocking Strategy
+    await tester.enterText(find.byKey(Key('email')), 'alice@example.com');
+    await tester.enterText(find.byKey(Key('password')), 'password123');
+    await tester.tap(find.byKey(Key('login_button')));
+    await tester.pumpAndSettle();
 
-| Boundary | Mock? |
-|---------|-------|
-| HTTP client / repository | yes in widget tests |
-| provider/bloc state source | often |
-| pure widget child | only if unrelated and noisy |
-| platform channels | fake when plugin not needed |
+    expect(find.text('Dashboard'), findsOneWidget);
+  });
+}
+```
 
-Mock external boundaries, not the Flutter framework itself.
+```bash
+flutter test integration_test/app_test.dart -d <device-id>
+```
 
-## Finder Strategy
+## Test Organization
 
-| Finder | Use |
-|-------|-----|
-| `find.text` | visible text |
-| `find.byType` | widget class presence |
-| `find.byKey` | stable test targeting |
-| semantic/finder patterns | accessibility-aware targeting |
+```
+test/
+  unit/
+    models/
+    providers/
+    blocs/
+  widget/
+    screens/
+    components/
+  goldens/
+  helpers/
+    pump_app.dart
+    mocks.dart
+integration_test/
+  flows/
+```
 
-Keys are useful when text and structure are unstable, but do not add meaningless keys everywhere.
+### Shared Helper
 
-## Async and Loading State Tests
-
-| Scenario | Pattern |
-|---------|---------|
-| provider future loading | initial `pump`, then settle/advance |
-| delayed animation | `pump(Duration(...))` |
-| retry flow | trigger action, pump, assert next state |
-
-Explicitly test loading, success, and error states for async widgets.
-
-## Golden Test Workflow
-
-| Step | Purpose |
-|-----|---------|
-| stabilize fonts/assets | reduce flaky diffs |
-| pump deterministic state | consistent render |
-| capture baseline | visual reference |
-| review diff intentionally | catch real regressions |
-
-Golden tests work best when the component is stable and intentionally visual.
-
-## Navigation and Router Testing
-
-| Need | Pattern |
-|-----|---------|
-| route push/pop | widget/integration test with router shell |
-| deep link handling | integration test |
-| guarded redirect | integration or high-level widget test |
-
-Routing bugs often show up only when multiple providers, auth state, and async loading interact.
-
-## Test Data Strategy
-
-| Pattern | Benefit |
-|--------|---------|
-| small builders / fixtures | readable setup |
-| named fake states | clear intent |
-| provider overrides | isolate only what matters |
-
-Avoid huge hand-authored test trees that no one understands six weeks later.
-
-## Accessibility Testing Notes
-
-Check semantic labels and interactions for high-value widgets.
-
-| Concern | Example |
-|--------|---------|
-| button labels | discoverable actions |
-| text field hints/labels | form clarity |
-| focus order | keyboard/device navigation |
+```dart
+extension PumpApp on WidgetTester {
+  Future<void> pumpApp(Widget widget, {List<Override>? overrides}) async {
+    await pumpWidget(ProviderScope(
+      overrides: overrides ?? [],
+      child: MaterialApp(home: widget),
+    ));
+  }
+}
+```
 
 ## State-Driven Test Matrix
 
-| State kind | Minimum test surface |
-|-----------|----------------------|
-| initial/default | renders correctly |
-| loading | progress / skeleton / disabled UI |
-| success | expected data shown |
-| empty | friendly fallback |
-| error | retry or error messaging |
+| State | Minimum Test |
+|-------|-------------|
+| Initial/default | Renders correctly |
+| Loading | Progress / skeleton |
+| Success | Expected data shown |
+| Empty | Friendly fallback |
+| Error | Retry or message |
 
-If your widget has five states, write tests that prove all five.
-
-## CI Strategy for Flutter Tests
-
-| Step | Why |
-|-----|-----|
-| `flutter test` | fast behavior coverage |
-| targeted golden tests | visual regressions |
-| selected integration suite | critical journey confidence |
-
-Keep CI focused enough to stay fast, but broad enough to catch regressions before release.
-
-## Practical Test Layer Selection
-
-| Scenario | Best layer |
-|---------|------------|
-| text formatter, mapper, parser | unit |
-| reusable button/form widget | widget |
-| auth flow across screens | integration |
-| visual design-system component | golden + widget |
-
-Choose the layer that proves the risk with the least runtime cost.
-
-## Test Harness Patterns
-
-| Need | Pattern |
-|-----|---------|
-| app theme/media setup | wrap in `MaterialApp` / app shell |
-| provider injection | `ProviderScope` / `MultiBlocProvider` |
-| localization | test harness with delegates/locales |
-
-Build a reusable harness for app-wide test setup rather than copying wrappers in every file.
-
-## Failure Diagnostics
-
-When tests fail, make the signal useful.
-
-| Technique | Benefit |
-|----------|---------|
-| named test cases | easier triage |
-| explicit state assertions | less ambiguity |
-| smaller widget surfaces | failures isolate faster |
-
-Test readability is a maintenance feature, not just nicety.
-
-## Common Testing Mistakes
-
-| Mistake | Problem | Fix |
-|--------|---------|-----|
-| testing implementation details | brittle tests | assert user-visible behavior |
-| too many integration tests | slow feedback | move most checks to widget tests |
-| relying only on golden tests | weak behavioral confidence | add interaction tests |
-| not testing empty/error/loading states | production blind spots | cover all major states |
-
-## Release Readiness Checklist
-
-- [ ] Core UI behavior is covered by widget tests
-- [ ] Async widgets test loading, success, and error states
-- [ ] Riverpod/BLoC boundaries are isolated cleanly in tests
-- [ ] Integration tests cover only the highest-value full-app flows
-- [ ] Golden tests are used for stable visual surfaces where they add value
+If a widget has five states, write tests for all five.

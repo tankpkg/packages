@@ -247,6 +247,12 @@ Agentic systems especially need traces that expose intermediate decisions, not j
 | no version metadata on generation spans | regressions hard to attribute |
 | no retrieval/tool separation | root cause guesswork |
 
+## Tracing Review Questions
+
+1. Can this trace explain a bad answer end to end?
+2. Would an operator know which prompt/model/retrieval path changed?
+3. Is the trace schema stable enough to support dashboards and regression analysis over time?
+
 ## Release Readiness Checklist
 
 - [ ] traces cover the whole LLM decision path

@@ -227,14 +227,6 @@ That is one of the highest-value habits in mature Django teams.
 
 It keeps regressions visible where they matter.
 
-## Release Readiness Checklist
-
-- [ ] critical auth and permission boundaries are tested
-- [ ] request/response behavior is covered at the right layer
-- [ ] factories or fixtures keep setup comprehensible
-- [ ] DRF/API contracts are asserted explicitly
-- [ ] guest, allowed, and forbidden paths are all covered where relevant
-
 ## Common Testing Mistakes
 
 | Mistake | Problem | Fix |
@@ -249,3 +241,10 @@ It keeps regressions visible where they matter.
 - [ ] request/response behavior is covered at the right layer
 - [ ] factories or fixtures keep setup comprehensible
 - [ ] DRF/API contracts are asserted explicitly
+- [ ] guest, allowed, and forbidden paths are all covered where relevant
+
+That combination catches a large share of real Django regressions before users do.
+
+It also keeps auth confidence tied to actual request behavior, not assumptions.
+
+Readable tests are part of shipping speed, not overhead.

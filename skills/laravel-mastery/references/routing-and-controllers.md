@@ -260,6 +260,26 @@ return new PostResource($post->load('author'));
 | repeated mutation workflow | action class |
 | repeated response formatting | resource / response helper |
 
+## Form Request Review Questions
+
+1. Should validation and authorization live together in a Form Request here?
+2. Are route-specific validation rules repeating across multiple controllers?
+3. Would a dedicated request object make the controller intent clearer?
+
+## Browser vs API Response Boundary
+
+| Surface | Keep in mind |
+|--------|--------------|
+| browser routes | redirect and flash/session semantics |
+| API routes | explicit JSON/resource contracts |
+| Inertia or Livewire endpoints | still need predictable response shape |
+
+## Rate Limiting Review Questions
+
+1. Is this endpoint public, authenticated, or admin-only?
+2. Should throttling be per-IP, per-user, or per-resource?
+3. Does the limiter protect a sensitive operation such as login or password reset?
+
 ## Common Routing Mistakes
 
 | Mistake | Problem | Fix |

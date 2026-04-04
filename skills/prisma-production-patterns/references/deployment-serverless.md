@@ -342,3 +342,17 @@ import { PrismaClient } from './generated/prisma'
 | Set up monitoring | Query logging, error tracking | Production |
 | Graceful shutdown | `$disconnect()` on SIGTERM | Production |
 | Backup strategy | pg_dump / managed backups | Production |
+
+## Deployment Review Questions
+
+1. Is this target truly serverless, or just containerized production?
+2. Does the pool/proxy strategy match the runtime’s connection behavior?
+3. Are migrations happening in a controlled deploy step instead of at request time?
+
+## Serverless Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| Prisma client initialization hidden in many handlers | cold-start and consistency issues |
+| no pooled/proxied strategy for bursty environments | connection exhaustion |
+| build and migrate flow undocumented | fragile releases |

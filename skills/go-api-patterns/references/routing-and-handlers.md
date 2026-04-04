@@ -305,6 +305,20 @@ Gin is productive, but avoid letting `*gin.Context` leak into service code.
 
 Popular tools include `swag`, `oapi-codegen`, and `ogen`. Choose one and standardize.
 
+## Routing Review Questions
+
+1. Is this router choice solving a real problem or just team familiarity?
+2. Are handlers still thin enough to stay transport-focused?
+3. Would a route/group split improve reviewability before adding more abstractions?
+
+## Handler Design Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| handler builds SQL and business logic together | weak maintainability |
+| route tree hides auth or versioning semantics | poor API clarity |
+| OpenAPI approach chosen ad hoc per endpoint | contract drift |
+
 ## Release Readiness Checklist
 
 - [ ] Router choice matches actual complexity

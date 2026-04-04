@@ -219,14 +219,6 @@ It also reduces hidden dependency on one operator.
 
 Operational simplicity is an architectural win.
 
-## Release Readiness Checklist
-
-- [ ] async/background work is separated from request path where appropriate
-- [ ] caching strategy and invalidation assumptions are explicit
-- [ ] deployment process covers migrations, assets, app server, and workers
-- [ ] production config is environment-driven and documented
-- [ ] Celery, caching, and static/media ownership are operationally clear
-
 ## Deployment Checklist
 
 1. environment variables set correctly
@@ -249,3 +241,10 @@ Operational simplicity is an architectural win.
 - [ ] caching strategy and invalidation assumptions are explicit
 - [ ] deployment process covers migrations, assets, app server, and workers
 - [ ] production config is environment-driven and documented
+- [ ] Celery, caching, and static/media ownership are operationally clear
+
+The strongest deployment process is the one the team can repeat calmly under pressure.
+
+That is the real test of operational quality.
+
+If the process depends on memory, it is not done yet.

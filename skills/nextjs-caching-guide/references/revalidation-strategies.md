@@ -304,5 +304,19 @@ This pattern avoids over-invalidation (refreshing everything) while still enabli
 | Revalidation secret in client code | Anyone can trigger revalidation | Keep secret server-side only |
 | `notFound()` with cached fetch | Cache entry may persist stale 404 state | Tag the fetch so on-demand invalidation clears the bad entry |
 
+## Revalidation Review Questions
+
+1. Is this data shared across routes or unique to one path?
+2. Should invalidation follow the data model (`revalidateTag`) or the UI surface (`revalidatePath`)?
+3. After mutation, does the client also need `router.refresh()` for local cache coherence?
+
+## Time-Based vs On-Demand Trade-off
+
+| Strategy | Strength | Weakness |
+|---------|----------|----------|
+| time-based only | simple | users can see stale post-write data |
+| on-demand only | immediate freshness | missed invalidation can linger indefinitely |
+| hybrid | resilient and fresh | slightly more moving parts |
+
 For cache layer details, see `references/four-cache-layers.md`.
 For use cache tag integration, see `references/use-cache-directive.md`.

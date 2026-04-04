@@ -402,3 +402,17 @@ setup('get auth token', async ({ request }) => {
 | Not waiting for auth redirect | storageState saved before login completes | Assert URL/element after login |
 | storageState with expired tokens | Tests fail on CI with stale state | Always regenerate in setup project |
 | Forgetting .gitignore for .auth/ | Credentials committed to repo | Add `.auth/` to .gitignore |
+
+## Auth Strategy Review Questions
+
+1. Should this suite share auth state, or does each test need fresh login/setup?
+2. Are multiple roles isolated cleanly enough for parallel execution?
+3. Is the saved state regenerated often enough to avoid hidden expiry drift?
+
+## Auth-State Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| one shared account across mutating parallel tests | test interference |
+| auth files created ad hoc without setup project | stale or inconsistent state |
+| login flow assumed stable with no post-login assertion | false-success storage capture |

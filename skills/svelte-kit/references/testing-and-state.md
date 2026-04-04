@@ -263,6 +263,20 @@ Component and E2E tests should assert accessible UI when practical.
 | Keeping global singleton state across tests | flaky bleed-through | reset state between tests |
 | Assuming SSR and client navigation behave the same | misses real bugs | test both where relevant |
 
+## Testing Review Questions
+
+1. Is this best proven with Vitest, a component test, or Playwright?
+2. Does shared state survive or reset exactly where the UX expects?
+3. Are route/data-loading assumptions tested at the right layer?
+
+## State Management Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| global store used for purely local state | unnecessary coupling |
+| layout-owned state pushed into each page | brittle duplication |
+| component tests mocking away the actual risky boundary | weak confidence |
+
 ## Release Readiness Checklist
 
 - [ ] Pure helpers have Vitest coverage

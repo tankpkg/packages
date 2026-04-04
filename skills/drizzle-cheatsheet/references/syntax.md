@@ -242,6 +242,12 @@ await db.delete(users).where(eq(users.id, userId))
 
 The cheat sheet is successful if an engineer can move from “I forgot the exact Drizzle syntax” to a working schema, query, or drizzle-kit command in seconds.
 
+## Drizzle Cheat-Sheet Review Questions
+
+1. Can the reader get from schema to query to migration command without leaving the page?
+2. Are relation and query examples explicit enough for SQL-minded teams?
+3. Is the migration workflow clear enough to prevent `push`/`generate` drift?
+
 ## Final Drizzle Checklist
 
 - [ ] schema syntax examples are easy to copy

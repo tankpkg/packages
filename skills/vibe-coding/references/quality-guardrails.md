@@ -251,3 +251,17 @@ Before deploying AI-generated code to production:
 | Are there no new `any` types? | Add proper types |
 | Is the code complexity reasonable? | Refactor before shipping |
 | Would you approve this as a PR from a colleague? | Revise until you would |
+
+## Guardrail Review Questions
+
+1. Did the AI generate something you can explain, or only something that seems to work?
+2. Are tests and type checks validating the risky behavior, not just the happy path?
+3. Would this still be acceptable if a teammate submitted it without mentioning AI?
+
+## Vibe Coding Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| large generated diffs accepted without narrowing scope | weak reviewability |
+| prompts asking for architecture and implementation at once | blurry output quality |
+| no explicit verification loop after generation | hallucinations ship |

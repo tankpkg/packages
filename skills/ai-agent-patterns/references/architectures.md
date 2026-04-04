@@ -301,3 +301,9 @@ Mitigation strategies:
 | Reflexion without automated evaluator | Reflection is vague without concrete feedback | Define rubric or test suite before adding Reflexion |
 | Using LATS for latency-sensitive tasks | Tree search is inherently slow and expensive | Reserve for offline or batch processing |
 | Ignoring context window limits | Agent silently drops old history | Monitor token count, summarize proactively |
+
+## Architecture Review Questions
+
+1. Is an agent architecture even warranted, or would one structured call suffice?
+2. Does the chosen architecture fit the task’s need for adaptation, cost control, and transparency?
+3. Are evaluation and stop conditions explicit enough to prevent endless loops or agent sprawl?

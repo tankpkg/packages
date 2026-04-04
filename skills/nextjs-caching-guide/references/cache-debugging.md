@@ -271,5 +271,19 @@ export async function cachedFetch(url: string, options?: RequestInit & { next?: 
 
 Development mode always re-renders pages to show changes immediately. This means cache bugs often only appear in production. Always test with `next build && next start` before deploying.
 
+## Cache Debugging Review Questions
+
+1. Which cache layer is actually stale right now?
+2. Did the mutation path invalidate the same tags or paths that the read path uses?
+3. Is the stale result coming from Next.js or from infrastructure in front of it?
+
+## Common Debugging Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| adding `force-dynamic` before identifying the stale layer | hides root cause |
+| testing only in dev | misses production-only cache behavior |
+| no tag naming convention | revalidation drift |
+
 For cache layer details, see `references/four-cache-layers.md`.
 For self-hosting cache configuration, see `references/self-hosting-cdn.md`.

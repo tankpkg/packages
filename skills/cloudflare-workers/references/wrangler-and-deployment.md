@@ -248,3 +248,9 @@ This checklist prevents configuration mistakes from masquerading as code problem
 - [ ] Deploy workflow is repeatable via CLI or CI
 - [ ] Compatibility date is pinned intentionally
 - [ ] Staging exists for meaningful validation when risk justifies it
+
+## Deployment Review Questions
+
+1. Are bindings and secrets documented clearly enough for another operator to deploy safely?
+2. Does the staging or preview path actually exercise the risky runtime differences?
+3. Is the Wrangler config expressing real environment intent rather than historical drift?
