@@ -234,6 +234,12 @@ Desktop, web, and mobile should each get at least one target-specific sanity pas
 
 Treat performance regressions like functional bugs when they affect critical flows.
 
+## Lightweight Release Gate
+
+1. compare build size to previous release
+2. smoke-test startup and one critical user journey
+3. verify crash reporting pipeline before broad rollout
+
 ## Release Readiness Checklist
 
 - [ ] App is profiled in profile/release mode, not only debug

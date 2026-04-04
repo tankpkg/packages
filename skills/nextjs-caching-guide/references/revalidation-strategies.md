@@ -267,6 +267,31 @@ function CreatePostForm() {
 }
 ```
 
+## Hierarchical Tag Strategy
+
+For complex apps, organize tags in a hierarchy so one invalidation call cascades correctly:
+
+```typescript
+// lib/cache-tags.ts
+export const TAGS = {
+  PRODUCTS: 'products',
+  PRODUCT: (id: string) => `product-${id}`,
+  PRODUCT_REVIEWS: (id: string) => `product-reviews-${id}`,
+  CATEGORY_PRODUCTS: (catId: string) => `category-products-${catId}`,
+}
+
+// Tag data at multiple levels
+const product = await fetch(`/api/products/${id}`, {
+  next: { tags: [TAGS.PRODUCTS, TAGS.PRODUCT(id)] }
+})
+
+// Invalidate one product or all products
+revalidateTag(TAGS.PRODUCT(id))   // Just this product
+revalidateTag(TAGS.PRODUCTS)       // All product lists
+```
+
+This pattern avoids over-invalidation (refreshing everything) while still enabling broad invalidation when needed.
+
 ## Revalidation Pitfalls
 
 | Pitfall | Problem | Fix |
@@ -277,6 +302,7 @@ function CreatePostForm() {
 | Using `revalidatePath('/')` as catch-all | Invalidates everything, defeats caching purpose | Use specific tags instead |
 | Time-based only, no on-demand | Users see stale data after their own writes | Add tag-based invalidation for mutations |
 | Revalidation secret in client code | Anyone can trigger revalidation | Keep secret server-side only |
+| `notFound()` with cached fetch | Cache entry may persist stale 404 state | Tag the fetch so on-demand invalidation clears the bad entry |
 
 For cache layer details, see `references/four-cache-layers.md`.
 For use cache tag integration, see `references/use-cache-directive.md`.
