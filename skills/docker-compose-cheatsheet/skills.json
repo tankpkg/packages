@@ -1,0 +1,16 @@
+{
+  "name": "@tank/docker-compose-cheatsheet",
+  "version": "1.0.0",
+  "description": "Docker Compose cheat sheet covering commands, compose YAML, services, networks, volumes, profiles, healthchecks, build vs image, and common development workflows.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
