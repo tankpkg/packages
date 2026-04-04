@@ -1,13 +1,15 @@
 {
   "name": "@tank/vibe-coding",
   "version": "1.0.0",
-  "description": "Vibe coding methodology for AI-assisted development. Rules file authoring (AGENTS.md, CLAUDE.md, .cursor/rules/), prompt engineering for code gen, context engineering, Research-Plan-Implement framework, tool selection (Cursor, Claude Code, OpenCode, Windsurf, Copilot, Aider), quality guardrails, prototype-to-production refactoring, and failure mode recovery. Triggers: vibe coding, vibe code, cursorrules, CLAUDE.md, AGENTS.md, context engineering, agentic coding, AI code generation, AI pair programming, vibe coding rules, vibe coding best practices, prompt engineering code.",
+  "description": "Vibe coding methodology for AI-assisted development covering rules files, prompt engineering, context engineering, research-plan-implement workflow, tool selection, quality guardrails, prototype-to-production refactoring, and failure recovery. Triggers: vibe coding, AGENTS.md, CLAUDE.md, context engineering, AI code generation, AI pair programming.",
   "permissions": {
     "network": {
       "outbound": []
     },
     "filesystem": {
-      "read": ["**/*"],
+      "read": [
+        "**/*"
+      ],
       "write": []
     },
     "subprocess": false

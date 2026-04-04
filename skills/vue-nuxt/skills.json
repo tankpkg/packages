@@ -1,13 +1,15 @@
 {
   "name": "@tank/vue-nuxt",
   "version": "1.0.0",
-  "description": "Vue 3 Composition API and Nuxt 3 patterns for production apps. Covers script setup, composables, reactive primitives, TypeScript integration (defineProps, defineEmits, defineModel), Pinia state management, Nuxt data fetching (useFetch, useAsyncData, server routes), middleware, plugins, rendering modes (SSR, SSG, ISR, hybrid routeRules), SEO, Nitro deployment, VueUse, and testing (Vitest, @vue/test-utils). Triggers: vue 3, nuxt 3, composable, pinia, script setup, useFetch, useAsyncData, vue typescript, defineProps, nuxt middleware, nuxt deployment, vue testing.",
+  "description": "Vue 3 and Nuxt 3 production patterns covering script setup, composables, reactive primitives, TypeScript integration, Pinia, data fetching, middleware, plugins, rendering modes, Nitro deployment, and testing. Triggers: vue 3, nuxt 3, composable, pinia, useFetch, useAsyncData, script setup, vue typescript, nuxt middleware.",
   "permissions": {
     "network": {
       "outbound": []
     },
     "filesystem": {
-      "read": ["**/*"],
+      "read": [
+        "**/*"
+      ],
       "write": []
     },
     "subprocess": false

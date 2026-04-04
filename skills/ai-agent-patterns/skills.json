@@ -1,13 +1,15 @@
 {
   "name": "@tank/ai-agent-patterns",
   "version": "1.0.0",
-  "description": "AI agent architecture patterns for production. Covers ReAct, Plan-and-Execute, Reflexion, LATS, tool calling, multi-agent orchestration, memory systems, human-in-the-loop, guardrails, cost optimization, observability, evaluation, and deployment. Framework guidance for LangGraph, CrewAI, Mastra, OpenAI Agents SDK. Triggers: AI agent, build agent, agent architecture, ReAct, LangGraph, CrewAI, Mastra, multi-agent, agent memory, tool calling, human in the loop, agent observability, model routing, guardrails, structured output, agent evaluation.",
+  "description": "Production AI agent architecture patterns covering ReAct, Plan-and-Execute, Reflexion, LATS, tool calling, multi-agent orchestration, memory, human-in-the-loop, guardrails, observability, evaluation, and deployment. Triggers: AI agent, ReAct, LangGraph, CrewAI, multi-agent, tool calling, agent memory, guardrails, structured output, agent evaluation.",
   "permissions": {
     "network": {
       "outbound": []
     },
     "filesystem": {
-      "read": ["**/*"],
+      "read": [
+        "**/*"
+      ],
       "write": []
     },
     "subprocess": false
