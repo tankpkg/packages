@@ -364,3 +364,9 @@ const id = useId()
 | Composable called conditionally | Hooks may not bind correctly | Always call at top level |
 | `watch` without cleanup | Timer/listener leaks | Return cleanup from `watch` callback or use `onUnmounted` |
 | Options API mixins in Vue 3 | Name collisions, implicit dependencies | Rewrite as composables |
+
+## Composition API Review Questions
+
+1. Should this state be `ref`, `reactive`, computed, or moved into a composable?
+2. Are side effects isolated in `watch`/`watchEffect` instead of leaking into computed values?
+3. Does this composable expose a clear API or just move complexity around?

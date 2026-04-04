@@ -1,279 +1,275 @@
 # Layouts and Responsive Design
 
-Sources: Flutter official documentation (layout, BoxConstraints, Flex, Stack, Slivers, Material 3, Cupertino), Dart/Flutter DevTools docs, community production patterns from 2024-2026
+Sources: Flutter layout documentation (flutter.dev 2025-2026), Flutter API reference (api.flutter.dev), Material Design 3 specification (m3.material.io), Apple Human Interface Guidelines (Cupertino)
 
-Covers: BoxConstraints mental model, Flex-based layouts, Stack and positioned content, slivers, responsive design, adaptive Material/Cupertino UI, breakpoints, and layout debugging patterns in Flutter.
+Covers: constraint system, Flex layout, Stack, Slivers, LayoutBuilder, MediaQuery, responsive breakpoints, Material 3 theming, Cupertino widgets, and adaptive design.
 
-## Layout Is Constraint Negotiation
+## Constraint System
 
-Flutter layout is driven by constraints moving down the tree and sizes moving back up.
+Flutter layout uses a single-pass model: constraints go down, sizes go up, parent sets position.
 
-| Concept | Meaning |
-|--------|---------|
-| parent sets constraints | child must obey allowed size range |
-| child picks a size | within those constraints |
-| parent places child | final painting position |
+### BoxConstraints
 
-Understand this and most Flutter layout issues become predictable instead of magical.
+| Situation | Constraint |
+|----------|-----------|
+| `Scaffold` body | Tight max width/height from screen |
+| Child in `Row` | Width may be loose unless Expanded |
+| Child in `ListView` | Main axis often unbounded |
 
-## Flex First: Row, Column, Flex
+### Common Constraint Errors
 
-Use Flex layouts for most standard UI composition.
+| Error | Cause | Fix |
+|-------|-------|-----|
+| `RenderBox was not laid out` | No constraints (Column in Column) | Wrap in `Expanded` or `SizedBox` |
+| `A RenderFlex overflowed` | Children exceed space | `SingleChildScrollView`, `Flexible`, or constrain children |
+| `Unbounded height` in ListView | `ListView` inside `Column` | Wrap `ListView` in `Expanded` or `SizedBox(height:)` |
 
-| Need | Widget |
-|-----|--------|
-| vertical arrangement | `Column` |
-| horizontal arrangement | `Row` |
-| dynamic axis reuse | `Flex` |
+When overflow occurs, ask: what constraints did this widget receive?
 
-### Common companions
+## Flex Layout (Row and Column)
 
-| Widget | Use |
-|-------|-----|
-| `Expanded` | consume remaining space |
-| `Flexible` | flexible sizing without forcing fill |
-| `Spacer` | intentional empty flex space |
-| `SizedBox` | explicit fixed gaps |
+### Alignment
 
-### Flex pitfalls
+```dart
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  crossAxisAlignment: CrossAxisAlignment.center,
+  children: [Text('Left'), Text('Right')],
+)
+```
 
-| Mistake | Problem | Fix |
-|--------|---------|-----|
-| unbounded `Column` in scrollable parent | render/layout errors | wrap in constrained parent or sliver/list |
-| too many nested Rows/Columns | brittle tree | extract and simplify |
-| using `Expanded` everywhere | hard-to-control sizing | use `Flexible`/fixed sizing intentionally |
+### Expanded and Flexible
 
-## BoxConstraints Mental Model
+```dart
+Row(children: [
+  Expanded(flex: 2, child: Container(color: Colors.red)),   // 2/3 width
+  Expanded(flex: 1, child: Container(color: Colors.blue)),  // 1/3 width
+])
+// Flexible: child can be SMALLER than allocated space
+// Expanded: child MUST fill allocated space
+```
 
-| Situation | Constraint intuition |
-|----------|----------------------|
-| `Scaffold` body | usually tight max width/height from screen |
-| child in `Row` | width may be loose unless expanded |
-| child in `ListView` | main axis often unbounded |
+### Spacing
 
-When you see overflow, ask: **what constraints did this widget receive?**
+```dart
+// Preferred (Flutter 3.10+)
+Column(spacing: 16, children: [Widget1(), Widget2(), Widget3()])
 
-## Stack and Overlay Patterns
+// Alternative
+Column(children: [Widget1(), const SizedBox(height: 16), Widget2()])
+```
 
-Use `Stack` when children overlap or anchor relative to the same bounds.
+## Stack
+
+Overlay widgets. First child at bottom, last on top.
 
 ```dart
 Stack(
+  clipBehavior: Clip.none,
   children: [
-    Image.network(heroUrl),
+    Positioned.fill(child: Image.network(url, fit: BoxFit.cover)),
     Positioned(
-      bottom: 16,
-      left: 16,
-      child: Text(title),
+      bottom: 16, left: 16, right: 16,
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.black54, borderRadius: BorderRadius.circular(8)),
+        child: Text('Overlay', style: TextStyle(color: Colors.white)),
+      ),
     ),
   ],
 )
 ```
 
-### Good stack use cases
+Use Stack when children overlap. If no overlap, Flex is better.
 
-| Use case | Why |
-|---------|-----|
-| hero overlay text | same visual layer |
-| badges on avatars/cards | relative positioning |
-| floating controls over media/maps | layered UI |
+## Slivers
 
-Avoid using Stack to fake every layout problem. If children do not overlap, Flex is usually better.
+Scrollable layout primitives. Use `CustomScrollView` for mixed-content scrollable pages.
 
-## Scrollables and Slivers
-
-Use the simplest scroll widget that fits.
-
-| Need | Widget |
-|-----|--------|
-| simple vertical list | `ListView.builder` |
-| simple grid | `GridView.builder` |
-| mixed scrolling content | `CustomScrollView` + slivers |
-| collapsible app bar + sections | `SliverAppBar` + slivers |
-
-### Sliver strategy
-
-| Pattern | Why |
-|--------|-----|
-| `SliverList` | large efficient list |
-| `SliverGrid` | grid inside one scroll context |
-| `SliverToBoxAdapter` | bridge normal widgets into sliver tree |
-| `SliverPadding` | sliver-aware spacing |
-
-Use slivers when multiple independently scrollable widgets start fighting each other.
-
-## Responsive Design Rules
-
-Responsive Flutter is not just screen width checks. It is about information density, layout structure, and input modality.
-
-### Baseline breakpoint thinking
-
-| Size class | Example |
-|-----------|---------|
-| compact | phones |
-| medium | foldables / small tablets |
-| expanded | tablets / desktop |
-
-### Responsive questions
-
-1. Should this layout reflow from column to row?
-2. Should nav become rail/sidebar instead of bottom bar?
-3. Should content width cap for readability?
-
-## `LayoutBuilder` vs `MediaQuery`
-
-| Tool | Use when |
-|-----|----------|
-| `MediaQuery` | you need screen-level data |
-| `LayoutBuilder` | you need parent-constrained width/height |
-
-Prefer `LayoutBuilder` for reusable components because parent constraints matter more than global screen width there.
-
-## Adaptive Design: Material vs Cupertino
-
-Flutter can target multiple platform conventions.
-
-| Pattern | Example |
+| Sliver | Purpose |
 |--------|---------|
-| Material-first app | Android/web default |
-| Cupertino-specific UX | iOS-polished flows |
-| adaptive widget use | `Switch.adaptive`, `CircularProgressIndicator.adaptive` |
+| `SliverAppBar` | Collapsible/pinned app bar |
+| `SliverList` | Variable-height scrollable list |
+| `SliverGrid` | Scrollable grid |
+| `SliverToBoxAdapter` | Non-sliver widget in sliver context |
+| `SliverPersistentHeader` | Sticky/shrinking header |
+| `SliverFillRemaining` | Fill remaining viewport |
+| `SliverPadding` | Padding around a sliver |
 
-Do not over-split every widget by platform. Adapt where users will notice meaningful interaction differences.
+### Mixed Content Scroll
+
+```dart
+CustomScrollView(
+  slivers: [
+    SliverAppBar(
+      expandedHeight: 200, pinned: true,
+      flexibleSpace: FlexibleSpaceBar(
+        title: const Text('Profile'),
+        background: Image.network(coverUrl, fit: BoxFit.cover),
+      ),
+    ),
+    SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: UserInfoCard(user: user),
+      ),
+    ),
+    SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      sliver: SliverGrid.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, mainAxisSpacing: 12, crossAxisSpacing: 12),
+        itemCount: photos.length,
+        itemBuilder: (_, i) => PhotoTile(photo: photos[i]),
+      ),
+    ),
+  ],
+)
+```
+
+## LayoutBuilder
+
+Inspect parent constraints to make layout decisions:
+
+```dart
+LayoutBuilder(builder: (context, constraints) {
+  if (constraints.maxWidth > 900) return WideLayout(child: content);
+  if (constraints.maxWidth > 600) return MediumLayout(child: content);
+  return NarrowLayout(child: content);
+})
+```
+
+### LayoutBuilder vs MediaQuery
+
+| Tool | Responds To | Use |
+|------|------------|-----|
+| `LayoutBuilder` | Parent constraints | Responsive components |
+| `MediaQuery.sizeOf(context)` | Full screen | App-level layout |
+| `MediaQuery.orientationOf(context)` | Orientation | Orientation layouts |
+
+Prefer `LayoutBuilder` for reusable components — adapts to wherever placed.
+
+## Responsive Breakpoints
+
+```dart
+abstract class Breakpoints {
+  static const double compact = 600;
+  static const double medium = 840;
+  static const double expanded = 1200;
+}
+
+class ResponsiveLayout extends StatelessWidget {
+  final Widget compact, medium, expanded;
+  const ResponsiveLayout({super.key, required this.compact,
+    required this.medium, required this.expanded});
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.maxWidth >= Breakpoints.expanded) return expanded;
+      if (constraints.maxWidth >= Breakpoints.medium) return medium;
+      return compact;
+    });
+  }
+}
+```
+
+## Material 3 Theming
+
+### ColorScheme from Seed
+
+```dart
+MaterialApp(
+  theme: ThemeData(
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: const Color(0xFF6750A4), brightness: Brightness.light),
+    useMaterial3: true,
+  ),
+  darkTheme: ThemeData(
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: const Color(0xFF6750A4), brightness: Brightness.dark),
+    useMaterial3: true,
+  ),
+);
+```
+
+### Typography
+
+```dart
+Text('Headline', style: Theme.of(context).textTheme.headlineMedium);
+Text('Body', style: Theme.of(context).textTheme.bodyLarge);
+```
+
+### Material 3 Widgets
+
+| M3 Widget | Replaces |
+|-----------|---------|
+| `NavigationBar` | `BottomNavigationBar` |
+| `NavigationRail` | Side nav for medium screens |
+| `NavigationDrawer` | `Drawer` |
+| `SearchBar` / `SearchAnchor` | Custom search |
+| `FilledButton` | `ElevatedButton` (primary) |
+| `SegmentedButton` | `ToggleButtons` |
+
+## Cupertino (iOS) Widgets
+
+```dart
+// Adaptive widgets - platform-appropriate automatically
+Switch.adaptive(value: val, onChanged: onChanged);
+Slider.adaptive(value: val, onChanged: onChanged);
+CircularProgressIndicator.adaptive();
+```
+
+### Platform-Specific
+
+```dart
+import 'dart:io' show Platform;
+
+Widget buildButton() {
+  if (Platform.isIOS) {
+    return CupertinoButton.filled(child: Text('Save'), onPressed: _save);
+  }
+  return FilledButton(onPressed: _save, child: Text('Save'));
+}
+```
+
+For web, use `kIsWeb` from `package:flutter/foundation.dart`.
 
 ## Navigation Shell Responsiveness
 
-| Width / device | Navigation pattern |
-|---------------|--------------------|
-| phone | bottom navigation bar |
-| tablet | navigation rail |
-| desktop | sidebar / split pane |
-
-Navigation layout often drives the entire app shell structure.
-
-## Content Width and Readability
-
-On desktop/tablet, full-width text layouts often look amateurish.
-
-| Pattern | Benefit |
-|--------|---------|
-| max content width container | better readability |
-| side panels for supporting controls | better use of wide viewports |
-| adaptive two-column forms | shorter scanning paths |
-
-## Common Layout Debugging Moves
-
-| Problem | Debug move |
-|--------|------------|
-| overflow stripes | inspect parent constraints and children sizes |
-| widget not expanding | check `Expanded` / `Flexible` placement |
-| unexpected size | wrap with `ColoredBox` or use DevTools layout explorer |
-| nested scroll weirdness | move to single `CustomScrollView` |
-
-## Material 3 Layout Considerations
-
-Material 3 encourages more adaptive surfaces and spacing-aware layout patterns.
-
-| Surface | Pattern |
-|--------|---------|
-| large-screen nav | rail/sidebar |
-| cards and lists | more breathable spacing |
-| dialogs/sheets | shape and width tuned per size class |
-
-Use Material 3 as a design system, not just a color change.
-
-## Cupertino Adaptation Notes
-
-| Concern | Recommendation |
-|--------|----------------|
-| navigation bars | use Cupertino patterns where the iOS expectation is strong |
-| action sheets / dialogs | prefer platform-consistent presentation |
-| mixed-platform apps | adapt at the shell and key interaction points |
-
-Do not force every screen into a perfect platform fork. Adapt where it changes usability.
-
-## Form Layout Patterns
-
-| Screen size | Pattern |
-|------------|---------|
-| phone | single-column form |
-| tablet | split or two-column form where labels and actions remain clear |
-| desktop | centered content area with supporting side panels when needed |
-
-Keep validation messages, keyboard avoidance, and tap targets in mind while laying out forms.
+| Width | Navigation |
+|-------|-----------|
+| Phone | Bottom navigation bar |
+| Tablet | Navigation rail |
+| Desktop | Sidebar / split pane |
 
 ## Safe Areas and Insets
 
 | Concern | Tool |
 |--------|------|
-| system notches / cutouts | `SafeArea` |
-| keyboard overlap | `MediaQuery.viewInsets` or scaffold behavior |
-| immersive content | opt out intentionally, then handle padding yourself |
+| System notches / cutouts | `SafeArea` |
+| Keyboard overlap | `MediaQuery.viewInsets` |
+| Immersive content | Opt out, handle padding manually |
 
-Ignoring safe areas produces bugs that only show up on real devices.
+## Common Layout Patterns
 
-## Responsive Component Patterns
+| Pattern | Implementation |
+|---------|---------------|
+| Scrollable form | `SingleChildScrollView` + `Column` |
+| Pull-to-refresh list | `RefreshIndicator` + `ListView.builder` |
+| Grid gallery | `GridView.builder` + `SliverGridDelegateWithMaxCrossAxisExtent` |
+| Sticky header list | `CustomScrollView` + `SliverPersistentHeader(pinned: true)` |
+| Bottom sheet | `showModalBottomSheet` or `DraggableScrollableSheet` |
+| Side-by-side on tablet | `LayoutBuilder` with breakpoint |
 
-| Component | Compact pattern | Expanded pattern |
-|----------|-----------------|------------------|
-| settings page | stacked sections | sidebar + detail pane |
-| dashboard cards | single column list | grid / multi-column layout |
-| nav shell | bottom nav | rail / sidebar |
-
-Design responsive components, not just responsive pages.
-
-## Accessibility Layout Checks
-
-1. Test large text scaling
-2. Check touch target sizes
-3. Verify contrast and spacing in dense layouts
-4. Ensure important controls remain reachable with keyboard/switch access on supported platforms
-
-## Real-Device Layout Review
-
-| Device class | What to inspect |
-|-------------|-----------------|
-| small phone | keyboard overlap, tight content, bottom nav reachability |
-| large phone | excessive whitespace or stretched controls |
-| tablet | shell adaptation, list/detail opportunities |
-| desktop | pointer spacing, width capping, side navigation |
-
-Emulators are useful, but final layout trust should come from at least a few real-device checks.
-
-## Animation and Layout Interaction
-
-| Pattern | Watch out for |
-|--------|---------------|
-| animated size changes | overflow during transition |
-| hero transitions | clipping and mismatched bounds |
-| sliver app bars | scroll performance and snapping behavior |
-
-Layout and animation should be profiled together when screens feel janky.
-
-## Theming and Layout Tokens
-
-| Token type | Why it helps |
-|-----------|--------------|
-| spacing scale | consistent rhythm |
-| radius scale | cohesive component language |
-| breakpoint constants | predictable responsive behavior |
-
-Keep layout decisions consistent across screens by centralizing spacing and breakpoint vocabulary.
-
-## Common Layout Mistakes
+## Common Mistakes
 
 | Mistake | Problem | Fix |
 |--------|---------|-----|
-| hard-coding widths everywhere | brittle across devices | use constraints and breakpoints |
-| nested scroll views | jank and gesture conflicts | unify scroll context |
-| ignoring text scale | clipped/overflowing text | test accessibility text sizes |
-| designing only on one phone size | poor tablet/web behavior | test multiple classes |
-
-## Release Readiness Checklist
-
-- [ ] Core screens work on compact and expanded layouts
-- [ ] Navigation adapts appropriately across device classes
-- [ ] Scroll behavior is unified and intentional
-- [ ] Content width is capped for readability where needed
-- [ ] Material/Cupertino adaptation is applied where it improves UX
-- [ ] Accessibility text scaling does not break the layout
+| Hard-coding widths | Brittle across devices | Use constraints and breakpoints |
+| Nested scroll views | Jank and gesture conflicts | Unify scroll context with slivers |
+| Ignoring text scale | Clipped text | Test accessibility text sizes |
+| Designing only for one phone | Poor tablet/web | Test multiple classes |
+| Ignoring SafeArea | Bugs on real devices | Wrap layouts in SafeArea |
+| Full-width text on desktop | Poor readability | Cap content width |

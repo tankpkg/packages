@@ -148,11 +148,7 @@ Provides data to descendants without passing through every constructor. Foundati
 
 ```dart
 class AppConfig extends InheritedWidget {
-  const AppConfig({
-    super.key,
-    required this.apiBaseUrl,
-    required super.child,
-  });
+  const AppConfig({super.key, required this.apiBaseUrl, required super.child});
   final String apiBaseUrl;
 
   static AppConfig of(BuildContext context) {
@@ -160,27 +156,24 @@ class AppConfig extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(AppConfig oldWidget) {
-    return apiBaseUrl != oldWidget.apiBaseUrl;
-  }
+  bool updateShouldNotify(AppConfig oldWidget) =>
+      apiBaseUrl != oldWidget.apiBaseUrl;
 }
 ```
 
-Use when: injecting configuration, custom themes, or feature flags down the tree. For state management, prefer Riverpod or BLoC over raw InheritedWidget.
+Use when: injecting configuration, custom themes, or feature flags. For state management, prefer Riverpod or BLoC over raw InheritedWidget.
 
 ## Lifecycle Methods
-
-Methods called in order during a StatefulWidget's life:
 
 | Method | When Called | Use For |
 |--------|-----------|---------|
 | `createState()` | Widget first inserted | Framework calls this; return State instance |
 | `initState()` | State created, once | Controllers, subscriptions, one-time setup |
-| `didChangeDependencies()` | After `initState`, and when InheritedWidget changes | Reading InheritedWidget values that need initialization |
+| `didChangeDependencies()` | After `initState`, when InheritedWidget changes | Reading inherited values needing initialization |
 | `build()` | Every frame that needs rebuild | Return widget tree; keep pure |
-| `didUpdateWidget(old)` | Parent rebuilds with new widget instance | Compare old and new config, update controllers |
+| `didUpdateWidget(old)` | Parent rebuilds with new widget instance | Compare old/new config, update controllers |
 | `deactivate()` | Element removed from tree (may reinsert) | Rare; clean up tree-position-dependent state |
-| `dispose()` | Element permanently removed | Cancel subscriptions, dispose controllers, release resources |
+| `dispose()` | Element permanently removed | Cancel subscriptions, dispose controllers |
 
 ### Critical Rules
 
@@ -191,7 +184,7 @@ Methods called in order during a StatefulWidget's life:
 
 ## Keys
 
-Keys control Element reuse. Without keys, Flutter matches widgets by position in the child list. With keys, it matches by key identity.
+Keys control Element reuse. Without keys, Flutter matches widgets by position. With keys, it matches by key identity.
 
 ### When Keys Are Required
 
@@ -203,20 +196,19 @@ Keys control Element reuse. Without keys, Flutter matches widgets by position in
 
 | Key | Identity | Use Case |
 |-----|----------|----------|
-| `ValueKey<T>(value)` | Value equality | List items with unique IDs: `ValueKey(item.id)` |
-| `ObjectKey(object)` | Object identity | When the object reference itself is the identity |
-| `UniqueKey()` | Always unique (new instance each build) | Force Element recreation every build |
-| `GlobalKey<T>()` | Global uniqueness across the tree | Access State from outside, move widgets between trees |
+| `ValueKey<T>(value)` | Value equality | List items with unique IDs |
+| `ObjectKey(object)` | Object identity | Object reference is the identity |
+| `UniqueKey()` | Always unique | Force Element recreation every build |
+| `GlobalKey<T>()` | Global across tree | Access State from outside, move widgets |
 
 ### GlobalKey Warnings
 
 - Expensive: framework does global lookup
-- Only one widget in the tree can hold a given GlobalKey at a time
-- Use for: accessing `FormState` (`_formKey.currentState?.validate()`), moving a widget to a different parent while preserving state
+- Only one widget can hold a given GlobalKey at a time
+- Use for: accessing `FormState`, moving widgets between parents
 - Do not use as a substitute for proper state management
 
 ```dart
-// Correct: GlobalKey to access form state
 final _formKey = GlobalKey<FormState>();
 
 Form(
@@ -238,30 +230,26 @@ void _submit() {
 Split large `build` methods into separate widget classes, not helper methods.
 
 ```dart
-// WRONG: helper method — no separate Element, no rebuild optimization
-Widget _buildHeader() {
-  return Container(...);
-}
+// WRONG: helper method - no separate Element, no rebuild optimization
+Widget _buildHeader() => Container(...);
 
-// CORRECT: separate widget — own Element, const-optimizable, testable
+// CORRECT: separate widget - own Element, const-optimizable, testable
 class OrderHeader extends StatelessWidget {
   const OrderHeader({super.key, required this.order});
   final Order order;
-
   @override
   Widget build(BuildContext context) => Container(...);
 }
 ```
 
-### Builder Pattern for Deferred Build
+### Builder Pattern
 
-Use `Builder` or `LayoutBuilder` when you need a fresh `BuildContext` inside a subtree:
+Use `Builder` when a fresh `BuildContext` is needed inside a subtree:
 
 ```dart
 Scaffold(
   body: Builder(
     builder: (scaffoldContext) {
-      // scaffoldContext is below Scaffold, so Scaffold.of works
       return ElevatedButton(
         onPressed: () => Scaffold.of(scaffoldContext).openDrawer(),
         child: const Text('Open Drawer'),
@@ -285,12 +273,10 @@ class AppCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        children: [
-          Row(children: [Expanded(child: title), if (trailing != null) trailing!]),
-          child,
-        ],
-      ),
+      child: Column(children: [
+        Row(children: [Expanded(child: title), if (trailing != null) trailing!]),
+        child,
+      ]),
     );
   }
 }
@@ -300,11 +286,11 @@ class AppCard extends StatelessWidget {
 
 | Anti-Pattern | Problem | Fix |
 |-------------|---------|-----|
-| State in `build()` method | Recreated every frame, causes flicker | Move to `initState` or state management |
-| `setState(() {})` with empty callback | Rebuilds entire widget for nothing | Only call when state actually changes |
-| Deeply nested widget trees in one class | Hard to test, hard to optimize | Extract into separate widget classes |
-| Using `GlobalKey` for state access | Global lookup, fragile, expensive | Use Riverpod/BLoC for cross-widget state |
-| Missing `const` on static widgets | Prevents framework rebuild optimization | Add `const` to every possible constructor |
-| Storing `BuildContext` in fields | Stale after unmount, causes crashes | Use `mounted` check, pass context locally |
-| Creating `ScrollController` in `build` | New controller per frame, scroll position lost | Create in `initState`, dispose in `dispose` |
-| Heavy computation in `build` | Jank on every rebuild | Move to `initState`, compute once, or use `FutureBuilder` |
+| State in `build()` method | Recreated every frame | Move to `initState` or state management |
+| `setState(() {})` with empty callback | Rebuilds for nothing | Only call when state changes |
+| Deeply nested tree in one class | Hard to test and optimize | Extract into separate widgets |
+| `GlobalKey` for state access | Global lookup, fragile | Use Riverpod/BLoC |
+| Missing `const` on static widgets | Prevents rebuild optimization | Add `const` everywhere possible |
+| Storing `BuildContext` in fields | Stale after unmount | Check `mounted`, pass locally |
+| `ScrollController` in `build` | New controller per frame | Create in `initState`, dispose |
+| Heavy computation in `build` | Jank on every rebuild | Move to `initState` or compute once |

@@ -343,3 +343,17 @@ async def lifespan(app: FastAPI):
 | Hardcoded configuration values | Cannot change per environment | Environment variables via `BaseSettings` |
 | Skip `__init__.py` files | Import resolution breaks | Always include, even if empty |
 | Monolithic `main.py` with all routes | Unmaintainable after 20 routes | Split into feature modules |
+
+## Project Structure Review Questions
+
+1. Does this layout group code by feature or by technical layer only?
+2. Are dependencies (settings, DB session, auth) injected at boundaries instead of imported globally?
+3. Can a new engineer find one feature’s router, schemas, and service logic quickly?
+
+## Boundary Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| routers importing each other directly | tangled app graph |
+| settings or DB session created ad hoc in modules | lifecycle inconsistency |
+| one giant services package with no feature ownership | weak maintainability |

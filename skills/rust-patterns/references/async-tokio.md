@@ -376,3 +376,23 @@ stream::iter(urls)
 ```
 
 `buffer_unordered(n)` limits concurrency to n simultaneous futures -- essential for controlling resource usage.
+
+## Async Review Questions
+
+1. Is this task model genuinely concurrent, or just more complex than needed?
+2. Are cancellation and shutdown semantics explicit enough for production?
+3. Could locks, channels, or spawned tasks be simplified before adding more async machinery?
+
+## Async Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| holding locks across `.await` | deadlocks and runtime contention |
+| spawning tasks with unclear ownership | leaks and shutdown pain |
+| mixing blocking work into async paths casually | stalls runtime progress |
+
+## Final Async Checklist
+
+- [ ] cancellation and shutdown are intentional
+- [ ] blocking work is isolated or moved off the async runtime
+- [ ] spawn, channel, and lock choices reflect actual concurrency needs

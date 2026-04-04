@@ -261,5 +261,11 @@ In the Router Cache (Next.js 15+), `loading.tsx` output is cached for 5 minutes 
 | PPR without meaningful fallbacks | Users see empty skeletons | Design informative loading states |
 | Mixing static and dynamic in same component | Whole component becomes dynamic | Split into static parent + dynamic child |
 
+## Rendering Review Questions
+
+1. Is this route same-for-all-users static content or request-specific dynamic content?
+2. Could a static parent plus dynamic child preserve cacheability without losing UX?
+3. Are rendering decisions being made because of data needs, or just habit?
+
 For cache layer mechanics, see `references/four-cache-layers.md`.
 For revalidation after mutations, see `references/revalidation-strategies.md`.

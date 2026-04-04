@@ -270,3 +270,9 @@ Before shipping a migrated Svelte 5 codebase, ask:
 - [ ] Migration from Svelte 4 to 5 is staged and test-backed
 - [ ] Existing stores were migrated only where runes genuinely improve clarity
 - [ ] Deployment configuration is documented and reproducible for the chosen target
+
+## Deployment Review Questions
+
+1. Is this route truly static, or does user/request context leak in?
+2. Does the chosen adapter match the real hosting/runtime constraints?
+3. During migration, did any server/client boundaries accidentally shift?

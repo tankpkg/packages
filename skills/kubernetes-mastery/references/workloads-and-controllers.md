@@ -369,3 +369,9 @@ Setting `restartPolicy: Always` on an init container makes it a native sidecar. 
 | `app.kubernetes.io/managed-by` | `helm` | Tool managing the resource |
 
 Use consistent labels across all resources. Selectors depend on them for Services, Deployments, NetworkPolicies, and monitoring.
+
+## Workload Review Questions
+
+1. Is this workload better expressed as Deployment, StatefulSet, DaemonSet, or Job?
+2. Are rollout semantics aligned with the application’s actual state and startup behavior?
+3. Do labels and selectors make ownership, discovery, and policy attachment obvious?

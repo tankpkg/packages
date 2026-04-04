@@ -399,3 +399,9 @@ terraform {
 | No tagging standard | Cannot track costs or ownership | Enforce tags via default_tags + policy |
 | Environment config in module | Module not reusable | Pass environment as variable |
 | No example.tfvars | New team members cannot start | Commit example.tfvars with dummy values |
+
+## Structure Review Questions
+
+1. Is this project split by environment, by layer, or by product boundary intentionally?
+2. Does the state layout match team ownership and blast-radius expectations?
+3. Would a new engineer know where to add one resource without copying a bad pattern?

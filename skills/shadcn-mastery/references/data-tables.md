@@ -443,3 +443,8 @@ export function DataTableColumnHeader<TData, TValue>({
 ```
 
 Use in column definitions: `header: ({ column }) => <DataTableColumnHeader column={column} title="Email" />`
+
+## Data Table Review Questions
+
+1. Is this table sized for the actual dataset and UX?
+2. Could sorting or pagination move server-side more cleanly?

@@ -299,6 +299,8 @@ URLs map directly to file routes: `https://example.com/users/123` opens `app/use
 
 ## Authentication Pattern
 
+Protected Routes are the preferred current Expo Router pattern, but layout-level redirects still appear in real codebases. Use one pattern consistently within a project.
+
 Redirect unauthenticated users from the root layout:
 
 ```typescript
@@ -330,6 +332,20 @@ export default function AppLayout() {
 }
 ```
 
+## Navigation Review Questions
+
+1. Does this screen belong in a stack, tabs, modal, or route group?
+2. Are auth boundaries enforced in the right layout level instead of scattered per screen?
+3. Will deep links resolve cleanly to the intended route and shell?
+
+## Expo Router Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| auth redirects duplicated in many screens | weak route ownership |
+| route groups used without clear shell boundaries | navigation confusion |
+| deep link config present but not tested against real routes | production breakage |
+
 ## API Routes (Web Only)
 
 Expo Router supports server-side API routes for web deployments:
@@ -340,7 +356,7 @@ export function GET(request: Request) {
   return Response.json({ users: [] });
 }
 
-export function POST(request: Request) {
+export async function POST(request: Request) {
   const body = await request.json();
   return Response.json({ created: true }, { status: 201 });
 }

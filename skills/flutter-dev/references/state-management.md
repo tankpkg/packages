@@ -17,7 +17,7 @@ Rule: use `setState` until you need to share state between widgets. Then reach f
 
 ## Riverpod
 
-Riverpod is the recommended state management solution for new Flutter projects. It is compile-safe (no runtime errors from missing providers), supports autoDispose, and works without BuildContext.
+Riverpod is the recommended state management for new Flutter projects. Compile-safe, supports autoDispose, works without BuildContext.
 
 ### Provider Types
 
@@ -30,11 +30,9 @@ Riverpod is the recommended state management solution for new Flutter projects. 
 | `StreamProvider` | Real-time streams (WebSocket, Firestore) | `AsyncValue<T>` |
 | `StateProvider` | Simple mutable primitive (counter, toggle) | `T` directly |
 
-Prefer `NotifierProvider` and `AsyncNotifierProvider` for anything beyond trivial state. They centralize mutation logic in the Notifier class.
+Prefer `NotifierProvider` and `AsyncNotifierProvider` for anything beyond trivial state.
 
 ### AsyncNotifierProvider Pattern
-
-The production workhorse for API-backed state:
 
 ```dart
 final todosProvider = AsyncNotifierProvider<TodosNotifier, List<Todo>>(
@@ -44,7 +42,6 @@ final todosProvider = AsyncNotifierProvider<TodosNotifier, List<Todo>>(
 class TodosNotifier extends AsyncNotifier<List<Todo>> {
   @override
   Future<List<Todo>> build() async {
-    // Called on first read and after invalidation
     final repository = ref.watch(todoRepositoryProvider);
     return repository.fetchAll();
   }
@@ -80,15 +77,15 @@ class TodosNotifier extends AsyncNotifier<List<Todo>> {
 | Method | When | Rebuilds? |
 |--------|------|-----------|
 | `ref.watch(provider)` | In `build` or provider body | Yes |
-| `ref.read(provider)` | In callbacks, event handlers, one-time reads | No |
-| `ref.listen(provider, callback)` | Side effects (show snackbar, navigate) | No (fires callback) |
-| `ref.invalidate(provider)` | Force provider to rebuild lazily | Marks stale |
-| `ref.refresh(provider)` | Force rebuild and return new value immediately | Returns new value |
+| `ref.read(provider)` | In callbacks, event handlers | No |
+| `ref.listen(provider, callback)` | Side effects (snackbar, navigate) | No (fires callback) |
+| `ref.invalidate(provider)` | Force lazy rebuild | Marks stale |
+| `ref.refresh(provider)` | Force rebuild, return new value | Returns new value |
 
 ### autoDispose and family
 
 ```dart
-// autoDispose: provider disposed when no widget watches it
+// autoDispose: disposed when no widget watches it
 final searchProvider = FutureProvider.autoDispose<List<Result>>((ref) async {
   final query = ref.watch(searchQueryProvider);
   return api.search(query);
@@ -96,13 +93,10 @@ final searchProvider = FutureProvider.autoDispose<List<Result>>((ref) async {
 
 // family: parameterized providers
 final userProvider = FutureProvider.autoDispose.family<User, String>(
-  (ref, userId) async {
-    return ref.watch(apiClientProvider).getUser(userId);
-  },
+  (ref, userId) async => ref.watch(apiClientProvider).getUser(userId),
 );
 
-// Consume family provider
-final user = ref.watch(userProvider('user-123'));
+// Consume: ref.watch(userProvider('user-123'))
 
 // Multiple parameters with records
 final filteredProvider = Provider.family<List<Item>, ({String query, bool active})>(
@@ -116,28 +110,24 @@ final filteredProvider = Provider.family<List<Item>, ({String query, bool active
 ### Riverpod Testing
 
 ```dart
-void main() {
-  test('TodosNotifier fetches todos on build', () async {
-    final container = ProviderContainer(
-      overrides: [
-        todoRepositoryProvider.overrideWithValue(MockTodoRepository()),
-      ],
-    );
-    addTearDown(container.dispose);
+test('TodosNotifier fetches todos on build', () async {
+  final container = ProviderContainer(
+    overrides: [
+      todoRepositoryProvider.overrideWithValue(MockTodoRepository()),
+    ],
+  );
+  addTearDown(container.dispose);
 
-    // Wait for async provider to complete
-    await container.read(todosProvider.future);
-
-    final todos = container.read(todosProvider).valueOrNull;
-    expect(todos, isNotEmpty);
-  });
-}
+  await container.read(todosProvider.future);
+  final todos = container.read(todosProvider).valueOrNull;
+  expect(todos, isNotEmpty);
+});
 ```
 
 ### ConsumerWidget vs Consumer
 
 ```dart
-// Full widget — use for most cases
+// Full widget - most cases
 class TodoList extends ConsumerWidget {
   const TodoList({super.key});
 
@@ -155,56 +145,41 @@ class TodoList extends ConsumerWidget {
   }
 }
 
-// Scoped rebuild — use to limit rebuild surface
+// Scoped rebuild - limit rebuild surface
 class BigScreen extends StatelessWidget {
+  const BigScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const ExpensiveHeader(), // Does NOT rebuild
-        Consumer(
-          builder: (context, ref, child) {
-            final count = ref.watch(counterProvider);
-            return Text('$count'); // Only this rebuilds
-          },
-        ),
-      ],
-    );
+    return Column(children: [
+      const ExpensiveHeader(), // Does NOT rebuild
+      Consumer(builder: (context, ref, child) {
+        final count = ref.watch(counterProvider);
+        return Text('$count'); // Only this rebuilds
+      }),
+    ]);
   }
 }
 ```
 
 ## BLoC / Cubit
 
-BLoC (Business Logic Component) separates UI from business logic using streams. Cubit is a simplified BLoC without explicit events.
+BLoC separates UI from business logic using streams. Cubit is simplified BLoC without events.
 
 ### When BLoC vs Cubit
 
 | Signal | Use |
 |--------|-----|
-| Need to trace/log every state change trigger | BLoC (events are objects, loggable) |
-| Complex async workflows (debounce, throttle, concurrent) | BLoC (event transformers) |
+| Trace/log every state change trigger | BLoC (events are loggable objects) |
+| Complex async (debounce, throttle, concurrent) | BLoC (event transformers) |
 | Simple state mutations | Cubit (direct method calls) |
-| Team prefers explicit event classes | BLoC |
-| Minimal boilerplate wanted | Cubit |
-
-### Cubit Pattern
-
-```dart
-class CounterCubit extends Cubit<int> {
-  CounterCubit() : super(0);
-  void increment() => emit(state + 1);
-  void decrement() => emit(state - 1);
-}
-```
+| Minimal boilerplate | Cubit |
 
 ### BLoC Pattern with Sealed Events
 
 ```dart
 sealed class AuthEvent {}
 class AuthLoginRequested extends AuthEvent {
-  final String email;
-  final String password;
+  final String email, password;
   AuthLoginRequested({required this.email, required this.password});
 }
 class AuthLogoutRequested extends AuthEvent {}
@@ -212,18 +187,11 @@ class AuthLogoutRequested extends AuthEvent {}
 sealed class AuthState {}
 class AuthInitial extends AuthState {}
 class AuthLoading extends AuthState {}
-class AuthAuthenticated extends AuthState {
-  final User user;
-  AuthAuthenticated(this.user);
-}
-class AuthFailure extends AuthState {
-  final String message;
-  AuthFailure(this.message);
-}
+class AuthAuthenticated extends AuthState { final User user; AuthAuthenticated(this.user); }
+class AuthFailure extends AuthState { final String message; AuthFailure(this.message); }
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _repo;
-
   AuthBloc(this._repo) : super(AuthInitial()) {
     on<AuthLoginRequested>(_onLogin);
     on<AuthLogoutRequested>(_onLogout);
@@ -251,7 +219,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 | Widget | Use |
 |--------|-----|
 | `BlocBuilder<B, S>` | Rebuild UI on state change |
-| `BlocListener<B, S>` | Side effects (navigation, snackbar) — no rebuild |
+| `BlocListener<B, S>` | Side effects without rebuild |
 | `BlocConsumer<B, S>` | Both rebuild and side effects |
 | `BlocSelector<B, S, T>` | Rebuild only when selected value changes |
 
@@ -259,35 +227,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
 ```dart
 blocTest<AuthBloc, AuthState>(
-  'emits [AuthLoading, AuthAuthenticated] on successful login',
+  'emits [AuthLoading, AuthAuthenticated] on login success',
   build: () => AuthBloc(mockRepo),
   act: (bloc) => bloc.add(AuthLoginRequested(email: 'a@b.com', password: 'pw')),
-  expect: () => [
-    isA<AuthLoading>(),
-    isA<AuthAuthenticated>(),
-  ],
+  expect: () => [isA<AuthLoading>(), isA<AuthAuthenticated>()],
 );
 ```
 
 ## Provider (Legacy)
 
-Still widely used in existing codebases. Not recommended for new projects — use Riverpod instead.
+Still used in existing codebases. Not recommended for new projects.
 
 ```dart
-ChangeNotifierProvider(
-  create: (_) => CartModel(),
-  child: const MyApp(),
-);
+ChangeNotifierProvider(create: (_) => CartModel(), child: const MyApp());
 
-// Consume
-Consumer<CartModel>(
-  builder: (context, cart, child) => Text('${cart.totalItems}'),
-);
-
-// Read without rebuilding
+Consumer<CartModel>(builder: (context, cart, child) => Text('${cart.totalItems}'));
 context.read<CartModel>().addItem(item);
-
-// Select specific field (rebuild only when that field changes)
 context.select<CartModel, int>((cart) => cart.totalItems);
 ```
 
@@ -298,20 +253,19 @@ context.select<CartModel, int>((cart) => cart.totalItems);
 | Learning curve | Medium | Medium-High | Low |
 | Boilerplate | Low (with codegen) | Medium-High | Low |
 | Testability | Excellent (ProviderContainer) | Excellent (blocTest) | Good |
-| Compile safety | Yes (no runtime missing-provider errors) | Partial | No |
-| DevTools support | Riverpod DevTools | BLoC Observer | Provider DevTools |
-| Event traceability | Manual logging | Built-in (events are objects) | Manual logging |
-| Async handling | AsyncValue (loading/data/error built-in) | Manual with state classes | Manual |
-| Code generation | Optional (riverpod_generator) | Optional (freezed for states) | None |
+| Compile safety | Yes | Partial | No |
+| Event traceability | Manual | Built-in | Manual |
+| Async handling | AsyncValue built-in | Manual state classes | Manual |
+| Code generation | Optional (riverpod_generator) | Optional (freezed) | None |
 
 ## Common Mistakes
 
 | Mistake | Approach | Fix |
 |---------|----------|-----|
-| `ref.watch` in callbacks | Riverpod | Use `ref.read` in onPressed/onTap |
-| Creating provider inside `build` | Riverpod | Define providers as top-level globals |
+| `ref.watch` in callbacks | Riverpod | Use `ref.read` in onPressed |
+| Creating provider inside `build` | Riverpod | Define as top-level globals |
 | Giant monolithic BLoC | BLoC | Split into feature-scoped BLoCs |
-| Not using `Equatable` on states | BLoC | Extend Equatable or use Freezed for state equality |
-| Nested `ChangeNotifierProvider` 5+ levels | Provider | Migrate to Riverpod (flat provider graph) |
-| Mixing `setState` and state management for same data | All | Pick one source of truth per piece of state |
-| Not disposing streams/subscriptions | All | Use autoDispose (Riverpod) or close in `dispose()` |
+| Not using `Equatable` on states | BLoC | Extend Equatable or use Freezed |
+| Nested ChangeNotifierProvider 5+ levels | Provider | Migrate to Riverpod |
+| Mixing setState and state management | All | Pick one source of truth |
+| Not disposing streams | All | Use autoDispose or close in `dispose()` |

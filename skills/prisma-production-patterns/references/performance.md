@@ -347,3 +347,17 @@ Recommendations include missing indexes, N+1 detection, and query restructuring 
 | Complex aggregations | Consider raw SQL or database views |
 | API response time | Enable query logging, profile slow queries |
 | Pagination depth | Switch from offset to cursor-based pagination |
+
+## Performance Review Questions
+
+1. Is the bottleneck query count, payload size, or connection management?
+2. Would query shaping fix this before caching or raw SQL is needed?
+3. Is the hot path serverful, serverless, or edge-adjacent?
+
+## Performance Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| broad `include` trees everywhere | payload and query overhead |
+| offset pagination on deep lists | scaling pain |
+| one performance dashboard with no route attribution | low actionability |

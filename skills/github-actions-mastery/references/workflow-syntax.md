@@ -308,3 +308,17 @@ jobs:
 ```
 
 Services start before steps and are accessible via `localhost` when using `ports` mapping. Use `options` for Docker health checks to ensure the service is ready before tests run.
+
+## Workflow Syntax Review Questions
+
+1. Are triggers narrow enough to match the real release/development intent?
+2. Are jobs split by purpose, or is one giant workflow hiding concerns?
+3. Would a reusable workflow or composite action reduce duplication more cleanly?
+
+## Syntax Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| giant inline workflows with repeated setup logic | maintenance drag |
+| unreviewed expression complexity in `if:` clauses | hard-to-debug CI behavior |
+| no explicit permissions block | weak security posture |

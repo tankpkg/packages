@@ -242,9 +242,10 @@ They also make scaling the codebase less painful.
 - [ ] mixed HTML/API apps keep boundaries clean and auth semantics explicit
 - [ ] permission and pagination behavior are tested where relevant
 
-## Release Readiness Checklist
+Good surface boundaries make later scaling and debugging far easier.
 
-- [ ] DRF or Ninja choice matches actual API needs
-- [ ] serializer shape is explicit and query-safe
-- [ ] HTMX routes return focused fragments and keep progressive enhancement intact
-- [ ] mixed HTML/API apps keep boundaries clean and auth semantics explicit
+That is one reason Django apps can stay maintainable for years.
+
+They also make auth and caching behavior easier to reason about.
+
+That clarity becomes more valuable as the codebase grows.

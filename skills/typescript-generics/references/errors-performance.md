@@ -281,3 +281,17 @@ Enable `strict: true` for all new projects. Each flag catches different classes 
 | 8 | Test with edge cases: never, unknown, any, union |
 | 9 | Check if recursive type exceeds depth |
 | 10 | Profile with --generateTrace if slow |
+
+## Review Questions
+
+1. Is this generic type hard because the domain is hard, or because the type is over-engineered?
+2. Would a named intermediate type alias make the intent clearer?
+3. Is the type-level cleverness worth the compile-time and readability cost?
+
+## Type-System Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| one giant conditional type doing everything | poor maintainability |
+| recursive type gymnastics with no measured need | compile-time and readability pain |
+| debugging only with trial-and-error | slower diagnosis than systematic narrowing |

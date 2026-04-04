@@ -100,6 +100,12 @@ kubectl get clusterrolebindings -o json | \
   jq '.items[] | select(.roleRef.name=="cluster-admin") | .subjects'
 ```
 
+### RBAC Review Questions
+
+1. Could this permission be namespaced instead of cluster-wide?
+2. Does this Role or ClusterRole grant only the verbs and resources actually needed?
+3. Is each ServiceAccount scoped to one workload or reused too broadly?
+
 ## ServiceAccounts
 
 Every pod runs as a ServiceAccount. Tokens are projected into the pod as volume mounts.
@@ -189,6 +195,12 @@ metadata:
 
 Start with `warn` mode to see violations in kubectl output without breaking workloads. Move to `enforce` after remediating all violations.
 
+### PSA Review Questions
+
+1. Is this namespace ready for `restricted`, or does it still depend on privileged behavior?
+2. Are warnings being reviewed before enforcement is flipped on?
+3. Is there an intentional exception path for system-level workloads?
+
 ## SecurityContext
 
 Applied at pod or container level to restrict runtime behavior.
@@ -221,9 +233,21 @@ spec:
 | NET_RAW | Network tools (ping, tcpdump) |
 | All others | Drop unless specifically required |
 
+### SecurityContext Review Questions
+
+1. Does this workload truly need root, writable root filesystem, or added capabilities?
+2. Are pod-level and container-level security settings aligned, or contradictory?
+3. Is the hardened posture enforced by policy or only by convention?
+
 ## NetworkPolicies
 
 Control pod-to-pod and pod-to-external traffic. Requires a CNI that supports NetworkPolicies (Calico, Cilium, Weave).
+
+### NetworkPolicy Review Questions
+
+1. Is default deny actually in place for namespaces that need isolation?
+2. Have required DNS and control-plane egress paths been explicitly restored?
+3. Does this policy model the real service graph, or just an assumed one?
 
 ### Default Deny All
 

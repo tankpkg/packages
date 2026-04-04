@@ -398,3 +398,17 @@ npx playwright merge-reports --reporter html ./shard-results/
 ```
 
 Use `blob` reporter on each shard, then merge for the final HTML report. See `references/ci-cd-integration.md` for full CI workflow.
+
+## Configuration Review Questions
+
+1. Do projects, retries, timeouts, and reporters match the actual CI/runtime behavior of this suite?
+2. Is sharding solving a real bottleneck, or hiding slow/unfocused tests?
+3. Are browser/device projects chosen intentionally instead of by cargo cult?
+
+## Config Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| one global timeout inflated to mask slowness | hides real test problems |
+| too many projects with weak value | slow CI and noisy failures |
+| no artifact/trace strategy in CI | poor debuggability |

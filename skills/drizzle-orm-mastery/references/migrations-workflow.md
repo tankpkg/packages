@@ -262,6 +262,29 @@ For serverless environments (Neon, D1), run migrations during build or in a sepa
 | Introspect generates wrong types | Database column types map differently | Manually adjust the generated schema file |
 | Journal hash mismatch | Migration file was edited after apply | Never edit committed migration files. If needed, create a new migration |
 
+## Migration Review Questions
+
+1. Is this change additive, destructive, or a rename that the tool may misread?
+2. Will this migration behave safely against real production data volume?
+3. Should this change be split into schema-first and data-backfill phases?
+
+## Rename and Destructive Change Heuristics
+
+| Change type | Safer approach |
+|------------|----------------|
+| column rename | prefer generated migration and inspect SQL carefully |
+| table rename | avoid `push`; use reviewed migration |
+| not-null on existing nullable column | backfill first, then add constraint |
+| drop column or table | confirm usage and rollback path before applying |
+
+## Environment Strategy
+
+| Environment | Recommendation |
+|------------|----------------|
+| local dev | `push` may be acceptable for speed |
+| shared staging | prefer generated and reviewed migrations |
+| production | reviewed SQL migrations only |
+
 ## Custom Migration Behavior
 
 ### Running Specific Migrations

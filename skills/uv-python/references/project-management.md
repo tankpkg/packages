@@ -352,3 +352,17 @@ uv lock --upgrade-package httpx
 # Re-add with new constraint
 uv add "httpx>=0.28" --upgrade-package httpx
 ```
+
+## Project Management Review Questions
+
+1. Is this a project dependency, dev dependency, optional extra, or one-off tool?
+2. Is the team using the project interface consistently, or mixing in `uv pip` habits?
+3. Does the lockfile and sync workflow reflect how the repo actually ships code?
+
+## uv Project Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| mixing `uv add` and ad hoc pip installs in project envs | environment drift |
+| lockfile omitted from version control | weak reproducibility |
+| dependency groups used inconsistently across team and CI | setup confusion |

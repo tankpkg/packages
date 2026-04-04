@@ -12,55 +12,36 @@ Dart's sound null safety guarantees that a non-nullable variable can never be `n
 
 | Type | Nullable? | Example |
 |------|-----------|---------|
-| `String` | No | Cannot be null, ever |
+| `String` | No | Cannot be null |
 | `String?` | Yes | Can be null |
-| `late String` | No, but deferred initialization | Must be assigned before first read |
-| `required String name` | No, required named parameter | Caller must provide |
+| `late String` | No, deferred init | Must be assigned before first read |
+| `required String name` | No, required param | Caller must provide |
 
 ### Operators
 
 ```dart
 String? name;
 
-// Null-aware access
-final length = name?.length;         // int? — null if name is null
-final upper = name?.toUpperCase();   // String? — null if name is null
-
-// Null coalescing
-final display = name ?? 'Anonymous'; // String — fallback if null
-
-// Null assertion (throws if null — avoid in production)
-final forced = name!;               // String — throws TypeError if null
-
-// Null-aware assignment
+final length = name?.length;         // int? - null if name is null
+final display = name ?? 'Anonymous'; // String - fallback if null
+final forced = name!;               // String - throws if null (avoid in prod)
 name ??= 'Default';                 // Assigns only if currently null
-
-// Null-aware cascade
-list?..add(1)..add(2);              // Skips cascade if list is null
 ```
 
 ### Late Variables
 
-Use `late` for variables that are expensive to initialize or depend on runtime conditions:
-
 ```dart
 class ApiService {
-  late final HttpClient _client;
-
-  void init(String baseUrl) {
-    _client = HttpClient(baseUrl);
-  }
+  late final HttpClient _client; // Assigned once, then immutable
+  void init(String baseUrl) { _client = HttpClient(baseUrl); }
 }
 ```
 
-Rules:
-- `late final` — assigned once, then immutable. Use for dependency injection
-- `late` (non-final) — assigned later, reassignable. Rare in practice
-- Never use `late` as a substitute for proper null handling — if the variable might genuinely be absent, use `?`
+Rules: `late final` for dependency injection. Never use `late` as a substitute for proper null handling — if the variable might be absent, use `?`.
 
 ## Sealed Classes
 
-Sealed classes restrict which classes can extend or implement them. Combined with pattern matching, they enable exhaustive `switch` expressions — the compiler verifies every subtype is handled.
+Sealed classes restrict subtyping. Combined with pattern matching, they enable exhaustive `switch` — the compiler verifies every subtype is handled.
 
 ```dart
 sealed class Result<T> {
@@ -89,7 +70,7 @@ Widget buildResult(Result<User> result) {
     Failure(:final message) => ErrorDisplay(message: message),
     Loading() => const CircularProgressIndicator(),
   };
-  // Adding a new Result subtype causes a compile error here until handled
+  // Adding a new subtype causes a compile error until handled
 }
 ```
 
@@ -97,65 +78,57 @@ Widget buildResult(Result<User> result) {
 
 | Use Case | Pattern |
 |----------|---------|
-| API response states (loading/data/error) | `sealed class AsyncState` |
+| API response states | `sealed class AsyncState` |
 | Navigation events | `sealed class NavigationEvent` |
-| BLoC events and states | `sealed class AuthEvent`, `sealed class AuthState` |
-| Form validation results | `sealed class ValidationResult` |
-| Union types for config | `sealed class Environment` (dev/staging/prod) |
+| BLoC events and states | `sealed class AuthEvent` |
+| Form validation | `sealed class ValidationResult` |
+| Environment config | `sealed class Environment` (dev/staging/prod) |
 
 ## Records
 
-Records are anonymous, immutable, structural types for returning multiple values without creating a class.
+Anonymous, immutable, structural types for returning multiple values:
 
 ```dart
-// Named fields
-(String name, int age) getUser() {
-  return ('Alice', 30);
-}
+// Positional fields
+(String, int) getUser() => ('Alice', 30);
 
-// Named record fields (preferred for readability)
-({String name, int age}) getUserNamed() {
-  return (name: 'Alice', age: 30);
-}
+// Named fields (preferred)
+({String name, int age}) getUserNamed() => (name: 'Alice', age: 30);
 
 // Destructuring
 final (name, age) = getUser();
-final (:name, :age) = getUserNamed();  // Shorthand destructuring
+final (:name, :age) = getUserNamed();
 ```
 
 ### When Records vs Classes
 
 | Signal | Use Record | Use Class |
 |--------|-----------|-----------|
-| Returning multiple values from a function | Yes | Overkill |
-| Temporary grouping (map key, cache key) | Yes | Overkill |
-| Data model with behavior (methods) | No | Yes |
-| Data model used in API serialization | No | Yes (with Freezed/json_serializable) |
-| Need named constructors or factories | No | Yes |
+| Returning multiple values | Yes | Overkill |
+| Temporary grouping (cache key) | Yes | Overkill |
+| Data with behavior (methods) | No | Yes |
+| API serialization | No | Yes (Freezed/json_serializable) |
+| Named constructors / factories | No | Yes |
 
-Records are structural — two records with the same shape and values are equal:
+Records are structural — same shape and values = equal:
 
 ```dart
 final a = (name: 'Alice', age: 30);
 final b = (name: 'Alice', age: 30);
-assert(a == b); // true — structural equality
+assert(a == b); // true
 ```
 
 ## Pattern Matching
 
-Dart 3 patterns enable destructuring, type checking, and value extraction in `switch`, `if-case`, and variable declarations.
-
 ### Switch Expressions
 
 ```dart
-// Return value from switch
 final label = switch (status) {
   Status.active => 'Active',
   Status.inactive => 'Inactive',
   Status.suspended => 'Suspended',
 };
 
-// Guard clauses
 String describe(num value) => switch (value) {
   < 0 => 'negative',
   == 0 => 'zero',
@@ -169,7 +142,6 @@ String describe(num value) => switch (value) {
 
 ```dart
 final json = {'name': 'Alice', 'age': 30};
-
 if (json case {'name': String name, 'age': int age}) {
   print('$name is $age years old');
 }
@@ -192,16 +164,13 @@ double area(Shape shape) => switch (shape) {
 
 ```dart
 final list = [1, 2, 3, 4, 5];
-
-// Destructure first and rest
 if (list case [var first, ...var rest]) {
   print('First: $first, Rest: $rest');
 }
 
-// Map pattern
 final config = {'debug': true, 'port': 8080};
 if (config case {'debug': true, 'port': int port}) {
-  print('Debug mode on port $port');
+  print('Debug on port $port');
 }
 ```
 
@@ -211,8 +180,10 @@ Add methods to existing types without modifying them:
 
 ```dart
 extension StringX on String {
-  String get capitalize => isEmpty ? '' : '${this[0].toUpperCase()}${substring(1)}';
-  bool get isEmail => RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(this);
+  String get capitalize =>
+      isEmpty ? '' : '${this[0].toUpperCase()}${substring(1)}';
+  bool get isEmail =>
+      RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(this);
 }
 
 extension DateTimeX on DateTime {
@@ -231,25 +202,15 @@ extension ContextX on BuildContext {
   ThemeData get theme => Theme.of(this);
   TextTheme get textTheme => Theme.of(this).textTheme;
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
-  MediaQueryData get mediaQuery => MediaQuery.of(this);
   double get screenWidth => MediaQuery.sizeOf(this).width;
 }
 ```
 
-### Naming Convention
-
-Name extension files `{type}_extensions.dart` and extension classes `{Type}X`:
-
-```
-lib/extensions/
-  string_extensions.dart
-  context_extensions.dart
-  datetime_extensions.dart
-```
+Name extension files `{type}_extensions.dart` and classes `{Type}X`.
 
 ## Mixins
 
-Mixins add behavior to classes without inheritance hierarchy constraints:
+Add behavior without inheritance hierarchy constraints:
 
 ```dart
 mixin LoggableMixin {
@@ -262,8 +223,7 @@ mixin ValidatableMixin {
 }
 
 class LoginForm with LoggableMixin, ValidatableMixin {
-  final String email;
-  final String password;
+  final String email, password;
   LoginForm({required this.email, required this.password});
 
   @override
@@ -278,8 +238,6 @@ class LoginForm with LoggableMixin, ValidatableMixin {
 
 ### Mixin Constraints
 
-Restrict which classes can use a mixin:
-
 ```dart
 mixin AnimatableMixin on StatefulWidget {
   // Only StatefulWidget subclasses can use this mixin
@@ -288,11 +246,9 @@ mixin AnimatableMixin on StatefulWidget {
 
 ## Freezed
 
-Freezed generates data classes with immutability, `copyWith`, equality, JSON serialization, and union types.
+Generates data classes with immutability, `copyWith`, equality, and JSON serialization:
 
 ```dart
-// pubspec.yaml: freezed, freezed_annotation, json_serializable, build_runner
-
 @freezed
 class User with _$User {
   const factory User({
@@ -307,10 +263,13 @@ class User with _$User {
 
 // Usage
 final user = User(id: '1', name: 'Alice', email: 'a@b.com');
-final updated = user.copyWith(name: 'Bob');  // Immutable copy
-print(user == updated); // false — value equality
+final updated = user.copyWith(name: 'Bob');
+print(user == updated); // false - value equality
+```
 
-// Union types with Freezed
+### Freezed Union Types
+
+```dart
 @freezed
 sealed class NetworkState<T> with _$NetworkState<T> {
   const factory NetworkState.idle() = _Idle;
@@ -319,7 +278,6 @@ sealed class NetworkState<T> with _$NetworkState<T> {
   const factory NetworkState.error(String message) = _Error;
 }
 
-// Pattern match Freezed unions
 Widget build(NetworkState<User> state) {
   return state.when(
     idle: () => const SizedBox(),
@@ -334,8 +292,7 @@ Run code generation:
 
 ```bash
 dart run build_runner build --delete-conflicting-outputs
-# Or watch mode during development
-dart run build_runner watch --delete-conflicting-outputs
+dart run build_runner watch --delete-conflicting-outputs  # Dev mode
 ```
 
 ## Idiomatic Conventions
@@ -344,12 +301,11 @@ dart run build_runner watch --delete-conflicting-outputs
 |-----------|------|
 | File naming | `snake_case.dart` |
 | Class naming | `UpperCamelCase` |
-| Variable/function naming | `lowerCamelCase` |
+| Variable/function | `lowerCamelCase` |
 | Constants | `lowerCamelCase` (not SCREAMING_SNAKE) |
-| Private members | Prefix with `_` (enforced by analyzer) |
-| Library-private | Prefix with `_` at top level |
-| Trailing commas | Add on last argument for better diffs and formatting |
-| `const` constructors | Use whenever possible for widgets |
-| `final` variables | Prefer `final` over `var` for local variables |
-| Relative imports | Use for within-package imports |
-| Package imports | Use `package:` for cross-package imports |
+| Private members | Prefix with `_` |
+| Trailing commas | Add on last argument for better diffs |
+| `const` constructors | Use whenever possible |
+| `final` locals | Prefer `final` over `var` |
+| Relative imports | Within-package |
+| Package imports | `package:` for cross-package |

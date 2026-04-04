@@ -412,3 +412,9 @@ services:
 | `always` | Restart unconditionally | Critical services |
 | `unless-stopped` | Restart unless manually stopped | Standard production |
 | `on-failure[:max]` | Restart only on non-zero exit | Workers, batch jobs |
+
+## Compose Production Review Questions
+
+1. Is Compose being used as a production runtime, staging convenience, or local-prod parity tool?
+2. Are restart, healthcheck, and env decisions reflecting real operational behavior?
+3. Is this Compose setup documenting the system clearly, or becoming a shadow orchestrator?

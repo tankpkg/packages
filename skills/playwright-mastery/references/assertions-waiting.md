@@ -266,3 +266,17 @@ Always prefer retrying assertions for anything on the page. Non-retrying asserti
 | `await page.waitForTimeout(3000)` | Arbitrary wait, still flaky | `await expect(el).toBeVisible()` |
 | `if (await el.count() > 0)` | Race condition — count can change | `await expect(el).toHaveCount(n)` |
 | `expect(el).toHaveText('...')` (missing await) | Assertion never executes | `await expect(el).toHaveText('...')` |
+
+## Assertion Review Questions
+
+1. Is this assertion retrying against live UI state, or snapshotting one instant by accident?
+2. Could a web-first assertion replace a manual wait or boolean check?
+3. Is the failure message going to help the next engineer debug fast?
+
+## Waiting Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| timeout-driven waiting | flaky and slow |
+| mixing locator auto-waiting with manual `isVisible()` checks | race conditions |
+| asserting raw textContent/value too early | brittle timing |

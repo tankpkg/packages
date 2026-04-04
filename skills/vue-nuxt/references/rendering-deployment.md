@@ -388,7 +388,7 @@ Use `@nuxt/image` for automatic optimization:
     height="400"
     format="webp"
     loading="lazy"
-    placeholder
+    placeholder="Loading preview…"
   />
 </template>
 ```
@@ -403,3 +403,17 @@ Use `@nuxt/image` for automatic optimization:
 | Missing `prerender` for static routes | Pages not generated | Add to `routeRules` or `nitro.prerender.routes` |
 | Large SSR payload | Slow hydration, large HTML | Use `pick`, `transform`, payload extraction |
 | No cache headers on static assets | Repeated downloads | Set `cache-control` via routeRules |
+
+## Rendering Review Questions
+
+1. Should this route be SSR, SSG/prerendered, or client-fetched?
+2. Are routeRules documenting deployment intent clearly enough?
+3. Does this deployment target support the runtime assumptions of the chosen dependencies?
+
+## Nuxt Deployment Heuristics
+
+| Signal | Recommendation |
+|--------|----------------|
+| mostly static marketing/docs | prerender aggressively |
+| authenticated dashboard | SSR or client fetch where personalization dominates |
+| edge/serverless target | verify Nitro preset and dependency compatibility |

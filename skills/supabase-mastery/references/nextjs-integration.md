@@ -388,3 +388,17 @@ export async function POST(request: Request) {
 | Forgetting `redirectTo` in OAuth | Callback goes to wrong URL | Always set `redirectTo` to your callback route |
 | Service role key in browser | Full database access exposed | Service role key in server-side code only |
 | Not handling the `try/catch` in `setAll` | Server Component errors on cookie write | Wrap `setAll` in try/catch (middleware handles it) |
+
+## Integration Review Questions
+
+1. Is this code running in a Server Component, Route Handler, middleware, or Client Component?
+2. Is the correct Supabase client constructor used for that boundary?
+3. Could auth state or cookies become stale without middleware or `router.refresh()`?
+
+## Boundary Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| one client factory reused across server and browser | boundary confusion |
+| service-role logic near client code | high-severity secret risk |
+| auth checks using convenience methods without validation | security drift |

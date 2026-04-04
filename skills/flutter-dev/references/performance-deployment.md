@@ -1,250 +1,292 @@
 # Performance and Deployment
 
-Sources: Flutter official documentation (performance, DevTools, build modes, deployment), Dart docs, Fastlane docs, Codemagic docs, community Flutter release engineering patterns from 2024-2026
+Sources: Flutter performance documentation (flutter.dev 2025-2026), Flutter DevTools documentation, Fastlane documentation, Codemagic documentation, Google Play Console and App Store Connect guidelines
 
-Covers: Flutter performance profiling, rebuild optimization, rendering and paint tuning, DevTools usage, app size considerations, flavors, CI/CD, Android/iOS/web deployment, and release engineering patterns.
+Covers: DevTools profiling, rebuild optimization, const and RepaintBoundary, isolates, platform channels, flavors, CI/CD pipelines, app store submission, and release engineering.
 
-## Profile Before You Guess
-
-Flutter performance work should begin with measurement, not folklore.
+## Profile Before Guessing
 
 | Tool | Use |
-|-----|-----|
-| Flutter DevTools | frame chart, rebuild stats, memory, CPU |
-| performance overlay | quick frame pacing check |
-| timeline tracing | animation and jank investigation |
-| app size analysis | package and asset bloat |
+|------|-----|
+| Flutter DevTools | Frame chart, rebuild stats, memory, CPU |
+| Performance overlay | Quick frame pacing check |
+| Timeline tracing | Animation and jank investigation |
+| App size analysis | Package and asset bloat |
 
-Do not optimize just because a pattern “sounds expensive”. Measure the real bottleneck first.
+Measure the real bottleneck. Do not optimize based on folklore.
 
 ## Rebuild Optimization
 
-| Technique | Why |
-|----------|-----|
-| `const` constructors | skip rebuild work where possible |
-| extract smaller widgets | reduce rebuild scope |
-| `select` / `BlocSelector` | watch narrow slices of state |
-| avoid broad `setState` on large trees | shrink recomposition |
+### const Constructors
 
-### Rule of thumb
+Mark widget constructors `const` to enable framework-level rebuild skipping. When a parent rebuilds, `const` children are identity-equal — the framework skips their entire subtree.
 
-Optimize the rebuild boundary before reaching for lower-level paint tricks.
+```dart
+// WRONG: new instance every build
+return Padding(padding: EdgeInsets.all(16), child: Text('Static'));
 
-## Paint and Render Optimization
+// CORRECT: same instance reused
+return const Padding(padding: EdgeInsets.all(16), child: Text('Static'));
+```
 
-| Concern | Tool |
-|--------|------|
-| expensive custom paint | profile with DevTools frame chart |
-| isolated heavy repaint area | `RepaintBoundary` |
-| huge scrolling lists | `ListView.builder`, slivers, item virtualization |
-| oversized images | resize/compress/cache appropriately |
+### Extract Subtrees
 
-Use `RepaintBoundary` surgically. Wrapping everything creates overhead without benefit.
+Split widgets that depend on different state into separate classes:
 
-## Common Performance Smells
+```dart
+// WRONG: entire screen rebuilds when counter changes
+class MyScreen extends ConsumerWidget {
+  Widget build(context, ref) {
+    final count = ref.watch(counterProvider);
+    return Column(children: [
+      const ExpensiveChart(),  // Rebuilds unnecessarily
+      Text('$count'),
+    ]);
+  }
+}
 
-| Smell | Why it hurts |
-|------|--------------|
-| rebuilding giant screens for tiny state changes | frame work spikes |
-| too many nested layout passes | expensive build/layout |
-| large unoptimized images | memory and raster cost |
-| synchronous heavy work on main isolate | visible UI jank |
+// CORRECT: only CounterDisplay rebuilds
+class MyScreen extends StatelessWidget {
+  Widget build(context) {
+    return Column(children: [
+      const ExpensiveChart(),
+      const CounterDisplay(),  // Own widget, own rebuild scope
+    ]);
+  }
+}
+```
 
-## Isolates and Background Work
+### Selective Watching
 
-Use isolates for truly heavy CPU-bound work.
+```dart
+// Riverpod: select specific field
+final userName = ref.watch(userProvider.select((u) => u.name));
 
-| Good fit | Example |
+// BLoC: BlocSelector
+BlocSelector<UserBloc, UserState, String>(
+  selector: (state) => state.name,
+  builder: (context, name) => Text(name),
+)
+```
+
+## RepaintBoundary
+
+Isolate expensive paint operations to prevent repainting the entire subtree:
+
+```dart
+RepaintBoundary(
+  child: CustomPaint(painter: ExpensiveChartPainter(data)),
+)
+```
+
+Use surgically — wrapping everything creates overhead without benefit. Profile first to identify the actual repaint hotspot.
+
+## Isolates
+
+Move CPU-heavy work off the main isolate to prevent UI jank:
+
+```dart
+// Simple: compute function
+final result = await compute(parseJson, rawString);
+
+// Complex: Isolate.spawn for long-running work
+final receivePort = ReceivePort();
+await Isolate.spawn(_heavyWork, receivePort.sendPort);
+```
+
+| Good Fit | Example |
 |---------|---------|
-| JSON parsing of massive payloads | large offline data sync |
-| image processing | media-heavy apps |
-| expensive computation | local analytics/crypto-like tasks |
+| JSON parsing of large payloads | Offline data sync |
+| Image processing | Media-heavy apps |
+| Expensive computation | Local analytics, crypto |
 
-Do not move tiny work to an isolate just because you can.
+Do not move trivial work to isolates — the marshalling overhead exceeds the savings.
+
+## Platform Channels
+
+Communicate between Dart and native code (Kotlin/Swift):
+
+### MethodChannel (Request-Response)
+
+```dart
+// Dart side
+const channel = MethodChannel('com.example/battery');
+final level = await channel.invokeMethod<int>('getBatteryLevel');
+```
+
+```kotlin
+// Android (Kotlin)
+MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "com.example/battery")
+  .setMethodCallHandler { call, result ->
+    when (call.method) {
+      "getBatteryLevel" -> result.success(getBatteryLevel())
+      else -> result.notImplemented()
+    }
+  }
+```
+
+```swift
+// iOS (Swift)
+let channel = FlutterMethodChannel(name: "com.example/battery",
+  binaryMessenger: controller.binaryMessenger)
+channel.setMethodCallHandler { (call, result) in
+  switch call.method {
+    case "getBatteryLevel": result(getBatteryLevel())
+    default: result(FlutterMethodNotImplemented)
+  }
+}
+```
+
+### EventChannel (Continuous Streams)
+
+Use for sensor data, location updates, or any continuous native event stream:
+
+```dart
+const eventChannel = EventChannel('com.example/sensors');
+eventChannel.receiveBroadcastStream().listen((event) {
+  // Handle continuous native events
+});
+```
+
+### Channel Best Practices
+
+| Rule | Reason |
+|------|--------|
+| Name channels with reverse-domain | Avoid collisions |
+| Handle errors on both sides | Prevent silent failures |
+| Use `BasicMessageChannel` for simple data | Lower overhead |
+| Check platform before invoking | Prevent crashes on unsupported platforms |
 
 ## Flavors and Environments
 
-Flavors separate environments and product variants cleanly.
+Separate environments cleanly:
 
-| Flavor | Typical use |
-|-------|-------------|
-| dev | local/debug backend |
-| staging | QA/test backend |
-| prod | release backend |
-
-Keep bundle IDs/package names, app names, and API endpoints explicit per flavor.
-
-## CI/CD Patterns
-
-| Step | Purpose |
-|-----|---------|
-| `flutter test` | unit/widget confidence |
-| static analysis | `flutter analyze` |
-| build artifacts | apk/aab/ipa/web outputs |
-| signing + distribution | release delivery |
-
-Fastlane and Codemagic are useful when mobile release automation becomes frequent enough to justify standardization.
-
-## Android and iOS Release Concerns
-
-| Concern | Recommendation |
-|--------|----------------|
-| signing keys/certificates | manage securely outside repo |
-| versioning | automate build number updates |
-| store metadata | keep reproducible release notes/assets |
-| crash reporting | integrate before broad launch |
-
-## Web and Desktop Considerations
-
-| Target | Watch out for |
-|-------|----------------|
-| web | bundle size, DOM/canvas performance, SEO limits |
-| desktop | windowing/platform conventions, file system integration |
-
-Do not assume one Flutter target behaves like another just because the widget code is shared.
-
-## Common Deployment Mistakes
-
-| Mistake | Problem | Fix |
-|--------|---------|-----|
-| releasing without flavor separation | wrong backend/config leaks | define env strategy early |
-| no profile-mode testing | debug assumptions hide real bottlenecks | test in profile/release |
-| giant unoptimized asset bundles | slow installs/startup | audit assets and dependencies |
-| ad hoc store release steps | brittle delivery | script or automate with CI/Fastlane |
-
-## App Size Review
-
-| Concern | Action |
-|--------|--------|
-| oversized assets | compress, resize, deduplicate |
-| unused dependencies | remove packages and generated code paths |
-| heavy icons/fonts | subset or replace where possible |
-
-Track binary size per release rather than discovering regressions in the store pipeline.
-
-## Release Channel Strategy
-
-| Channel | Use |
+| Flavor | Use |
 |--------|-----|
-| internal/dev | fast QA and engineering feedback |
-| beta/testflight/internal testing | product validation |
-| production | store-reviewed stable release |
+| dev | Local/debug backend, verbose logging |
+| staging | QA/test backend |
+| prod | Release backend, analytics enabled |
 
-Separate channels reduce pressure to treat every build as final.
+```bash
+# Run with flavor
+flutter run --flavor dev -t lib/main_dev.dart
+flutter run --flavor prod -t lib/main_prod.dart
+
+# Build with flavor
+flutter build apk --flavor prod -t lib/main_prod.dart
+flutter build ipa --flavor prod -t lib/main_prod.dart
+```
+
+Keep bundle IDs, app names, and API endpoints explicit per flavor.
+
+## CI/CD Pipeline
+
+| Step | Command | Purpose |
+|------|---------|---------|
+| Analyze | `flutter analyze` | Static analysis |
+| Test | `flutter test` | Unit + widget tests |
+| Build Android | `flutter build appbundle --release` | AAB for Play Store |
+| Build iOS | `flutter build ipa --release` | IPA for App Store |
+| Build Web | `flutter build web --release` | Web deployment |
+
+### Fastlane
+
+Automate signing, screenshots, and store submission:
+
+```ruby
+# fastlane/Fastfile (iOS)
+lane :release do
+  build_flutter_app(flavor: "prod")
+  upload_to_app_store(skip_metadata: true)
+end
+```
+
+### Codemagic
+
+Cloud CI/CD built for Flutter — handles signing, provisioning profiles, and store deployment without local setup.
+
+### GitHub Actions
+
+```yaml
+name: Flutter CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: { flutter-version: '3.x' }
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+```
+
+## App Store Submission
+
+### Android (Google Play)
+
+| Step | Action |
+|------|--------|
+| Signing | Generate keystore, configure `key.properties` |
+| Build | `flutter build appbundle --release` |
+| Upload | Google Play Console or Fastlane |
+| Testing | Internal > Closed > Open > Production tracks |
+
+### iOS (App Store)
+
+| Step | Action |
+|------|--------|
+| Certificates | Apple Developer portal provisioning profiles |
+| Build | `flutter build ipa --release` |
+| Upload | Xcode Organizer or Transporter |
+| Review | TestFlight beta > App Store submission |
+
+### Web
+
+```bash
+flutter build web --release
+# Deploy dist to CDN, Firebase Hosting, Vercel, etc.
+```
+
+## App Size Optimization
+
+| Technique | Impact |
+|-----------|--------|
+| `--split-per-abi` on Android | 30-50% smaller per device |
+| Remove unused packages | Varies |
+| Compress images/assets | 10-30% |
+| Tree shaking (automatic in release) | Removes dead code |
+| Deferred components | On-demand feature loading |
+
+```bash
+flutter build apk --analyze-size  # Size breakdown
+```
+
+## Common Performance Smells
+
+| Smell | Fix |
+|-------|-----|
+| Rebuilding giant screens for tiny state changes | Extract widgets, selective watch |
+| Large unoptimized images | Resize, compress, cache |
+| Synchronous heavy work on main isolate | Move to `compute` or `Isolate.spawn` |
+| Startup initializing everything | Defer non-critical initialization |
+
+## Release Readiness
+
+- Profile in release mode (not debug)
+- Rebuild hotspots reduced with extraction and selective watching
+- Large lists use `ListView.builder` (virtualized)
+- Flavor configuration is explicit per environment
+- CI/CD runs analysis, tests, and builds reproducibly
+- Store signing and metadata managed securely
+- Crash reporting wired before broad launch
 
 ## Monitoring After Release
 
-1. watch crash-free sessions
-2. review startup time on real devices
-3. monitor API error spikes by app version
-4. compare frame/jank metrics across releases when available
+1. Watch crash-free session rate
+2. Review startup time on real devices
+3. Monitor API errors by app version
+4. Compare frame metrics across releases
 
-Performance is not finished at submission time; release telemetry should close the loop.
-
-## Startup Performance Checklist
-
-| Concern | Action |
-|--------|--------|
-| too much sync initialization | defer non-critical startup work |
-| large first-route widget tree | simplify above-the-fold UI |
-| eager plugin initialization | load lazily where safe |
-
-Launch-time performance shapes perceived quality more than many micro-optimizations later in the session.
-
-## Release Build Hygiene
-
-| Check | Why |
-|------|-----|
-| build in release mode | realistic runtime characteristics |
-| verify flavor-specific config | prevent wrong backend or keys |
-| archive symbols / debugging metadata | crash diagnosis |
-| validate signing material | release safety |
-
-## Store Submission Workflow
-
-1. generate release notes and changelog
-2. validate screenshots and metadata per platform
-3. confirm version/build numbers
-4. submit to internal/beta track first when possible
-5. monitor rollout and halt if crash/error metrics spike
-
-## Desktop and Web Release Notes
-
-| Target | Extra review |
-|-------|--------------|
-| web | asset caching, PWA/service worker behavior, bundle size |
-| desktop | installer packaging, auto-update path, file-system permissions |
-
-Do not treat mobile deployment assumptions as automatically correct for web and desktop outputs.
-
-## Crash and Error Instrumentation
-
-| Concern | Recommendation |
-|--------|----------------|
-| uncaught Flutter errors | wire crash reporting early |
-| API version drift | tag telemetry with app version/build |
-| release-specific regressions | compare metrics by channel/version |
-
-Without release telemetry, performance and reliability regressions become anecdotal.
-
-## Build Variant Discipline
-
-| Variant rule | Why |
-|-------------|-----|
-| keep dev/staging/prod clearly separated | prevent wrong-service accidents |
-| align analytics/crash keys with environment | clean data |
-| document signing and provisioning paths | repeatable releases |
-
-## Rollout Strategy
-
-| Strategy | Use |
-|---------|-----|
-| internal-only build | engineering/QA verification |
-| limited beta rollout | validate stability on real users/devices |
-| staged production rollout | reduce blast radius |
-
-Staged rollout is a performance and reliability tool, not just a product-management preference.
-
-## Team Release Checklist
-
-| Owner | Responsibility |
-|------|----------------|
-| engineering | build, sign, validate env config |
-| QA | regression pass on representative devices |
-| product | release notes, rollout decision |
-
-Shared release ownership prevents last-minute surprises and missing metadata.
-
-## Real-Device Verification
-
-1. test low-memory or older device class where possible
-2. verify first-launch and upgrade flows
-3. confirm crash reporting and analytics are active in the intended environment
-4. verify deep links / push navigation if the app depends on them
-
-Desktop, web, and mobile should each get at least one target-specific sanity pass.
-
-## Performance Regression Policy
-
-| Regression type | Response |
-|----------------|----------|
-| startup slower than previous release | inspect init path and flavor config |
-| frame drops on key screens | profile rebuilds, paint, and scrolling |
-| increased binary size | audit dependencies and assets before release |
-
-Treat performance regressions like functional bugs when they affect critical flows.
-
-## Lightweight Release Gate
-
-1. compare build size to previous release
-2. smoke-test startup and one critical user journey
-3. verify crash reporting pipeline before broad rollout
-
-## Release Readiness Checklist
-
-- [ ] App is profiled in profile/release mode, not only debug
-- [ ] Rebuild hotspots have been reduced with widget extraction or selective watching
-- [ ] Large lists, images, and paints are measured and optimized where needed
-- [ ] Flavor and environment configuration is explicit
-- [ ] CI/CD runs tests, analysis, and build steps reproducibly
-- [ ] Store signing and release metadata are managed securely
+Performance is not finished at submission — release telemetry closes the loop.

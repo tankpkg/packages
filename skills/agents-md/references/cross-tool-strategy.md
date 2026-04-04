@@ -261,3 +261,17 @@ ln -s AGENTS.md GEMINI.md       # If Gemini-specific rules not needed
 # Verify CLAUDE.md imports AGENTS.md
 grep -q "@AGENTS.md" CLAUDE.md || echo "WARN: CLAUDE.md not importing AGENTS.md"
 ```
+
+## Cross-Tool Review Questions
+
+1. What belongs in shared AGENTS.md versus tool-specific overlays?
+2. Which files are becoming stale duplicates instead of intentional adapters?
+3. Can a team member explain the instruction hierarchy without guessing?
+
+## Anti-Drift Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| same rule copied into many tool files | maintenance drift |
+| tool-specific files mutating core architectural guidance | conflicting behavior |
+| no audit of instruction files after repo changes | stale agent behavior |

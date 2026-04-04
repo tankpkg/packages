@@ -396,3 +396,9 @@ Merge to main:
 ```
 
 Use GitHub environments with required reviewers at each stage. Promote the same plan artifact through environments when possible.
+
+## Pipeline Review Questions
+
+1. Is the same reviewed plan being promoted, or are environments re-planning independently?
+2. Are policy checks and security scans placed early enough to stop unsafe plans fast?
+3. Is apply protected by human review where the blast radius justifies it?

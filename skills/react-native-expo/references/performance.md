@@ -342,3 +342,17 @@ For detailed New Architecture information, see `references/new-architecture.md`.
 4. **Fix**: Apply optimization (memo, FlashList, lazy load)
 5. **Verify**: Re-profile to confirm improvement
 6. **Monitor**: Sentry or Datadog for production performance tracking
+
+## Performance Review Questions
+
+1. Is the bottleneck render frequency, list virtualization, image cost, or bridge/native interaction?
+2. Does this optimization improve a hot path or only make code more complex?
+3. Was the app measured in release/profile mode, not only dev mode?
+
+## Common Performance Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| optimizing before profiling | low-value complexity |
+| broad memoization everywhere | unclear gains and stale logic risk |
+| large list rendering without FlashList or strong virtualization | mobile jank |

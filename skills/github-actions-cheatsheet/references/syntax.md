@@ -264,3 +264,9 @@ Concurrency is often the missing piece in clean deployment workflows.
 - [ ] trigger, job, matrix, and expression syntax are easy to find
 - [ ] reusable workflow and artifact patterns are included
 - [ ] snippets are minimal and copyable
+
+## Workflow Review Questions
+
+1. Can someone reconstruct a working CI file from this cheat sheet fast?
+2. Are the risky syntax areas — expressions, matrices, permissions, reuse — easy to find?
+3. Would this be enough under pressure during a broken CI incident?

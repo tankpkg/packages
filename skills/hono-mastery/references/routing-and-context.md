@@ -378,3 +378,23 @@ app.get('/api', ...handlers)
 ```
 
 See `references/rpc-and-client.md` for RPC-compatible large app patterns.
+
+## Routing and Context Review Questions
+
+1. Is route grouping still readable as the app grows?
+2. Are `c.set` / `c.get` values genuinely request-scoped, or hiding too much state?
+3. Is runtime-specific logic (`c.env`, `c.executionCtx`) isolated enough to preserve portability where needed?
+
+## Context and Routing Smells
+
+| Smell | Why it matters |
+|------|----------------|
+| too much hidden state passed through context variables | weak readability |
+| runtime-specific bindings leaking through generic app code | portability loss |
+| route structure growing without grouping or base paths | maintenance drag |
+
+## Final Hono Routing Checklist
+
+- [ ] route grouping matches feature ownership and app growth
+- [ ] context values are used intentionally, not as a dumping ground
+- [ ] runtime-specific capabilities are explicit where they matter
