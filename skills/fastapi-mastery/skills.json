@@ -1,13 +1,15 @@
 {
   "name": "@tank/fastapi-mastery",
   "version": "1.0.0",
-  "description": "Production-grade FastAPI development. Project structure, dependency injection (Depends, yield, overrides), Pydantic v2 models and settings, async SQLAlchemy 2.0, authentication (OAuth2, JWT, API keys), middleware, testing (TestClient, async, fixtures), deployment (Docker, uvicorn, Kubernetes), and performance (caching, streaming, WebSockets). Triggers: fastapi, fastapi best practices, fastapi production, fastapi dependency injection, fastapi pydantic, fastapi sqlalchemy, fastapi authentication, fastapi jwt, fastapi testing, fastapi docker, fastapi project structure, fastapi deployment, uvicorn.",
+  "description": "Production FastAPI patterns covering project structure, Depends-based DI, Pydantic v2, async SQLAlchemy, auth, middleware, testing, deployment, and performance. Triggers: fastapi, dependency injection, pydantic, sqlalchemy, jwt, testing, docker, uvicorn, project structure, websocket.",
   "permissions": {
     "network": {
       "outbound": []
     },
     "filesystem": {
-      "read": ["**/*"],
+      "read": [
+        "**/*"
+      ],
       "write": []
     },
     "subprocess": false

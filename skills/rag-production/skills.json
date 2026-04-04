@@ -1,13 +1,15 @@
 {
   "name": "@tank/rag-production",
   "version": "1.0.0",
-  "description": "Production RAG pipeline architecture. Chunking strategies (recursive, semantic, document-aware), embedding models (OpenAI, Cohere, open-source), vector databases (pgvector, Pinecone, Weaviate, Qdrant, Chroma), hybrid search + reranking, advanced retrieval (HyDE, multi-query, agentic RAG, graph RAG), evaluation (RAGAS, DeepEval), and production operations (caching, streaming, cost). Triggers: RAG, retrieval augmented generation, vector database, embedding, chunking, hybrid search, reranking, agentic RAG, RAGAS, pgvector, Pinecone, RAG production, RAG best practices.",
+  "description": "Production RAG architecture covering chunking, embeddings, vector databases, hybrid search, reranking, advanced retrieval, evaluation, and production operations. Triggers: RAG, retrieval augmented generation, chunking, embeddings, vector database, hybrid search, reranking, RAGAS, pgvector, Pinecone.",
   "permissions": {
     "network": {
       "outbound": []
     },
     "filesystem": {
-      "read": ["**/*"],
+      "read": [
+        "**/*"
+      ],
       "write": []
     },
     "subprocess": false

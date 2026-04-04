@@ -1,13 +1,15 @@
 {
   "name": "@tank/docker-production-patterns",
   "version": "1.0.0",
-  "description": "Production Docker patterns for any stack. Dockerfile authoring (multi-stage builds, layer ordering, base images), BuildKit optimization (cache mounts, secrets, multi-platform), security hardening (non-root, distroless, scanning), Compose production (profiles, resource limits, secrets), container lifecycle (PID 1, SIGTERM, health checks), logging/observability, and CI/CD pipelines (GitHub Actions, tagging, registries). Includes language-specific Dockerfiles for Node.js, Python, Go, Rust, Java. Triggers: Dockerfile, docker, docker compose, multi-stage build, docker production, docker best practices, docker security, BuildKit, docker health check, docker secrets, docker CI/CD, docker github actions, distroless, docker non-root, docker logging, docker tagging.",
+  "description": "Production Docker patterns covering Dockerfiles, multi-stage builds, BuildKit, security hardening, Compose production usage, lifecycle/signals, logging, and CI/CD. Triggers: Dockerfile, docker production, BuildKit, docker security, health check, distroless, non-root, docker logging, tagging, docker CI/CD.",
   "permissions": {
     "network": {
       "outbound": []
     },
     "filesystem": {
-      "read": ["**/*"],
+      "read": [
+        "**/*"
+      ],
       "write": []
     },
     "subprocess": false

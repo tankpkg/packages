@@ -1,13 +1,15 @@
 {
   "name": "@tank/mcp-server-dev",
   "version": "1.0.0",
-  "description": "Build MCP servers in TypeScript and Python. Covers protocol architecture, tools/resources/prompts primitives, TypeScript SDK v2 (McpServer, Zod, Streamable HTTP), Python FastMCP 3 (decorators, Pydantic), tool design, OAuth 2.1 auth, OWASP security (tool poisoning, validation, sandboxing), transport selection (stdio/HTTP), MCP Inspector testing, and deployment (Vercel, Cloudflare Workers, Docker). Triggers: MCP server, build MCP server, MCP TypeScript, MCP Python, FastMCP, model context protocol, MCP tools, MCP resources, MCP security, tool poisoning, MCP Inspector, MCP deploy.",
+  "description": "Build MCP servers in TypeScript and Python. Covers tools/resources/prompts, TypeScript SDK v2, FastMCP, tool design, OAuth 2.1 auth, security, transports, inspector testing, and deployment. Triggers: MCP server, model context protocol, FastMCP, MCP tools, MCP resources, MCP security, MCP Inspector, MCP deploy.",
   "permissions": {
     "network": {
       "outbound": []
     },
     "filesystem": {
-      "read": ["**/*"],
+      "read": [
+        "**/*"
+      ],
       "write": []
     },
     "subprocess": false

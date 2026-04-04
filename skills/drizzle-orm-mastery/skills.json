@@ -1,13 +1,15 @@
 {
   "name": "@tank/drizzle-orm-mastery",
   "version": "1.0.0",
-  "description": "Drizzle ORM patterns for TypeScript. Schema definition, drizzle-kit migrations (generate/push/migrate), query builder (select/insert/join/subquery), relational queries, transactions, type inference, connection pooling, and framework integration (Next.js, Supabase, D1, Neon, Turso). Triggers: drizzle orm, drizzle schema, drizzle migrations, drizzle-kit, drizzle relations, drizzle query, drizzle select, drizzle join, drizzle transaction, drizzle supabase, drizzle next.js, drizzle vs prisma, drizzle push vs migrate, drizzle type inference.",
+  "description": "Drizzle ORM patterns for TypeScript covering schema design, drizzle-kit migrations, query builder usage, relations, transactions, type inference, pooling, and framework integration. Triggers: drizzle orm, drizzle schema, drizzle migrations, drizzle-kit, drizzle relations, drizzle query, drizzle join, drizzle transaction, drizzle vs prisma.",
   "permissions": {
     "network": {
       "outbound": []
     },
     "filesystem": {
-      "read": ["**/*"],
+      "read": [
+        "**/*"
+      ],
       "write": []
     },
     "subprocess": false
