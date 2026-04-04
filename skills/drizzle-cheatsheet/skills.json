@@ -1,0 +1,16 @@
+{
+  "name": "@tank/drizzle-cheatsheet",
+  "version": "1.0.0",
+  "description": "Drizzle ORM cheat sheet covering schema syntax, relations, query builder patterns, drizzle-kit commands, and type inference for fast recall.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
