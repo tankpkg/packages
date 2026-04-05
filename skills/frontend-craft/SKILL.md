@@ -196,5 +196,5 @@ Radix UI → shadcn/ui → Registry ecosystem (50+ registries, 11K+ components) 
 | `references/component-architecture.md` | shadcn/ui + Radix + CVA patterns, design tokens, variant systems, composition, accessibility |
 | `references/aceternity-ui-catalog.md` | Aceternity UI detailed component catalog with registry API endpoints |
 | `references/ui-sizing-rules.md` | Exact component dimensions (buttons, inputs, navbars, sidebars, modals, cards, avatars, icons), padding formulas, container widths, aspect ratios, cross-system sizing data |
-| `references/component-discovery-sources.md` | Shadcn registry ecosystem — 50+ quality registries, install methods, source selection by component type |
-| `scripts/search-components.py` | **CLI tool** — offline-first search across 50+ shadcn registries (8K+ components). `--group`/`--tag` filters. Cache auto-refreshes 24h. `pull-all-registries.py` fetches data. |
+| `references/ui-standards-and-timing.md` | Unbreakable accessibility rules (WCAG contrast, zoom, reflow), animation durations, easing functions, debounce values, response time thresholds, responsive scaling, platform hard rules, minimum component widths |
+| `references/component-discovery-sources.md` | Shadcn registries — 50+ registries, install methods, source selection. `scripts/search-components.py` searches offline cache; `pull-all-registries.py` fetches data. |

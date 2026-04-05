@@ -48,6 +48,7 @@ const EXCLUDED_PATHS = [
   ".roo/",
   "node_modules/",
   ".git/",
+  "skills/quality-gate/",
 ];
 
 function isExcluded(filePath: string): boolean {
@@ -204,7 +205,8 @@ export default async function handler(
     ) => { text: () => Promise<string> };
   },
 ): Promise<void> {
-  const sessionId = (event.properties?.sessionID as string) ?? "";
+  const rawSessionId = event.properties?.sessionID;
+  const sessionId = typeof rawSessionId === "string" ? rawSessionId : "";
   if (!sessionId) return;
 
   let changedFiles: FileChange[] = [];
@@ -229,10 +231,11 @@ export default async function handler(
 
   let diffContent = "";
   try {
-    const tracked = await ctx.$`git diff HEAD 2>/dev/null`.text();
-    const stagedDiff = await ctx.$`git diff --cached 2>/dev/null`.text();
-    diffContent = `${tracked}\n${stagedDiff}`.trim();
-  } catch {}
+    // git diff HEAD already includes both staged and unstaged changes — no need for --cached
+    diffContent = (await ctx.$`git diff HEAD 2>/dev/null`.text()).trim();
+  } catch {
+    // Non-fatal: prompt will instruct the agent to run git diff itself
+  }
 
   const prompt = [
     "## Quality Gate — Automatic Code Review\n",
@@ -247,10 +250,14 @@ export default async function handler(
       : "Use `git diff HEAD` to see the changes.",
   ].join("\n");
 
-  await ctx.client.session.prompt({
-    path: { id: sessionId },
-    body: { parts: [{ type: "text", text: prompt }] },
-  });
+  try {
+    await ctx.client.session.prompt({
+      path: { id: sessionId },
+      body: { parts: [{ type: "text", text: prompt }] },
+    });
+  } catch {
+    // Non-fatal: quality gate prompt delivery failed, but don't crash the hook runner
+  }
 }
 
 export {

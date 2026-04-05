@@ -1,7 +1,7 @@
 import type { Plugin } from "@opencode-ai/plugin";
 
 export const QualityGate: Plugin = async ({ client, $ }) => {
-  let _lastFingerprint = "";
+  const _reviewedFingerprints = new Set<string>();
   let _running = false;
   return {
     event: ({ event }) => {
@@ -13,11 +13,11 @@ export const QualityGate: Plugin = async ({ client, $ }) => {
       _running = true;
       $`git diff --stat HEAD 2>/dev/null`.text().then((stat) => {
         const fp = stat.trim();
-        if (!fp || fp === _lastFingerprint) {
+        if (!fp || _reviewedFingerprints.has(fp)) {
           _running = false;
           return;
         }
-        _lastFingerprint = fp;
+        _reviewedFingerprints.add(fp);
         return import("./handlers/quality-gate.handler").then((handler) =>
           handler.default(e, { client, $ })
         );
