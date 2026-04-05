@@ -106,8 +106,9 @@ description: |
 ### Problem: "The design looks amateur"
 
 1. Apply a 5-level shadow elevation system consistently.
-2. Stick to 4pt spacing grid — no arbitrary values.
-3. Use OKLCH-based design tokens with CSS custom properties.
+2. Use exact component sizes — never eyeball button heights, padding, or spacing.
+   -> See `references/ui-sizing-rules.md`
+3. Stick to 4pt spacing grid with OKLCH design tokens.
    -> See `references/visual-polish.md` + `references/design-foundations.md`
 
 ## Decision Trees
@@ -194,6 +195,6 @@ Radix UI → shadcn/ui → Registry ecosystem (50+ registries, 11K+ components) 
 | `references/state-choreography.md` | Loading/error/empty/success states, page transitions, layout animations, skeleton reveals |
 | `references/component-architecture.md` | shadcn/ui + Radix + CVA patterns, design tokens, variant systems, composition, accessibility |
 | `references/aceternity-ui-catalog.md` | Aceternity UI detailed component catalog with registry API endpoints |
+| `references/ui-sizing-rules.md` | Exact component dimensions (buttons, inputs, navbars, sidebars, modals, cards, avatars, icons), padding formulas, container widths, aspect ratios, cross-system sizing data |
 | `references/component-discovery-sources.md` | Shadcn registry ecosystem — 50+ quality registries, install methods, source selection by component type |
-| `scripts/search-components.py` | **CLI tool** — offline-first search across 50+ shadcn registries (8K+ components). Supports `--group` (27 categories) and `--tag` (3,500+ tags) filters. Install via shadcn CLI. Cache auto-refreshes every 24h. |
-| `scripts/pull-all-registries.py` | **Data puller** — parallel fetch of all shadcn registries into one JSON cache with auto-generated groups and tags. Run with `--help` for options. |
+| `scripts/search-components.py` | **CLI tool** — offline-first search across 50+ shadcn registries (8K+ components). `--group`/`--tag` filters. Cache auto-refreshes 24h. `pull-all-registries.py` fetches data. |
