@@ -195,6 +195,8 @@ export async function qualityGate(ctx: HookContext): Promise<void> {
   );
 }
 
+const _runCount = new Map<string, number>();
+
 export default async function handler(
   event: { type: string; properties?: Record<string, unknown> },
   ctx: {
@@ -226,38 +228,40 @@ export default async function handler(
 
   if (!hasCodeChanges(changedFiles)) return;
 
+  const run = (_runCount.get(sessionId) ?? 0) + 1;
+  _runCount.set(sessionId, run);
+
   const codeFiles = getCodeFiles(changedFiles);
   const fileList = codeFiles.map((f) => `- ${f.path}`).join("\n");
 
-  let diffContent = "";
-  try {
-    // git diff HEAD already includes both staged and unstaged changes — no need for --cached
-    diffContent = (await ctx.$`git diff HEAD 2>/dev/null`.text()).trim();
-  } catch {
-    // Non-fatal: prompt will instruct the agent to run git diff itself
-  }
+  let prompt: string;
 
-  const prompt = [
-    "## Quality Gate — Automatic Code Review\n",
-    "Delegate to @code-reviewer to review the modified code files below.",
-    "The reviewer is a read-only subagent that checks for bugs, security issues, and correctness.",
-    "After the review, if critical or high issues were found, fix them.\n",
-    "Modified code files:",
-    fileList,
-    "",
-    diffContent
-      ? `\`\`\`diff\n${diffContent}\n\`\`\``
-      : "Use `git diff HEAD` to see the changes.",
-  ].join("\n");
+  if (run === 1) {
+    let diffContent = "";
+    try {
+      diffContent = (await ctx.$`git diff HEAD 2>/dev/null`.text()).trim();
+    } catch {}
+
+    prompt = [
+      "## Quality Gate — Code Review\n",
+      "Delegate to @code-reviewer to review these files:",
+      fileList,
+      "",
+      diffContent
+        ? `\`\`\`diff\n${diffContent}\n\`\`\``
+        : "Run `git diff HEAD` to see changes.",
+      "\nFix critical/high issues. Medium/low: note and finish.",
+    ].join("\n");
+  } else {
+    prompt = `Quality gate re-check #${run}. Review ${fileList} again — are previous issues fixed? If yes, finish. If not, fix them.`;
+  }
 
   try {
     await ctx.client.session.prompt({
       path: { id: sessionId },
       body: { parts: [{ type: "text", text: prompt }] },
     });
-  } catch {
-    // Non-fatal: quality gate prompt delivery failed, but don't crash the hook runner
-  }
+  } catch {}
 }
 
 export {
