@@ -1,6 +1,6 @@
 {
   "name": "@tank/frontend-craft",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Frontend craft for polished, distinctive apps. Micro-interactions, perceived performance, premium components, visual polish, design foundations (typography, OKLCH color, spatial design), responsive, interaction patterns, UX writing, AI slop detection, shadcn registry search (11K+ components). Triggers: animation, skeleton, framer motion, shadcn, aceternity, UI polish, premium feel, typography, OKLCH, dark mode, responsive, interaction design, UX writing, AI slop, design looks generic.",
   "permissions": {
     "network": {

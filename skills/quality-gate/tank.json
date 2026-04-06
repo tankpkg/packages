@@ -1,0 +1,39 @@
+{
+  "name": "@tank/quality-gate",
+  "version": "1.0.0",
+  "description": "Automatic code review before the agent stops. Hooks into the agent's stop event, checks if code files were modified, delegates a clean-code reviewer to flag issues by severity (critical/high/medium/low), and blocks the agent from stopping until critical and high issues are resolved. The hook re-runs automatically after fixes. Triggers: quality gate, code review hook, auto review, pre-stop review, clean code guard, review before done, block on issues, enforce quality, code quality hook.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills",
+  "atoms": [
+    {
+      "kind": "hook",
+      "name": "quality-gate",
+      "event": "pre-stop",
+      "handler": {
+        "type": "js",
+        "entry": "./hooks/quality-gate.ts"
+      }
+    },
+    {
+      "kind": "agent",
+      "name": "code-reviewer",
+      "role": "Senior code reviewer. Review ONLY the modified files/hunks provided. Categorize every issue as critical, high, medium, or low. Focus on bugs, security, correctness, and maintainability. Do NOT review style/formatting — linters handle that. Be concise: one line per issue with file, line, severity, and what's wrong.",
+      "tools": ["read", "grep", "glob", "lsp"],
+      "model": "fast",
+      "readonly": true
+    },
+    {
+      "kind": "instruction",
+      "content": "./SKILL.md"
+    }
+  ]
+}
