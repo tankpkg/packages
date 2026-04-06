@@ -6,4 +6,6 @@ __pycache__/
 .cache/
 .venv/
 .tank/
+.pytest_cache/
 pyrightconfig.json
+tmp/

@@ -244,16 +244,19 @@ export default async function handler(
 
     prompt = [
       "## Quality Gate — Code Review\n",
-      "Delegate to @code-reviewer to review these files:",
+      "Review these modified files for bugs, security issues, and correctness:",
       fileList,
       "",
       diffContent
         ? `\`\`\`diff\n${diffContent}\n\`\`\``
         : "Run `git diff HEAD` to see changes.",
-      "\nFix critical/high issues. Medium/low: note and finish.",
+      "\nRules:",
+      "- If you find critical or high severity issues: fix them immediately. Do NOT finish until they are all resolved.",
+      "- If only medium/low issues: note them and finish.",
+      "- If no issues: say NO_ISSUES_FOUND and finish.",
     ].join("\n");
   } else {
-    prompt = `Quality gate re-check #${run}. Review ${fileList} again — are previous issues fixed? If yes, finish. If not, fix them.`;
+    prompt = `Quality gate re-check #${run}. Are the critical/high issues from the previous review fixed? Check ${fileList}. If all fixed, finish. If not, fix them now.`;
   }
 
   try {
