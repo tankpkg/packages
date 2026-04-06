@@ -1,7 +1,7 @@
 {
   "name": "@tank/flight-search",
   "version": "1.0.0",
-  "description": "Search flights via fast-flights (pip install, no API key, ~3s) which reverse-engineers Google Flights protobuf API. Also supports Chrome DevTools browser scraping and optional SerpAPI/Amadeus/Travelpayouts. Includes scripts for airport lookup (40+ cities builtin, zero deps), Google Flights search, and price calendars. Always provides comparison links for Skyscanner and Kayak. Triggers: find flights, cheap flights, flight prices, fly to, flights from, Skyscanner, compare flights, when is cheapest to fly, IATA code, airport code, airfare, book a flight.",
+  "description": "Search flights via fast-flights (no API key, ~3s, Google Flights protobuf). Live status via Flightradar24. Price tracking with watch list. Airport lookup (40+ cities). Optional SerpAPI/Amadeus. Triggers: find flights, cheap flights, flight prices, fly to, flights from, Skyscanner, compare flights, flight status, track flights, IATA code, airport code, airfare.",
   "permissions": {
     "network": {
       "outbound": [
