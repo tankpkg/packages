@@ -1,6 +1,6 @@
 {
   "name": "@tank/flight-search",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Search flights via fast-flights (no API key, ~3s, Google Flights protobuf). Live status via Flightradar24. Price tracking with watch list. Airport lookup (40+ cities). Optional SerpAPI/Amadeus. Triggers: find flights, cheap flights, flight prices, fly to, flights from, Skyscanner, compare flights, flight status, track flights, IATA code, airport code, airfare.",
   "permissions": {
     "network": {
