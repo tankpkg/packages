@@ -35,10 +35,29 @@ def has_travelpayouts_token() -> bool:
     return bool(os.environ.get("TRAVELPAYOUTS_TOKEN"))
 
 
+def has_fast_flights() -> bool:
+    try:
+        import importlib
+
+        importlib.import_module("fast_flights")
+        return True
+    except ImportError:
+        return False
+
+
+def has_rapidapi_key() -> bool:
+    return bool(os.environ.get("RAPIDAPI_KEY"))
+
+
 _SKIP_RULES = {
     "requires_serpapi": (has_serpapi_key, "SERPAPI_KEY not set"),
     "requires_amadeus": (has_amadeus_keys, "AMADEUS_CLIENT_ID/SECRET not set"),
     "requires_travelpayouts": (has_travelpayouts_token, "TRAVELPAYOUTS_TOKEN not set"),
+    "requires_fast_flights": (
+        has_fast_flights,
+        "fast-flights not installed (pip install fast-flights playwright)",
+    ),
+    "requires_rapidapi": (has_rapidapi_key, "RAPIDAPI_KEY not set"),
 }
 
 

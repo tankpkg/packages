@@ -12,6 +12,9 @@ from pytest_bdd import given, parsers, scenarios, then, when
 from interactions.cli_runner import FlightCliRunner
 
 scenarios("../features/airport_lookup.feature")
+scenarios("../features/search_google_flights.feature")
+scenarios("../features/flight_tracker.feature")
+scenarios("../features/flight_status.feature")
 scenarios("../features/search_flights.feature")
 scenarios("../features/price_calendar.feature")
 
@@ -69,6 +72,50 @@ def when_price_cal_no_keys(
     cli_context["result"] = runner.price_calendar(
         shlex.split(args), strip_api_keys=True
     )
+
+
+@when(parsers.parse('I run search_google_flights with "{args}"'))
+def when_run_google_flights_raw(
+    runner: FlightCliRunner, cli_context: dict[str, Any], args: str
+) -> None:
+    cli_context["result"] = runner.search_google_flights(shlex.split(args))
+
+
+@when(parsers.parse('I search google flights with "{args}"'))
+def when_search_google_flights(
+    runner: FlightCliRunner, cli_context: dict[str, Any], args: str
+) -> None:
+    cli_context["result"] = runner.search_google_flights(shlex.split(args))
+
+
+@given("a clean tracker state")
+def given_clean_tracker(cli_context: dict[str, Any]) -> None:
+    import shutil
+
+    tracker_dir = Path("/tmp/flight-tracker")
+    if tracker_dir.exists():
+        shutil.rmtree(tracker_dir)
+
+
+@when(parsers.parse('I run flight_tracker with "{args}"'))
+def when_run_flight_tracker(
+    runner: FlightCliRunner, cli_context: dict[str, Any], args: str
+) -> None:
+    cli_context["result"] = runner.flight_tracker(shlex.split(args))
+
+
+@when(parsers.parse('I run flight_status without API key using "{args}"'))
+def when_run_flight_status_no_key(
+    runner: FlightCliRunner, cli_context: dict[str, Any], args: str
+) -> None:
+    cli_context["result"] = runner.flight_status(shlex.split(args), strip_api_keys=True)
+
+
+@when(parsers.parse('I run flight_status with "{args}"'))
+def when_run_flight_status(
+    runner: FlightCliRunner, cli_context: dict[str, Any], args: str
+) -> None:
+    cli_context["result"] = runner.flight_status(shlex.split(args))
 
 
 @when(parsers.parse('I run price_calendar with "{args}"'))

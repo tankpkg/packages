@@ -1,8 +1,8 @@
 @search_flights
-Feature: Flight search across APIs
-  Search for flights using SerpAPI (primary) or Amadeus (fallback).
+Feature: Flight search via SerpAPI/Amadeus (optional paid tier)
+  Search for flights using SerpAPI or Amadeus when API keys are available.
+  These are optional — the primary search is search_google_flights.
   Tests without API keys verify error handling and CLI interface.
-  Tests with API keys verify real search results.
 
   Scenario: No API keys shows setup instructions
     When I search flights without API keys using "--origin JFK --destination LHR --date 2026-09-01"

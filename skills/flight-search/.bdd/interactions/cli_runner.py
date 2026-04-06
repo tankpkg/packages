@@ -60,6 +60,26 @@ class FlightCliRunner:
         )
         return self.run_script("search_flights.py", args, strip_env_keys=strip)
 
+    def search_google_flights(
+        self, args: list[str], json_output: bool = True
+    ) -> CliResult:
+        if json_output and "--json" not in args and "--help" not in args:
+            args = [*args, "--json"]
+        return self.run_script("search_google_flights.py", args)
+
+    def flight_tracker(self, args: list[str], json_output: bool = True) -> CliResult:
+        if json_output and "--json" not in args and "--help" not in args:
+            args = ["--json", *args]
+        return self.run_script("flight_tracker.py", args)
+
+    def flight_status(
+        self, args: list[str], strip_api_keys: bool = False, json_output: bool = True
+    ) -> CliResult:
+        if json_output and "--json" not in args and "--help" not in args:
+            args = [*args, "--json"]
+        strip = ["RAPIDAPI_KEY"] if strip_api_keys else None
+        return self.run_script("flight_status.py", args, strip_env_keys=strip)
+
     def price_calendar(
         self, args: list[str], strip_api_keys: bool = False
     ) -> CliResult:

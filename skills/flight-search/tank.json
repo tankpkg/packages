@@ -1,7 +1,7 @@
 {
   "name": "@tank/flight-search",
   "version": "1.0.0",
-  "description": "Search for flights, compare prices, and find cheapest dates using SerpAPI Google Flights (all airlines, 250 free/month), Amadeus Self-Service (airport lookup, free), and Travelpayouts (price calendars, free). Includes Python scripts for flight search, IATA code resolution, and price calendars. No pip install needed. Triggers: find flights, cheap flights, flight prices, fly to, flights from, when is cheapest to fly, price calendar, IATA code, airport code, flight API, airfare, SerpAPI, Amadeus.",
+  "description": "Search flights via fast-flights (pip install, no API key, ~3s) which reverse-engineers Google Flights protobuf API. Also supports Chrome DevTools browser scraping and optional SerpAPI/Amadeus/Travelpayouts. Includes scripts for airport lookup (40+ cities builtin, zero deps), Google Flights search, and price calendars. Always provides comparison links for Skyscanner and Kayak. Triggers: find flights, cheap flights, flight prices, fly to, flights from, Skyscanner, compare flights, when is cheapest to fly, IATA code, airport code, airfare, book a flight.",
   "permissions": {
     "network": {
       "outbound": [
