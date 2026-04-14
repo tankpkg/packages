@@ -1,0 +1,19 @@
+{
+  "name": "@tank/cooking-mastery",
+  "version": "1.0.0",
+  "description": "Personal chef for AI agents — recipe search (TheMealDB, 29 cuisines, 14 categories), video-to-recipe extraction, weekly meal planning with dietary restrictions, shopping list generation grouped by aisle, and persistent personal cookbook. Triggers: find recipe, what can I cook with, recipe from video, meal plan, shopping list, save recipe, random dinner, grocery list, what's for dinner, cookbook.",
+  "permissions": {
+    "network": {
+      "outbound": [
+        "themealdb.com",
+        "api.getbring.com"
+      ]
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": ["~/.cooking-mastery/"]
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
