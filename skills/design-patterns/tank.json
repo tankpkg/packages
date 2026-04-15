@@ -1,0 +1,18 @@
+{
+  "name": "@tank/design-patterns",
+  "version": "1.0.0",
+  "description": "JavaScript and TypeScript design patterns catalog. Covers GoF creational, structural, and behavioral patterns (Factory, Singleton, Observer, Strategy, Command, Decorator, Adapter, Proxy, State, Builder, Facade, Iterator) plus modern JS/TS patterns (Module, Provider, Middleware, Pipeline, Repository, Pub/Sub, Plugin/Hook). Synthesizes Gamma et al., Freeman, Osmani, Fowler, Vlissides.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

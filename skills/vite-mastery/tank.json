@@ -1,0 +1,18 @@
+{
+  "name": "@tank/vite-mastery",
+  "version": "1.0.0",
+  "description": "Comprehensive Vite build tool mastery. Covers vite.config.ts, dev server (HMR, proxy), build optimization (Rollup, manual chunks, code splitting, minification), plugin development (hooks, virtual modules), SSR, library mode, PWA, environment config, and performance profiling. Synthesizes Vite docs, Rollup docs, esbuild docs, Evan You. Triggers: vite, vite config, vite build, HMR, vite plugin, SSR, library mode, manual chunks, code splitting, optimizeDeps, import.meta.env, bundle size, vite PWA.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
