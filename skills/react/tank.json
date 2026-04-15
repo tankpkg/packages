@@ -1,7 +1,7 @@
 {
   "name": "@tank/react",
-  "version": "2.2.0",
-  "description": "React patterns for production apps. Covers component composition, hooks (custom, useReducer, useEffect), state architecture, performance (memo, useMemo, code splitting), React 19 features, linting with React Doctor, and testing. Triggers: react, component, hook, useState, useEffect, useReducer, context, render, JSX, props, state management, React 19, server component, suspense, memo, performance, testing, custom hook, react-doctor, linter, health score, dead code.",
+  "version": "2.3.0",
+  "description": "React patterns for production apps. Component composition (compound, polymorphic, slots), hooks, state architecture, performance, React 19 (use, Actions, useActionState, useFormStatus, ref as prop), React Compiler auto-memoization, Vite-era tooling, TanStack Query server state, Suspense-first data loading, and linting with React Doctor.",
   "permissions": {
     "network": {
       "outbound": []
