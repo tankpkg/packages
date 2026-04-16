@@ -1,0 +1,11 @@
+{
+  "name": "@tank/resource-creator",
+  "version": "1.0.0",
+  "description": "Author Tank resource atoms -- URI-addressable data or context that agents can read on demand. Covers the resource atom schema, URI schemes, static vs dynamic resources, resource vs instruction selection, and agent+resource composition. Triggers: create resource, resource atom, tank resource, uri resource, context resource, agent context, readable resource.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/packages"
+}

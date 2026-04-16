@@ -1,0 +1,22 @@
+{
+  "name": "@tank/package-creator",
+  "version": "1.0.0",
+  "description": "Master routing guide for creating any Tank package. Identifies the correct package type (instruction-only skill, bundle, hook, tool, rule, agent, prompt, resource) from a user request and routes to the specialized creator skill. Includes decision trees for format selection and a universal pre-publish quality checklist. Triggers: create a package, new tank package, which creator, package type, pre-publish check.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/packages",
+  "atoms": [
+    {
+      "kind": "instruction",
+      "content": "./SKILL.md"
+    }
+  ]
+}
