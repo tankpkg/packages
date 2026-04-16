@@ -1,0 +1,20 @@
+{
+  "name": "@tank/mcp-context7",
+  "version": "1.0.0",
+  "description": "Wire the Context7 MCP server for up-to-date library documentation and code examples. Thin config package. Triggers: context7, documentation, library docs.",
+  "permissions": {
+    "network": {
+      "outbound": [
+        "api.context7.com"
+      ]
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/packages"
+}

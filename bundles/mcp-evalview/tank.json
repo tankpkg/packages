@@ -1,0 +1,20 @@
+{
+  "name": "@tank/mcp-evalview",
+  "version": "1.0.0",
+  "description": "Wire the EvalView MCP server for llm evaluation and output quality assessment. Thin config package. Triggers: evalview, evaluation, LLM eval.",
+  "permissions": {
+    "network": {
+      "outbound": [
+        "api.openai.com"
+      ]
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/packages"
+}

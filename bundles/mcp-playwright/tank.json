@@ -1,0 +1,18 @@
+{
+  "name": "@tank/mcp-playwright",
+  "version": "1.0.0",
+  "description": "Wire the Playwright MCP server for browser automation, testing, and web interaction. Thin config package. Triggers: playwright, browser automation, web testing.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/packages"
+}

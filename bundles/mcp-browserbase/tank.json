@@ -1,0 +1,20 @@
+{
+  "name": "@tank/mcp-browserbase",
+  "version": "1.0.0",
+  "description": "Wire the Browserbase MCP server for cloud browser sessions for web scraping and automation. Thin config package. Triggers: browserbase, cloud browser, headless browser.",
+  "permissions": {
+    "network": {
+      "outbound": [
+        "api.browserbase.com"
+      ]
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/packages"
+}
