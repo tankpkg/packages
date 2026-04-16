@@ -1,0 +1,11 @@
+{
+  "name": "@tank/agent-creator",
+  "version": "1.0.0",
+  "description": "Author Tank agent atoms — named roles with tools, permissions, and model tiers for multi-atom bundles. Covers agent atom schema, role design, tool scoping, model tier selection, multi-agent composition, and platform portability. Triggers: create agent, agent atom, tank agent, agent role, agent bundle, readonly agent.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/packages"
+}

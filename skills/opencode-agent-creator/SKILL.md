@@ -1,9 +1,15 @@
 ---
 name: "@tank/opencode-agent-creator"
+deprecated: true
+superseded_by: "@tank/agent-creator"
 description: |
-  Create specialized OpenCode agents that assume specific roles — frontend
-  architect, DevOps SRE, database specialist, code reviewer, or any domain
-  expert. Covers agent anatomy (markdown and JSON formats), role design
+  DEPRECATED: Use @tank/agent-creator instead for harness-agnostic agent
+  creation. This skill is OpenCode-specific; @tank/agent-creator covers
+  the generic Tank agent atom format that works across all harnesses.
+
+  Original: Create specialized OpenCode agents that assume specific roles —
+  frontend architect, DevOps SRE, database specialist, code reviewer, or any
+  domain expert. Covers agent anatomy (markdown and JSON formats), role design
   (persona, expertise, behavioral directives), system prompt engineering,
   tool permissions, oh-my-opencode integration (categories, skill injection,
   delegation wiring), and converting existing Tank skills into standalone

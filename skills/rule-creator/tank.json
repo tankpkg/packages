@@ -1,0 +1,11 @@
+{
+  "name": "@tank/rule-creator",
+  "version": "1.0.0",
+  "description": "Author Tank rule atoms -- declarative validation constraints that block, allow, or warn on agent behavior. Covers rule atom schema, policy design, event binding, composition in bundles, and worked examples. Triggers: create rule, tank rule atom, block policy, warn policy, safety rule, enforce rule, rule bundle, policy set.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/packages"
+}

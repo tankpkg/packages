@@ -1,0 +1,11 @@
+{
+  "name": "@tank/bundle-creator",
+  "version": "1.0.0",
+  "description": "Author multi-atom Tank bundles that combine instruction, hook, agent, rule, tool, resource, and prompt atoms. Covers atoms array schema, atom kind selection, handler wiring, agent definition, rule policies, extension bags, permission scoping, and bundle directory layout. Triggers: create bundle, new bundle, multi-atom package, tank bundle, atoms array, hook atom, agent atom, rule atom, composite package.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/packages"
+}
