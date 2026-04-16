@@ -1,0 +1,11 @@
+{
+  "name": "@tank/ux-writing",
+  "version": "1.0.0",
+  "description": "Write clear, effective interface copy — microcopy, error messages, onboarding flows, form labels, empty states, notifications. Covers voice/tone design, component-level patterns, error formulas, content design process, form copy, inclusive writing, and localization readiness.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
