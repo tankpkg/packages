@@ -12,11 +12,5 @@
     },
     "subprocess": false
   },
-  "repository": "https://github.com/tankpkg/packages",
-  "atoms": [
-    {
-      "kind": "instruction",
-      "content": "./SKILL.md"
-    }
-  ]
+  "repository": "https://github.com/tankpkg/packages"
 }
