@@ -1,0 +1,20 @@
+{
+  "name": "@tank/mcp-supabase",
+  "version": "1.0.0",
+  "description": "Wire the Supabase MCP server for supabase database, auth, storage, and edge functions. Thin config package. Triggers: supabase, database, postgres.",
+  "permissions": {
+    "network": {
+      "outbound": [
+        "*.supabase.co"
+      ]
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/packages"
+}

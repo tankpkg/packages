@@ -1,0 +1,18 @@
+{
+  "name": "@tank/mcp-omega-memory",
+  "version": "1.0.0",
+  "description": "Wire the Omega Memory MCP server for advanced persistent memory with semantic search and retrieval. Thin config package. Triggers: omega memory, semantic memory, agent memory.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/packages"
+}

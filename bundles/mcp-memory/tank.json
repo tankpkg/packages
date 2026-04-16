@@ -1,0 +1,18 @@
+{
+  "name": "@tank/mcp-memory",
+  "version": "1.0.0",
+  "description": "Wire the Memory MCP server for persistent memory and knowledge graph for agent context across sessions. Thin config package. Triggers: memory, knowledge graph, persistent context.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/packages"
+}

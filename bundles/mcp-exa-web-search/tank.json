@@ -1,0 +1,20 @@
+{
+  "name": "@tank/mcp-exa-web-search",
+  "version": "1.0.0",
+  "description": "Wire the Exa Web Search MCP server for ai-powered web search with semantic understanding. Thin config package. Triggers: exa, web search, semantic search.",
+  "permissions": {
+    "network": {
+      "outbound": [
+        "api.exa.ai"
+      ]
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/packages"
+}
