@@ -1,0 +1,16 @@
+{
+  "name": "@tank/tailscale-expert",
+  "version": "1.0.0",
+  "description": "Tailscale mesh VPN configuration, administration, and troubleshooting.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
