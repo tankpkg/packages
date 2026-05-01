@@ -1,0 +1,1 @@
+{"primaryPrinciples":["floating-point-is-not-money"],"tradeoff":"exact domain value beats convenient number","recommendedAction":"use integer minor units or decimal value type with explicit rounding","delegateTo":["@tank/clean-code"],"verificationRequired":["rounding boundary tests"],"mustNotDo":["store money as binary float"]}

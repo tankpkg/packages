@@ -1,0 +1,1 @@
+{"primaryPrinciples":["do-not-rely-on-magic"],"tradeoff":"visible contract beats mysterious helper","recommendedAction":"name the transformation, document boundary assumptions, and add behavior tests","delegateTo":["@tank/clean-code"],"verificationRequired":["transformation tests"],"mustNotDo":["hide critical behavior"]}

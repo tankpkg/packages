@@ -1,0 +1,1 @@
+{"primaryPrinciples":["simplicity-before-abstraction"],"tradeoff":"current clarity beats predicted reuse","recommendedAction":"inline until repeated concept appears","delegateTo":["@tank/clean-code"],"verificationRequired":["tests unchanged"],"mustNotDo":["abstract from one example"]}

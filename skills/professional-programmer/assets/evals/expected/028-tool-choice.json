@@ -1,0 +1,1 @@
+{"primaryPrinciples":["choose-tools-with-care"],"tradeoff":"dependency cost must beat platform simplicity","recommendedAction":"use platform capability unless dependency removes meaningful complexity","delegateTo":[],"verificationRequired":["dependency rationale"],"mustNotDo":["add package by default"]}

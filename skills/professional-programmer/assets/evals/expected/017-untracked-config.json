@@ -1,0 +1,1 @@
+{"primaryPrinciples":["put-everything-under-version-control"],"tradeoff":"reproducibility beats local convenience","recommendedAction":"commit safe config template and document secret injection separately","delegateTo":[],"verificationRequired":["fresh checkout setup test"],"mustNotDo":["commit secrets"]}

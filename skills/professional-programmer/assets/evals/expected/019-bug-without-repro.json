@@ -1,0 +1,1 @@
+{"primaryPrinciples":["bug-tracker-discipline"],"tradeoff":"reproducible evidence beats vague urgency","recommendedAction":"request reproduction steps, environment, observed and expected behavior","delegateTo":["@tank/github-issues"],"verificationRequired":["repro case captured"],"mustNotDo":["guess blindly"]}
