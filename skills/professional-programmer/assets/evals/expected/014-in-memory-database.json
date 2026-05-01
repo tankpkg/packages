@@ -1,0 +1,1 @@
+{"primaryPrinciples":["data-belongs-in-database"],"tradeoff":"database semantics beat ad hoc persistence","recommendedAction":"move relational querying and consistency into a database boundary","delegateTo":["@tank/relational-db-mastery"],"verificationRequired":["migration test","query tests"],"mustNotDo":["build a custom database"]}

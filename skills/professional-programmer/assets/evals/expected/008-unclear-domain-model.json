@@ -1,0 +1,1 @@
+{"primaryPrinciples":["code-in-domain-language","code-is-design"],"tradeoff":"domain clarity beats generic reuse","recommendedAction":"rename values around invoice, refund, and shipment concepts and split unrelated flows","delegateTo":["@tank/clean-code"],"verificationRequired":["existing workflow tests","typecheck"],"mustNotDo":["introduce generic abstractions"]}

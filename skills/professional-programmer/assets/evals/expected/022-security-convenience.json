@@ -1,0 +1,1 @@
+{"primaryPrinciples":["security-before-convenience"],"tradeoff":"safe boundary beats environment shortcut","recommendedAction":"remove bypass or make it impossible in production with tests","delegateTo":["@tank/security-review"],"verificationRequired":["production config auth test"],"mustNotDo":["ship auth bypass flag"]}

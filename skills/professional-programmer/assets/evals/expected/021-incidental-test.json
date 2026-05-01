@@ -1,0 +1,1 @@
+{"primaryPrinciples":["test-required-behavior-not-incidental"],"tradeoff":"behavior evidence beats implementation coupling","recommendedAction":"assert observable result and remove private helper expectation","delegateTo":["@tank/bdd-e2e-testing"],"verificationRequired":["behavior-focused test"],"mustNotDo":["lock private implementation"]}

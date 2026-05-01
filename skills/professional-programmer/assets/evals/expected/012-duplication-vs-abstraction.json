@@ -1,0 +1,1 @@
+{"primaryPrinciples":["dry-vs-clarity"],"tradeoff":"clarity beats shared shape","recommendedAction":"keep separate concepts and improve names","delegateTo":["@tank/clean-code"],"verificationRequired":["domain review"],"mustNotDo":["merge unrelated concepts"]}

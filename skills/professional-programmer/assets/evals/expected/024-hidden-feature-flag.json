@@ -1,0 +1,1 @@
+{"primaryPrinciples":["make-invisible-visible"],"tradeoff":"explicit runtime state beats hidden environment drift","recommendedAction":"centralize flag defaults and test both flag states","delegateTo":["@tank/bdd-e2e-testing"],"verificationRequired":["flag matrix tests"],"mustNotDo":["depend on undocumented defaults"]}

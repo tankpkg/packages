@@ -1,0 +1,1 @@
+{"primaryPrinciples":["beware-shared-state","make-state-explicit"],"tradeoff":"owned state beats convenient globals","recommendedAction":"move updates behind a single owner or persistent transaction boundary","delegateTo":["@tank/clean-code"],"verificationRequired":["concurrency test","serial and parallel test runs"],"mustNotDo":["add sleeps","make tests order-dependent"]}

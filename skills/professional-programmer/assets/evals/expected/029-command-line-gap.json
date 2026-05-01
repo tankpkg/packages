@@ -1,0 +1,1 @@
+{"primaryPrinciples":["step-back-and-automate"],"tradeoff":"repeatable automation beats manual ceremony","recommendedAction":"script or CI the release steps with dry-run and rollback notes","delegateTo":[],"verificationRequired":["release dry-run"],"mustNotDo":["depend on manual copy-paste"]}

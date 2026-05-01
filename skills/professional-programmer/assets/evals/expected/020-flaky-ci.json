@@ -1,0 +1,1 @@
+{"primaryPrinciples":["test-while-you-sleep","keep-build-clean"],"tradeoff":"trustworthy CI beats rerun culture","recommendedAction":"quarantine with owner or fix nondeterminism","delegateTo":["@tank/bdd-e2e-testing"],"verificationRequired":["repeat run stability"],"mustNotDo":["ignore flaky tests"]}

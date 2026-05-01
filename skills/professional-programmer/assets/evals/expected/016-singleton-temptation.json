@@ -1,0 +1,1 @@
+{"primaryPrinciples":["resist-singleton","shared-state-risk"],"tradeoff":"explicit context beats convenient global","recommendedAction":"pass request context through scoped dependency","delegateTo":["@tank/security-review"],"verificationRequired":["parallel request isolation test"],"mustNotDo":["store user data globally"]}
