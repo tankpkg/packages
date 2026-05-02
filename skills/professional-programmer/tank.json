@@ -1,6 +1,6 @@
 {
   "name": "@tank/professional-programmer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Professional programming judgment for coding agents: production-quality code, explicit tradeoffs, testing discipline, refactoring safety, debugging, delivery, collaboration, and software craftsmanship inspired by the 97 Things programmer roadmap.",
   "permissions": {
     "network": {

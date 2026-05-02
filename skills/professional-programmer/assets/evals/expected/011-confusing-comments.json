@@ -1,1 +1,0 @@
-{"primaryPrinciples":["comment-only-what-code-cannot-say"],"tradeoff":"self-documenting code beats explanatory clutter","recommendedAction":"rename and extract before keeping only why-comments","delegateTo":["@tank/clean-code"],"verificationRequired":["readability review","tests unchanged"],"mustNotDo":["add more what-comments"]}
