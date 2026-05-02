@@ -1,1 +1,0 @@
-{"primaryPrinciples":["before-you-refactor","characterize-first"],"tradeoff":"behavior safety beats immediate cleanup","recommendedAction":"add characterization tests around current tax outputs before structural changes","delegateTo":["@tank/clean-code"],"verificationRequired":["characterization tests fail on changed behavior"],"mustNotDo":["mix feature change with refactor"]}

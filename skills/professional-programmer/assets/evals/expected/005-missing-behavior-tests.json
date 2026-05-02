@@ -1,1 +1,0 @@
-{"primaryPrinciples":["tests-are-engineering-evidence","test-required-behavior"],"tradeoff":"critical behavior tests beat unchecked speed","recommendedAction":"add tests for eligible, ineligible, and boundary discount cases","delegateTo":["@tank/bdd-e2e-testing"],"verificationRequired":["discount behavior test suite"],"mustNotDo":["assert only implementation calls"]}

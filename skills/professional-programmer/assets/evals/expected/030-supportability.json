@@ -1,1 +1,0 @@
-{"primaryPrinciples":["write-code-as-if-supporting-forever"],"tradeoff":"operability beats minimal happy path","recommendedAction":"add typed failure states, actionable logs, and runbook notes","delegateTo":["@tank/security-review"],"verificationRequired":["failure scenario tests","log review"],"mustNotDo":["ship opaque failures"]}

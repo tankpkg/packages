@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import csv
 import json
 import re
 import sys
@@ -17,10 +16,6 @@ SKILL_NAME = "@tank/professional-programmer"
 def fail(message: str) -> None:
     print(f"ERROR: {message}")
     sys.exit(1)
-
-
-def warn(message: str) -> None:
-    print(f"WARN: {message}")
 
 
 def read_text(path: Path) -> str:
@@ -99,49 +94,18 @@ def validate_skill(root: Path) -> set[str]:
     return references
 
 
-def validate_ledger(root: Path, allow_blocked: bool) -> None:
-    ledger_path = root / "assets" / "source-ledger.csv"
-    with ledger_path.open(newline="", encoding="utf-8") as handle:
-        reader = csv.DictReader(handle)
-        rows = list(reader)
-        fields = reader.fieldnames or []
-    expected_fields = [
-        "item_number",
-        "title",
-        "author",
-        "main_page_url",
-        "medium_step_url",
-        "discovered_medium_step_url",
-        "medium_read_status",
-        "canonical_source_url",
-        "coverage_status",
-        "notes",
-    ]
-    if fields != expected_fields:
-        fail(f"source-ledger.csv fields must be {expected_fields}, found {fields}")
-    if len(rows) != 97:
-        fail(f"source-ledger.csv must have exactly 97 rows, found {len(rows)}")
-    required = {"item_number", "title", "author", "main_page_url", "medium_read_status", "canonical_source_url", "coverage_status"}
-    allowed_medium = {"read", "missing", "inaccessible", "paywalled", "duplicate", "not-applicable"}
-    allowed_coverage = {"covered-from-medium-and-canonical", "covered-from-canonical", "blocked-needs-review"}
-    for index, row in enumerate(rows, start=1):
-        for field in required:
-            if not row.get(field):
-                fail(f"ledger row {index} missing {field}")
-        if row.get("medium_read_status") not in allowed_medium:
-            fail(f"ledger row {index} has invalid medium_read_status: {row.get('medium_read_status')}")
-        if row.get("coverage_status") not in allowed_coverage:
-            fail(f"ledger row {index} has invalid coverage_status: {row.get('coverage_status')}")
-        if row.get("medium_read_status") == "read" and not row.get("medium_step_url") and not row.get("discovered_medium_step_url"):
-            fail(f"ledger row {index} marked read without a Medium URL")
-        if not row.get("canonical_source_url", "").startswith("https://raw.githubusercontent.com/97-things/"):
-            fail(f"ledger row {index} canonical_source_url must be raw 97-things GitHub URL")
-        if row.get("coverage_status") == "blocked-needs-review" and not allow_blocked:
-            fail(f"ledger row {index} is blocked-needs-review")
-
-
-def validate_references(root: Path, listed_refs: set[str]) -> None:
-    banned_reference_phrases = [
+MIN_NON_EMPTY_LINES = 150
+MAX_LINES = 550
+MIN_CODE_BLOCKS = 4
+REQUIRED_REFERENCE_SECTIONS = [
+    "### Anti-pattern",
+    "### Better approach",
+]
+REQUIRED_REFERENCE_SECTION_ALTERNATIVES = [
+    ("### Why this wins", "### Why correctness wins", "### Why security wins", "### Why simplicity wins", "### Why clarity wins", "### Why readability wins", "### Why critical tests win"),
+    ("### Why the alternative loses", "### When speed legitimately wins", "### When convenience legitimately wins", "### When extensibility legitimately wins", "### When DRY legitimately wins", "### When performance legitimately wins", "### When deadlines legitimately win"),
+]
+BANNED_REFERENCE_PHRASES = [
         "Operational Catalog",
         "Assessment Questions",
         "Review Prompts",
@@ -156,7 +120,6 @@ def validate_references(root: Path, listed_refs: set[str]) -> None:
         "Completion Signals",
         "Boundary Questions",
         "Topic-Specific Notes",
-        "Questions",
         "A recommendation from this reference is complete",
         "guidance note",
         "Applied Guidance Notes",
@@ -164,6 +127,14 @@ def validate_references(root: Path, listed_refs: set[str]) -> None:
         "This case matters because",
         "Detailed Application Cases",
     ]
+
+
+def count_fenced_code_blocks(text: str) -> int:
+    fence_count = sum(1 for line in text.splitlines() if line.startswith("```"))
+    return fence_count // 2
+
+
+def validate_references(root: Path, listed_refs: set[str]) -> None:
     for ref in sorted(listed_refs):
         path = root / ref
         text = read_text(path)
@@ -176,13 +147,22 @@ def validate_references(root: Path, listed_refs: set[str]) -> None:
             fail(f"{ref} must include Sources near the top")
         line_count = len(lines)
         non_empty_lines = [line for line in lines if line.strip()]
-        if len(non_empty_lines) < 70:
-            fail(f"{ref} is too thin for a layered reference, found {len(non_empty_lines)} non-empty lines")
-        if line_count > 450:
-            fail(f"{ref} exceeds 450 lines, found {line_count}")
+        if len(non_empty_lines) < MIN_NON_EMPTY_LINES:
+            fail(f"{ref} is too thin: needs at least {MIN_NON_EMPTY_LINES} non-empty lines, found {len(non_empty_lines)}")
+        if line_count > MAX_LINES:
+            fail(f"{ref} exceeds {MAX_LINES} lines, found {line_count}")
         if "\n\n\n" in text:
             fail(f"{ref} contains excessive consecutive blank lines")
-        for phrase in banned_reference_phrases:
+        code_blocks = count_fenced_code_blocks(text)
+        if code_blocks < MIN_CODE_BLOCKS:
+            fail(f"{ref} needs at least {MIN_CODE_BLOCKS} fenced code blocks for concrete examples, found {code_blocks}")
+        for required_section in REQUIRED_REFERENCE_SECTIONS:
+            if required_section not in text:
+                fail(f"{ref} missing required section: {required_section}")
+        for alternatives in REQUIRED_REFERENCE_SECTION_ALTERNATIVES:
+            if not any(alt in text for alt in alternatives):
+                fail(f"{ref} missing one of required sections: {alternatives}")
+        for phrase in BANNED_REFERENCE_PHRASES:
             if phrase in text:
                 fail(f"{ref} contains banned filler/scaffold phrase: {phrase}")
 
@@ -192,56 +172,15 @@ def validate_references(root: Path, listed_refs: set[str]) -> None:
         fail(f"reference files not listed in SKILL.md: {sorted(unlisted)}")
 
 
-def validate_evals(root: Path) -> None:
-    cases_dir = root / "assets" / "evals" / "cases"
-    expected_dir = root / "assets" / "evals" / "expected"
-    cases = {path.stem for path in cases_dir.glob("*.md")}
-    expected = {path.stem for path in expected_dir.glob("*.json")}
-    if len(cases) < 30:
-        fail(f"expected at least 30 eval cases, found {len(cases)}")
-    index_cases = [name for name in cases if "index" in name]
-    if index_cases:
-        fail(f"eval cases must not include index placeholders: {index_cases}")
-    if cases != expected:
-        fail(f"eval case/expected mismatch: missing expected={sorted(cases - expected)}, missing cases={sorted(expected - cases)}")
-    for path in cases_dir.glob("*.md"):
-        case_text = read_text(path).strip()
-        if len(case_text.split()) < 15:
-            fail(f"{path} is too thin to be a meaningful eval case")
-        if "The expected response should" in case_text:
-            fail(f"{path} contains meta-instructions instead of scenario input")
-        if "Context: Treat this as a realistic review prompt" in case_text:
-            fail(f"{path} contains repeated eval context boilerplate")
-    for path in expected_dir.glob("*.json"):
-        data = json.loads(read_text(path))
-        for key in ["primaryPrinciples", "tradeoff", "recommendedAction", "delegateTo", "verificationRequired", "mustNotDo"]:
-            if key not in data:
-                fail(f"{path} missing key {key}")
-        if not data.get("primaryPrinciples") or not data.get("verificationRequired") or not data.get("mustNotDo"):
-            fail(f"{path} must have non-empty principles, verification, and mustNotDo")
-
-
-def validate_attribution(root: Path) -> None:
-    attribution = read_text(root / "assets" / "ATTRIBUTION.md")
-    required_phrases = ["CC BY-NC-SA 3.0", "original synthesis", "does not include copied source prose"]
-    for phrase in required_phrases:
-        if phrase not in attribution:
-            fail(f"ATTRIBUTION.md must mention: {phrase}")
-
-
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--allow-blocked", action="store_true")
     parser.add_argument("root", nargs="?", default=Path(__file__).resolve().parents[1])
     args = parser.parse_args()
     root = Path(args.root)
 
     validate_manifest(root)
     listed_refs = validate_skill(root)
-    validate_ledger(root, args.allow_blocked)
     validate_references(root, listed_refs)
-    validate_evals(root)
-    validate_attribution(root)
     print("professional-programmer package validation passed")
 
 

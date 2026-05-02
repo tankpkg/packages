@@ -1,1 +1,0 @@
-{"primaryPrinciples":["users-describe-solutions"],"tradeoff":"clarified need beats premature implementation","recommendedAction":"ask what outcome the export supports and who consumes it","delegateTo":[],"verificationRequired":["accepted user scenario"],"mustNotDo":["build button without workflow clarity"]}

@@ -1,1 +1,0 @@
-{"primaryPrinciples":["deploy-safely","correctness-first"],"tradeoff":"reversible rollout beats one-way speed","recommendedAction":"split migration into expand, backfill, switch, contract phases","delegateTo":[],"verificationRequired":["old-new compatibility test","rollback rehearsal"],"mustNotDo":["destroy data before compatibility"]}

@@ -96,7 +96,6 @@ description: |
 
 | File | Contents |
 | ---- | -------- |
-| `references/source-coverage.md` | Source ingestion method, coverage counts, copyright policy, and ledger interpretation |
 | `references/professional-principles.md` | Professional responsibility, maintainability, learning loops, supportability, and clarification habits |
 | `references/conflict-resolution.md` | Tiebreakers for correctness, security, simplicity, performance, DRY, tests, and abstraction conflicts |
 | `references/simplicity-and-design.md` | Simplicity, code as design, SRP, small functions, domain language, APIs, and behavior encapsulation |
