@@ -1,0 +1,18 @@
+{
+  "name": "@tank/kueue",
+  "version": "1.0.0",
+  "description": "Kubernetes-native queueing and quota management for batch, AI/ML, and HPC workloads with Kueue. Covers ClusterQueue, LocalQueue, ResourceFlavor, Workload, cohorts, admission checks, supported integrations, installation, kueuectl, metrics, preemption, fair sharing, MultiKueue, topology-aware scheduling, ProvisioningRequest autoscaling, tenancy patterns, and production recipes.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
