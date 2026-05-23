@@ -1,0 +1,16 @@
+{
+  "name": "@tank/crystal-clear-docs",
+  "version": "1.0.0",
+  "description": "Create crystal-clear technical documents (HTML + Markdown) with layered explanations (TL;DR to deep dive), progressive disclosure, SVG/Mermaid diagrams, scannable formatting, callout patterns, and word-level clarity. Synthesizes Minto, Tufte, Krug, Strunk & White, Zinsser, Google Tech Writing, Munroe, and Cognitive Load Theory.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
