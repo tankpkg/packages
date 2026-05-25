@@ -1,0 +1,29 @@
+{
+  "business_name": "Acme Plumbing",
+  "one_line_description": "24/7 emergency plumbing in San Francisco",
+  "ideal_customer": "Homeowners with urgent plumbing problems",
+  "usp_elements": {
+    "buyer": null,
+    "what": "Licensed master plumbers",
+    "angle": "Average response time 32 minutes",
+    "what_not": "Emergencies only - no new construction",
+    "time": "On-site within 60 minutes guaranteed",
+    "guarantee": "Fixed first time or it is free"
+  },
+  "services": ["emergency plumber", "drain cleaning", "water heater repair"],
+  "primary_conversion": "phone call",
+  "customer_value": 350.00,
+  "geo_targets": ["San Francisco, CA"],
+  "monthly_budget": 1500.00,
+  "currently_running_ads": false,
+  "competitors_bid_on_brand": false,
+  "competitors": [
+    {"name": "Roto-Rooter", "site": "https://rotorooter.com"}
+  ],
+  "device_focus": "both",
+  "vertical": "home_services",
+  "language": "en",
+  "currency": "USD",
+  "landing_page_base": "https://acmeplumbing.example",
+  "run_competitor_campaign": false
+}

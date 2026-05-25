@@ -1,0 +1,5 @@
+Campaign,Ad group,Keyword,Match type,Quality Score,Expected CTR,Ad Relevance,Landing page experience,Impressions,Clicks,CTR,Avg. CPC,Conversions,Cost / conv.,Conv. rate
+Hyperflow Analytics — Non-Brand — Search — United States,Ecommerce Analytics,[ecommerce analytics],Exact,6,Average,Above average,Average,4200,165,3.93%,$4.10,8,$84.56,4.8%
+Hyperflow Analytics — Non-Brand — Search — United States,Shopify Analytics,[shopify analytics],Exact,4,Below average,Average,Average,3800,99,2.61%,$4.30,4,$106.42,4.0%
+Hyperflow Analytics — Non-Brand — Search — United States,WooCommerce Analytics,[woocommerce analytics],Exact,5,Average,Below average,Average,2100,67,3.19%,$4.40,2,$147.40,3.0%
+Hyperflow Analytics — Non-Brand — Search — United States,Real-Time Dashboard,[real-time dashboard],Exact,3,Below average,Below average,Below average,1000,28,2.80%,$4.05,1,$113.40,3.6%

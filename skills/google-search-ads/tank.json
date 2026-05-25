@@ -1,0 +1,32 @@
+{
+  "name": "@tank/google-search-ads",
+  "version": "1.0.0",
+  "description": "Closed-loop decision engine for Google Search Ads. Generates Google Ads Editor-importable CSVs from a business brief, analyzes weekly CSV exports against industry benchmarks, proposes ranked revisions. SMB-owner focused. Search Network only — no Display, no Performance Max. Triggers: 'google ads', 'set up google ads', 'audit my ads', 'google ads bulk upload', 'search ads', 'ppc for SMB'.",
+  "permissions": {
+    "network": {
+      "outbound": [
+        "developers.google.com",
+        "support.google.com"
+      ]
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": [
+        "campaign.json",
+        "campaign_v*.json",
+        "brief.json",
+        "report.json",
+        "findings.json",
+        "DIFF.md",
+        "validation-report.md",
+        "diagnose-report.md",
+        "out/**",
+        "out_v*/**",
+        "rollback/**",
+        "reports/**"
+      ]
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
