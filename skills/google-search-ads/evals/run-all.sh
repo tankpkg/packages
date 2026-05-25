@@ -35,8 +35,8 @@ run_eval() {
   fi
 }
 
-for case in "$EVAL_ROOT"/e*-*/; do
-  id="$(basename "$case")"
+for case_path in "$EVAL_ROOT"/e*-*/; do
+  id="$(basename "$case_path")"
   run_eval "$id"
 done
 

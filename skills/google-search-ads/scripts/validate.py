@@ -31,7 +31,10 @@ class Finding:
     __slots__ = ("severity", "rule", "location", "message", "fix")
 
     def __init__(self, severity: str, rule: str, location: str, message: str, fix: str = ""):
-        assert severity in {"ERROR", "WARN", "INFO"}
+        if severity not in {"ERROR", "WARN", "INFO"}:
+            raise ValueError(
+                f"severity must be one of ERROR/WARN/INFO, got {severity!r}"
+            )
         self.severity = severity
         self.rule = rule
         self.location = location

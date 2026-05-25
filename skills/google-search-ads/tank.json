@@ -1,6 +1,6 @@
 {
   "name": "@tank/google-search-ads",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Closed-loop decision engine for Google Search Ads. Generates Google Ads Editor-importable CSVs from a business brief, analyzes weekly CSV exports against industry benchmarks, proposes ranked revisions. SMB-owner focused. Search Network only — no Display, no Performance Max. Triggers: 'google ads', 'set up google ads', 'audit my ads', 'google ads bulk upload', 'search ads', 'ppc for SMB'.",
   "permissions": {
     "network": {

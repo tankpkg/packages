@@ -98,7 +98,13 @@ def slugify(s: str, maxlen: int = 15) -> str:
 
 
 def truncate(s: str, maxlen: int) -> str:
-    return s if len(s) <= maxlen else s[:maxlen-1].rstrip() + "…"
+    # Use plain ASCII ellipsis (3 dots) instead of U+2026 to avoid
+    # NFKC normalization differences across systems.
+    if len(s) <= maxlen:
+        return s
+    if maxlen < 4:
+        return s[:maxlen]
+    return s[:maxlen - 3].rstrip() + "..."
 
 
 def headline(s: str) -> str:
