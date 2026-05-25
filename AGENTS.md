@@ -330,18 +330,45 @@ Covers: brief scope sentence.
 
 1. Create a feature branch for the new or updated skill
 2. Commit all skill files to the branch
-3. Open a PR and merge to `main`
-4. Only after the merge is complete, publish from `main`:
+3. Open a PR and merge to `main` (the `main` branch is protected — direct
+   pushes are rejected, so a PR is required)
+4. Only after the merge is complete, pull `main` locally and publish from
+   the skill directory:
 
 ```bash
-tank publish --org tank
+git checkout main && git pull origin main
+cd skills/<your-skill>/
+tank publish --dry-run    # validate and pack without uploading
+tank publish              # upload to the registry
 ```
 
 Never publish from a feature branch — the source must exist on `main` first.
 
+### Publish target
+
+The publish target is inferred from the `name` field in `tank.json`. As long
+as `name` starts with `@tank/`, the skill publishes under the `tank`
+organization. There is no `--org` flag on `tank publish`.
+
+### Available flags
+
+```
+tank publish [options]
+
+  --dry-run            Validate and pack without uploading
+  --private            Publish skill as private
+  --visibility <mode>  Skill visibility (public|private)
+```
+
+Defaults to public visibility.
+
 ### Rules
 
 - Every skill in this repo belongs to the `@tank` namespace
-- Always publish under the `tank` organization — never a personal account or other org
-- Verify the `name` field in `tank.json` starts with `@tank/` before publishing
-- Use `tank publish --dry-run` first to catch issues
+- The `name` field in `tank.json` MUST start with `@tank/` — this is what
+  routes the publish to the `tank` org. Never use a personal namespace.
+- Run `tank publish --dry-run` first to catch packing or auth issues before
+  uploading
+- Confirm you are on `main` and pulled latest before publishing — publishing
+  packs the current working directory, not a git ref
+- Confirm you are authenticated: `tank whoami` (use `tank login` if not)
