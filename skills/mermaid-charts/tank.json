@@ -1,0 +1,16 @@
+{
+  "name": "@tank/mermaid-charts",
+  "version": "1.0.0",
+  "description": "Author and validate Mermaid diagrams (flowchart, sequence, class, state, ER, gantt, pie, mindmap, gitGraph, C4, journey, quadrant, timeline, sankey, xychart, block, packet, kanban, architecture, radar). Bundled validator runs the official mermaid.parse() grammar locally via Node + jsdom — same parser GitHub uses. Covers chart-type selection, per-diagram syntax, error → fix lookup, and CI integration.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
