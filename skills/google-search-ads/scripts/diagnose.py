@@ -334,7 +334,7 @@ def rule_cpa_over_benchmark(bundle: dict, _doc: dict, bench: dict):
                 target=f"campaign:{c.get('campaign')}",
                 message=f"CPA ${cpa:.2f} is > 2× benchmark ${bench_cpa:.2f}.",
                 recommendation="Combine the negative-keyword additions and bid raises proposed elsewhere "
-                               "and re-evaluate in 14 days. If still over, scope down to highest-CVR ad groups.",
+                               "and re-assess in 14 days. If still over, scope down to highest-CVR ad groups.",
                 auto_fixable=False,
                 confidence=confidence_from_sample(safe(c, "clicks"), safe(c, "impressions")),
                 evidence={"cpa": cpa, "benchmark_cpa": bench_cpa},
