@@ -1,4 +1,4 @@
-# @tank/google-search-ads — Evaluation suite
+# @tank/google-search-ads — Test suite
 
 Three test cases that exercise the full plan → emit → validate → analyze → revise loop.
 
@@ -16,7 +16,7 @@ Three test cases that exercise the full plan → emit → validate → analyze �
 bash run-all.sh
 ```
 
-Each test writes its outputs into `evals/e01-*/out/`, `evals/e02-*/out/`, etc., and emits a `RESULT.md` per case with PASS/FAIL on each assertion.
+Each test writes its outputs into `tests/e01-*/out/`, `tests/e02-*/out/`, etc., and emits a `RESULT.md` per case with PASS/FAIL on each assertion.
 
 ## Assertion model
 

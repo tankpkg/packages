@@ -1,19 +1,19 @@
 #!/bin/bash
-# Run all three eval cases. Each emits its own RESULT.md.
+# Run all three test cases. Each emits its own RESULT.md.
 # Exit 0 only if every case passes.
 
 set -e
 SCAFFOLD_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-EVAL_ROOT="$SCAFFOLD_ROOT/evals"
+TEST_ROOT="$SCAFFOLD_ROOT/tests"
 SCRIPTS="$SCAFFOLD_ROOT/scripts"
 ASSETS="$SCAFFOLD_ROOT/assets"
 
 pass_count=0
 fail_count=0
 
-run_eval() {
+run_case() {
   local id="$1"
-  local case_dir="$EVAL_ROOT/$id"
+  local case_dir="$TEST_ROOT/$id"
   local result_file="$case_dir/RESULT.md"
   echo ""
   echo "=== $id ==="
@@ -35,9 +35,9 @@ run_eval() {
   fi
 }
 
-for case_path in "$EVAL_ROOT"/e*-*/; do
+for case_path in "$TEST_ROOT"/e*-*/; do
   id="$(basename "$case_path")"
-  run_eval "$id"
+  run_case "$id"
 done
 
 echo ""
