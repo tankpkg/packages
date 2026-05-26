@@ -12,7 +12,7 @@ Sources: Tailscale official documentation (2025-2026)
 | Windows | `C:\Program Files\Tailscale\tailscale.exe` |
 
 On macOS, alias the binary: `alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"`.
-All commands require `tailscaled` running. On Linux: `sudo systemctl enable --now tailscaled`.
+All commands require `tailscaled` running. On Linux: `$SUDO systemctl enable --now tailscaled`.
 
 ---
 
@@ -42,7 +42,7 @@ tailscale up [flags]
 | `--stateful-filtering` | Allow return traffic for outbound connections without explicit reverse ACLs |
 | `--force-reauth` | Force re-authentication even if already logged in |
 | `--login-server` | Connect to a custom control server (e.g. Headscale) |
-| `--operator` | Linux user allowed to run `tailscale` without sudo |
+| `--operator` | Linux user allowed to run `tailscale` without elevation |
 | `--reset` | Reset all preferences to defaults before applying flags |
 
 **`tailscale up` vs `tailscale set` vs `tailscale login`:**
@@ -270,8 +270,8 @@ tailscale file get [--conflict=overwrite] [--wait] <destination-dir>
 ```
 
 ```bash
-tailscale file cp report.pdf laptop:              # Send to device root
-tailscale file cp archive.tar.gz server:/tmp/     # Send to specific path
+tailscale file cp report.pdf laptop:              # copy to device root
+tailscale file cp archive.tar.gz server:/tmp/     # copy to specific path
 tailscale file get .                              # Accept pending files
 ```
 
@@ -360,7 +360,7 @@ tailscale completion fish > ~/.config/fish/completions/tailscale.fish
 
 Configure via `/etc/default/tailscaled` (Debian/Ubuntu) or
 `/etc/sysconfig/tailscaled` (RHEL/Fedora), then restart:
-`sudo systemctl restart tailscaled`.
+`$SUDO systemctl restart tailscaled`.
 
 | Flag | Default | Purpose |
 |------|---------|---------|
@@ -386,15 +386,16 @@ tailscale up --auth-key=tskey-auth-...
 ### Subnet Router
 
 ```bash
+SUDO="${SUDO:-$(command -v sudo)}"
 # Linux: enable IP forwarding
-echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf
-sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
+echo 'net.ipv4.ip_forward = 1' | $SUDO tee -a /etc/sysctl.d/99-tailscale.conf
+$SUDO sysctl -p /etc/sysctl.d/99-tailscale.conf
 
 # Advertise routes
-sudo tailscale up --advertise-routes=10.0.0.0/24,192.168.1.0/24
+$SUDO tailscale up --advertise-routes=10.0.0.0/24,192.168.1.0/24
 
 # On client devices
-sudo tailscale up --accept-routes
+$SUDO tailscale up --accept-routes
 ```
 
 Approve routes in the admin console: Machines > device > Edit route settings.
@@ -402,8 +403,9 @@ Approve routes in the admin console: Machines > device > Edit route settings.
 ### Exit Node
 
 ```bash
+SUDO="${SUDO:-$(command -v sudo)}"
 # On the exit node
-sudo tailscale up --advertise-exit-node
+$SUDO tailscale up --advertise-exit-node
 
 # On client devices
 tailscale set --exit-node=exit-node-hostname

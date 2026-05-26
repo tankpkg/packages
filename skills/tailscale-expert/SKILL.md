@@ -56,7 +56,7 @@ access control, service exposure, and debugging connectivity issues.
 | Step | Action |
 |------|--------|
 | 1 | Install: `curl -fsSL https://tailscale.com/install.sh \| sh` |
-| 2 | Start: `sudo tailscale up` |
+| 2 | Start: `$SUDO tailscale up` |
 | 3 | Authenticate via the URL printed to terminal |
 | 4 | Verify: `tailscale status` |
 -> See `references/cli-commands.md`
