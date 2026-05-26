@@ -151,7 +151,7 @@ See `references/content-safety-and-moderation.md` for implementation.
 | Polling for game state | WebSocket push | Real-time updates |
 | Use `isHost` for VIP | Use `isVIP` for the controlling player | Host = TV, VIP = player |
 | Trust client for VIP actions | Validate `isVIP` server-side on every action | Security |
-| Bypass content filtering | Add profanity filter at `moderate` minimum | Public safety |
+| Allow uncensored player input | Add profanity filter at `moderate` minimum | Public safety |
 | Shared browser context in tests | Separate `BrowserContext` per player | Isolated sessions |
 | Fixed delays in tests | `waitForSelector` / event-based waits | Reliable timing |
 | Database for live game state | In-memory Map/Object | Speed, simplicity |
