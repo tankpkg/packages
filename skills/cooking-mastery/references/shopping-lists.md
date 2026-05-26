@@ -181,7 +181,7 @@ Base URL: `https://api.getbring.com/rest/v2/`
 
 Workflow:
 1. User provides Bring! list UUID (from app settings or URL)
-2. For each ingredient, POST to add item:
+2. For each ingredient, send an HTTP PUT request to add the item:
    ```
    PUT /bringlists/{listUuid}
    Content-Type: application/x-www-form-urlencoded

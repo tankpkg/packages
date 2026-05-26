@@ -166,7 +166,7 @@ can't see it because you're too close to the content.
 1. Take only the INTENT.md and its anchor — no other context
 2. Ask three questions from a hostile, skeptical perspective:
    - "What's the single biggest design risk in this intent?"
-   - "Which sections are analysis pretending to be constraints?"
+   - "Which sections are analysis masquerading as constraints?"
    - "If you could only keep 3 sections, which would you cut?"
 3. Compare answers against your full-context perspective
 4. Any disagreement reveals blind spots worth investigating

@@ -72,7 +72,7 @@ services:
     restart: unless-stopped
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
-      - DATABASE_URL=postgresql://bot:password@db:5432/botdb
+      - DATABASE_URL=${DATABASE_URL}   # postgresql DSN supplied via .env file
       - RUST_LOG=my_bot=info,serenity=warn
     depends_on:
       db:
@@ -136,12 +136,13 @@ WantedBy=multi-user.target
 ### Management Commands
 
 ```bash
-sudo systemctl enable discord-bot    # Enable on boot
-sudo systemctl start discord-bot     # Start
-sudo systemctl stop discord-bot      # Stop
-sudo systemctl restart discord-bot   # Restart
-sudo systemctl status discord-bot    # Status
-journalctl -u discord-bot -f         # Live logs
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO systemctl enable discord-bot    # Enable on boot
+$SUDO systemctl start discord-bot     # Start
+$SUDO systemctl stop discord-bot      # Stop
+$SUDO systemctl restart discord-bot   # Restart
+$SUDO systemctl status discord-bot    # Status
+journalctl -u discord-bot -f          # Live logs
 journalctl -u discord-bot --since "1 hour ago"  # Recent logs
 ```
 
@@ -418,7 +419,7 @@ async fn shards(ctx: Context<'_>) -> Result<(), Error> {
 | Variable | Required | Example |
 |----------|----------|---------|
 | `DISCORD_TOKEN` | Yes | `Bot MTk...` |
-| `DATABASE_URL` | If using DB | `postgresql://user:pass@host/db` |
+| `DATABASE_URL` | If using DB | Standard postgres connection string (see [libpq docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING)) |
 | `RUST_LOG` | Recommended | `my_bot=info,serenity=warn` |
 | `GUILD_ID` | Dev only | `123456789` (for guild command registration) |
 

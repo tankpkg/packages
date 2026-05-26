@@ -28,14 +28,14 @@ OAuth2 Client Credentials Grant. No browser or user interaction needed.
 POST https://test.api.amadeus.com/v1/security/oauth2/token
 Content-Type: application/x-www-form-urlencoded
 
-grant_type=client_credentials&client_id=KEY&client_secret=SECRET
+grant_type=client_credentials&client_id=$AMADEUS_API_KEY&client_secret=$AMADEUS_API_SECRET
 ```
 
 ### Token Response
 
 ```json
 {
-  "access_token": "CpjU0sEenniHCgPDrndzOSWFk5mN",
+  "access_token": "<bearer-token>",
   "token_type": "Bearer",
   "expires_in": 1799
 }
@@ -90,7 +90,10 @@ GET /v1/reference-data/locations?keyword=London&subType=AIRPORT,CITY
 
 ```python
 from amadeus import Client, Location
-amadeus = Client(client_id='KEY', client_secret='SECRET')
+amadeus = Client(
+    client_id=os.environ['AMADEUS_API_KEY'],
+    client_secret=os.environ['AMADEUS_API_SECRET'],
+)
 response = amadeus.reference_data.locations.get(
     keyword='London', subType=Location.ANY
 )

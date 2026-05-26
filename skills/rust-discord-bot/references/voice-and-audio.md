@@ -196,8 +196,9 @@ async fn play(
 
 **Prerequisite**: Install `yt-dlp` on the host system:
 ```bash
-# Ubuntu/Debian
-sudo apt install yt-dlp
+# Ubuntu/Debian (elevation required)
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO apt install yt-dlp
 
 # macOS
 brew install yt-dlp

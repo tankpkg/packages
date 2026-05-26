@@ -28,7 +28,7 @@ STRIDE is the most widely used threat modeling framework. Apply it systematicall
 
 | Threat | Definition | Security Property Violated | Example |
 |--------|-----------|---------------------------|---------|
-| Spoofing | Pretending to be something or someone else | Authentication | Forged JWT, stolen session cookie |
+| Spoofing | Impersonating another entity (user, service, or device) | Authentication | Forged JWT, stolen session cookie |
 | Tampering | Modifying data or code without authorization | Integrity | SQL injection, parameter tampering, log manipulation |
 | Repudiation | Denying that an action occurred | Non-repudiation | Missing audit logs, unsigned transactions |
 | Information Disclosure | Exposing information to unauthorized parties | Confidentiality | Error stack traces, directory listing, verbose headers |
@@ -49,7 +49,7 @@ Not every threat applies to every element type. Applying STRIDE per element focu
 
 ### Conducting a STRIDE Analysis
 
-Follow these steps in order. Do not skip the data flow diagram — it is the foundation of the analysis.
+Follow these steps in order. The data flow diagram is mandatory — it is the foundation of the analysis.
 
 1. **Draw the data flow diagram.** Include all processes, data stores, external entities, data flows, and trust boundaries. Every element that handles, transforms, or transmits data must appear.
 2. **Enumerate elements.** List each process, store, external entity, and flow as a row in a working document.
@@ -211,7 +211,7 @@ Each arrow in this diagram is a candidate data flow for STRIDE analysis. Each da
 
 ## Lightweight Threat Modeling
 
-Use the 4-question framework (Shostack) for feature-level changes, pull request reviews, and time-constrained sessions. Target 30 minutes. Do not skip this for any change that introduces new external input, new data storage, or new trust boundary crossings.
+Use the 4-question framework (Shostack) for feature-level changes, pull request reviews, and time-constrained sessions. Target 30 minutes. This step is mandatory for any change that introduces new external input, new data storage, or new trust boundary crossings.
 
 ### The 4 Questions
 

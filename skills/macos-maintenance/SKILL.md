@@ -81,7 +81,8 @@ for the full scorecard.
 ### "Run periodic maintenance"
 
 ```bash
-sudo periodic daily weekly monthly
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
+$SUDO periodic daily weekly monthly
 ```
 
 Safe and idempotent. Rotates logs, rebuilds system databases. Should be
@@ -99,7 +100,7 @@ done if the Mac sleeps through scheduled run times (common for laptops).
 | Wi-Fi issues | Signal strength (RSSI) | DNS, DHCP renewal |
 | Apps crash | Disk space, memory | Crash logs in DiagnosticReports |
 | Can't install updates | Disk space (need ~15 GB) | SIP status, time/date |
-| Search broken | Spotlight index status | Rebuild: `sudo mdutil -E /` |
+| Search broken | Spotlight index status | Rebuild: `mdutil -E /` |
 | Wrong app opens files | Launch Services DB | Rebuild: `lsregister -kill -r ...` |
 | Login is slow | Login items count | Launch agent audit |
 
@@ -109,7 +110,7 @@ done if the Mac sleeps through scheduled run times (common for laptops).
 |-------|----------|--------|
 | SIP disabled | Critical | Re-enable from Recovery Mode |
 | FileVault off | High | Enable in System Settings |
-| Gatekeeper off | High | `sudo spctl --master-enable` |
+| Gatekeeper off | High | `spctl --master-enable` |
 | Firewall off | Medium | Enable via `socketfilterfw` |
 | Auto-updates off | Medium | Enable in System Settings |
 | Remote Login on | Low | Disable if not needed |
@@ -120,7 +121,7 @@ done if the Mac sleeps through scheduled run times (common for laptops).
 |------|-----------|------|
 | macOS updates | Weekly | `softwareupdate -l` |
 | Homebrew update | Weekly | `brew update && brew upgrade` |
-| Periodic scripts | Auto (or force monthly) | `sudo periodic daily weekly monthly` |
+| Periodic scripts | Auto (or force monthly) | `periodic daily weekly monthly` |
 | Security audit | Quarterly | `system-checkup.sh --security-only` |
 | Full health check | Quarterly | `system-checkup.sh` |
 | SMART disk check | Quarterly | `diskutil info disk0 \| grep SMART` |
@@ -132,23 +133,24 @@ done if the Mac sleeps through scheduled run times (common for laptops).
 ## Common Fix Commands
 
 ```bash
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
 # Flush DNS
-sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder
+$SUDO dscacheutil -flushcache && $SUDO killall -HUP mDNSResponder
 
 # Rebuild Launch Services (fixes "Open With" duplicates)
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder
 
 # Rebuild Spotlight
-sudo mdutil -E /
+$SUDO mdutil -E /
 
 # Force periodic maintenance
-sudo periodic daily weekly monthly
+$SUDO periodic daily weekly monthly
 
 # Renew DHCP lease
-sudo ipconfig set en0 DHCP
+$SUDO ipconfig set en0 DHCP
 
 # Enable firewall
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
+$SUDO /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
 
 # Check for macOS updates
 softwareupdate -l

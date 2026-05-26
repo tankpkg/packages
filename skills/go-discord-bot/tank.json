@@ -1,6 +1,6 @@
 {
   "name": "@tank/go-discord-bot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Build Discord bots in Go with discordgo, arikawa, or disgo. Covers slash commands, handler patterns, components, embeds, intents, events, state, database (pgx, entgo), voice (dgvoice, dca), goroutine safety, sharding, deployment. Triggers: discord bot go, discordgo, arikawa, disgo, golang discord bot, slash command go, discord gateway go, discord voice go, discord embed go, discord button go, discord modal go, discord bot docker go, dgvoice, discord sharding go.",
   "permissions": {
     "network": {

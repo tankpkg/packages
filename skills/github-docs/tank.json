@@ -1,6 +1,6 @@
 {
   "name": "@tank/github-docs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Write GitHub docs for libraries. Covers README structure, GFM features (alerts, mermaid, badges, collapsible, dark/light), code examples, API docs, visual design, supporting docs (CHANGELOG, CONTRIBUTING). Gen-Z optimized. Triggers: README, documentation, docs, library docs, GitHub docs, write docs, improve docs, getting started, API docs, contributing guide, changelog, badges, mermaid, quick start, document this library, write a README.",
   "permissions": {
     "network": {

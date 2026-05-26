@@ -176,7 +176,7 @@ Deliver a draft to the development team for factual corrections before finalizin
 
 ## Attack Surface Analysis
 
-Map every entry point before reviewing code. An entry point is any location where data from an untrusted source enters the application.
+Map every entry point before reviewing code. An entry point is any location where data from an external (untrusted) origin enters the application.
 
 | Entry Point Type | Trust Level | Key Checks |
 |-----------------|-------------|------------|

@@ -11,18 +11,19 @@ macOS runs three maintenance scripts automatically:
 - **monthly** — rotates additional logs, cleans up old accounting data
 
 ```bash
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
 # Check when they last ran
 ls -la /var/log/*.out 2>/dev/null
 # daily.out, weekly.out, monthly.out
 # Compare dates — if laptop sleeps through scheduled times, they get skipped
 
 # Force-run all periodic scripts (safe, takes 1-2 minutes)
-sudo periodic daily weekly monthly
+$SUDO periodic daily weekly monthly
 
 # Run individually
-sudo periodic daily
-sudo periodic weekly
-sudo periodic monthly
+$SUDO periodic daily
+$SUDO periodic weekly
+$SUDO periodic monthly
 ```
 
 **When to force-run:**
@@ -36,8 +37,9 @@ These scripts are safe and idempotent — running them extra times causes no har
 ## DNS Cache Flush
 
 ```bash
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
 # Flush DNS cache (useful when DNS is stale or domains don't resolve)
-sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder
+$SUDO dscacheutil -flushcache && $SUDO killall -HUP mDNSResponder
 
 # Verify
 dscacheutil -q host -a name google.com
@@ -70,8 +72,9 @@ killall Finder
 ## Rebuild Spotlight Index
 
 ```bash
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
 # Disable then re-enable to force full re-index
-sudo mdutil -E /
+$SUDO mdutil -E /
 
 # Check progress
 mdutil -s /
@@ -193,7 +196,7 @@ pip list --outdated 2>/dev/null
 - Empty Trash if large
 
 ### Monthly
-- Force periodic scripts (`sudo periodic daily weekly monthly`)
+- Force periodic scripts (`periodic daily weekly monthly`)
 - Check disk space (`df -h /`)
 - Review login items
 - Check battery health (laptops)
@@ -230,7 +233,7 @@ pip list --outdated 2>/dev/null
 
 1. Check CPU usage: `top -l 1 -o cpu -n 5`
 2. Kill runaway process if found
-3. Check thermal state: `sudo powermetrics --samplers smc -i 1 -n 1`
+3. Check thermal state: `powermetrics --samplers smc -i 1 -n 1`
 4. Reset SMC (Intel) or restart (Apple Silicon)
 5. Clean vents with compressed air
 6. Check ambient temperature
@@ -242,8 +245,8 @@ See `references/network-diagnostics.md` for detailed Wi-Fi troubleshooting.
 Quick fixes:
 1. Turn Wi-Fi off and on
 2. Forget and re-join network
-3. Flush DNS: `sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder`
-4. Renew DHCP: `sudo ipconfig set en0 DHCP`
+3. Flush DNS (as root): `dscacheutil -flushcache && killall -HUP mDNSResponder`
+4. Renew DHCP: `ipconfig set en0 DHCP`
 5. Reset network preferences: delete `/Library/Preferences/SystemConfiguration/` files (sudo, then restart)
 
 ### Battery Draining Fast

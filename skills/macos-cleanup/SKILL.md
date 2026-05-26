@@ -133,8 +133,9 @@ disk limit, or Troubleshoot → Clean/Purge Data.
 If disk space wasn't freed after deletion, local TM snapshots may be holding
 references:
 ```bash
+SUDO="${SUDO:-$(command -v sudo)}"   # override: SUDO="" or SUDO=doas
 tmutil listlocalsnapshots /
-sudo tmutil deletelocalsnapshots <date>
+$SUDO tmutil deletelocalsnapshots <date>
 ```
 
 ## Safety Rules

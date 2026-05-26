@@ -151,7 +151,7 @@ Removing from history does not remove the secret from GitHub's cache or any fork
 | GitHub OAuth / Actions token | `gho_` / `ghs_` prefix | High |
 | Slack bot token | `xoxb-[0-9]+-[a-zA-Z0-9]+` | High |
 | Slack user token | `xoxp-[0-9]+-[a-zA-Z0-9]+` | High |
-| Database URL | `postgres://user:pass@host/db` | Critical |
+| Database URL | DB URL with embedded credentials (driver://USER + colon + PASS + at + HOST) | Critical |
 | Private key block | `-----BEGIN RSA PRIVATE KEY-----` | Critical |
 | JWT secret (raw) | Long random string assigned to `JWT_SECRET` | High |
 | API key in URL | `https://api.example.com?key=abc123` | Medium–High |
@@ -358,4 +358,4 @@ jobs:
 3. Switch to `soft_fail: false` to enforce the gate.
 4. Add pre-commit hooks to catch issues before they reach CI.
 
-Do not skip the baseline phase on large repositories. Blocking CI on day one with hundreds of pre-existing findings creates friction that causes teams to disable scanning entirely.
+The baseline phase is mandatory on large repositories. Blocking CI on day one with hundreds of pre-existing findings creates friction that causes teams to disable scanning entirely.
