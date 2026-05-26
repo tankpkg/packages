@@ -133,7 +133,7 @@ spec:
     services: "20"
     persistentvolumeclaims: "30"
     configmaps: "50"
-    count/secrets: "50"
+    count/secrets: 50
 ```
 
 When a ResourceQuota is active, every pod must declare resource requests and limits (or have them injected by a LimitRange).
