@@ -175,9 +175,10 @@ on those networks reachable from anywhere in the tailnet.
 On the subnet router device, enable IP forwarding and advertise routes:
 
 ```
-echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.d/99-tailscale.conf
-sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
-sudo tailscale up --advertise-routes=192.168.1.0/24,10.0.0.0/8
+SUDO="${SUDO:-$(command -v sudo)}"
+echo 'net.ipv4.ip_forward = 1' | $SUDO tee -a /etc/sysctl.d/99-tailscale.conf
+$SUDO sysctl -p /etc/sysctl.d/99-tailscale.conf
+$SUDO tailscale up --advertise-routes=192.168.1.0/24,10.0.0.0/8
 ```
 
 ### Approval
@@ -199,7 +200,8 @@ Advertised routes require explicit approval in the admin console or via
 Clients must opt in to use advertised routes:
 
 ```
-sudo tailscale set --accept-routes
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO tailscale set --accept-routes
 ```
 
 Without `--accept-routes`, the client ignores advertised subnet routes even if
@@ -227,7 +229,8 @@ goes back to the router, not to an unknown Tailscale IP).
 To disable SNAT when LAN devices have routes back to the Tailscale range:
 
 ```
-sudo tailscale up --advertise-routes=10.0.0.0/8 --snat-subnet-routes=false
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO tailscale up --advertise-routes=10.0.0.0/8 --snat-subnet-routes=false
 ```
 
 Disabling SNAT requires LAN devices to have a route for `100.64.0.0/10` pointing
@@ -243,7 +246,8 @@ The client's public IP becomes the exit node's IP.
 ### Setup
 
 ```
-sudo tailscale up --advertise-exit-node
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO tailscale up --advertise-exit-node
 ```
 
 Approve in the admin console or via `autoApprovers`:
@@ -257,8 +261,9 @@ Approve in the admin console or via `autoApprovers`:
 ### Client Usage
 
 ```
-sudo tailscale set --exit-node=hostname
-sudo tailscale set --exit-node=          # disable exit node
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO tailscale set --exit-node=hostname
+$SUDO tailscale set --exit-node=          # disable exit node
 ```
 
 ### LAN Access While Using an Exit Node
@@ -267,7 +272,8 @@ By default, all traffic (including LAN) routes through the exit node. To retain
 access to local LAN resources:
 
 ```
-sudo tailscale set --exit-node-allow-lan-access
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO tailscale set --exit-node-allow-lan-access
 ```
 
 This exempts RFC 1918 addresses from the exit node tunnel.
@@ -278,8 +284,9 @@ Tailscale integrates with Mullvad VPN to provide exit nodes in 30+ countries.
 Link a Mullvad account in the admin console, then select by country or city:
 
 ```
-sudo tailscale set --exit-node=mullvad.se
-sudo tailscale set --exit-node=mullvad.us-nyc
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO tailscale set --exit-node=mullvad.se
+$SUDO tailscale set --exit-node=mullvad.us-nyc
 ```
 
 ### Auto Exit Node Suggestion
@@ -346,7 +353,8 @@ Enable MagicDNS in the admin console under DNS -> Enable MagicDNS. To disable
 on a specific device without affecting others:
 
 ```
-sudo tailscale set --accept-dns=false
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO tailscale set --accept-dns=false
 ```
 
 ---

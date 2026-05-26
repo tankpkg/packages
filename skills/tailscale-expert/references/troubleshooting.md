@@ -33,8 +33,9 @@ Start here. Match the symptom, confirm the likely cause, apply the quick fix.
 
 **Linux:**
 ```
-sudo systemctl status tailscaled
-sudo systemctl enable --now tailscaled
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO systemctl status tailscaled
+$SUDO systemctl enable --now tailscaled
 ```
 
 If the service fails to start, check `journalctl -u tailscaled -n 50` for the root cause. Common reasons: missing `/dev/net/tun`, conflicting VPN software holding the tun device, or iptables rules blocking the daemon's self-configuration.
@@ -102,7 +103,8 @@ Fix: Reduce the NAT timeout on the router if accessible. Tailscale's keepalive i
 
 Fix: Lower the MTU on the Tailscale interface. On Linux:
 ```
-sudo ip link set tailscale0 mtu 1280
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO ip link set tailscale0 mtu 1280
 ```
 On macOS and Windows, Tailscale sets MTU automatically, but some VPN stacks interfere. 1280 is the safe minimum (IPv6 minimum MTU).
 
@@ -138,7 +140,8 @@ ls -la /etc/resolv.conf
 ```
 If it points elsewhere, Tailscale cannot configure split DNS. Fix:
 ```
-sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 ```
 
 **Linux with NetworkManager:**
@@ -360,19 +363,22 @@ If rules are missing, reinstall Tailscale or add rules manually for the `tailsca
 
 **`/dev/net/tun` missing:** Tailscale requires the TUN kernel module. If it is not loaded:
 ```
-sudo modprobe tun
-echo tun | sudo tee /etc/modules-load.d/tun.conf  # persist across reboots
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO modprobe tun
+echo tun | $SUDO tee /etc/modules-load.d/tun.conf  # persist across reboots
 ```
 In containers, the host must pass through `/dev/net/tun` or grant `NET_ADMIN` capability.
 
 **iptables conflicts:** Tailscale manages its own iptables rules. If another tool (Docker, firewalld, ufw) manages iptables aggressively, rules may conflict. Check for rules that drop or reject traffic on the `tailscale0` interface:
 ```
-sudo iptables -L -n -v | grep tailscale
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO iptables -L -n -v | grep tailscale
 ```
 If firewalld is active, add `tailscale0` to the trusted zone:
 ```
-sudo firewall-cmd --zone=trusted --add-interface=tailscale0 --permanent
-sudo firewall-cmd --reload
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO firewall-cmd --zone=trusted --add-interface=tailscale0 --permanent
+$SUDO firewall-cmd --reload
 ```
 
 **Kernel version:** WireGuard is built into the Linux kernel from 5.6 onward. On older kernels, Tailscale uses a userspace WireGuard implementation, which is slower. Upgrade the kernel or install the WireGuard DKMS module for better performance.
@@ -430,6 +436,7 @@ ping -M do -s 1400 <tailscale-ip>
 ```
 Increase the size until packets are fragmented or dropped. Set the Tailscale interface MTU to the largest working size minus WireGuard overhead (approximately 80 bytes):
 ```
-sudo ip link set tailscale0 mtu 1420
+SUDO="${SUDO:-$(command -v sudo)}"
+$SUDO ip link set tailscale0 mtu 1420
 ```
 Tailscale sets this automatically on most platforms, but manual adjustment may be needed when the path MTU is non-standard.
