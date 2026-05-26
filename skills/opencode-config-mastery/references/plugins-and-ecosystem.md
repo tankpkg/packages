@@ -42,7 +42,7 @@ process and can hook into the agent lifecycle.
 Plugins can:
 - Register custom agents (with prompts, tools, permissions)
 - Add slash commands (`/command`)
-- Add hooks (pre/post message, pre/post tool call, session start/end)
+- Add hooks (pre-message, after-message, pre-tool, after-tool, session start/end)
 - Inject tools (functions callable by agents)
 - Modify agent behavior via middleware
 

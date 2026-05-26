@@ -22,7 +22,7 @@ All connected via WebSockets with server-authoritative state.
    No database needed for the game itself.
 3. **Phones are dumb controllers** — Player devices submit inputs and render
    state. Zero game logic on the client.
-4. **VIP controls the game** — First player to join gets elevated privileges
+4. **VIP controls the game** — First player to join gets host-level capabilities
    (start, kick, censor, settings). Transfers automatically on disconnect.
 5. **Test with real players** — BDD tests spawn multiple browser contexts.
    No mocks. Real WebSocket connections. Real game flow.
@@ -128,7 +128,7 @@ Docker + Fly.io (or Railway). Redis adapter if scaling beyond one server.
 | Concept | Role | Who Controls It |
 |---------|------|-----------------|
 | **Host** | The TV/projector display | The physical device running the app |
-| **VIP** | First player to join | A player on their phone with elevated privileges |
+| **VIP** | First player to join | A player on their phone with host-level capabilities |
 | **Player** | Participants | Everyone else on their phone |
 
 See `references/vip-and-room-authority.md` for full VIP implementation guide.
@@ -151,7 +151,7 @@ See `references/content-safety-and-moderation.md` for implementation.
 | Polling for game state | WebSocket push | Real-time updates |
 | Use `isHost` for VIP | Use `isVIP` for the controlling player | Host = TV, VIP = player |
 | Trust client for VIP actions | Validate `isVIP` server-side on every action | Security |
-| Skip content filtering | Add profanity filter at `moderate` minimum | Public safety |
+| Bypass content filtering | Add profanity filter at `moderate` minimum | Public safety |
 | Shared browser context in tests | Separate `BrowserContext` per player | Isolated sessions |
 | Fixed delays in tests | `waitForSelector` / event-based waits | Reliable timing |
 | Database for live game state | In-memory Map/Object | Speed, simplicity |
@@ -162,7 +162,7 @@ See `references/content-safety-and-moderation.md` for implementation.
 
 | File | Purpose |
 |------|---------|
-| `assets/test-multiplayer-example.ts` | Spawn N Socket.IO clients, simulate a game round. Adapt to your event names. |
+| `assets/test-multiplayer-example.ts` | Spawn N Socket.IO clients, replay a game round. Adapt to your event names. |
 | `assets/lobby.feature` | Gherkin feature for lobby creation and joining |
 | `assets/game-round.feature` | Gherkin feature for a complete game round |
 | `assets/edge-cases.feature` | Gherkin feature for disconnect/reconnect scenarios |

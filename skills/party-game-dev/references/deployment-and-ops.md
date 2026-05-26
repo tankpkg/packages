@@ -57,7 +57,7 @@ CMD ["node", "dist/index.js"]
 ```
 
 ### Local Development Environment
-Use Docker Compose to simulate a production-like environment locally, including the game server and a Redis instance for scaling tests.
+Use Docker Compose to mimic a production-like environment locally, including the game server and a Redis instance for scaling tests.
 
 ```yaml
 version: '3.8'
@@ -125,7 +125,7 @@ Socket.IO requires sticky sessions (session affinity) during the HTTP long-polli
 ### The Handshake Problem
 1. Client sends HTTP GET to `/socket.io/?transport=polling`.
 2. Load balancer routes to Server A. Server A generates a session ID.
-3. Client sends HTTP POST to `/socket.io/?transport=polling&sid=XYZ`.
+3. Client sends HTTP POST request to `/socket.io/?transport=polling&sid=XYZ`.
 4. Load balancer (without sticky sessions) routes to Server B.
 5. Server B does not recognize session XYZ and rejects the connection.
 

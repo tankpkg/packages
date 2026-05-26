@@ -14,7 +14,7 @@ In Jackbox-style party games, three distinct roles exist. The existing codebase 
 | **VIP** | The first player to join the room | Phone/tablet at the game URL | Starts rounds, censors content, kicks players, controls flow, manages settings |
 | **Player** | Any non-VIP participant | Phone/tablet at the game URL | Submits answers, votes, views personal prompts |
 
-The Host is **not a player**. It is a display device. The VIP is a **player with elevated privileges**. In Jackbox's own words: "The VIP is the first person to get in the game and the raw, unmitigated responsibility that comes with it is staggering."
+The Host is **not a player**. It is a display device. The VIP is a **player with host-level capabilities**. In Jackbox's own words: "The VIP is the first person to get in the game and the raw, unmitigated responsibility that comes with it is staggering."
 
 ### Why the Distinction Matters
 
