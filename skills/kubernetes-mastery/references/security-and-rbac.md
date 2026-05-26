@@ -169,7 +169,7 @@ Three profiles define security constraints for pods. Enforced via Pod Security A
 | seccompProfile: RuntimeDefault | Restrict system calls |
 | readOnlyRootFilesystem | Prevent filesystem writes (except volumes) |
 | No hostNetwork, hostPID, hostIPC | No host namespace sharing |
-| No privileged containers | No elevated privileges |
+| No privileged containers | Containers cannot escalate beyond their declared limits |
 | No hostPath volumes | No direct host filesystem access |
 
 ### Applying PSA Per Namespace
