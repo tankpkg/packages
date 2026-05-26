@@ -317,7 +317,7 @@ Create unique users per worker to avoid test interference:
 export const test = base.extend<{}, { workerAccount: Account }>({
   workerAccount: [async ({ browser }, use, workerInfo) => {
     const username = `test-user-${workerInfo.workerIndex}`;
-    const password = 'test-password';
+    const password = process.env.TEST_USER_PASSWORD!;
 
     // Create account via API (faster than UI)
     const context = await browser.newContext();
@@ -357,7 +357,7 @@ For SPAs that use tokens instead of cookies:
 ```typescript
 setup('get auth token', async ({ request }) => {
   const response = await request.post('/api/auth/login', {
-    data: { email: 'user@test.com', password: 'password' },
+    data: { email: 'user@test.com', password: process.env.TEST_USER_PASSWORD },
   });
   const { token } = await response.json();
 

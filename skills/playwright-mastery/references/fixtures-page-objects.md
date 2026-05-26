@@ -109,7 +109,7 @@ export const test = base.extend<{}, WorkerFixtures>({
   account: [async ({ browser }, use, workerInfo) => {
     // Create a unique account per worker
     const username = `user-${workerInfo.workerIndex}`;
-    const password = 'secure-password';
+    const password = process.env.TEST_USER_PASSWORD!;
 
     const page = await browser.newPage();
     await page.goto('/signup');

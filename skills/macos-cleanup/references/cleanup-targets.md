@@ -53,8 +53,9 @@ rm -rf ~/Library/Caches/com.apple.Safari/
 | Font caches | `/System/Library/Caches/com.apple.FontRegistry/` | Low | SIP-protected on modern macOS |
 
 ```bash
-# Show system cache size (requires sudo for accurate count)
-sudo du -sh /Library/Caches 2>/dev/null
+# Show system cache size (requires elevation for accurate count)
+SUDO="${SUDO:-$(command -v sudo)}"   # override: SUDO="" or SUDO=doas
+$SUDO du -sh /Library/Caches 2>/dev/null
 ```
 
 ## 2. Developer Tool Caches
@@ -251,8 +252,9 @@ rm -rf ~/Library/Logs/* 2>/dev/null
 rm -rf ~/Library/Logs/DiagnosticReports/* 2>/dev/null
 rm -rf /Library/Logs/DiagnosticReports/* 2>/dev/null
 
-# Old system logs (keep recent)
-sudo rm -rf /var/log/*.gz 2>/dev/null
+# Old system logs (keep recent — requires elevation)
+SUDO="${SUDO:-$(command -v sudo)}"   # override: SUDO="" or SUDO=doas
+$SUDO rm -rf /var/log/*.gz 2>/dev/null
 ```
 
 ## 4. Trash

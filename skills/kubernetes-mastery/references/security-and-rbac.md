@@ -67,7 +67,7 @@ roleRef:
 | patch | Partially modify resources |
 | delete | Delete resources |
 | deletecollection | Delete multiple resources |
-| impersonate | Act as another user/group |
+| impersonate | Execute requests on behalf of another user or group |
 | bind | Bind roles (escalation control) |
 | escalate | Modify roles beyond own permissions |
 

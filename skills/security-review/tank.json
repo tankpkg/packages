@@ -1,6 +1,6 @@
 {
   "name": "@tank/security-review",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Security review for any codebase, PR, or architecture. OWASP Top 10, API Security Top 10, CWE Top 25, SAST (Semgrep, CodeQL, Bandit), dependency scanning (Trivy, Snyk), secret detection (Gitleaks, TruffleHog), IaC scanning (Checkov, tfsec), threat modeling (STRIDE, PASTA), language vulnerability patterns, and remediation. Triggers: security review, OWASP, vulnerability, CVE, CWE, Semgrep, CodeQL, Trivy, Gitleaks, threat model, STRIDE, XSS, SQL injection, SSRF, Checkov, security scanning, SBOM.",
   "permissions": {
     "network": {

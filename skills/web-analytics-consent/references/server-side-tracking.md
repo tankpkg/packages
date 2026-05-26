@@ -352,7 +352,7 @@ docker run -d -e BASE_URL=https://analytics.yourdomain.com \
   ghcr.io/plausible/community-edition:v2
 
 # Umami
-docker run -d -e DATABASE_URL=postgresql://user:pass@host/umami \
+docker run -d -e DATABASE_URL="$UMAMI_DATABASE_URL" \
   -e APP_SECRET=$(openssl rand -hex 32) -p 3000:3000 \
   ghcr.io/umami-software/umami:postgresql-latest
 ```

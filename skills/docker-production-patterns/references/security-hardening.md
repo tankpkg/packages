@@ -6,7 +6,7 @@ Covers: non-root user configuration, distroless and minimal base images, read-on
 
 ## Non-Root Users
 
-Docker containers run as root by default. A container escape with root privileges gives the attacker root on the host (unless user namespaces are configured). Run as non-root.
+Docker containers default to running their workload under the root account. A container escape with root privileges gives the attacker root on the host (unless user namespaces are configured). Always switch to a non-root user.
 
 ### Creating a Non-Root User
 

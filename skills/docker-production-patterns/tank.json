@@ -1,6 +1,6 @@
 {
   "name": "@tank/docker-production-patterns",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Production Docker patterns covering Dockerfiles, multi-stage builds, BuildKit, security hardening, Compose production usage, lifecycle/signals, logging, and CI/CD. Triggers: Dockerfile, docker production, BuildKit, docker security, health check, distroless, non-root, docker logging, tagging, docker CI/CD.",
   "permissions": {
     "network": {

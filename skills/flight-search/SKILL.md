@@ -93,8 +93,8 @@ Search flights, compare prices, find cheapest dates — no API keys needed.
 
 ### "Is flight BA178 on time?"
 
-1. With RAPIDAPI_KEY: `flight_status.py BA178` → delay, gate, terminal
-2. Without key: use web search for `"BA178 flight status today"`
+1. If `RAPIDAPI_KEY` is set, run `flight_status.py BA178` → delay, gate, terminal
+2. Without the key, use web search for `"BA178 flight status today"`
 
 ## Decision Trees
 

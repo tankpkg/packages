@@ -89,7 +89,7 @@ massive since AA and DL are the #1 and #2 carriers.
 - NOT as primary fare search due to airline coverage gaps
 
 ### Auth
-OAuth2 Client Credentials Grant. POST to /v1/security/oauth2/token with
+OAuth2 Client Credentials Grant. Issue a POST request against `/v1/security/oauth2/token` with
 client_id + client_secret. Token lasts 30 minutes. SDKs auto-refresh.
 
 ## Travelpayouts (Aviasales)
