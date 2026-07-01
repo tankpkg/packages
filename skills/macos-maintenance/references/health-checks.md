@@ -30,6 +30,7 @@ diskutil repairVolume /
 ### SMART Status (SSD/HDD Health)
 
 ```bash
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
 # Built-in quick check
 diskutil info disk0 | grep "SMART Status"
 # Expected: "SMART Status: Verified" — healthy
@@ -37,7 +38,7 @@ diskutil info disk0 | grep "SMART Status"
 
 # Detailed SMART data (requires smartmontools)
 # brew install smartmontools
-sudo smartctl -a /dev/disk0
+$SUDO smartctl -a /dev/disk0
 
 # Key SMART attributes for SSDs:
 #   Percentage Used: should be under 80%
@@ -157,6 +158,7 @@ swap as a performance optimization, not just as emergency overflow.
 ## CPU & Thermal
 
 ```bash
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
 # Load averages (1, 5, 15 minutes)
 sysctl -n vm.loadavg
 # Or
@@ -166,10 +168,10 @@ uptime
 ps aux --sort=-%cpu | head -11
 
 # Thermal state (Apple Silicon)
-sudo powermetrics --samplers smc -i 1 -n 1 2>/dev/null | grep -i "thermal"
+$SUDO powermetrics --samplers smc -i 1 -n 1 2>/dev/null | grep -i "thermal"
 
 # CPU throttling check
-sudo powermetrics --samplers cpu_power -i 1000 -n 1 2>/dev/null | head -30
+$SUDO powermetrics --samplers cpu_power -i 1000 -n 1 2>/dev/null | head -30
 
 # Fan speed (Intel Macs, or with iStats)
 # brew install iStats (Ruby gem: gem install iStats)
@@ -242,6 +244,7 @@ tmutil machinedirectory 2>/dev/null
 ## Spotlight Index Health
 
 ```bash
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
 # Index status
 mdutil -s /
 
@@ -251,7 +254,7 @@ mdutil -s / | grep "Indexing"
 # "Indexing disabled." = might need re-enabling
 
 # Rebuild if search is broken (takes 10-60 min)
-sudo mdutil -E /
+$SUDO mdutil -E /
 
 # Check Spotlight CPU usage (should be low when idle)
 ps aux | grep mds | grep -v grep

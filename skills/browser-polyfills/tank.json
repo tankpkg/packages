@@ -1,0 +1,18 @@
+{
+  "name": "@tank/browser-polyfills",
+  "version": "1.0.1",
+  "description": "Diagnose and fix browser compatibility issues in Next.js apps. Covers Safari/iOS JS polyfills (requestIdleCallback, Promise.withResolvers, Set methods), CSS workarounds (backdrop-filter, dvh, sticky bugs), Next.js polyfill config (App + Pages Router), browserslist, feature detection, polyfill.io alternatives, and Safari React bugs (date parsing, input zoom, 100vh, scroll lock). Triggers: polyfill, Safari broken, iOS Safari bug, browserslist, cross-browser.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

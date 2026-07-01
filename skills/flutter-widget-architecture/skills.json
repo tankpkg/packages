@@ -1,0 +1,16 @@
+{
+  "name": "@tank/flutter-widget-architecture",
+  "version": "1.0.0",
+  "description": "Master Flutter widget tree architecture, rendering pipeline, and composition patterns. Covers StatelessWidget vs StatefulWidget vs InheritedWidget, BuildContext/Element internals, Key strategies, widget lifecycle, layout constraints, and performance optimization for production apps.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

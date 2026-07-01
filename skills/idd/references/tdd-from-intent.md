@@ -126,13 +126,13 @@ each row as a test. Do not skip rows — every example is a specification.
 // From intent Examples table:
 // | authenticate("valid@test.com", "correct") | Session { status: "active" } |
 it("returns active session for valid credentials", async () => {
-  const session = await authenticate({ email: "valid@test.com", password: "correct" });
+  const session = await authenticate({ email: "valid@test.com", password: validPassword });
   expect(session.status).toBe("active");
 });
 
 // | authenticate("valid@test.com", "wrong") | AuthError { code: "INVALID_CREDENTIALS" } |
 it("returns INVALID_CREDENTIALS for wrong password", async () => {
-  await expect(authenticate({ email: "valid@test.com", password: "wrong" }))
+  await expect(authenticate({ email: "valid@test.com", password: invalidPassword }))
     .rejects.toMatchObject({ code: "INVALID_CREDENTIALS" });
 });
 ```
@@ -173,12 +173,12 @@ a failure condition becomes an error path test.
 
 ```typescript
 it("returns 401 when account is locked, not 403", async () => {
-  const result = await authenticate({ email: "locked@test.com", password: "any" });
+  const result = await authenticate({ email: "locked@test.com", password: anyPassword });
   expect(result.statusCode).toBe(401);
 });
 
 it("does not reveal whether email exists in error message", async () => {
-  const result = await authenticate({ email: "nonexistent@test.com", password: "wrong" });
+  const result = await authenticate({ email: "nonexistent@test.com", password: invalidPassword });
   expect(result.message).not.toContain("not found");
   expect(result.message).not.toContain("does not exist");
 });
@@ -199,9 +199,9 @@ Boundary values, empty inputs, extremes, and off-by-one conditions.
 ```typescript
 it("accepts exactly 5 login attempts before rate limiting", async () => {
   for (let i = 0; i < 5; i++) {
-    await authenticate({ email: "user@test.com", password: "wrong" });
+    await authenticate({ email: "user@test.com", password: invalidPassword });
   }
-  await expect(authenticate({ email: "user@test.com", password: "wrong" }))
+  await expect(authenticate({ email: "user@test.com", password: invalidPassword }))
     .rejects.toMatchObject({ code: "RATE_LIMITED" });
 });
 ```
@@ -240,8 +240,8 @@ under load.
 it("prevents duplicate account creation under concurrent requests", async () => {
   const email = "concurrent@test.com";
   const [r1, r2] = await Promise.allSettled([
-    createAccount({ email, password: "valid" }),
-    createAccount({ email, password: "valid" }),
+    createAccount({ email, password: validPassword }),
+    createAccount({ email, password: validPassword }),
   ]);
   const successes = [r1, r2].filter(r => r.status === "fulfilled");
   expect(successes).toHaveLength(1);

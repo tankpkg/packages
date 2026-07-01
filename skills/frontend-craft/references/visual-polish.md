@@ -2,7 +2,9 @@
 
 Sources: Wathan/Schoger (Refactoring UI), Yablonski (Laws of UX), shadcn/ui conventions
 
-Covers: shadow elevation systems, spacing scales, typography scales, gradient patterns, backdrop blur, dark mode transitions, focus-visible, selection color, border radius systems.
+Covers: shadow elevation systems, spacing scales, typography scales, gradient patterns, backdrop blur, dark mode transitions, focus-visible, selection color, border radius systems, AI slop detection.
+
+> **For deeper color theory (OKLCH, tinted neutrals, palette architecture, dark mode) and typography (font selection, pairing, OpenType features), see `references/design-foundations.md`.**
 
 Visual polish represents the "last 5%" of the development cycle where a functional interface is transformed into a premium product. It focuses on consistency, depth, and refinement of the smallest details.
 
@@ -102,7 +104,7 @@ h1 {
 
 ## Color Polish
 
-Premium UIs avoid flat, default colors. Use subtle gradients and transparency to add life to the interface.
+Premium UIs avoid flat, default colors. Use subtle gradients, tinted neutrals, and OKLCH for perceptually accurate palettes. See `references/design-foundations.md` for the complete OKLCH color system.
 
 ### Subtle Gradients
 Replace flat backgrounds with very subtle "barely there" gradients.
@@ -114,13 +116,16 @@ Replace flat backgrounds with very subtle "barely there" gradients.
 </div>
 ```
 
-### Background Tints
-Instead of pure gray, tint your neutrals with a tiny amount of your brand color (e.g., 2-5% saturation). This makes the UI feel "warmer" and more cohesive.
+### Modern Color with OKLCH
+Prefer `oklch()` over `hsl()` for new projects — it's perceptually uniform, meaning equal lightness steps actually look equal. At minimum, tint your neutrals toward your brand hue (even 0.01 chroma creates subconscious cohesion):
 
 ```css
 :root {
-  /* Instead of #f8fafc (Slate 50) */
-  --bg-tinted: #f8faff; /* Slightly bluer tint for a tech brand */
+  /* Old approach: pure gray */
+  /* --bg-subtle: hsl(0 0% 97%); */
+
+  /* Better: OKLCH with brand tint */
+  --bg-subtle: oklch(97% 0.01 250); /* cool tech tint */
 }
 ```
 
@@ -301,3 +306,43 @@ On desktop, default scrollbars often break the visual theme. Use `scrollbar-gutt
   background-clip: content-box;
 }
 ```
+
+## The AI Slop Test
+
+Every LLM trained on the same templates produces the same predictable mistakes. If someone saw your interface and immediately thought "AI made this," the design has failed. A distinctive interface makes people ask *"how was this made?"* not *"which AI made this?"*
+
+### AI-Generated Design Fingerprints to Avoid
+
+**Typography**:
+- Inter, Roboto, Arial, Open Sans as default choices — use distinctive alternatives (see `references/design-foundations.md`)
+- Monospace font as shorthand for "technical/developer" aesthetic
+- Large rounded-corner icons above every heading (makes sites look templated)
+
+**Color**:
+- The AI palette: cyan-on-dark, purple-to-blue gradients, neon accents on dark backgrounds
+- Gray text on colored backgrounds (looks washed out — use a shade of the background color)
+- Pure black `#000` or pure white `#fff` (tint everything — pure values don't exist in nature)
+- Gradient text on headings or metrics for "impact" (decorative noise, not meaningful emphasis)
+- Defaulting to dark mode with glowing accents (avoids real design decisions)
+
+**Layout**:
+- Wrapping everything in cards — spacing and alignment create grouping naturally
+- Nesting cards inside cards — flatten the hierarchy with typography and dividers
+- Identical card grids: same-sized cards with icon + heading + text, repeated endlessly
+- The "hero metric" template: big number, small label, supporting stats, gradient accent
+- Centering everything — left-aligned text with asymmetric layouts feels more intentional
+- Uniform spacing everywhere — without rhythm variation, layouts feel monotonous
+
+**Visual Details**:
+- Glassmorphism used decoratively (blur effects, glass cards, glow borders without purpose)
+- Rounded rectangles with a thick colored border on one side (lazy accent)
+- Sparklines as decoration (tiny charts that convey nothing meaningful)
+- Generic drop shadows on rounded rectangles (safe, forgettable, could be any AI output)
+
+**Motion**:
+- Bounce or elastic easing (dated — real objects decelerate smoothly)
+- Animating layout properties (width, height, padding) instead of transform/opacity
+
+### The Fix
+
+Commit to a design direction before writing code. Ask: What problem does this solve? Who is the audience? What tone — brutalist, editorial, playful, luxury, organic? What's the ONE thing someone will remember? Bold maximalism and refined minimalism both work; the failure mode is timid middle-ground that looks like every other AI output.

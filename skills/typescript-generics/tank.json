@@ -1,0 +1,18 @@
+{
+  "name": "@tank/typescript-generics",
+  "version": "1.0.0",
+  "description": "Advanced TypeScript generics covering constraints, conditional and mapped types, template literal types, infer, utility types, branded types, discriminated unions, variance, and real-world generic patterns. Triggers: TypeScript generics, conditional type, mapped type, infer, utility types, branded type, variance, type-level programming.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

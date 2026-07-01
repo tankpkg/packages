@@ -1,0 +1,20 @@
+{
+  "name": "@tank/mermaid-charts-validator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local validator for Mermaid diagrams. Uses the official mermaid.parse() grammar with a jsdom DOM shim — no Puppeteer / Chromium needed.",
+  "type": "module",
+  "bin": {
+    "validate-mermaid": "./validate-mermaid.mjs"
+  },
+  "scripts": {
+    "validate": "node ./validate-mermaid.mjs"
+  },
+  "dependencies": {
+    "mermaid": "^11.0.0",
+    "jsdom": "^25.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

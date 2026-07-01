@@ -1,0 +1,18 @@
+{
+  "name": "@tank/drizzle-orm-mastery",
+  "version": "1.0.0",
+  "description": "Drizzle ORM patterns for TypeScript covering schema design, drizzle-kit migrations, query builder usage, relations, transactions, type inference, pooling, and framework integration. Triggers: drizzle orm, drizzle schema, drizzle migrations, drizzle-kit, drizzle relations, drizzle query, drizzle join, drizzle transaction, drizzle vs prisma.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

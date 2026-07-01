@@ -6,7 +6,7 @@ The F-Pattern describes the visual path developers take when landing on a reposi
 
 ### Eye-Tracking Behavior
 1. First Horizontal Scan: Users read across the top of the page. This is where the Hero section resides. They look for the project name and a high-level summary to determine if they are in the right place.
-2. Vertical Scan: Users move down the left edge of the content, looking for visual markers. Headlines, list markers (bullets/numbers), and the start of code blocks act as anchors.
+2. Vertical Scan: Users move down the left edge of the content, looking for visual markers. Headlines, list markers (bullets/numbers), and the start of code blocks serve as anchors.
 3. Second Horizontal Scan: Users focus on specific elements that catch their eye, typically the first code block or a bolded feature name. This is where they assess technical viability.
 
 ### Implications for README Design

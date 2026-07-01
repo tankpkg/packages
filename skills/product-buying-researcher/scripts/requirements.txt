@@ -1,0 +1,25 @@
+# Product Buying Researcher - Script Dependencies
+#
+# Install all: pip install -r requirements.txt
+# Or install only what you need:
+#   pip install google-search-results   # For SerpAPI (Google Shopping)
+#   pip install amzpy                   # For Amazon search (free, no key)
+#   pip install price-parser            # For scraping product page prices
+
+# === Primary: Google Shopping via SerpAPI ===
+# Needs SERPAPI_API_KEY env var. 100 free searches/month.
+# https://serpapi.com
+google-search-results>=2.4.2
+
+# === Free: Amazon product search ===
+# No API key needed. Uses anti-bot via curl_cffi.
+# https://github.com/jatinkrmalik/amzpy
+amzpy>=0.2.2
+
+# === Utility: Price extraction from raw text/HTML ===
+# Used by check_prices.py for scraping retailer pages.
+# https://github.com/scrapinghub/price-parser
+price-parser>=0.5.0
+
+# === Already in Python stdlib (no install needed) ===
+# json, argparse, re, os, sys, http.server, webbrowser, urllib

@@ -1,0 +1,18 @@
+{
+  "name": "@tank/agents-md",
+  "version": "1.0.0",
+  "description": "AI coding instruction files across AGENTS.md, CLAUDE.md, Cursor rules, Copilot, Windsurf, Gemini, and OpenCode. Covers cross-tool compatibility, monorepo patterns, rule-writing, and migrations. Triggers: AGENTS.md, CLAUDE.md, cursorrules, cursor rules, copilot instructions, windsurf rules, GEMINI.md, agent config, instruction file.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

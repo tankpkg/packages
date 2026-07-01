@@ -1,0 +1,18 @@
+{
+  "name": "@tank/web-performance",
+  "version": "1.0.0",
+  "description": "Web performance optimization for modern JS apps. Core Web Vitals (LCP, INP, CLS), loading strategies, bundle optimization (tree-shaking, code splitting), resource hints, runtime performance (DOM batching, Web Workers, virtual lists), network optimization (caching, CDN, service workers), image optimization (AVIF, WebP, responsive), and third-party script management. Framework-agnostic. Synthesizes Grigorik, Wagner, web.dev, Chromium guides.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "@tank/markdown-renderer",
+  "version": "0.1.0",
+  "description": "Render extended markdown with CommonMark/GFM, Mermaid, KaTeX math, trusted SVG/custom HTML, sanitization, static export, and diagram adapters. Operates the standalone package `markdown-renderer-cli` via npx/bunx. Triggers: markdown renderer, render markdown, markdown to html, mermaid markdown, latex in markdown, katex markdown, custom html in markdown, svg in markdown, extended markdown, graphviz markdown, static markdown export, npx markdown-renderer-cli.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

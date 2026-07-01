@@ -30,7 +30,7 @@ function recordLatency(event: string, startMs: number): void {
 }
 
 function generateRoomCode(): string {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const chars = "ABCDEFGHJKLM" + "NPQRSTUVWXYZ23456789";
   return Array.from({ length: 4 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
 }
 

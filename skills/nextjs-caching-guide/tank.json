@@ -1,0 +1,16 @@
+{
+  "name": "@tank/nextjs-caching-guide",
+  "version": "1.0.0",
+  "description": "Deep guide to Next.js App Router caching layers, revalidation strategies, use cache directive, fetch cache options, static vs dynamic rendering, ISR, cache debugging, and version-specific behavior changes. Triggers: next.js caching, revalidatePath, revalidateTag, ISR, stale data, use cache, unstable_cache, cache busting, data cache, router cache, full route cache, force-dynamic, cacheLife, cacheTag.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

@@ -2,7 +2,7 @@
 /**
  * Party Game Multiplayer Test Harness
  *
- * Spawns N Socket.IO clients to simulate a complete game round.
+ * Spawns N Socket.IO clients to drive an end-to-end game round.
  * Usage: npx tsx scripts/test-multiplayer.ts [--players 4] [--url http://localhost:3000]
  *
  * What it tests:

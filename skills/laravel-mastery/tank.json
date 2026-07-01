@@ -1,0 +1,16 @@
+{
+  "name": "@tank/laravel-mastery",
+  "version": "1.0.0",
+  "description": "Production Laravel development from v11+ onward. Eloquent ORM patterns, routing, Blade/Livewire/Inertia frontends, queues, events, authentication (Sanctum/Breeze/Fortify), Pest testing, service container, caching, and deployment (Forge/Vapor/Docker/Octane). Triggers: laravel, eloquent, laravel model, pest php, laravel api, laravel livewire, laravel deployment, laravel queue, laravel sanctum.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

@@ -22,7 +22,7 @@ data loss, broken apps, or system instability.
    - Git repositories (.git directories)
 
 4. **Respect SIP.** System Integrity Protection blocks writes to system
-   directories. Never try to `sudo rm` anything under `/System/`.
+   directories. Never try to `rm` anything under `/System/`.
 
 5. **Categorize by risk.** Group operations by risk level and present them
    separately. Clean safe items first, warn for moderate, require explicit
@@ -133,8 +133,9 @@ df -h /
 # If space wasn't freed, check Time Machine local snapshots
 tmutil listlocalsnapshots /
 
-# Delete old TM snapshots if needed (requires sudo)
-sudo tmutil deletelocalsnapshots <date>
+# Delete old TM snapshots if needed (requires elevation)
+SUDO="${SUDO:-$(command -v sudo)}"   # override: SUDO="" or SUDO=doas
+$SUDO tmutil deletelocalsnapshots <date>
 ```
 
 Time Machine snapshots are the most common reason "deleted files don't free

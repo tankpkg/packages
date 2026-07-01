@@ -1,0 +1,16 @@
+{
+  "name": "@tank/tool-creator",
+  "version": "1.0.0",
+  "description": "Author Tank tool atoms that wire MCP servers into agent harnesses. Covers tool atom schema, STDIO and HTTP transport wiring, OAuth for remote servers, extension bags for cross-platform support, permission scoping, and composing tool + instruction atoms. Triggers: create mcp tool, wire mcp server, tank tool atom, mcp wiring bundle, tool atom schema, mcp config to tank, register mcp server.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/packages"
+}

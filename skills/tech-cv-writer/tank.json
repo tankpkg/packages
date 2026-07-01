@@ -1,0 +1,16 @@
+{
+  "name": "@tank/tech-cv-writer",
+  "version": "1.0.0",
+  "description": "Write ATS-optimized CVs for tech/SWE roles using 2026 AI-screening standards. Covers keyword matching, LaTeX templates, quantified achievements, LinkedIn optimization, role-specific tailoring.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

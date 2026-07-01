@@ -312,7 +312,7 @@ pub fn all() -> Vec<poise::Command<crate::Data, crate::Error>> {
 ```bash
 # .env (never commit this file)
 DISCORD_TOKEN=Bot MTk...
-DATABASE_URL=postgresql://user:pass@localhost/botdb
+DATABASE_URL=postgresql://YOUR_DB_USER@localhost/botdb  # add password via separate PGPASSWORD env var or ~/.pgpass
 RUST_LOG=my_bot=debug,serenity=info
 ```
 

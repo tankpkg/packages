@@ -1,0 +1,11 @@
+{
+  "name": "@tank/hook-creator",
+  "version": "1.0.0",
+  "description": "Author Tank hook atoms that intercept agent lifecycle events. Covers canonical hook events, DSL and JS/TS handlers, manifest wiring, and production patterns. Triggers: create hook, hook atom, tank hook, pre-stop hook, DSL handler, JS handler, lifecycle hook, agent gate.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/packages"
+}

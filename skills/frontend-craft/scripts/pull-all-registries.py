@@ -7,7 +7,7 @@ Uses concurrent workers to pull registries in parallel.
 Usage:
     python pull-all-registries.py
     python pull-all-registries.py --registry-limit 5 --workers 16
-    python pull-all-registries.py --proxy http://user:pass@host:port
+    python pull-all-registries.py --proxy "http://<username>:<password>@host:port"
 """
 
 from __future__ import annotations
@@ -628,7 +628,7 @@ def main() -> None:
               %(prog)s                              # pull everything
               %(prog)s --registry-limit 5           # first 5 registries only
               %(prog)s --workers 24                 # 24 parallel workers
-              %(prog)s --proxy http://u:p@host:port # use HTTP proxy
+              %(prog)s --proxy "http://<username>:<password>@host:port" # HTTP proxy
         """),
     )
     parser.add_argument("--output", "-o", default=str(DEFAULT_OUTPUT))
@@ -637,7 +637,7 @@ def main() -> None:
     parser.add_argument("--workers", "-w", type=int, default=16)
     parser.add_argument("--include-skipped", action="store_true")
     parser.add_argument(
-        "--proxy", default=None, help="HTTP proxy URL (http://user:pass@host:port)"
+        "--proxy", default=None, help="HTTP proxy URL (http://<username>:<password>@host:port)"
     )
     parser.add_argument("--quiet", "-q", action="store_true")
 

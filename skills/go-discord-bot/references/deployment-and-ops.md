@@ -43,7 +43,7 @@ services:
     restart: unless-stopped
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
-      - DATABASE_URL=postgres://bot:${DB_PASSWORD}@postgres:5432/botdb?sslmode=disable
+      - DATABASE_URL=${DATABASE_URL}   # full DSN supplied via .env (see Environment Variable Checklist below)
       - REDIS_URL=redis://redis:6379
     depends_on:
       postgres: { condition: service_healthy }
@@ -98,10 +98,12 @@ WantedBy=multi-user.target
 
 ### Management Commands
 
+Run each command below as root (prefix with `sudo`, or open a root shell):
+
 ```bash
-sudo systemctl enable --now discord-bot
-sudo journalctl -u discord-bot -f        # follow logs
-sudo systemctl restart discord-bot       # after binary update
+systemctl enable --now discord-bot
+journalctl -u discord-bot -f        # follow logs
+systemctl restart discord-bot       # after binary update
 ```
 
 ## Structured Logging

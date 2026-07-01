@@ -1,0 +1,16 @@
+{
+  "name": "@tank/rust-patterns",
+  "version": "1.0.0",
+  "description": "Idiomatic Rust patterns for production apps. Ownership, borrowing, lifetimes, error handling (thiserror, anyhow), traits, generics, async/Tokio, design patterns (newtype, typestate, builder), serde, testing, CLI (clap, tracing), web (axum, sqlx), performance, and crate recommendations. Triggers: rust, ownership, borrowing, lifetimes, borrow checker, error handling, Result, async, tokio, traits, generics, serde, testing, clap, axum, rust patterns, idiomatic rust.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

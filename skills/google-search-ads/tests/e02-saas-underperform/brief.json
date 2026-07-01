@@ -1,0 +1,30 @@
+{
+  "business_name": "Hyperflow Analytics",
+  "one_line_description": "Real-time SaaS analytics for ecommerce stores",
+  "ideal_customer": "Shopify and WooCommerce merchants doing $50k+/mo GMV",
+  "usp_elements": {
+    "buyer": "Mid-market ecommerce merchants",
+    "what": "Real-time, no-code analytics dashboard",
+    "angle": "Setup in 90 seconds, no dev required",
+    "what_not": null,
+    "time": "14-day free trial, no credit card",
+    "guarantee": "Money-back guarantee for 30 days after first paid month"
+  },
+  "services": ["ecommerce analytics", "shopify analytics", "woocommerce analytics", "real-time dashboard"],
+  "primary_conversion": "free trial signup",
+  "customer_value": 1200.00,
+  "geo_targets": ["United States", "United Kingdom", "Canada", "Australia"],
+  "monthly_budget": 6000.00,
+  "currently_running_ads": true,
+  "competitors_bid_on_brand": true,
+  "competitors": [
+    {"name": "Glew.io", "site": "https://glew.io"},
+    {"name": "Putler", "site": "https://putler.com"}
+  ],
+  "device_focus": "desktop",
+  "vertical": "b2b",
+  "language": "en",
+  "currency": "USD",
+  "landing_page_base": "https://hyperflow.example",
+  "run_competitor_campaign": true
+}

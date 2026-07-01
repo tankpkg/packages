@@ -1,6 +1,8 @@
 # Component Patterns
 
-Sources: React documentation; Kent C. Dodds Advanced React Patterns.
+Sources: React documentation; Kent C. Dodds Advanced React Patterns; Radix UI source.
+
+Covers: composition patterns for building flexible, type-safe, and accessible component APIs.
 
 ## Compound Components (Context-Based Accordion)
 Use a shared context to coordinate child pieces without prop threading.
@@ -30,6 +32,94 @@ export function AccordionPanel({ id, children }: { id: string; children: React.R
 }
 ```
 
+## Compound Components (Radix-Style Dot Notation)
+Attach sub-components as static properties on the root for a discoverable API.
+Consumers compose structure while the root manages shared state.
+Throw if sub-components are used outside their root provider.
+Use display names for dev tools and error messages.
+```tsx
+type SelectCtx = {
+  value: string;
+  onChange: (v: string) => void;
+  open: boolean;
+  setOpen: (o: boolean) => void;
+};
+const SelectContext = React.createContext<SelectCtx | null>(null);
+
+function useSelectContext() {
+  const ctx = React.useContext(SelectContext);
+  if (!ctx) throw new Error("Select.* components must be used within <Select>");
+  return ctx;
+}
+
+function Root({
+  value,
+  onChange,
+  children,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = React.useState(false);
+  const ctx = React.useMemo(() => ({ value, onChange, open, setOpen }), [value, onChange, open]);
+  return <SelectContext.Provider value={ctx}>{children}</SelectContext.Provider>;
+}
+Root.displayName = "Select";
+
+function Trigger({ children }: { children: React.ReactNode }) {
+  const { open, setOpen, value } = useSelectContext();
+  return (
+    <button aria-expanded={open} onClick={() => setOpen(!open)}>
+      {value || children}
+    </button>
+  );
+}
+Trigger.displayName = "Select.Trigger";
+
+function Content({ children }: { children: React.ReactNode }) {
+  const { open } = useSelectContext();
+  if (!open) return null;
+  return <ul role="listbox">{children}</ul>;
+}
+Content.displayName = "Select.Content";
+
+function Option({ value, children }: { value: string; children: React.ReactNode }) {
+  const { onChange, setOpen } = useSelectContext();
+  return (
+    <li
+      role="option"
+      onClick={() => {
+        onChange(value);
+        setOpen(false);
+      }}
+    >
+      {children}
+    </li>
+  );
+}
+Option.displayName = "Select.Option";
+
+export const Select = Object.assign(Root, { Trigger, Content, Option });
+// Usage:
+// <Select value={val} onChange={setVal}>
+//   <Select.Trigger>Pick one</Select.Trigger>
+//   <Select.Content>
+//     <Select.Option value="a">Alpha</Select.Option>
+//     <Select.Option value="b">Beta</Select.Option>
+//   </Select.Content>
+// </Select>
+```
+
+### When to use dot notation vs named exports
+
+| Signal | Pattern |
+| --- | --- |
+| Sub-components only make sense together | Dot notation (`Select.Option`) |
+| Sub-components are reusable independently | Named exports (`AccordionHeader`) |
+| Library authoring with strict API surface | Dot notation for discoverability |
+| Internal feature code | Named exports for simplicity |
+
 ## Render Props (Behavior Injection)
 Use render props when consumers must control layout.
 Pass state and actions to a function so the caller decides placement.
@@ -51,6 +141,57 @@ export function Mouse({ children }: { children: (s: MouseState) => React.ReactNo
 }
 // Usage
 <Mouse>{({ x, y }) => <span>{x},{y}</span>}</Mouse>;
+```
+
+## Render Delegation
+Delegate rendering to consumers while retaining behavior and state.
+Use when a component owns orchestration but consumers own presentation.
+Combine with hooks to separate logic from layout entirely.
+Keep the render function type narrow for maximum consumer flexibility.
+```tsx
+type RenderFn<T> = (state: T) => React.ReactNode;
+type PaginationState = {
+  page: number;
+  totalPages: number;
+  next: () => void;
+  prev: () => void;
+  canNext: boolean;
+  canPrev: boolean;
+};
+function usePagination(total: number, perPage: number): PaginationState {
+  const [page, setPage] = React.useState(1);
+  const totalPages = Math.ceil(total / perPage);
+  return {
+    page,
+    totalPages,
+    next: () => setPage((p) => Math.min(p + 1, totalPages)),
+    prev: () => setPage((p) => Math.max(p - 1, 1)),
+    canNext: page < totalPages,
+    canPrev: page > 1,
+  };
+}
+export function Pagination({
+  total,
+  perPage,
+  children,
+}: {
+  total: number;
+  perPage: number;
+  children: RenderFn<PaginationState>;
+}) {
+  const state = usePagination(total, perPage);
+  return <>{children(state)}</>;
+}
+// Usage:
+// <Pagination total={100} perPage={10}>
+//   {({ page, totalPages, next, prev, canNext }) => (
+//     <nav>
+//       <button onClick={prev}>Prev</button>
+//       <span>{page} / {totalPages}</span>
+//       <button onClick={next} disabled={!canNext}>Next</button>
+//     </nav>
+//   )}
+// </Pagination>
 ```
 
 ## Slots Pattern (Named Children)
@@ -126,6 +267,34 @@ export function Button<E extends React.ElementType = "button">(
   const Comp = as || "button";
   return <Comp className={`btn btn--${variant}`} {...rest}>{children}</Comp>;
 }
+```
+
+## Polymorphic Components with Ref (React 19)
+In React 19, `ref` is a regular prop. Combine with polymorphism for full flexibility.
+No `forwardRef` wrapper needed. Type `ref` alongside `as` for safety.
+```tsx
+type PolyProps<E extends React.ElementType> = {
+  as?: E;
+  variant?: "solid" | "outline";
+  children: React.ReactNode;
+  ref?: React.Ref<React.ElementRef<E>>;
+} & Omit<React.ComponentPropsWithoutRef<E>, "as" | "variant" | "children" | "ref">;
+
+export function Button<E extends React.ElementType = "button">({
+  as,
+  variant = "solid",
+  ref,
+  children,
+  ...rest
+}: PolyProps<E>) {
+  const Comp = as || "button";
+  return (
+    <Comp ref={ref} className={`btn btn--${variant}`} {...rest}>
+      {children}
+    </Comp>
+  );
+}
+// Usage: <Button as="a" href="/home" ref={linkRef}>Home</Button>
 ```
 
 ## Composition Over Inheritance

@@ -1,0 +1,16 @@
+{
+  "name": "@tank/go-api-patterns",
+  "version": "1.0.0",
+  "description": "Production Go HTTP API development. Covers net/http ServeMux (Go 1.22+), Chi/Gin/Echo/Fiber routers, middleware patterns, context propagation, slog structured logging, error handling, database access (pgx, sqlx, ent), configuration, graceful shutdown, project layout, httptest testing, and Docker deployment. Triggers: go api, go rest api, go http server, go backend, go middleware, go chi, go gin, go router, go project structure, go slog, go pgx, go httptest, go graceful shutdown, go docker.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

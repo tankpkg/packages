@@ -1,0 +1,62 @@
+{
+  "version": "1.0.0",
+  "meta": {
+    "business": "Generic Widget Co",
+    "geo": ["2840"],
+    "currency": "USD",
+    "language": "en",
+    "vertical": "default",
+    "created_at": "2026-05-24T22:00:00+00:00"
+  },
+  "account_negatives": [],
+  "campaigns": [
+    {
+      "name": "Widgets — Search",
+      "type": "Search",
+      "subtype": "Standard",
+      "status": "Enabled",
+      "daily_budget": 100.00,
+      "bid_strategy": "Manual CPC",
+      "networks": ["Google search", "Display Network"],
+      "language": "en",
+      "start_date": "2026-04-01",
+      "end_date": null,
+      "ad_rotation": "Optimize",
+      "campaign_negatives": [],
+      "ad_groups": [
+        {
+          "name": "Widgets",
+          "status": "Enabled",
+          "max_cpc": 3.00,
+          "keywords": [
+            { "text": "widget",      "match": "Broad",  "tag": "WARM", "max_cpc": null },
+            { "text": "buy widget",  "match": "Broad",  "tag": "WARM", "max_cpc": null },
+            { "text": "+best +widget", "match": "Broad", "tag": "HOT",  "max_cpc": null },
+            { "text": "widget",      "match": "Broad",  "tag": "WARM", "max_cpc": null }
+          ],
+          "negatives": [],
+          "rsa": {
+            "final_url": "https://example.com",
+            "path1": "buy-widget-here-now-really-fast",
+            "path2": "",
+            "headlines": [
+              { "text": "BUY OUR WIDGETS NOW!!! Limited Time Only Sale!", "pin": 1 },
+              { "text": "FREE Widgets For Everyone", "pin": 1 }
+            ],
+            "descriptions": [
+              { "text": "Click here for our amazing FREE widget deal that won't last long!!!", "pin": 1 }
+            ]
+          },
+          "assets": {
+            "sitelinks": [],
+            "callouts": [],
+            "structured_snippets": [],
+            "call_extension": null,
+            "location_extension": false,
+            "price_extensions": []
+          }
+        }
+      ]
+    }
+  ]
+}

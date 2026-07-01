@@ -1,0 +1,14 @@
+{
+  "name": "@tank/folder-organizer",
+  "version": "1.0.0",
+  "description": "Scan directories, categorize files by type/date/project, propose organization plans with user confirmation, then move files into clean folder structures. Handles Downloads, Desktops, developer workspaces. Triggers: organize folder, sort files, clean up downloads, tidy files, categorize files, declutter, file organizer, messy folder.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": ["~/.folder-organizer/"]
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

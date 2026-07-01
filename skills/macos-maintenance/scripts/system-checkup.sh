@@ -3,6 +3,9 @@ set -euo pipefail
 
 # Usage: bash system-checkup.sh [--json] [--quick] [--security-only]
 
+# Elevation helper. Override SUDO="" to skip elevation, or SUDO=doas etc.
+SUDO="${SUDO:-$(command -v sudo || echo "")}"
+
 JSON_OUTPUT=false
 QUICK=false
 SECURITY_ONLY=false
@@ -44,7 +47,7 @@ check_security() {
   if echo "$gatekeeper" | grep -q "assessments enabled"; then
     add_check "Security" "Gatekeeper" "$PASS" "Enabled"
   else
-    add_check "Security" "Gatekeeper" "$FAIL" "Disabled — run: sudo spctl --master-enable"
+    add_check "Security" "Gatekeeper" "$FAIL" "Disabled — escalate then: spctl --master-enable"
   fi
 
   local filevault
@@ -58,7 +61,7 @@ check_security() {
   fi
 
   local firewall
-  firewall=$(sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate 2>/dev/null || echo "unknown")
+  firewall=$($SUDO /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate 2>/dev/null || echo "unknown")
   if echo "$firewall" | grep -qi "enabled"; then
     add_check "Security" "Firewall" "$PASS" "Enabled"
   else
@@ -226,10 +229,10 @@ check_periodic() {
       if [ "$age_days" -lt "$threshold" ] 2>/dev/null; then
         add_check "Maintenance" "Periodic $period" "$PASS" "Last ran: $last_run"
       else
-        add_check "Maintenance" "Periodic $period" "$WARN" "Last ran: $last_run (${age_days}d ago) — run: sudo periodic $period"
+        add_check "Maintenance" "Periodic $period" "$WARN" "Last ran: $last_run (${age_days}d ago) — escalate then: periodic $period"
       fi
     else
-      add_check "Maintenance" "Periodic $period" "$WARN" "Never ran — run: sudo periodic $period"
+      add_check "Maintenance" "Periodic $period" "$WARN" "Never ran — escalate then: periodic $period"
     fi
   done
 }

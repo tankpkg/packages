@@ -1,0 +1,18 @@
+{
+  "name": "@tank/jewish-wisdom",
+  "version": "1.0.0",
+  "description": "Jewish thought — Torah interpretation (PaRDeS, 13 rules), Talmudic reasoning, Jewish philosophy (Maimonides, Halevi, Heschel), Kabbalah (Sefirot), Mussar ethics, Halakha. Multi-denominational. Triggers: Torah, Talmud, Judaism, halakha, Kabbalah, Mussar, midrash, PaRDeS, Rashi, Rambam, Sefirot, middot, Pirkei Avot, Jewish ethics, dvar Torah, machloket.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

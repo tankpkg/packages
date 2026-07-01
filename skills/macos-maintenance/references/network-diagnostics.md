@@ -43,6 +43,7 @@ networksetup -listnetworkserviceorder
 ## DNS Diagnostics
 
 ```bash
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
 # Resolve a domain
 dscacheutil -q host -a name google.com
 
@@ -56,7 +57,7 @@ dig +trace google.com
 dig google.com | grep "SERVER"
 
 # Flush DNS cache
-sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder
+$SUDO dscacheutil -flushcache && $SUDO killall -HUP mDNSResponder
 
 # Check /etc/hosts for overrides
 cat /etc/hosts | grep -v "^#" | grep -v "^$"
@@ -73,6 +74,7 @@ networksetup -getdnsservers Wi-Fi
 ## Wi-Fi Diagnostics
 
 ```bash
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
 # Wi-Fi signal strength and channel
 /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I
 
@@ -94,21 +96,22 @@ networksetup -getdnsservers Wi-Fi
 system_profiler SPAirPortDataType
 
 # Generate a Wi-Fi diagnostics report (saves to /var/tmp)
-sudo /usr/bin/wdutil diagnose
+$SUDO /usr/bin/wdutil diagnose
 ```
 
 **Wi-Fi troubleshooting steps:**
 1. Check signal strength (RSSI above -60 is good)
 2. Check for channel congestion (scan nearby networks)
 3. Forget and re-join network
-4. Renew DHCP lease: `sudo ipconfig set en0 DHCP`
+4. Renew DHCP lease: `ipconfig set en0 DHCP`
 5. Reset Wi-Fi: turn off, wait 10 seconds, turn on
-6. Delete preferences: `sudo rm /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist` then restart
+6. Delete preferences: `rm /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist` then restart
 7. Create new network location: `networksetup -createlocation "Fresh" populate`
 
 ## Port & Firewall Testing
 
 ```bash
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
 # Check if a port is open locally
 lsof -i :8080
 
@@ -119,7 +122,7 @@ nc -z -w 5 google.com 443 && echo "Open" || echo "Closed"
 lsof -iTCP -sTCP:LISTEN -P -n
 
 # Check firewall rules
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --listapps
+$SUDO /usr/libexec/ApplicationFirewall/socketfilterfw --listapps
 ```
 
 ## VPN Status
@@ -175,14 +178,15 @@ networksetup -setautoproxystate Wi-Fi off
 If all else fails, reset all network configuration:
 
 ```bash
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
 # Remove all network preferences (requires restart)
-sudo rm -rf /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist
-sudo rm -rf /Library/Preferences/SystemConfiguration/com.apple.network.identification.plist
-sudo rm -rf /Library/Preferences/SystemConfiguration/NetworkInterfaces.plist
-sudo rm -rf /Library/Preferences/SystemConfiguration/preferences.plist
+$SUDO rm -rf /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist
+$SUDO rm -rf /Library/Preferences/SystemConfiguration/com.apple.network.identification.plist
+$SUDO rm -rf /Library/Preferences/SystemConfiguration/NetworkInterfaces.plist
+$SUDO rm -rf /Library/Preferences/SystemConfiguration/preferences.plist
 
 # Then restart
-sudo shutdown -r now
+$SUDO shutdown -r now
 ```
 
 This removes all saved Wi-Fi networks, custom DNS, proxy settings, and

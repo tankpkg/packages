@@ -1,0 +1,18 @@
+{
+  "name": "@tank/rag-production",
+  "version": "1.0.0",
+  "description": "Production RAG architecture covering chunking, embeddings, vector databases, hybrid search, reranking, advanced retrieval, evaluation, and production operations. Triggers: RAG, retrieval augmented generation, chunking, embeddings, vector database, hybrid search, reranking, RAGAS, pgvector, Pinecone.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
