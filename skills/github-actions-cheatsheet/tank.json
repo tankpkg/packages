@@ -1,0 +1,16 @@
+{
+  "name": "@tank/github-actions-cheatsheet",
+  "version": "1.0.0",
+  "description": "GitHub Actions cheat sheet covering workflow syntax, triggers, jobs, matrices, expressions, contexts, env/secrets, reusable workflows, and common CI/CD snippets.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

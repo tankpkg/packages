@@ -1,0 +1,18 @@
+{
+  "name": "@tank/brand-craft",
+  "version": "1.0.0",
+  "description": "Create complete brand identities — logo, colors, typography, guidelines — in minutes. Archetype selection, color psychology, font pairing, AI logo generation (QuiverAI Arrow, Recraft V4), brand guideline output (JSON, CSS tokens, HTML). Triggers: brand identity, create a brand, logo design, color palette, brand guidelines, brand style guide, font pairing, brand archetype, visual identity, brand kit, rebrand, color scheme, logo concept.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@tank/prompt-creator",
+  "version": "1.0.0",
+  "description": "Author Tank prompt atoms -- reusable invocable templates declared in bundle tank.json files. Covers prompt atom schema, template variable syntax, structured output, multi-step workflows, and composition with other atom kinds. Triggers: create prompt, prompt template, tank prompt atom, slash command, workflow template, invocable template, parameterized prompt.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/packages"
+}

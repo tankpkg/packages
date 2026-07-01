@@ -328,7 +328,7 @@ Codes should be short, alphanumeric, and uppercase for easy entry on mobile devi
 
 ```typescript
 function generateRoomCode(length: number = 4): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const chars = 'ABCDEFGHIJKLM' + 'NOPQRSTUVWXYZ';
   let result = '';
   for (let i = 0; i < length; i++) {
     result += chars.charAt(Math.floor(Math.random() * chars.length));

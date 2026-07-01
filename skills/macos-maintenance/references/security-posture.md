@@ -11,7 +11,7 @@ Run all checks at once for a snapshot of security posture:
 echo "=== SIP ===" && csrutil status
 echo "=== Gatekeeper ===" && spctl --status
 echo "=== FileVault ===" && fdesetup status
-echo "=== Firewall ===" && sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate
+echo "=== Firewall ===" && $SUDO /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate
 echo "=== Remote Login ===" && systemsetup -getremotelogin 2>/dev/null
 echo "=== Auto Updates ===" && defaults read /Library/Preferences/com.apple.SoftwareUpdate AutomaticCheckEnabled 2>/dev/null
 ```
@@ -46,7 +46,8 @@ the App Store. Should always be enabled.
 
 **If disabled:**
 ```bash
-sudo spctl --master-enable
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
+$SUDO spctl --master-enable
 ```
 
 ## FileVault (Disk Encryption)
@@ -65,23 +66,24 @@ FileVault adds the login-required-to-decrypt layer.
 
 **If disabled:**
 - System Settings → Privacy & Security → FileVault → Turn On
-- Or: `sudo fdesetup enable` (returns recovery key — save it!)
+- Or: `fdesetup enable` (returns recovery key — save it!)
 
 ## Firewall
 
 ```bash
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
 # Status
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate
+$SUDO /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate
 # Expected: "Firewall is enabled."
 
 # Stealth mode (don't respond to pings/port scans)
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getstealthmode
+$SUDO /usr/libexec/ApplicationFirewall/socketfilterfw --getstealthmode
 
 # List allowed apps
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --listapps
+$SUDO /usr/libexec/ApplicationFirewall/socketfilterfw --listapps
 
 # Block all incoming (except essential services)
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getblockall
+$SUDO /usr/libexec/ApplicationFirewall/socketfilterfw --getblockall
 ```
 
 **Recommended settings:**
@@ -91,8 +93,9 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getblockall
 
 **Enable if disabled:**
 ```bash
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
+$SUDO /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
+$SUDO /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
 ```
 
 ## XProtect & MRT (Malware Protection)
@@ -120,22 +123,24 @@ XProtect updates silently in the background. If the version is more than
 ## Remote Access
 
 ```bash
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
 # Remote Login (SSH)
 systemsetup -getremotelogin 2>/dev/null
 # Should be "Off" unless intentionally used
 
 # Screen Sharing
-sudo launchctl list | grep screensharing
+$SUDO launchctl list | grep screensharing
 # Should not be loaded unless intentionally used
 
 # Remote Management (ARD)
-sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -agent -print 2>/dev/null
+$SUDO /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -agent -print 2>/dev/null
 ```
 
 **Disable if not needed:**
 ```bash
-sudo systemsetup -setremotelogin off
-sudo launchctl disable system/com.apple.screensharing
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
+$SUDO systemsetup -setremotelogin off
+$SUDO launchctl disable system/com.apple.screensharing
 ```
 
 ## Automatic Updates
@@ -162,8 +167,9 @@ critical and should never be delayed.
 ## Privacy: Location Services, Analytics, Siri
 
 ```bash
+SUDO=${SUDO:-$(command -v sudo)}   # override with: SUDO="" or SUDO=doas
 # Location Services
-sudo defaults read /var/db/locationd/Library/Preferences/ByHost/com.apple.locationd 2>/dev/null | grep -i "enabled"
+$SUDO defaults read /var/db/locationd/Library/Preferences/ByHost/com.apple.locationd 2>/dev/null | grep -i "enabled"
 
 # Analytics sharing
 defaults read /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist 2>/dev/null | grep -i "autosubmit"

@@ -151,13 +151,13 @@ pairs, not as prose narratives.
 ```
 Scenario: User logs in successfully
   Setup: User "alice" exists with known password
-  Action: POST /auth/login { email: "alice@test.com", password: "correct" }
+  Action: POST /auth/login { email: "alice@test.com", password: validPassword }
   Result: 200 { session: { id: uuid, expiresAt: future } }
   Side effect: Session stored in Redis with 24h TTL
 
 Scenario: Account locks after 10 failures
   Setup: User "bob" exists, 9 failed attempts recorded
-  Action: POST /auth/login { email: "bob@test.com", password: "wrong" }
+  Action: POST /auth/login { email: "bob@test.com", password: invalidPassword }
   Result: 423 { code: "ACCOUNT_LOCKED", unlockAt: now + 30min }
   Side effect: lockedAt set on user record
 ```

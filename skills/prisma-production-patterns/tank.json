@@ -1,0 +1,16 @@
+{
+  "name": "@tank/prisma-production-patterns",
+  "version": "1.0.0",
+  "description": "Production Prisma ORM patterns for TypeScript. Schema design, relations, Prisma Client CRUD, transactions, raw SQL, connection pooling, migrations, Client extensions, testing, seeding, and deployment. Triggers: prisma, prisma client, prisma schema, prisma migrate, prisma production, prisma best practices, prisma connection pooling, prisma transaction, prisma N+1, prisma testing, prisma accelerate, prisma serverless, prisma extension, prisma vs drizzle.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

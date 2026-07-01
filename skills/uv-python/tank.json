@@ -1,0 +1,16 @@
+{
+  "name": "@tank/uv-python",
+  "version": "1.0.0",
+  "description": "Python project management with uv, the Rust-powered replacement for pip, poetry, pyenv, and virtualenv. Covers project init, dependency management, lockfiles, Python version management, scripts with inline metadata, tool management, workspaces, building/publishing, Docker integration, CI/CD patterns, and migration from pip/poetry/pipenv.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

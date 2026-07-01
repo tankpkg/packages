@@ -1,0 +1,18 @@
+{
+  "name": "@tank/vue-nuxt",
+  "version": "1.0.0",
+  "description": "Vue 3 and Nuxt 3 production patterns covering script setup, composables, reactive primitives, TypeScript integration, Pinia, data fetching, middleware, plugins, rendering modes, Nitro deployment, and testing. Triggers: vue 3, nuxt 3, composable, pinia, useFetch, useAsyncData, script setup, vue typescript, nuxt middleware.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

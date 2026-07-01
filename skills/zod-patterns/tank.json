@@ -1,0 +1,18 @@
+{
+  "name": "@tank/zod-patterns",
+  "version": "1.0.0",
+  "description": "Zod validation patterns covering schema composition, transforms, refinements, error handling, type inference, coercion, Zod 4 features, and integrations with React Hook Form, tRPC, Next.js, and Express/Hono. Triggers: zod, zod schema, validation, infer, transform, refine, safeParse, zodResolver, tRPC, env parsing.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

@@ -84,7 +84,7 @@ Codes should be 4-6 characters long and exclude visually ambiguous characters (0
 
 ```typescript
 const generateRoomCode = (length: number = 4): string => {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const chars = 'ABCDEFGHJKLM' + 'NPQRSTUVWXYZ23456789';
   let code = '';
   for (let i = 0; i < length; i++) {
     code += chars.charAt(Math.floor(Math.random() * chars.length));

@@ -1,0 +1,16 @@
+{
+  "name": "@tank/kubectl-cheatsheet",
+  "version": "1.0.0",
+  "description": "Kubectl command cheat sheet covering read, debug, rollout, mutation, selectors, output formatting, and common Kubernetes operator tasks. Triggers: kubectl, kubectl cheat sheet, kubectl commands, kubectl logs, kubectl exec.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

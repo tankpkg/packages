@@ -1,0 +1,12 @@
+{
+  "default":         { "ctr": 0.060, "avg_cpc": 3.00, "cvr": 0.045, "cpa":  65 },
+  "legal":           { "ctr": 0.048, "avg_cpc": 7.50, "cvr": 0.050, "cpa": 150 },
+  "home_services":   { "ctr": 0.070, "avg_cpc": 4.50, "cvr": 0.065, "cpa":  70 },
+  "health":          { "ctr": 0.060, "avg_cpc": 3.50, "cvr": 0.050, "cpa":  70 },
+  "real_estate":     { "ctr": 0.050, "avg_cpc": 2.00, "cvr": 0.030, "cpa":  66 },
+  "ecommerce":       { "ctr": 0.050, "avg_cpc": 1.20, "cvr": 0.023, "cpa":  52 },
+  "b2b":             { "ctr": 0.055, "avg_cpc": 5.00, "cvr": 0.050, "cpa": 100 },
+  "education":       { "ctr": 0.060, "avg_cpc": 2.50, "cvr": 0.040, "cpa":  62 },
+  "travel":          { "ctr": 0.075, "avg_cpc": 1.80, "cvr": 0.035, "cpa":  51 },
+  "finance":         { "ctr": 0.065, "avg_cpc": 4.50, "cvr": 0.050, "cpa":  90 }
+}

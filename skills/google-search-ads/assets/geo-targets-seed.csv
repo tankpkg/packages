@@ -1,0 +1,86 @@
+Criterion ID,Name,Canonical Name,Country Code,Target Type,Status
+2840,United States,United States,US,Country,Active
+2826,United Kingdom,United Kingdom,GB,Country,Active
+2124,Canada,Canada,CA,Country,Active
+2036,Australia,"Australia",AU,Country,Active
+2276,Germany,Germany,DE,Country,Active
+2250,France,France,FR,Country,Active
+2380,Italy,Italy,IT,Country,Active
+2724,Spain,Spain,ES,Country,Active
+2528,Netherlands,Netherlands,NL,Country,Active
+2056,Belgium,Belgium,BE,Country,Active
+2752,Sweden,Sweden,SE,Country,Active
+2208,Denmark,Denmark,DK,Country,Active
+2616,Poland,Poland,PL,Country,Active
+2376,Israel,Israel,IL,Country,Active
+2392,Japan,Japan,JP,Country,Active
+2410,South Korea,"Korea, Republic of",KR,Country,Active
+2356,India,India,IN,Country,Active
+2484,Mexico,Mexico,MX,Country,Active
+2076,Brazil,Brazil,BR,Country,Active
+2032,Argentina,Argentina,AR,Country,Active
+2710,South Africa,South Africa,ZA,Country,Active
+2554,New Zealand,New Zealand,NZ,Country,Active
+2702,Singapore,Singapore,SG,Country,Active
+2784,United Arab Emirates,United Arab Emirates,AE,Country,Active
+21135,Alabama,"Alabama,United States",US,State,Active
+21136,Alaska,"Alaska,United States",US,State,Active
+21137,Arizona,"Arizona,United States",US,State,Active
+21138,Arkansas,"Arkansas,United States",US,State,Active
+21139,California,"California,United States",US,State,Active
+21140,Colorado,"Colorado,United States",US,State,Active
+21141,Connecticut,"Connecticut,United States",US,State,Active
+21142,Delaware,"Delaware,United States",US,State,Active
+21143,Florida,"Florida,United States",US,State,Active
+21144,Georgia,"Georgia,United States",US,State,Active
+21145,Hawaii,"Hawaii,United States",US,State,Active
+21146,Idaho,"Idaho,United States",US,State,Active
+21147,Illinois,"Illinois,United States",US,State,Active
+21148,Indiana,"Indiana,United States",US,State,Active
+21149,Iowa,"Iowa,United States",US,State,Active
+21150,Kansas,"Kansas,United States",US,State,Active
+21151,Kentucky,"Kentucky,United States",US,State,Active
+21152,Louisiana,"Louisiana,United States",US,State,Active
+21153,Maine,"Maine,United States",US,State,Active
+21154,Maryland,"Maryland,United States",US,State,Active
+21155,Massachusetts,"Massachusetts,United States",US,State,Active
+21156,Michigan,"Michigan,United States",US,State,Active
+21157,Minnesota,"Minnesota,United States",US,State,Active
+21158,Mississippi,"Mississippi,United States",US,State,Active
+21159,Missouri,"Missouri,United States",US,State,Active
+21160,Montana,"Montana,United States",US,State,Active
+21161,Nebraska,"Nebraska,United States",US,State,Active
+21162,Nevada,"Nevada,United States",US,State,Active
+21163,New Hampshire,"New Hampshire,United States",US,State,Active
+21164,New Jersey,"New Jersey,United States",US,State,Active
+21165,New Mexico,"New Mexico,United States",US,State,Active
+21167,New York,"New York,United States",US,State,Active
+21168,North Carolina,"North Carolina,United States",US,State,Active
+21169,North Dakota,"North Dakota,United States",US,State,Active
+21170,Ohio,"Ohio,United States",US,State,Active
+21171,Oklahoma,"Oklahoma,United States",US,State,Active
+21172,Oregon,"Oregon,United States",US,State,Active
+21173,Pennsylvania,"Pennsylvania,United States",US,State,Active
+21174,Rhode Island,"Rhode Island,United States",US,State,Active
+21175,South Carolina,"South Carolina,United States",US,State,Active
+21176,South Dakota,"South Dakota,United States",US,State,Active
+21177,Tennessee,"Tennessee,United States",US,State,Active
+21178,Texas,"Texas,United States",US,State,Active
+21179,Utah,"Utah,United States",US,State,Active
+21180,Vermont,"Vermont,United States",US,State,Active
+21181,Virginia,"Virginia,United States",US,State,Active
+21182,Washington,"Washington,United States",US,State,Active
+21183,West Virginia,"West Virginia,United States",US,State,Active
+21184,Wisconsin,"Wisconsin,United States",US,State,Active
+21185,Wyoming,"Wyoming,United States",US,State,Active
+1023191,"New York, NY","New York,New York,United States",US,City,Active
+1014221,"Los Angeles, CA","Los Angeles,California,United States",US,City,Active
+1016367,"Chicago, IL","Chicago,Illinois,United States",US,City,Active
+1026339,"San Francisco, CA","San Francisco,California,United States",US,City,Active
+1014073,"Boston, MA","Boston,Massachusetts,United States",US,City,Active
+1015254,"Dallas, TX","Dallas,Texas,United States",US,City,Active
+1015116,"Houston, TX","Houston,Texas,United States",US,City,Active
+1014044,"Atlanta, GA","Atlanta,Georgia,United States",US,City,Active
+1013962,"Miami, FL","Miami,Florida,United States",US,City,Active
+1014880,"Seattle, WA","Seattle,Washington,United States",US,City,Active
+1006094,"London","London,England,United Kingdom",GB,City,Active

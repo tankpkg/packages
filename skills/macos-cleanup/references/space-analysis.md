@@ -164,20 +164,22 @@ the same size.
 Local TM snapshots can consume significant space invisibly:
 
 ```bash
+SUDO="${SUDO:-$(command -v sudo)}"   # override: SUDO="" or SUDO=doas
+
 # List local snapshots
 tmutil listlocalsnapshots /
 
-# Show snapshot sizes (requires sudo)
-sudo tmutil listlocalsnapshots / | while read snap; do
+# Show snapshot sizes (requires elevation)
+$SUDO tmutil listlocalsnapshots / | while read snap; do
   echo "$snap"
 done
 
 # Delete specific snapshot
-sudo tmutil deletelocalsnapshots <YYYY-MM-DD-HHMMSS>
+$SUDO tmutil deletelocalsnapshots <YYYY-MM-DD-HHMMSS>
 
 # Delete all local snapshots (aggressive)
 for snap in $(tmutil listlocalsnapshots / | cut -d. -f4); do
-  sudo tmutil deletelocalsnapshots "$snap"
+  $SUDO tmutil deletelocalsnapshots "$snap"
 done
 ```
 

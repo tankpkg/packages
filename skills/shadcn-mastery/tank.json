@@ -1,0 +1,16 @@
+{
+  "name": "@tank/shadcn-mastery",
+  "version": "1.0.0",
+  "description": "Build, customize, and scale design systems with shadcn/ui. Covers CLI and configuration, CSS variable theming and dark mode, component customization with cva variants, data tables with TanStack Table, forms with react-hook-form and zod, charts, the registry system, Radix accessibility primitives, component composition patterns, monorepo setup, and Tailwind CSS v4 integration.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

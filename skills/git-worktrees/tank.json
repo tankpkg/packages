@@ -1,0 +1,18 @@
+{
+  "name": "@tank/git-worktrees",
+  "version": "1.0.0",
+  "description": "Git worktree lifecycle — create, work, resolve, clean up. All subcommands (add, list, remove, prune, lock, unlock, move, repair), workflows (hotfix, PR review, parallel dev, AI agents), bare repo patterns, proactive cleanup. Triggers: git worktree, worktree, worktrees, parallel branches, hotfix while on feature, review PR, branch already checked out, clean up worktrees, bare repo worktrees, context switch without stash.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

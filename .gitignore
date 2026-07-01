@@ -6,4 +6,18 @@ __pycache__/
 .cache/
 .venv/
 .tank/
+.pytest_cache/
 pyrightconfig.json
+tmp/
+.edreams_chrome_data/
+
+# Node
+node_modules/
+package.json
+package-lock.json
+
+# Personal scratch
+notes/
+rust-ownership-examples.rs
+rust-ownership-research.md
+.ctxrc

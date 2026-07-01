@@ -1,0 +1,18 @@
+{
+  "name": "@tank/adversarial-agent-coach",
+  "version": "0.1.0",
+  "description": "Improve AI agents with adversarial coaching, contradiction checks, evidence demands, and verification loops. Covers skeptical review, ReAct and Reflexion retries, multi-agent critique, and eval-first prompt optimization. Triggers: gaslight ai, gaslighting ai agents, make ai work better, challenge my agent, adversarial critique, pressure test prompt, red team the answer, contradiction check, prove it, verify output, agent self-critique, agent reliability.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

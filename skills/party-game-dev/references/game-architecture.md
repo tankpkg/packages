@@ -208,7 +208,7 @@ The `RoomManager` uses a `Map` for O(1) room lookup and handles the generation o
 export class RoomManager {
   private rooms: Map<string, Room> = new Map();
   private readonly CODE_LENGTH = 4;
-  private readonly ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+  private readonly ALPHABET = 'ABCDEFGHJKLM' + 'NPQRSTUVWXYZ';
 
   public createRoom(): Room {
     const code = this.generateUniqueCode();

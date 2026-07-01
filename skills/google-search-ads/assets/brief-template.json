@@ -1,0 +1,42 @@
+{
+  "_comment": "Fill in every field. Skill prompts the user for each Q in references/01-plan-workflow.md Step 1.",
+  "business_name": "<Q1: business name>",
+  "one_line_description": "<Q1: one sentence>",
+  "ideal_customer": "<Q2: who is your ideal customer?>",
+  "usp_elements": {
+    "buyer": "<Q3a: unique because of WHO you serve, or null>",
+    "what": "<Q3b: unique because of WHAT you sell, or null>",
+    "angle": "<Q3c: unique because of your ANGLE, or null>",
+    "what_not": "<Q3d: unique because of what you DON'T do, or null>",
+    "time": "<Q3e: unique because of TIME promises, or null>",
+    "guarantee": "<Q3f: unique because of GUARANTEE, or null>"
+  },
+  "services": ["<list your core services or product types, 3-7 entries>"],
+  "primary_conversion": "<Q4: the single action you want — phone call | form submit | online purchase | booking | etc>",
+  "customer_value": 0.00,
+  "geo_targets": ["<Q6: e.g. 'San Francisco, CA' or 'United States' or '21167'>"],
+  "monthly_budget": 0.00,
+  "currently_running_ads": false,
+  "competitors_bid_on_brand": false,
+  "competitors": [
+    { "name": "<Q10: competitor 1 name>", "site": "<Q10: their URL>" }
+  ],
+  "device_focus": "both",
+  "vertical": "default",
+  "language": "en",
+  "currency": "USD",
+  "landing_page_base": "https://example.com",
+  "run_competitor_campaign": false,
+  "_vertical_options": [
+    "default",
+    "legal",
+    "home_services",
+    "health",
+    "real_estate",
+    "ecommerce",
+    "b2b",
+    "education",
+    "travel",
+    "finance"
+  ]
+}

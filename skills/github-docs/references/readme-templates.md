@@ -218,7 +218,7 @@ Use this template for software development kits (SDKs) and wrappers for cloud se
 3. **Call**
    ```javascript
    import { Client } from '[sdk-package]';
-   const client = new Client({ apiKey: 'YOUR_KEY' });
+   const client = new Client({ apiKey: process.env.YOUR_SDK_KEY });
    const user = await client.users.get('id_123');
    ```
 

@@ -1,0 +1,18 @@
+{
+  "name": "@tank/react",
+  "version": "2.3.0",
+  "description": "React patterns for production apps. Component composition (compound, polymorphic, slots), hooks, state architecture, performance, React 19 (use, Actions, useActionState, useFormStatus, ref as prop), React Compiler auto-memoization, Vite-era tooling, TanStack Query server state, Suspense-first data loading, and linting with React Doctor.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

@@ -275,8 +275,10 @@ for definitions.
   "mcp": {
     "postgres": {
       "type": "local",
+      // Connection string: see libpq docs. Provide credentials via PGUSER /
+      // PGPASSWORD env vars (preferred) rather than embedding them in the URI.
       "command": ["npx", "-y", "@modelcontextprotocol/server-postgres",
-                  "postgresql://user:pass@localhost/mydb"]
+                  "postgresql://localhost/mydb"]
     }
   }
 }

@@ -65,9 +65,9 @@ src/auth/
 
 | Input | Output |
 |-------|--------|
-| `authenticate({ email: "valid@test.com", password: "correct" })` | `Session { status: "active" }` |
-| `authenticate({ email: "valid@test.com", password: "wrong" })` | `AuthError { code: "INVALID_CREDENTIALS" }` |
-| `authenticate({ email: "locked@test.com", password: "any" })` | `AuthError { code: "ACCOUNT_LOCKED" }` |
+| `authenticate({ email: "valid@test.com", password: validPassword })` | `Session { status: "active" }` |
+| `authenticate({ email: "valid@test.com", password: invalidPassword })` | `AuthError { code: "INVALID_CREDENTIALS" }` |
+| `authenticate({ email: "locked@test.com", password: anyPassword })` | `AuthError { code: "ACCOUNT_LOCKED" }` |
 ```
 
 ## The Anchor

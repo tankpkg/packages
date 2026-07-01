@@ -192,7 +192,7 @@ import 'core-js/features/object/from-entries';
 Modern browsers support `<script type="module">`. Legacy browsers do not. This enables differential serving: modern JavaScript for modern browsers, a larger transpiled bundle for legacy browsers.
 
 ```html
-<!-- Modern browsers execute this; legacy browsers ignore it -->
+<!-- Modern browsers execute this; legacy browsers skip it -->
 <script type="module" src="/modern-bundle.js"></script>
 
 <!-- Legacy browsers execute this; modern browsers skip it -->

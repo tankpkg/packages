@@ -1,0 +1,22 @@
+{
+  "name": "@tank/opencode-config-mastery",
+  "version": "0.1.2",
+  "description": "Expert OpenCode configuration. Covers opencode.json schema, MCP server setup (local/remote/OAuth), provider and model configuration (75+ providers, custom/local), plugin management, custom commands, rules/instructions, keybinds, permission system, trusted MCP server catalog, and security best practices.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": [
+        "opencode.json",
+        ".opencode/**",
+        "~/.config/opencode/**"
+      ]
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

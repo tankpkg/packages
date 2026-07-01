@@ -1,0 +1,16 @@
+{
+  "name": "@tank/svelte-kit",
+  "version": "1.0.0",
+  "description": "Expert Svelte 5 and SvelteKit patterns for production web apps. Covers runes ($state, $derived, $effect, $props), SvelteKit routing, load functions, form actions, hooks, SSR/SSG/SPA, error handling, state management, testing, deployment adapters, and Svelte 4-to-5 migration.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": ["**/*"],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

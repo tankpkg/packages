@@ -1,5 +1,5 @@
 ---
-name: browser-polyfills
+name: "@tank/browser-polyfills"
 description: |
   Diagnose and fix browser compatibility issues in Next.js apps targeting
   Safari, iOS Safari, and Firefox. Covers JavaScript API polyfills,

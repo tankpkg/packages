@@ -1,0 +1,18 @@
+{
+  "name": "@tank/local-llm-fit",
+  "version": "1.0.0",
+  "description": "Decide if a given OSS LLM runs well on a given PC. Resolves the exact model the user named (never substitutes, never trusts stale training memory), computes weights + KV cache + overhead per quant, estimates tokens/sec from bandwidth, picks engine (Ollama, llama.cpp, MLX, vLLM, ExLlamaV2). Triggers: can my pc run, fits in VRAM, tokens per second, llama.cpp, ollama, mlx, vllm, gguf, Q4_K_M, KV cache, local llm, 8B 14B 32B 70B, M1-M4, 3090 4090 5090, offload layers.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": []
+    },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
