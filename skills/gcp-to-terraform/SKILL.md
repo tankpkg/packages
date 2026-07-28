@@ -2,11 +2,12 @@
 name: @tank/gcp-to-terraform
 description: |
   Adopt existing Google Cloud infrastructure into Terraform management without
-  recreating live resources. Covers Cloud Asset Inventory and ownership
-  discovery, Google provider types and full import IDs, declarative imports and
+  recreating live resources. Covers Cloud Asset Inventory, Google provider
+  types and import IDs, declarative imports and
   generated configuration, Google's pre-GA bulk export, IAM authority, remote
-  state, no-change convergence, writer cutover, rollback, and later refactoring.
-  Depends on @tank/terraform and synthesizes current HashiCorp and Google docs.
+  state, convergence, writer cutover, rollback, and later refactoring. Depends
+  on @tank/terraform and synthesizes current Terraform/Google source, 2026
+  releases, maintainer issues, cloud consistency guidance, and field reports.
 
   Trigger phrases: "migrate GCP to Terraform", "convert GCP to Terraform",
   "import Google Cloud resources", "existing GCP Terraform", "Terraform import GCP",
@@ -90,6 +91,14 @@ Review generated modules/import scripts instead of running them blindly.
 
 -> See `references/bulk-export-and-modernization.md`.
 
+### "Which hidden GCP/provider hazards can invalidate a clean plan?"
+
+Check provider list-resource coverage, generated-HCL defects, inventory
+freshness, IAM propagation, service agents, deletion-policy interactions,
+remote GCP protections, and irreversible service settings before adoption.
+
+-> See `references/field-guide-2026.md`.
+
 ## Decision Trees
 
 ### Classify the Resource
@@ -127,3 +136,4 @@ the migration by applying a destructive production plan.
 | `references/google-provider-and-iam.md` | Google/google-beta choice, aliases, import IDs, API enablement, defaults, and IAM authority |
 | `references/convergence-and-cutover.md` | Remote state, import waves, no-change plan, freeze, rollback, and handoff |
 | `references/bulk-export-and-modernization.md` | Google pre-GA bulk export, generated artifacts, limitations, review, and post-adoption refactoring |
+| `references/field-guide-2026.md` | Terraform 1.15/Google 7.x realities, Magic Modules, GCP consistency, irreversible resources, and cutover traps |
