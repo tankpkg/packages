@@ -5,8 +5,9 @@ description: |
   without recreating live resources. Inventories GCP assets and IAM, chooses
   Pulumi GCP resource types and canonical import IDs, distinguishes direct
   import from Terraform code/state conversion, stages dependency-aware imports,
-  and proves a zero-replacement steady state. Depends on @tank/pulumi and
-  synthesizes current Pulumi and Google Cloud documentation.
+   and proves a zero-replacement steady state. Depends on @tank/pulumi and
+   synthesizes current Pulumi/GCP source, 2026 releases, maintainer issue
+   investigations, cloud consistency guidance, and brownfield field reports.
 
   Trigger phrases: "migrate GCP to Pulumi", "convert GCP to Pulumi",
   "import Google Cloud resources", "adopt GCP infrastructure", "Pulumi import GCP",
@@ -30,9 +31,9 @@ and delivery fundamentals. This skill adds the brownfield GCP adoption workflow.
 3. **Inventory beats inference** -- combine Cloud Asset Inventory, service APIs,
    existing IaC state, IAM policy, and runtime dependencies; no single source is
    complete enough for a safe migration.
-4. **Provider identity is a migration decision** -- choose `gcp` or
-   `google-native` per supported resource and keep one provider family as the
-   long-term owner of each object.
+4. **Provider viability is a migration gate** -- use actively maintained `gcp`
+   for new adoption. Treat the unmaintained `google-native` provider as a legacy
+   source that itself requires migration, not a new target choice.
 5. **Zero destructive operations is the adoption gate** -- imported resources
    are not complete until refresh and full preview show no unexplained create,
    replacement, update, or delete.
@@ -95,6 +96,14 @@ without `terraform destroy`.
 
 -> See `references/terraform-to-pulumi.md`.
 
+### "Which hidden GCP/Pulumi hazards can invalidate a clean preview?"
+
+Check the Pulumi CLI safety floor, upstream Google provider lineage, inventory
+freshness, IAM propagation, controller-created resources, remote deletion
+controls, and irreversible GCP settings before transferring ownership.
+
+-> See `references/field-guide-2026.md`.
+
 ## Decision Trees
 
 ### Choose the Migration Path
@@ -132,3 +141,4 @@ Never test a migration by applying a destructive preview to production.
 | `references/gcp-provider-and-import-ids.md` | Provider-family choice, type mapping, canonical IDs, defaults, and IAM resources |
 | `references/adoption-and-cutover.md` | Import waves, no-change convergence, protection, cutover, rollback, and handoff |
 | `references/terraform-to-pulumi.md` | Terraform code conversion, tfstate adoption, dual-control prevention, and retirement |
+| `references/field-guide-2026.md` | 2026 provider status, import incident floors, GCP consistency, irreversible resources, and service-specific cutover traps |

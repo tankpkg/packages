@@ -1,9 +1,9 @@
 {
   "name": "@tank/gcp-to-pulumi",
-  "version": "1.0.0",
-  "description": "Safely adopt existing Google Cloud infrastructure into Pulumi without recreating live resources. Inventories GCP estates, selects Pulumi GCP providers and import IDs, distinguishes direct import from Terraform conversion/state adoption, stages dependency-aware imports, and proves zero-replacement steady state. Triggers: migrate GCP to Pulumi, import Google Cloud resources, adopt GCP infrastructure, convert Terraform GCP to Pulumi, Pulumi import GCP, GCP IaC migration.",
+  "version": "1.1.0",
+  "description": "Safely adopt existing Google Cloud infrastructure into Pulumi using 2026 provider internals, import incident reports, GCP consistency behavior, and irreversible-resource controls. Covers GCP Classic bridging, safe CLI floors, multi-source inventory, IAM authority, import IDs, cutover, and zero-replacement convergence. Triggers: migrate GCP to Pulumi, Pulumi import GCP, brownfield GCP, Google Native migration, GCP import incident, Cloud Asset Inventory Pulumi.",
   "skills": {
-    "@tank/pulumi": "^1.0.0"
+    "@tank/pulumi": "^1.1.0"
   },
   "permissions": {
     "network": {
