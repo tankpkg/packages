@@ -1,0 +1,14 @@
+{
+  "name": "@tank/gcp-to-terraform",
+  "version": "1.0.0",
+  "description": "Safely adopt existing Google Cloud infrastructure into Terraform without recreating live resources. Covers Cloud Asset Inventory, Google provider mappings and import IDs, declarative import blocks, generated configuration, pre-GA bulk export, IAM authority, remote state, convergence, and writer cutover. Triggers: migrate GCP to Terraform, import Google Cloud resources, existing GCP Terraform, bulk export GCP Terraform, Terraform import GCP, brownfield Google Cloud IaC.",
+  "skills": {
+    "@tank/terraform": "^1.0.0"
+  },
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}

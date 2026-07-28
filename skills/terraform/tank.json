@@ -1,0 +1,11 @@
+{
+  "name": "@tank/terraform",
+  "version": "1.0.0",
+  "description": "Operate production Terraform with safe HCL, stable resource addressing, providers and modules, remote state, declarative imports, refactoring, tests, security, and reviewed plan/apply delivery. Triggers: terraform, terraform plan, terraform apply, terraform import, import block, HCL, tfstate, Terraform module, Terraform provider, moved block, removed block, terraform test, infrastructure as code.",
+  "permissions": {
+    "network": { "outbound": [] },
+    "filesystem": { "read": ["**/*"], "write": [] },
+    "subprocess": false
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
