@@ -1,9 +1,9 @@
 {
   "name": "@tank/gcp-to-terraform",
-  "version": "1.0.0",
-  "description": "Safely adopt existing Google Cloud infrastructure into Terraform without recreating live resources. Covers Cloud Asset Inventory, Google provider mappings and import IDs, declarative import blocks, generated configuration, pre-GA bulk export, IAM authority, remote state, convergence, and writer cutover. Triggers: migrate GCP to Terraform, import Google Cloud resources, existing GCP Terraform, bulk export GCP Terraform, Terraform import GCP, brownfield Google Cloud IaC.",
+  "version": "1.1.0",
+  "description": "Safely adopt existing Google Cloud infrastructure into Terraform using 2026 core/provider releases, Magic Modules internals, maintainer issues, GCP consistency behavior, and brownfield reports. Covers partial list/query support, generated-config traps, IAM authority, deletion controls, remote state, and cutover. Triggers: migrate GCP to Terraform, Terraform query GCP, Google provider import, brownfield GCP, generated config failure, GCP IAM Terraform.",
   "skills": {
-    "@tank/terraform": "^1.0.0"
+    "@tank/terraform": "^1.1.0"
   },
   "permissions": {
     "network": { "outbound": [] },

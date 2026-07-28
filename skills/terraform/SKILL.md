@@ -5,7 +5,8 @@ description: |
   data flow and stable addresses, providers and reusable modules, remote state
   and locking, declarative import and generated configuration, moved and removed
   blocks, testing, sensitive data, policy, and reviewed CI/CD. Synthesizes the
-  current official HashiCorp Terraform documentation.
+   current HashiCorp documentation, Terraform core and provider release notes,
+   maintainer issue investigations, provider internals, and brownfield reports.
 
   Trigger phrases: "terraform", "terraform plan", "terraform apply",
   "terraform import", "Terraform import block", "generate-config-out", "HCL",
@@ -77,6 +78,15 @@ credentials, serialized apply, and post-deployment verification.
 
 -> See `references/testing-security-delivery.md`.
 
+### "What changed in modern Terraform, and where are the traps?"
+
+Use a capability ledger rather than assuming every provider supports resource
+identity, list/query, generated configuration, ephemeral resources, or
+write-only arguments. Check open core/provider limitations before adopting new
+bulk import, lifecycle, state, and secret-handling workflows.
+
+-> See `references/field-guide-2026.md`.
+
 ## Decision Trees
 
 ### Choose State Boundaries
@@ -122,3 +132,4 @@ bypass uncertainty.
 | `references/state-and-refactoring.md` | Backends, locking, drift, state commands, moved/removed blocks, and recovery |
 | `references/planning-and-imports.md` | Plan/apply semantics, declarative and CLI import, generated configuration, and convergence |
 | `references/testing-security-delivery.md` | Validation, tests, policies, secrets, CI authentication, saved plans, and production gates |
+| `references/field-guide-2026.md` | Terraform 1.10-1.15 capabilities, provider internals, import/query failures, state and lifecycle traps |

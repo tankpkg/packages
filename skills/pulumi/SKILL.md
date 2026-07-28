@@ -5,7 +5,9 @@ description: |
   code in TypeScript, Python, Go, .NET, Java, or YAML. Covers projects and
   stacks, configuration and secrets, Inputs and Outputs, components, providers,
   state and backends, imports, safe refactoring, testing, policy, CI/CD, drift,
-  and Automation API. Synthesizes current official Pulumi documentation.
+   and Automation API. Synthesizes current Pulumi documentation, engine and
+   provider source, 2026 release notes, maintainer issue investigations, and
+   production incident reports.
 
   Trigger phrases: "pulumi", "pulumi up", "pulumi preview", "Pulumi.yaml",
   "Pulumi stack", "pulumi config", "Pulumi secrets", "Input Output apply",
@@ -88,6 +90,15 @@ trusted branch with an approval gate for production.
 
 -> See `references/testing-policy-delivery.md`.
 
+### "What are the sharp edges that ordinary docs do not teach?"
+
+Check the current CLI/provider versions before importing or repairing state,
+distinguish bridged-provider behavior from Pulumi engine behavior, and consult
+the failure-mode ledger before using refresh, ignoreChanges, deletedWith,
+generated import code, or a DIY backend in production.
+
+-> See `references/field-guide-2026.md`.
+
 ## Decision Trees
 
 ### Choose a Language
@@ -134,3 +145,4 @@ state deletion, or manual checkpoint editing to bypass uncertainty.
 | `references/resources-components-providers.md` | Resource identity, options, components, providers, imports, and safe refactoring |
 | `references/state-and-operations.md` | Backends, previews, updates, refresh, drift, recovery, and state safety |
 | `references/testing-policy-delivery.md` | Tests, policy packs, CI/CD, Automation API, and production controls |
+| `references/field-guide-2026.md` | 2026 version floors, engine/provider internals, import incidents, state traps, and operational heuristics |

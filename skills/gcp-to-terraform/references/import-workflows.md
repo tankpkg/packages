@@ -32,9 +32,12 @@ If resource arguments are unknown, write the import block and run:
 terraform plan -generate-config-out=generated_resources.tf
 ```
 
-Generated code is a draft. Remove computed-only fields, preserve immutable and
-behaviorally important defaults, replace plaintext/sensitive values, and fit the
-resource into the final module structure before acceptance.
+Generated code is experimental even in Terraform 1.15 and is a draft. It can
+emit conflicting arguments, computed-only fields, invalid nested schemas, and
+`null` for sensitive values. Run normal validation, remove non-configurable
+fields, reconstruct secrets from their authority, preserve immutable and
+behaviorally important defaults, and fit the resource into the final module
+structure before acceptance.
 
 ## CLI Import
 
@@ -61,6 +64,11 @@ Inspect the pinned module source to determine its internal address. Avoid
 importing into a module version whose future upgrade immediately moves/replaces
 the resource.
 
+Stable Terraform can target a module child from a root import block. It cannot
+generally generate missing configuration directly into registry or remote
+modules. Declaring import blocks inside reusable modules is a Terraform 1.16
+alpha feature as of July 2026, not stable 1.15 behavior.
+
 ## Collections
 
 For `for_each` and `count`, target the exact instance address. Use durable keys
@@ -72,7 +80,7 @@ and less error-prone for collection instances.
 | Option | Use | Caveat |
 |---|---|---|
 | Multiple import blocks | Reviewed bounded batches | Manual ledger work |
-| Terraform query/bulk import | Provider-supported large discovery | Version/provider support varies |
+| Terraform query/bulk import | Provider-supported large discovery | Google list support is resource-by-resource and still expanding |
 | Google bulk export/generate-import | Draft code and script | Pre-GA and incomplete coverage |
 | Generated internal manifest | Deterministic estate-specific waves | Must verify every ID/type |
 
@@ -106,4 +114,7 @@ After import:
 - https://developer.hashicorp.com/terraform/language/import
 - https://developer.hashicorp.com/terraform/language/import/generating-configuration
 - https://developer.hashicorp.com/terraform/cli/import
+- https://developer.hashicorp.com/terraform/language/import/bulk
+- https://github.com/hashicorp/terraform/issues/37361
+- https://github.com/hashicorp/terraform/issues/35596
 - https://docs.cloud.google.com/docs/terraform/resource-management/import

@@ -1,27 +1,34 @@
 # GCP Providers and Import IDs
 
-Sources: Pulumi Registry Google Cloud Classic and Google Native provider documentation, provider resource pages, Pulumi import documentation, Google Cloud resource-name documentation
+Sources: Pulumi GCP and Google Native repositories, Pulumi Terraform Bridge documentation, provider resource pages, Pulumi import documentation, Google Cloud resource-name documentation
 
 Covers: provider-family selection, explicit providers, resource mapping, canonical import IDs, immutable/defaulted properties, API enablement, and IAM ownership forms.
 
 ## Provider Families
 
-Pulumi exposes Google Cloud through provider packages including Google Cloud
-Classic (`gcp`) and Google Native (`google-native`). Their resource types,
-schemas, defaults, import identifiers, maturity, and coverage differ.
+Use Google Cloud Classic (`gcp`) for new and continuing GCP management. The
+`pulumi-google-native` repository explicitly marks Google Native unmaintained,
+states that no further releases or fixes are planned, and directs users to GCP
+Classic. Do not create new `google-native` ownership.
+
+GCP Classic is generated through Pulumi's Terraform Bridge from the upstream
+Terraform Google provider. Its schemas, defaults, CRUD, imports, and many bugs
+originate upstream; Pulumi adds bridge mappings and engine semantics.
 
 Choose per resource using evidence:
 
 | Question | Evidence |
 |---|---|
-| Is the exact resource supported? | Current Registry resource page |
+| Is the exact resource supported? | Current GCP Classic Registry resource page |
 | Is import documented? | Resource page Import section |
 | Does it model required fields/lifecycle? | Inputs, outputs, replacement notes |
-| Is the team already standardized? | Existing Pulumi estate and components |
-| Does migration source map directly? | Terraform bridge usually aligns with `gcp` |
+| Which upstream version is embedded? | Pulumi GCP release metadata and upstream changelog |
+| Is the issue engine, bridge, or provider? | Search all three repositories |
 
-Do not manage one object through both provider families. Switching families is
-not a package rename; it is a resource-type and state migration.
+If an estate already uses Google Native, freeze new adoption and inventory each
+resource for migration to GCP Classic or another maintained owner. Switching
+families is not a package rename; it is a resource-type/state migration with
+potentially different IDs and schemas. An alias alone does not prove safety.
 
 ## Explicit Provider Strategy
 
@@ -143,6 +150,8 @@ Apply extra review to:
 
 - https://www.pulumi.com/registry/packages/gcp/
 - https://www.pulumi.com/registry/packages/google-native/
+- https://github.com/pulumi/pulumi-google-native
+- https://github.com/pulumi/pulumi-terraform-bridge
 - https://www.pulumi.com/registry/packages/gcp/api-docs/provider/
 - https://www.pulumi.com/tutorials/importing-gcp-infrastructure/
 - https://www.pulumi.com/docs/iac/guides/migration/import/

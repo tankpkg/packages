@@ -1,7 +1,7 @@
 {
   "name": "@tank/terraform",
-  "version": "1.0.0",
-  "description": "Operate production Terraform with safe HCL, stable resource addressing, providers and modules, remote state, declarative imports, refactoring, tests, security, and reviewed plan/apply delivery. Triggers: terraform, terraform plan, terraform apply, terraform import, import block, HCL, tfstate, Terraform module, Terraform provider, moved block, removed block, terraform test, infrastructure as code.",
+  "version": "1.1.0",
+  "description": "Operate production Terraform with 2026 field knowledge from core/provider releases, maintainer issues, provider internals, and brownfield reports. Covers state failure modes, query/list bulk import, generated-code traps, ephemeral and write-only data, upgrades, refactoring, tests, and reviewed delivery. Triggers: terraform, terraform plan, terraform apply, terraform import, import block, terraform query, list resource, tfstate, provider schema, moved block, terraform test.",
   "permissions": {
     "network": { "outbound": [] },
     "filesystem": { "read": ["**/*"], "write": [] },

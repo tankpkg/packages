@@ -1,7 +1,7 @@
 {
   "name": "@tank/pulumi",
-  "version": "1.0.0",
-  "description": "Production Pulumi infrastructure as code using TypeScript, Python, Go, .NET, Java, or YAML. Covers projects, stacks, config and secrets, Inputs and Outputs, components, providers, state, imports, testing, policy, CI/CD, drift, and safe resource refactoring. Triggers: pulumi, pulumi up, pulumi preview, Pulumi.yaml, stack config, Pulumi state, Pulumi import, Pulumi component, Automation API, CrossGuard, infrastructure as code.",
+  "version": "1.1.0",
+  "description": "Production Pulumi infrastructure as code with 2026 field knowledge from engine releases, provider internals, maintainer issues, and incident reports. Covers safe imports, refresh and state failure modes, bridged providers, lifecycle traps, upgrades, testing, policy, and delivery. Triggers: pulumi, pulumi up, pulumi preview, Pulumi.yaml, Pulumi state, Pulumi import, pending operations, provider bridge, Automation API, CrossGuard, infrastructure as code.",
   "permissions": {
     "network": {
       "outbound": []
