@@ -1,0 +1,45 @@
+{
+  "expectations": [
+    {
+      "text": "Recommends a specific workspace manager (pnpm, npm, or yarn) with reasoning",
+      "passed": true,
+      "evidence": "Recommends pnpm with reasoning: 'deterministic installs and better workspace linking'"
+    },
+    {
+      "text": "Recommends a specific orchestrator (Turborepo or Nx) with reasoning for this scale",
+      "passed": true,
+      "evidence": "Recommends Turborepo with reasoning: 'lower migration friction than Nx when you already know your tools'"
+    },
+    {
+      "text": "Provides actual pnpm-workspace.yaml or equivalent config content",
+      "passed": true,
+      "evidence": "pnpm-workspace.yaml with packages globs (apps/*, packages/*)"
+    },
+    {
+      "text": "Provides turbo.json or nx.json pipeline/task config content",
+      "passed": true,
+      "evidence": "Full turbo.json with build/dev/lint/test/typecheck/clean tasks"
+    },
+    {
+      "text": "Includes CI workflow snippet with affected-only builds",
+      "passed": true,
+      "evidence": "Full .github/workflows/ci.yml with --filter=...[origin/main] for all tasks"
+    },
+    {
+      "text": "Mentions migration strategy for preserving git history",
+      "passed": true,
+      "evidence": "Mentions git subtree and git filter-repo, though simple copy is the primary suggestion"
+    },
+    {
+      "text": "Mentions remote caching (Vercel Remote Cache or Nx Cloud)",
+      "passed": true,
+      "evidence": "Turborepo remote cache section with TURBO_TOKEN/TURBO_TEAM env vars"
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7,
+    "pass_rate": 1.0
+  }
+}

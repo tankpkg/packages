@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Recommends a specific versioning tool (Changesets, Lerna, or semantic-release)",
+      "passed": true,
+      "evidence": "Recommends Nx Release groups as primary + Changesets as optional overlay"
+    },
+    {
+      "text": "Explains grouped/fixed versioning for coupled packages vs independent for others",
+      "passed": true,
+      "evidence": "Clear explanation: 'Group A (ui-stack) => fixed versioning, Group B (independent-libs) => independent versioning'"
+    },
+    {
+      "text": "Provides Changesets config or equivalent showing package grouping",
+      "passed": true,
+      "evidence": "Full nx.json release config with ui-stack fixed group AND Changesets config.json with fixed array"
+    },
+    {
+      "text": "Mentions automated CI publishing workflow",
+      "passed": true,
+      "evidence": "Two full GitHub Actions workflows: PR dry-run validation + publish on main/manual"
+    },
+    {
+      "text": "Addresses changelog generation",
+      "passed": true,
+      "evidence": "projectChangelogs: true in nx.json, plus @changesets/changelog-github"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  }
+}

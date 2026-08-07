@@ -1,0 +1,12 @@
+{
+  "eval_id": 5,
+  "eval_name": "simple-split",
+  "prompt": "I just want to split my Node.js app into a shared lib and the main app in the same repo. Nothing fancy, maybe 2 packages. What's the simplest setup?",
+  "assertions": [
+    "Recommends npm workspaces or pnpm workspaces (not a heavy orchestrator)",
+    "Does NOT recommend Bazel, Pants, Buck2, or Rush for 2 packages",
+    "Provides a minimal workspace config (package.json or pnpm-workspace.yaml)",
+    "Shows basic project structure with shared lib and app",
+    "Keeps the solution simple — no unnecessary tooling"
+  ]
+}

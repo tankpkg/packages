@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "text": "Identifies affected-only builds as the primary fix",
+      "passed": true,
+      "evidence": "Section 1: 'Run CI only for affected packages (not whole repo)'"
+    },
+    {
+      "text": "Provides turbo --filter command or GitHub Actions conditional logic",
+      "passed": true,
+      "evidence": "turbo run lint --filter=...[origin/main] plus paths-ignore in workflow trigger"
+    },
+    {
+      "text": "Mentions remote caching with setup instructions",
+      "passed": true,
+      "evidence": "Section 2 with TURBO_TOKEN/TURBO_TEAM env vars and turbo.json pipeline config"
+    },
+    {
+      "text": "Includes shallow clone (fetch-depth) recommendation for CI",
+      "passed": true,
+      "evidence": "Uses fetch-depth: 0 in the reference workflow (full clone, not shallow — less optimal than skill's fetch-depth: 50)"
+    },
+    {
+      "text": "Provides at least one concrete YAML or config snippet",
+      "passed": true,
+      "evidence": "Multiple: CI trigger YAML, turbo.json pipeline, pnpm store cache, concurrency, parallel jobs, full reference workflow"
+    },
+    {
+      "text": "Orders recommendations by impact (highest first)",
+      "passed": true,
+      "evidence": "Numbered 1-10 with affected-only and remote cache first"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  }
+}

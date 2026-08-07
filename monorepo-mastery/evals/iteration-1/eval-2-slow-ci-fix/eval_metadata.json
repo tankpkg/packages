@@ -1,0 +1,13 @@
+{
+  "eval_id": 2,
+  "eval_name": "slow-ci-fix",
+  "prompt": "our monorepo CI takes 45 minutes on every PR even for a 1-line readme change. we use github actions, turborepo, pnpm. 30 packages. what can we do?",
+  "assertions": [
+    "Identifies affected-only builds as the primary fix",
+    "Provides turbo --filter command or GitHub Actions conditional logic",
+    "Mentions remote caching with setup instructions",
+    "Includes shallow clone (fetch-depth) recommendation for CI",
+    "Provides at least one concrete YAML or config snippet",
+    "Orders recommendations by impact (highest first)"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "expectations": [
+    {
+      "text": "Recommends a specific workspace manager (pnpm, npm, or yarn) with reasoning",
+      "passed": true,
+      "evidence": "Recommends pnpm v10 with reasoning: 'default package manager should be pnpm v10 (strict workspace behavior + catalogs to kill version drift)'"
+    },
+    {
+      "text": "Recommends a specific orchestrator (Turborepo or Nx) with reasoning for this scale",
+      "passed": true,
+      "evidence": "Recommends Turborepo with reasoning from skill decision tree: 'JS/TS-only and under ~20 packages favors Turborepo for lower config overhead'"
+    },
+    {
+      "text": "Provides actual pnpm-workspace.yaml or equivalent config content",
+      "passed": true,
+      "evidence": "Full pnpm-workspace.yaml with packages globs AND catalog entries for centralized versions"
+    },
+    {
+      "text": "Provides turbo.json or nx.json pipeline/task config content",
+      "passed": true,
+      "evidence": "Full turbo.json with build/typecheck/lint/test/dev tasks, correct dependsOn, inputs, and outputs"
+    },
+    {
+      "text": "Includes CI workflow snippet with affected-only builds",
+      "passed": true,
+      "evidence": "Full .github/workflows/ci.yml with turbo --filter=...[origin/main] for lint/typecheck/test/build"
+    },
+    {
+      "text": "Mentions migration strategy for preserving git history",
+      "passed": true,
+      "evidence": "Two strategies: git-filter-repo (recommended, with full commands) and git subtree add (simpler alternative)"
+    },
+    {
+      "text": "Mentions remote caching (Vercel Remote Cache or Nx Cloud)",
+      "passed": true,
+      "evidence": "TURBO_TOKEN/TURBO_TEAM env vars in CI workflow, explanation that remote cache avoids recomputing unchanged tasks"
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7,
+    "pass_rate": 1.0
+  }
+}
