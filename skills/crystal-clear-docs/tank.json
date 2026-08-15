@@ -1,6 +1,6 @@
 {
   "name": "@tank/crystal-clear-docs",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Design technical documentation readers can find, understand, use, and transfer. Covers outcome-driven design, reader mental models, learning psychology, worked examples, multimedia explanation, behavioral writing, navigation, and validation.",
   "permissions": {
     "network": {

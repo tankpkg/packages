@@ -193,8 +193,9 @@ constraints. Observe errors and revise where understanding breaks.
 
 ## Example
 
-See [Crystal Clear Docs in Practice](assets/examples/crystal-clear-docs-in-practice.md)
-for a worked example that explains and demonstrates this workflow.
+See the [Async Export Documentation Set](assets/examples/async-export-docs/README.md)
+for a layered, multi-file example with concept, task, reference,
+troubleshooting, runbook, diagram, and validation-plan outputs.
 
 ## Reference Index
 
