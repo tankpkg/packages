@@ -191,6 +191,11 @@ constraints. Observe errors and revise where understanding breaks.
 - [ ] Support access across relevant devices and assistive technologies.
 - [ ] Validate with representative readers and realistic tasks.
 
+## Example
+
+See [Crystal Clear Docs in Practice](assets/examples/crystal-clear-docs-in-practice.md)
+for a worked example that explains and demonstrates this workflow.
+
 ## Reference Index
 
 | File | Contents |
