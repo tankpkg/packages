@@ -1,308 +1,434 @@
-# SVG Diagrams for Technical Explanation
+# Visual and Multimedia Explanation
 
-Sources: Edward Tufte (The Visual Display of Quantitative Information, 1983; Envisioning Information, 1990), blobstreaming.org SVG Diagrams for Docs (2024), W3C Writing Accessible SVG (draft), Google Developer Style Guide (Images section), SAP Architecture Center Diagram Best Practices, arivictor/diagram-style-guide (GitHub, 2024), Few/Tufte Design Library.
+Sources: Richard E. Mayer (Multimedia Learning), Dunlosky and Rawson (The Cambridge Handbook of Cognition and Education), Edward Tufte (Envisioning Information; The Visual Display of Quantitative Information), W3C Web Accessibility Initiative guidance, and Mermaid documentation.
 
-Covers: When and how to use SVG diagrams to explain concepts that are hard to understand without visual guides. Diagram type selection, SVG accessibility, dark mode compatibility, Mermaid integration, and visual explanation patterns.
+Covers: Design visual and multimedia explanations with selecting-organizing-integrating principles; manage dual channels and limited capacity; select, integrate, implement, accessibly describe, and visually validate Mermaid and SVG diagrams for different audiences.
 
-## When Diagrams Help (and When They Don't)
+## Design for Active Processing
 
-SVG diagrams excel at explaining: architecture, data flows, state machines, process flows, relationships (ER, class hierarchies), sequences, comparisons, before/after states.
+Treat a visual explanation as support for three learner activities:
 
-SVG is NOT the right choice for: photographs or screenshots (use JPEG/WebP), highly complex diagrams with 100+ elements (rendering performance degrades), diagrams requiring pixel-identical browser rendering.
+1. Select relevant words and visual elements.
+2. Organize selected material into coherent verbal and pictorial models.
+3. Integrate those models with each other and with prior knowledge.
 
-**The test**: If you can explain it clearly in 2-3 sentences, you probably don't need a diagram. If the reader needs to hold multiple relationships in their head simultaneously, a diagram reduces cognitive load.
+Do not add a diagram merely to decorate prose.
+Give the visual a cognitive job that the reader can state.
 
-## Diagram Type Selection
+Define the job as an observable interpretation, trace, comparison, prediction, or decision.
+Engagement can support attention and effort, but it is not evidence of understanding. Keep an engaging visual when it supports motivation without competing with the explanatory goal; otherwise remove or redesign it.
 
-| To Explain | Use | Example Tools |
-|-----------|-----|---------------|
-| How data/control flows through a system | Flowchart | Mermaid flowcharts |
-| Components and their connections | Architecture diagram | Mermaid architecture-beta, Excalidraw |
-| Order of operations between actors | Sequence diagram | Mermaid sequence diagram |
-| Decision logic, conditions | Decision tree | Mermaid flowchart with diamonds |
-| Entity relationships | ER diagram | Mermaid ER, DBML |
-| States and transitions | State diagram | Mermaid state diagram |
-| Comparisons (A vs B) | Side-by-side boxes, Venn | Hand-coded SVG |
-| Timeline / progression | Timeline | Mermaid gantt |
-| Hierarchy / tree | Tree diagram | Mermaid flowchart with subgraphs |
-| Before/After | Paired annotated diagrams | Hand-coded SVG |
+## Respect Dual Channels and Limited Capacity
 
-## Diagram-As-Code with Mermaid (Preferred Method)
+People receive material through the eyes and ears, then process selected material in limited-capacity visual/pictorial and auditory/verbal working-memory channels. Printed words enter visually before the learner represents them verbally, so sensory route and representational mode are related but not identical.
+Meaningful learning requires active selection, organization, and integration.
 
-Mermaid is ideal for documentation because:
-- Source is readable Markdown-like text, diffs cleanly in Git
-- Renders to SVG automatically
-- 10x-100x smaller than GUI-generated SVGs
-- Can be embedded directly in Markdown on many platforms (GitHub, GitLab, Notion)
+Apply these implications:
 
-### Essential Mermaid Diagram Types
+- Use words and visuals when they contribute complementary information.
+- Reduce simultaneous elements that compete for the same channel.
+- Group material into meaningful units.
+- Pace dynamic explanations so readers can complete one integration before the next.
+- Reuse visual conventions so readers spend less capacity decoding notation.
+- Make the relationship between representations explicit.
 
-**Flowchart** — for processes, data flows, logic:
+Do not interpret dual channels as permission to duplicate every sentence as narration, labels, and captions.
+Duplication can overload rather than reinforce.
+
+## Select the Representation from the Relationship
+
+Choose a representation based on what the reader must perceive or infer.
+
+| Explanatory need | Useful representation | Reader action |
+| --- | --- | --- |
+| Ordered actions with branching | Flowchart or decision tree | Follow a path and evaluate conditions |
+| Messages among actors over time | Sequence diagram | Trace order, ownership, and response |
+| Valid states and transitions | State diagram | Predict legal and illegal transitions |
+| Components and boundaries | Architecture or containment diagram | Locate responsibility and dependency |
+| Data entities and cardinality | Entity-relationship diagram | Infer allowed associations |
+| Causal mechanism | Causal chain or process model | Explain how a change produces an effect |
+| Comparison under common dimensions | Aligned small multiples or table | Detect similarities and differences |
+| Quantitative magnitude | Position or length encoding | Compare values accurately |
+| Trend over time | Line chart | Detect direction, rate, and exceptions |
+| Distribution | Histogram, dot plot, or box plot | Inspect spread, clusters, and outliers |
+| Spatial arrangement | Map or spatial schematic | Relate location to behavior |
+| Exact values | Table | Retrieve precise entries |
+
+Use prose when sequence, space, quantity, or relationship is not central.
+Use code when the exact executable form is the target.
+Use a table when readers need systematic comparison or precise lookup.
+
+Do not default to a flowchart for every concept.
+A poor representation can make the relevant relationship harder to see.
+
+## Apply Coherence Selectively
+
+Exclude material that does not support the explanatory goal.
+
+Remove decorative illustrations, unrelated icons, background textures, gratuitous animation, ornamental frames, and labels that repeat obvious shapes.
+Retain context that prevents a false inference or supports orientation.
+
+Do not reduce coherence to visual minimalism.
+A sparse diagram can still be incoherent if it omits the relationship the reader needs.
+
+## Signal Structure and Attention
+
+Guide attention toward organization and consequential changes.
+
+Use signaling through:
+
+- Descriptive titles that state the diagram's claim or question.
+- Consistent shape semantics.
+- Typographic hierarchy.
+- Direct labels.
+- Numbered phases.
+- Selective emphasis.
+- Boundary boxes.
+- Aligned lanes.
+- Highlighted paths tied to the current explanation.
+
+Maintain a restrained visual vocabulary.
+Use one emphasis treatment for the same semantic purpose.
+
+Do not signal everything.
+When every node is bold, colored, or boxed, nothing receives priority.
+
+## Keep Related Words and Visuals Contiguous
+
+Place explanatory words near the corresponding visual element in space and time.
+
+For static visuals:
+
+- Put short labels on or beside the relevant object.
+- Position captions immediately before or after the visual.
+- Align callouts with the element they explain.
+- Avoid legends when direct labels remain legible.
+- Keep a code excerpt near the diagram state it implements.
+
+Avoid forcing readers to alternate between distant prose and an unlabeled diagram.
+Eye travel and memory load can prevent integration.
+
+## Set Redundancy Boundaries
+
+Avoid presenting identical, information-dense words simultaneously as narration and on-screen text when both compete for verbal processing.
+
+Use on-screen text when:
+
+- The content is a name, value, formula, command, or exact phrase.
+- The reader must inspect it at their own pace.
+- Audio is unavailable or undesirable.
+- Accessibility requires a textual alternative.
+- The audience may not understand the narration language or accent reliably.
+
+Use narration with visuals when:
+
+- Animation changes too quickly for extended labels.
+- Spoken explanation can offload visual attention.
+- The visual itself already occupies substantial visual capacity.
+- Playback controls let the reader pause and replay.
+
+Use concise labels plus narration when exact terms must remain visible.
+Do not remove essential text merely to comply with a redundancy slogan.
+
+Distinguish visible duplication from accessible alternatives.
+Captions, transcripts, and descriptions remain necessary even when they repeat spoken content for users who need them.
+
+## Segment Complex Explanations
+
+Break a complex visual process into learner-controlled, meaningful segments.
+
+Segment by:
+
+- Phase of a process.
+- Decision point.
+- System boundary.
+- Layer of abstraction.
+- Actor interaction.
+- Before and after state.
+- Stable subproblem.
+
+Give readers controls to advance, pause, return, or inspect.
+For static documents, use a sequence of small multiples or progressive panels.
+
+Do not animate a complete architecture diagram one arrow at a time without preserving orientation.
+Keep stable landmarks visible across segments.
+
+Split a visual when the reader must answer unrelated questions.
+Keep it unified when separating it would hide a critical relationship.
+
+## Pretrain Names, Roles, and Notation
+
+Introduce essential components and conventions before asking readers to follow a complex interaction.
+
+Pretrain:
+
+- Component names.
+- Shape meanings.
+- Arrow semantics.
+- Units and scales.
+- Actor roles.
+- Required domain terms.
+- Color or line-style categories.
+
+Use a compact orientation panel or an initial labeled state.
+Then reuse the same names and encodings throughout.
+
+Do not pretrain incidental details.
+Teach only what reduces decoding effort during the main explanation.
+
+## Use Modality with Context
+
+Choose spoken or written words according to task, medium, and audience.
+
+Prefer spoken explanation alongside a visually dense animation when the learner can control playback and hear clearly.
+Prefer written explanation for searchable reference, code, formulas, unfamiliar terminology, multilingual access, noisy environments, or self-paced inspection.
+
+Do not declare one modality universally superior.
+Prototype against the actual task and delivery environment.
+
+## Integrate Visuals with Prose
+
+Make prose and visual perform complementary roles.
+
+Use an integration sequence:
+
+1. State what the reader should determine.
+2. Orient the reader to the visual's entities and encoding.
+3. Direct attention through the relevant relationship.
+4. Explain the inference.
+5. Ask the reader to use the visual on a new case.
+
+Do not write "see diagram below" without stating what to look for.
+
+Example:
+
+> Trace the solid path from the client to storage. Authorization occurs after routing but before the transaction begins, so rejected requests never acquire a database connection.
+
+This sentence coordinates attention and inference.
+
+## Show Processing and Retry Boundaries
+
+For asynchronous architecture, label more than components and arrows:
+
+| Boundary | Make explicit |
+| --- | --- |
+| Acceptance | What acknowledgement guarantees and what remains incomplete |
+| Processing | Which component owns the work and terminal state |
+| Retry | Owner, repeated operation, attempt scope, backoff, and limit |
+| Delivery | At-most-once or at-least-once behavior and deduplication duty |
+| Failure | Retryable versus terminal failure and dead-letter or escalation path |
+
+Keep processing retries separate from notification or delivery retries. Show whether duplicate execution is possible and where idempotency is enforced. Validate success, transient failure, retry exhaustion, duplicate delivery, and non-retryable failure as distinct traces.
+
+## Integrate Visuals with Code
+
+Connect conceptual structure to executable details without pretending they are identical.
+
+Use these patterns:
+
+- Match component names to module or function names where practical.
+- Number diagram phases and code excerpts consistently.
+- Highlight the path implemented by the adjacent snippet.
+- State which implementation details the diagram intentionally omits.
+- Link each failure path to the handling branch in code.
+- Show a state transition beside the operation that triggers it.
+- State what an acknowledgement proves, such as `202` meaning accepted rather than completed.
+
+Avoid diagrams that reproduce source code as boxes and arrows.
+Abstract implementation only enough to expose the target relationship.
+State which implementation details were intentionally omitted.
+
+## Account for Expertise Differences
+
+Adjust visual support to the reader's existing schemas.
+
+For novices:
+
+- Pretrain notation and component roles.
+- Reduce simultaneous relations.
+- Use direct labels and guided paths.
+- Show representative concrete cases.
+- Keep explanatory support close to the visual.
+
+For experienced readers:
+
+- Preserve information density when it supports rapid pattern recognition.
+- Remove guidance that obscures the full structure.
+- Expose exceptions, tradeoffs, and implementation boundaries.
+- Provide navigable overview and detail views.
+
+Do not assume that simplified visuals always help novices or that dense visuals always help experts.
+Validate whether the representation matches their knowledge and task.
+
+Provide alternate entry points when one document serves mixed expertise:
+
+- Orientation view for unfamiliar readers.
+- Full system view for experienced readers.
+- Focused detail views for specific questions.
+
+## Design Accessible Visual Explanations
+
+Provide equivalent access to the visual's purpose and information.
+
+For simple informative images, write concise alternative text that communicates the relevant relationship.
+For complex diagrams, provide a short alternative plus a nearby structured description or equivalent data.
+For decorative images, use an empty alternative so assistive technology can skip them.
+
+Also:
+
+- Preserve meaningful reading order in the DOM.
+- Meet contrast requirements for text and meaningful graphics.
+- Do not encode meaning through color alone.
+- Pair color with labels, shape, line style, or pattern.
+- Keep text selectable when practical.
+- Support zoom and responsive resizing.
+- Avoid flashing or uncontrolled motion.
+- Provide pause controls for animation.
+- Caption and transcribe narrated media.
+
+Do not assume `<title>` and `<desc>` alone explain a complex diagram adequately.
+Write a nearby text explanation when relationships, sequences, or data require detail.
+
+## Implement Maintainable Mermaid Diagrams
+
+Use Mermaid for diagrams whose semantics fit its supported forms and whose source will change with the system.
+
+Prefer Mermaid when:
+
+- Text diffs matter.
+- Contributors need to edit without design software.
+- Automatic layout is acceptable.
+- The target renderer supports the required diagram type.
+
+Keep source semantic:
+
 ```mermaid
-flowchart TD
-    A[User Request] --> B{Authenticated?}
-    B -->|Yes| C[Process Request]
-    B -->|No| D[Return 401]
-    C --> E[Return Response]
-```
-
-**Sequence Diagram** — for interactions between components:
-```mermaid
-sequenceDiagram
-    Client->>API: POST /login
-    API->>DB: Verify credentials
-    DB-->>API: User record
-    API-->>Client: JWT token
-```
-
-**State Diagram** — for lifecycle, status:
-```mermaid
-stateDiagram-v2
-    [*] --> Draft
-    Draft --> Review: submit
-    Review --> Published: approve
-    Review --> Draft: reject
-    Published --> [*]
-```
-
-### Mermaid Styling for Clarity
-
-Four knobs matter most for professional-looking diagrams:
-
-1. **Theme**: `default`, `forest`, `dark`, `neutral`, `base`. `base` if customizing deeply.
-2. **themeVariables**: Only six actually matter: `primaryColor`, `primaryTextColor`, `primaryBorderColor`, `lineColor`, `fontFamily`, `fontSize`.
-3. **Edge curves**: Default `basis` curves look amateur. Switch to `linear` for pipelines, `step` for hierarchies.
-4. **Layout direction**: `TD` (top-down) for hierarchies, `LR` (left-right) for pipelines.
-
-```mermaid
-%%{init: {'theme':'base', 'themeVariables': {'primaryColor':'#f0f0f0','primaryTextColor':'#333','lineColor':'#666','fontSize':'14px'}}}%%
 flowchart LR
-    Input --> Process --> Output
+    request[Client request] --> validate{Valid?}
+    validate -->|No| reject[Return 400]
+    validate -->|Yes| enqueue[Enqueue job]
+    enqueue --> accept[Return 202]
 ```
 
-### Declaration Order for Clean Layouts
+Use stable identifiers separate from visible labels.
+Keep labels concise and explain details in surrounding prose.
+Group related nodes only when containment carries meaning.
+Choose layout direction from the relationship and available page width.
 
-Tier-based ordering: declare elements in the order they should appear visually, following natural data flow. Declare ALL elements before ANY relationships. Group related elements with `subgraph`.
+Do not depend on declaration order as a guarantee of exact placement.
+Renderer versions and layout engines can change output.
 
-## Visual Explanation Patterns
+Pin or record the Mermaid version used for generated artifacts.
+Render diagrams in CI or documentation previews when appearance matters.
 
-### 1. Annotated Architecture
+## Implement Robust SVG
 
-Annotate directly on the diagram rather than using separate legends. Labels near their elements eliminate eye travel. Use callout lines to connect explanatory text to diagram elements.
+Use hand-authored or tool-generated SVG when precise composition, custom illustration, interaction, or stable placement is required.
 
-### 2. Before/After Paired Diagrams
-
-Show the problem ("Before") next to the solution ("After") at the same scale. The reader sees the delta without explanation.
-
-### 3. Zoom-In Details
-
-Show the big picture, then an enlarged detail of the complex part. Circle or highlight the zoom region on the overview.
-
-### 4. Step-By-Step Numbered Progression
-
-Number steps in the order they happen. Readers process numbered sequences faster than trying to decode arrows.
-
-### 5. Comparison Tables with Visual Differentiation
-
-Color-code differences. Use ✓/✗ for feature comparisons. Never rely on color alone — always include text labels.
-
-## SVG Quality Checklist
-
-| Check | How to Verify |
-|-------|---------------|
-| Edge crossings minimized | Count intersection points (not at nodes). Target 0 for simple, <3 for medium |
-| Consistent flow direction | All primary edges flow in one direction (L→R or T→B) |
-| Visual hierarchy clear | System boundary/main container is most prominent element |
-| Color-independent meaning | Diagram is still readable in grayscale |
-| Text legible | Minimum 12px font for digital, adequate contrast |
-| Accessible | `role="img"`, `<title>`, `<desc>` elements present |
-| Groups make sense | Related elements visually proximate and grouped |
-
-## SVG Accessibility
-
-Every SVG diagram must include:
+Start with a responsive root:
 
 ```svg
-<svg role="img" aria-label="Architecture diagram showing client connecting through API gateway to three backend services">
-  <title>System Architecture</title>
-  <desc>Client sends requests to the API gateway which routes to either the auth service, data service, or notification service based on the endpoint.</desc>
-  <!-- diagram elements -->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 800 450"
+  role="img"
+  aria-labelledby="ccdocs-write-title ccdocs-write-description"
+>
+  <title id="ccdocs-write-title">Validated write path</title>
+  <desc id="ccdocs-write-description">
+    Requests pass from the API through validation and authorization before storage.
+  </desc>
 </svg>
 ```
 
-Rules:
-- Always `role="img"` on root `<svg>`
-- Short label in `aria-label` or `<title>`
-- Longer description in `<desc>` for complex diagrams
-- Color-blind safe: never rely on color alone to convey meaning
-- Sufficient contrast ratios for strokes and text
+Use unique IDs for every inline SVG in the document.
 
-## Dark Mode Support
+Implementation guidance:
 
-Two approaches:
+- Preserve `viewBox` during optimization.
+- Let CSS constrain display width and height.
+- Use reusable classes or CSS custom properties for themes.
+- Keep stroke widths legible at intended sizes.
+- Prefer real text over outlined glyph paths when portability permits.
+- Define markers and repeated symbols once in `<defs>`.
+- Remove editor metadata and unused definitions.
+- Sanitize externally sourced SVG before inline embedding.
+- Test inline, `<img>`, and generated-file behavior according to the chosen delivery path.
 
-1. **Inline SVGs with `currentColor`** — stroke and fill use `currentColor`, inheriting page color. Most flexible but requires inline embedding.
-2. **Dual SVGs** — light and dark versions, swapped via CSS media query. Simpler but maintenance burden.
-
-Mermaid's `neutral` theme works reasonably well on both light and dark backgrounds without modification.
-
-## Tufte's Principles Applied to Diagrams
-
-| Principle | Application |
-|-----------|-------------|
-| Data-ink ratio | Every pixel serves the data. Remove grid backgrounds, decorative borders, gradient fills, drop shadows, 3D effects |
-| Chartjunk elimination | No moiré patterns, no heavy gridlines, no decorative pictograms. Gridlines in #d8d4ce only if needed |
-| Lie Factor = 1.0 | Every element proportional to what it represents. No area distortions |
-| Direct labels | Label elements directly adjacent. No legends — they force eye travel |
-| Micro/macro readings | Diagram readable as whole gestalt AND inspectable at individual elements |
-| Small multiples | Compare similar structures side-by-side at same scale |
-
-## When to Hand-Code SVG vs Tool-Generated
-
-| Approach | Best For |
-|----------|----------|
-| Mermaid (diagram-as-code) | Flowcharts, sequences, state diagrams, ER — anything that changes often |
-| Hand-coded SVG | Simple diagrams (3-6 boxes, few arrows), diagrams needing precise control, rarely-changed illustrations |
-| Excalidraw export SVG | Architecture diagrams with custom styling, hand-drawn aesthetic |
-| Figma/draw.io export → SVGO | Complex diagrams, diagrams needing visual polish |
-
-## Visual Selection Decision Framework
-
-Adapted from the Few/Tufte Design Library:
-
-| Data Type | Best Visual Encoding | Avoid |
-|-----------|---------------------|-------|
-| Comparisons | Bar chart (length), side-by-side boxes | Pie charts (angle is harder to decode), 3D effects |
-| Change over time | Line chart, sparkline | Stacked area with many series |
-| Relationships / flow | Flowchart, network diagram | Text description of relationships |
-| Part-to-whole | Stacked bar, treemap | Pie chart with many slices |
-| Distribution | Histogram, box plot | Raw data table |
-| Spatial | Map, architecture diagram | List of locations |
-| Process / sequence | Sequence diagram, numbered flowchart | Prose description of steps |
-| Hierarchy | Tree diagram, nested subgraphs | Indented text list |
-
-## Perceptual Encoding Hierarchy
-
-The visual cortex processes encoding types with different speeds and accuracy. Design your diagrams to use the most effective encoding for your primary message:
-
-```
-Position (most accurate)
-  > Length
-    > Angle / Slope
-      > Area
-        > Volume (least accurate)
-          > Color hue / Saturation
-```
-
-Implication: Bar charts (using length/position) are easier to read than pie charts (using angle). For diagrams, this means: position elements by importance, use consistent sizes, and use color for categorization, not for encoding quantitative differences.
-
-## Gestalt Principles for Diagrams
-
-These principles from perceptual psychology govern how viewers unconsciously group elements:
-
-| Principle | Meaning | Diagram Application |
-|-----------|---------|---------------------|
-| **Proximity** | Close elements are perceived as grouped | Group related services in subgraphs or with padding |
-| **Similarity** | Similar elements are perceived as related | Use consistent shapes for same-type components |
-| **Continuity** | The eye follows continuous lines/paths | Avoid crossing lines; prefer straight paths |
-| **Closure** | The mind completes incomplete shapes | Boxes around groups signal containment |
-| **Common Region** | Elements in a bounded area are perceived as a group | Use subgraph blocks, background regions |
-| **Connectedness** | Connected elements are perceived as related | Lines between elements imply relationship |
-
-## Edge Crossing: The Single Biggest Diagram Problem
-
-Research by Purchase et al. found that edge crossings are the strongest negative predictor of diagram comprehension. This matters more than node positioning, symmetry, or even consistent flow direction.
-
-**Crossing reduction strategy**:
-1. Declare elements in visual order (left-to-right, top-to-bottom)
-2. Group related elements with subgraph constraints
-3. Use tier-based ordering: upstream → processing → downstream
-4. If crossings remain, split into multiple diagrams
-
-Targets:
-- Simple (≤6 elements): 0 crossings
-- Medium (7-12 elements): <3 crossings
-- Complex (12+ elements): <5 crossings, or split
-
-## C4 Diagram Levels for Architecture
-
-For architecture documentation, use the C4 model for layered architectural views:
-
-| Level | Scope | Audience | Diagram Content |
-|-------|-------|----------|-----------------|
-| Context | System + external actors | Everyone | The system as a box, external users/systems around it |
-| Container | High-level tech choices | Architects, devs | Web app, API, database, file system |
-| Component | Internal structure | Developers | Controllers, services, repositories within a container |
-| Code | Class-level detail | Developers | UML class diagrams (usually generated, not hand-drawn) |
-
-One diagram per C4 level. Never mix context-level and container-level elements on the same diagram.
-
-## Dark Mode SVG Patterns
-
-### Approach 1: CSS Custom Properties (Inline SVG)
+Use `currentColor` for monochrome elements that should inherit surrounding text color:
 
 ```svg
-<svg viewBox="0 0 200 100" role="img" aria-label="...">
-  <style>
-    .bg { fill: var(--bg-color, #ffffff); }
-    .text { fill: var(--text-color, #333333); stroke: var(--text-color, #333333); }
-    .accent { fill: var(--accent-color, #0066cc); }
-    @media (prefers-color-scheme: dark) {
-      .bg { fill: #1a1a2e; }
-      .text { fill: #e0e0e0; stroke: #e0e0e0; }
-      .accent { fill: #66b3ff; }
-    }
-  </style>
-  ...
-</svg>
+<path d="M20 40 H180" fill="none" stroke="currentColor" stroke-width="2" />
 ```
 
-### Approach 2: `currentColor` (Simplest)
+Use explicit semantic colors when categories must remain stable across contexts.
+Test those colors in light mode, dark mode, forced colors, and grayscale.
 
-For monochrome diagrams that should match text color:
+Do not prescribe transparent or opaque backgrounds universally.
+Choose deliberately based on embedding context and test both expected themes.
 
-```svg
-<svg viewBox="0 0 200 100" role="img" aria-label="...">
-  <rect x="10" y="10" width="80" height="30" fill="none" stroke="currentColor" stroke-width="2"/>
-</svg>
-```
+## Validate the Visual, Not Just the Source
 
-The diagram inherits `currentColor` from the page — automatically dark mode compatible.
+Render every diagram in its actual documentation environment.
+Source validity does not guarantee usable output.
 
-### Approach 3: Mermaid Theme Selection
+Inspect at:
 
-For Mermaid diagrams on sites with dark mode, use the `neutral` theme or `base` with custom variables:
+- Expected desktop width.
+- Narrow mobile width.
+- Browser zoom.
+- Light and dark themes.
+- High-contrast or forced-color mode where supported.
+- The exported or printed format.
+- The minimum intended resolution.
 
-```mermaid
-%%{init: {'theme':'base', 'themeVariables': {
-  'primaryColor':'#bb86fc','primaryTextColor':'#fff','primaryBorderColor':'#bb86fc',
-  'lineColor':'#888','secondaryColor':'#03dac6','tertiaryColor':'#1e1e1e'
-}}}%%
-flowchart TD
-    A --> B
-```
+Verify:
 
-Export at different themes for light/dark and swap via CSS or JavaScript.
+| Check | Question |
+| --- | --- |
+| Explanatory purpose | Can readers state the intended relationship or inference? |
+| Selection | Do important elements attract attention before decoration? |
+| Organization | Can readers group parts and follow the intended structure? |
+| Integration | Can readers connect labels, prose, and prior concepts? |
+| Legibility | Are text, lines, markers, and distinctions readable at target size? |
+| Semantics | Do shape, color, and line conventions remain consistent? |
+| Accessibility | Is equivalent information available without vision, color, motion, or audio? |
+| Responsiveness | Does resizing preserve meaning and usable text size? |
+| Fidelity | Does the diagram match the current system or data? |
+| Robustness | Does it render correctly in every supported renderer? |
 
-## Common SVG Mistakes and Fixes
+Use representative reader tasks rather than aesthetic preference alone:
 
-| Mistake | Fix |
-|---------|-----|
-| Fixed `width`/`height` attributes | Use `viewBox` only; let CSS control display size |
-| `<img src="diagram.svg">` prevents CSS theming | Use inline `<svg>` or `<object>` |
-| Text as paths (from Figma/draw.io export) | Run through SVGO with `convertPathData: false, removeViewBox: false` |
-| Missing `xmlns` | Always include `xmlns="http://www.w3.org/2000/svg"` |
-| Transparent backgrounds | Add explicit background rect; transparent diagrams look broken on dark mode |
-| SVG too large (verbose export) | Run through SVGO: `npx svgo diagram.svg -o diagram.min.svg` |
+- Ask a reader to trace one path.
+- Ask where a decision occurs.
+- Ask what changes between two states.
+- Ask for a prediction from the visual.
+- Ask which element supports the stated conclusion.
+- Trace success, transient failure, retry exhaustion, duplicate delivery, and terminal failure when retries are part of the system.
 
-## When Not to Draw — Let Text Win
+Record errors and hesitation.
+Revise labels, grouping, segmentation, or representation according to observed failures.
 
-A good diagram is worth a thousand words. But a thousand words are sometimes better than a bad diagram. Skip the diagram when:
+## Avoid Universal Layout Rules
 
-- The concept takes 1-2 sentences to explain clearly
-- The diagram would have more edge crossings than elements
-- The audience doesn't need the diagram (expert audience, reference doc)
-- The diagram duplicates what's already clear in a table
-- Creating the diagram would take longer than writing a clear paragraph
+Treat layout principles as content-dependent tradeoffs.
+Reduce crossings when they impair tracing, preserve feedback loops when they matter, split only separable questions, and choose direct labels or legends according to legibility.
+Judge the result by whether the intended reader can find elements, follow relationships, make the intended inference, and explain omissions.
+Do not enforce fixed node, crossing, paragraph, or font-size quotas without reference to medium and audience.
 
-Remember Tufte: "Simple design, intense content." If the diagram doesn't have intense content, it's decoration.
+## Visual Explanation Review
+
+Run this review before publication:
+
+1. State the visual's cognitive job in one sentence.
+2. Confirm that the chosen representation exposes the target relationship.
+3. Remove unrelated material and preserve necessary context.
+4. Signal the organization and consequential path.
+5. Place labels and explanation close to corresponding elements.
+6. Check whether simultaneous words duplicate or complement one another.
+7. Segment complexity and pretrain notation where needed.
+8. Align prose, visual, and code terminology.
+9. Provide accessible alternatives and interaction controls.
+10. Render in every supported theme, width, and output format.
+11. Test a representative interpretation or prediction task.
+12. Revise from observed comprehension failures, not taste alone.

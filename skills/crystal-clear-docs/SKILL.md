@@ -1,193 +1,203 @@
 ---
 name: "@tank/crystal-clear-docs"
 description: |
-  Create crystal-clear technical documents (HTML + Markdown) with layered
-  explanations, progressive disclosure from TL;DR to deep dive, and SVG
-  diagrams for concepts that need visual explanation. Covers inverted pyramid
-  structure, the Layer Cake Method for multi-resolution explanations, Mermaid
-  diagram-as-code integration, accessible SVG patterns, document formatting for
-  maximum scannability, callout/admonition design, comparison tables, worked
-  examples, and word-level clarity techniques. Synthesizes Minto (The Pyramid
-  Principle), Tufte (Envisioning Information, The Visual Display of Quantitative
-  Information), Krug (Don't Make Me Think), Strunk & White (The Elements of
-  Style), Zinsser (On Writing Well), Google Technical Writing Course, Munroe
-  (Up-Goer Five / Thing Explainer), Mermaid.js, W3C SVG accessibility
-  guidelines, and Cognitive Load Theory (Sweller).
+  Design technical documentation that readers can find, understand, use, and
+  transfer to new situations. Covers outcome-driven document design, reader and
+  mental-model analysis, prior knowledge and misconceptions, cognitive load,
+  worked examples, multimedia learning, behavioral writing, navigation, and
+  evidence-informed validation. Synthesizes Mayer, Lovett et al., How People Learn
+  II, Wiggins and McTighe, Neelen and Kirschner, Dunlosky and Rawson, Rogers and
+  Lasky-Fink, and Pinker.
 
-  Trigger phrases: "crystal clear docs", "clear documentation", "write clear docs",
-  "make this document clearer", "technical document", "explain this clearly",
-  "doc needs to be clearer", "improve documentation clarity", "clear explanation",
-  "layered explanation", "TLDR document", "progressive disclosure",
-  "add SVG diagram", "explain with diagram", "visual explanation",
-  "mermaid diagram", "create architecture diagram", "diagram for docs",
-  "structure this document", "format technical doc", "document layout",
-  "make this scannable", "scannable docs", "callout patterns", "admonition design",
-  "how to explain", "explain like", "write a guide", "tutorial structure",
-  "documentation best practices", "technical writing"
+  Trigger phrases: "crystal clear docs", "clear documentation",
+  "explain this clearly", "teach this concept", "help readers understand",
+  "improve this guide", "technical writing", "write a tutorial",
+  "write a how-to guide", "documentation psychology", "fix confusing docs",
+  "reader mental model", "add a diagram", "documentation usability",
+  "make this easier to learn", "write a runbook", "safety-critical docs",
+  "architecture page", "retry boundaries"
 ---
 
 # Crystal Clear Docs
 
-Create technical documents people actually read and understand — by layering
-information from TL;DR to deep dive and explaining hard concepts with diagrams.
+Create documentation that produces the intended reader outcome, not merely a
+polished page.
 
 ## Core Philosophy
 
-1. **Lead with the answer.** The reader's first question is "does this matter to
-   me?" — answer it in the first sentence. Everything else supports that answer.
-2. **Layer, don't dump.** Progressive disclosure: TL;DR → Example → Explanation
-   → Deep Dive. Each layer is complete and accurate on its own.
-3. **Show, don't just tell.** Concepts that require the reader to hold multiple
-   relationships in their head get a diagram. Code gets shown before explanation.
-4. **Every word earns its place.** If removing a word changes nothing, remove it.
-   Active voice. Plain language. Short sentences. Scannable structure.
-5. **Respect the reader's time.** They scan, they don't read. Design for scanning:
-   information-dense headings, bold key terms, lists over walls of text, and
-   callouts that surface what matters.
+1. **Define the change before the content.** State what readers must find,
+   decide, explain, or do and what evidence would demonstrate success.
+2. **Design for the reader's current model.** New information is interpreted
+   through prior knowledge, misconceptions, goals, language, and context.
+3. **Expose structure, not just facts.** Make entities, relationships, causes,
+   constraints, decisions, and applicability conditions visible.
+4. **Match support to expertise.** Give novices explicit guidance and
+   experienced readers direct access to dense reference and boundary cases.
+   Fade support only in adaptive, facilitated, or multi-attempt experiences.
+5. **Validate performance, not polish.** "Looks clear" is weak evidence. Ask
+   representative readers to find, explain, predict, execute, or adapt.
 
-## Quick-Start: Document Anatomy
+Learning research supplies mechanisms and design hypotheses, not universal
+page rules. Much of the evidence comes from instruction and controlled studies;
+validate each application with the actual audience, task, medium, and delay.
 
-Every crystal-clear document follows this skeleton:
+## Task Router
 
-```
-# [Action-oriented title]
-**TL;DR**: [One sentence — what and why]
-[Quick-start code/command — the answer]
+| Request | Start with |
+| --- | --- |
+| Diagnose or design a document system | `references/outcome-driven-design.md` |
+| Teach a concept or correct a misconception | `references/reader-mental-models.md`, then `references/layered-writing.md` |
+| Write a runbook or safety-critical procedure | `references/document-structure.md`, then `references/reader-mental-models.md` |
+| Design an architecture or process diagram | `references/svg-diagrams.md` |
+| Rewrite confusing prose | `references/writing-clarity.md` |
+| Repair navigation or layout | `references/document-structure.md` |
 
-## Overview
-[Layer 1: explanation in plain language, 2-3 paragraphs]
+## Workflow
 
-## How It Works
-[Layer 2: mechanism, diagram if helpful, comparisons]
+### 1. Diagnose the Need
 
-## Configuration / Options
-[Reference table for parameters, options, choices]
+Identify the observed performance gap before accepting "write documentation"
+as the solution.
 
-## Advanced Usage
-[Layer 3: edge cases, alternatives, deep architecture]
+- Fix tools, permissions, incentives, or workflow when information is not the
+  blocker.
+- Use reference or point-of-work support when readers only need retrieval.
+- Use instruction when readers must retain, reason, judge, or transfer.
 
-## Related
-[Links to next logical step, tangential topics, support]
-```
+See `references/outcome-driven-design.md`.
 
-→ See `references/layered-writing.md` for the full framework.
-→ See `references/document-structure.md` for formatting patterns.
-→ See `references/writing-clarity.md` for word/sentence-level techniques.
-→ See `references/svg-diagrams.md` for when and how to use diagrams.
+### 2. Define Outcome and Evidence
+
+Write an observable outcome:
+
+> Given [situation and resources], the reader can [task or judgment] to
+> [quality criteria], including [important variation].
+
+Define the proof before outlining the page. Match evidence to the goal: lookup,
+execution, explanation, diagnosis, adaptation, or transfer.
+
+### 3. Model the Reader
+
+Record only dimensions that change a design decision:
+
+- Domain and task knowledge
+- Knowledge organization and likely misconceptions
+- Goals, value, confidence, and agency
+- Language, tools, environment, access, risk, and culture
+- What novices need exposed and experts can safely skip
+
+See `references/reader-mental-models.md`.
+
+### 4. Choose the Documentation Job
+
+| Reader need | Primary form | Optimize for |
+| --- | --- | --- |
+| Find an exact fact | Reference | Search, stable labels, completeness |
+| Complete a known task | How-to | Actions, decisions, checks, recovery |
+| Learn an end-to-end capability | Tutorial | Guided task, feedback, fading |
+| Explain behavior | Concept page | Causal model, examples, prediction |
+| Choose among options | Decision guide | Criteria, contrasts, boundaries |
+| Recover from failure | Troubleshooting guide | Evidence, causes, tests, remedies |
+| Respond under pressure | Runbook | Safe sequence, stop conditions, escalation |
+
+Split incompatible jobs instead of forcing one page to serve all of them.
+
+### 5. Build Understanding
+
+When understanding or transfer matters:
+
+1. Activate or supply prerequisites.
+2. State the governing question or useful idea.
+3. Explain the causal or structural model.
+4. Show a worked example with decisions and reasons.
+5. Contrast an example, nonexample, near miss, or boundary case.
+6. Prompt prediction or self-explanation where it exposes the model.
+7. Fade guidance and vary the case when independent use matters.
+8. Provide answer criteria, automated checks, or human feedback where the
+   delivery medium supports them.
+
+A static page cannot observe competence or personalize feedback. It can offer
+worked, partial, and independent variants, but the reader or an external system
+must choose the appropriate stage and evaluate the result.
+
+See `references/layered-writing.md`.
+
+### 6. Select Representations by Cognitive Job
+
+| Relationship | Useful representation |
+| --- | --- |
+| Cause, qualification, argument | Prose |
+| Ordered action | Numbered procedure |
+| Exact executable form | Code |
+| Aligned comparison or lookup | Table |
+| Flow, state, hierarchy, space, interaction | Diagram |
+| Change over time or quantity | Appropriate chart |
+
+Add words and visuals when they complement each other. Signal structure, keep
+corresponding elements close, segment meaningful complexity, pretrain notation
+when needed, and provide accessible alternatives.
+
+See `references/svg-diagrams.md`.
+
+### 7. Write and Arrange for Use
+
+- Put the topic, point, action, or consequence where readers encounter it early.
+- Use concrete actors, verbs, objects, conditions, and outcomes.
+- Shape sentences around clear relationships, not word-count quotas.
+- Move from familiar information to new information.
+- Use headings, lists, tables, callouts, links, and emphasis only when they
+  expose meaning or reduce action friction.
+- Preserve coherent prose when causality or qualification matters.
+- Test the rendered document on the media readers actually use.
+
+See `references/writing-clarity.md` and `references/document-structure.md`.
 
 ## Common Problems
 
-### "This document is a wall of text"
+### "Readers can copy the example but cannot adapt it"
 
-1. Add a one-sentence TL;DR at the very top
-2. Break paragraphs into lists (3+ related items → bullet list)
-3. Add descriptive H2/H3 headings (not "Overview", "Details")
-4. Insert a diagram for any concept spanning more than 2 paragraphs
-5. Move advanced configuration into `<details>` expandable sections
+Expose the governing principle and decision cues. Add a near miss, a changed
+case, and an explanation prompt. Fade copied steps before testing transfer.
 
-### "I don't know where to add a diagram"
+### "Beginners are lost but experts find it tedious"
 
-Ask: does the reader need to hold 3+ relationships in their head? If yes, add a
-diagram. Use Mermaid for flowcharts, sequences, state machines, ER diagrams.
-Use hand-coded SVG for simple before/after or architecture comparisons.
+Keep one source of truth but provide different entry paths: concise reference
+for experienced readers and skippable prerequisites, reasoning, and worked
+examples for novices. Never hide safety conditions in the novice path.
 
-### "The explanation is too complex"
+### "The page is easy to scan but nobody understands it"
 
-1. Write the one-sentence version first (the Compression Ladder exercise)
-2. Then the one-paragraph version
-3. Then the full explanation
-4. Present them in that order — readers self-select depth
+Restore coherent relationships. Lists and headings help navigation; they do not
+replace causal explanation, examples, contrasts, and integration with prior
+knowledge.
 
-### "How do I make this scannable?"
+### "The explanation feels clear, but we cannot tell if it worked"
 
-Scan this checklist:
-- Headings are specific and information-dense
-- Bold used only for key terms (not whole sentences)
-- Lists used for any 3+ related items
-- Callouts highlight warnings, tips, and gotchas
-- Code blocks have language annotations and captions
-- Tables used for configuration references and comparisons
-
-## Decision Trees
-
-### Which Diagram Type?
-
-| Concept | Diagram | Syntax |
-|---------|---------|--------|
-| Step-by-step process | Flowchart | `flowchart TD` |
-| Component interactions | Sequence diagram | `sequenceDiagram` |
-| State lifecycle | State diagram | `stateDiagram-v2` |
-| System architecture | Architecture diagram | `architecture-beta` |
-| Data relationships | ER diagram | `erDiagram` |
-| Timeline / roadmap | Gantt chart | `gantt` |
-| A vs B comparison | Side-by-side SVG | Hand-coded or draw.io |
-| Hierarchy / tree | Flowchart with subgraphs | `flowchart TD; subgraph` |
-
-### Which Callout Type?
-
-| Situation | Callout |
-|-----------|---------|
-| Supplementary context | ℹ Note |
-| Better way to do it | 💡 Tip |
-| Potential pitfall | ⚠ Warning |
-| Data loss, security risk | 🚫 Danger |
-| Worked example | Example |
-
-### How Deep to Go?
-
-| Reader wants... | Give them... |
-|----------------|-------------|
-| "Is this relevant?" | TL;DR (1 sentence) |
-| "How do I use it?" | TL;DR + Code example |
-| "Why does it work this way?" | + How It Works section |
-| "What are the edge cases?" | + Advanced Usage section |
-| "I need to contribute/modify" | + Architecture + Deep dive |
-
-## SVGs for Visual Explanation
-
-When a concept spans more than 2 paragraphs and involves relationships,
-structure, flow, or state — add a diagram.
-
-**Use Mermaid inline** (works on GitHub, GitLab, Notion, most Markdown renderers):
-
-```mermaid
-flowchart TD
-    A[User] --> B{Authenticated?}
-    B -->|Yes| C[Grant Access]
-    B -->|No| D[Redirect to Login]
-    C --> E[Return Resource]
-```
-
-**Use inline SVGs** for precise control, annotations, and dark mode support:
-
-```svg
-<svg role="img" aria-label="..." viewBox="0 0 400 200">
-  <title>Short description</title>
-  <desc>Longer description for accessibility</desc>
-  <!-- diagram elements -->
-</svg>
-```
-
-→ Every SVG needs `role="img"`, `<title>`, and `<desc>` elements.
-→ Use `currentColor` so diagrams adapt to light/dark themes.
-→ Color-blind safe: never rely on color alone — always add labels.
+Test the target performance. Ask readers to paraphrase the model, predict a
+result, complete the task, diagnose a fresh failure, or choose under changed
+constraints. Observe errors and revise where understanding breaks.
 
 ## Quality Gate
 
-Before publishing any document, verify:
+- [ ] Confirm documentation can address the actual problem.
+- [ ] State an observable reader outcome and matching evidence.
+- [ ] Identify required prior knowledge and likely misconceptions.
+- [ ] Choose structure and representation from the reader's task.
+- [ ] Preserve conditions, boundaries, and safety-critical nuance.
+- [ ] Distinguish lookup, execution, and durable understanding.
+- [ ] Distinguish immediate comprehension, supported execution, durable
+  learning, and transfer; one successful attempt does not prove all four.
+- [ ] Make success and recovery observable.
+- [ ] Support access across relevant devices and assistive technologies.
+- [ ] Validate with representative readers and realistic tasks.
 
-1. **Can someone get the gist from the TL;DR alone?** If no, rewrite it.
-2. **Can they self-select their depth?** Can they stop at the code example and leave satisfied?
-3. **Do headings predict their content?** No "Overview", "Details" — be specific.
-4. **Is every code block copy-paste runnable?** If it needs invisible setup, add it.
-5. **Are diagrams needed?** Any concept 2+ paragraphs with relationships → add a diagram.
-6. **Did you remove needless words?** Read each sentence. Delete every word. Re-add only what's essential.
-
-## Reference Files
+## Reference Index
 
 | File | Contents |
-|------|----------|
-| `references/layered-writing.md` | Inverted pyramid, Layer Cake Method, progressive disclosure, TL;DR patterns, code-first writing, Up-Goer Five technique |
-| `references/svg-diagrams.md` | Diagram type selection, Mermaid syntax and styling, SVG accessibility, dark mode, Tufte's visualization principles, visual explanation patterns |
-| `references/document-structure.md` | Document anatomy, heading hierarchies, callout/admonition patterns, comparison design, scannability, CRAP principles, responsive layout, cognitive load management |
-| `references/writing-clarity.md` | Active voice, jargon elimination, sentence construction, comparison patterns, worked examples, MECE framework, BLUF method |
+| --- | --- |
+| `references/outcome-driven-design.md` | Performance diagnosis, backward design, transfer, evidence, document types, alignment, evaluation |
+| `references/reader-mental-models.md` | Prior knowledge, mental models, misconceptions, expertise, motivation, culture, metacognition |
+| `references/layered-writing.md` | Explanation sequencing, worked examples, contrasts, scaffolding, retrieval, feedback, transfer |
+| `references/svg-diagrams.md` | Multimedia learning, diagram selection, signaling, integration, accessibility, Mermaid, SVG |
+| `references/writing-clarity.md` | Attention, concrete prose, sentence geometry, coherence, action friction, behavioral editing |
+| `references/document-structure.md` | Document types, reading modes, semantic chunks, navigation, code, responsive and accessible layout |
