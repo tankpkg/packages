@@ -1,272 +1,423 @@
-# Document Structure and Formatting
+# Document Navigation and Layout
 
-Sources: Google Developer Technical Writing Course (One + Two), Steve Krug (Don't Make Me Think, Chapters 1-5), Jakob Nielsen (Nielsen Norman Group, Progressive Disclosure research), Robin Williams (The Non-Designer's Design Book — CRAP principles), Jeff Johnson (Designing with the Mind in Mind), Microsoft UX Guidelines (Inverted Pyramid in UI text).
+Sources: Google Technical Writing Courses, Steve Krug (Don't Make Me Think), Jeff Johnson (Designing with the Mind in Mind), Robin Williams (The Non-Designer's Design Book), W3C Web Content Accessibility Guidelines, and task-centered documentation practice.
 
-Covers: How to structure, format, and lay out technical documents for maximum clarity and scannability using HTML and Markdown. Heading hierarchies, callout/admonition patterns, comparison design, responsive layout, and cognitive load management.
+Covers: Arrange technical content after its purpose is defined. Choose structures by document type, support scanning, close reading, and lookup, create semantic chunks, select headings and content forms, and test navigation, responsive behavior, accessibility, and task completion.
 
-## The Golden Rule of Document Structure
+## Structure Follows Purpose
 
-**Every page should be self-explanatory within 5 seconds.** The reader should know what this page covers, whether it's relevant to them, and how to proceed — without thinking.
+Define the reader, situation, and outcome before arranging the page. Structure cannot compensate for an unclear purpose.
 
-## Document Opening Formula
+Write a one-sentence contract:
 
-Every document should open with:
+> This runbook helps an on-call engineer restore queue processing without duplicating jobs.
 
-```
-# [Clear, action-oriented title]
+Use that contract to choose the document type, opening, sequence, navigation, and depth. Do not begin with a universal page template.
 
-**TL;DR**: [One sentence — what this page explains and why you'd read it]
+Ask:
 
-> **Prerequisites**: [What you need to know / have installed]
-> **What this covers**: [Scope — what you'll learn]
-> **What this does NOT cover**: [Non-scope — prevent wasted reading]
+- What brought the reader here?
+- Will they scan, learn, decide, execute, or look up a fact?
+- Must they follow a sequence?
+- Which information is safety-critical?
+- Which paths apply only to some readers?
+- Will they return repeatedly or read once?
+- Where and on what device will they use the document?
 
-[Quick-start code or command — the answer, immediately]
+Let the strongest use case govern the primary path. Support secondary use cases without making every reader traverse them.
 
-## How It Works [or: Overview]
-[Layered deepening starts here]
-```
+## Choose a Structure by Document Type
 
-## Heading Hierarchy for Progressive Disclosure
+Different documents create different reading contracts.
 
-Headings must genuinely compress the content below them. A reader scanning only headings should understand the full argument.
+| Document type | Primary reader intent | Useful structure |
+| --- | --- | --- |
+| Tutorial | Learn by completing a guided experience | Goal, setup, staged actions, checkpoints, reflection |
+| How-to guide | Complete a known task | Preconditions, task steps, verification, recovery |
+| Concept explanation | Build a mental model | Governing idea, parts, relationships, example, implications |
+| Reference | Retrieve exact facts | Scope, stable categories, searchable entries, constraints |
+| Decision record | Understand a choice | Context, decision, alternatives, consequences, status |
+| Proposal | Decide whether to act | Recommendation, value, evidence, tradeoffs, requested decision |
+| Runbook | Respond safely under pressure | Trigger, diagnosis, safe actions, checks, escalation, rollback |
+| Troubleshooting guide | Recover from a symptom | Symptom, discriminating checks, causes, fixes, verification |
+| Release note | Learn what changed and what to do | Change, affected users, impact, required action, references |
+| API guide | Integrate correctly | Mental model, authentication, common flow, errors, linked reference |
 
-| Level | Purpose | Rule |
-|-------|---------|------|
-| H1 | What the entire document is about | One per page, action-oriented |
-| H2 | Major sections supporting H1 | 3-7 per page, answer "what" and "why" |
-| H3 | Subsections detailing H2 | Answer "how", introduce a specific concept or step |
-| H4 | Granular details within H3 | Edge cases, examples, config details |
+Do not force one document to serve incompatible intents. Split a tutorial from exhaustive reference when the combined page makes both harder to use. Keep related documents connected with explicit links and shared terminology.
 
-**The compression test**: If H2 says "Overview" and the content is actually about authentication flow, the heading failed. Rewrite it as "Authentication Flow".
+### Safety-Critical Runbook Blueprint
 
-## Callout and Admonition Patterns
+Use one visible operational spine:
 
-Use callouts to surface information that interrupts the linear reading flow. Choose the right type:
+1. State purpose, authority, roles, and the exact trigger.
+2. Put the irreversible hazard and governing safety invariant first.
+3. List prerequisites, required evidence, and explicit stop conditions.
+4. Separate phases with decision gates and named approvers.
+5. For every consequential action, show expected state and failure response.
+6. Distinguish rollback before commitment from recovery or failback afterward.
+7. Define escalation thresholds and who owns the decision.
+8. Verify the system invariant, user-visible result, monitoring, and follow-up state.
 
-| Type | Icon | Color | When to Use |
-|------|------|-------|-------------|
-| **TL;DR** | None or 📌 | Neutral | At the very top of every page. One sentence. |
-| **Info / Note** | ℹ️ | Blue | Supplementary context, "by the way" facts |
-| **Tip** | 💡 | Green | Best practice, "here's a smarter way" |
-| **Warning** | ⚠️ | Yellow/Amber | Potential pitfalls, gotchas, deprecated behavior |
-| **Danger / Critical** | 🚫 | Red | Actions that cause data loss, security issues |
-| **Example** | 📋 | Gray/Neutral | Worked example distinct from explanation |
+Provide a concise fast path and an expanded path when expertise varies. Keep hazards, stop conditions, authority, and verification identical in both.
 
-### HTML Structure for Admonitions
+## Support Three Reading Modes
+
+Design for movement between scanning, close reading, and lookup.
+
+### Scan Mode
+
+Help readers decide relevance and locate a path. Expose descriptive headings, meaningful lead sentences, visible steps, and recognizable terms.
+
+### Close-Read Mode
+
+Preserve coherent prose, reasoning, examples, and qualifications. Avoid fragmenting every thought into labels and bullets.
+
+### Lookup Mode
+
+Provide stable names, predictable categories, searchable literal strings, anchors, and compact reference forms.
+
+Readers switch modes within one session. An engineer may scan for the right error, close-read its explanation, then look up a parameter. Keep those transitions easy.
+
+Test each mode separately. A page can scan well but fail to explain, or explain well but make a known fact difficult to retrieve.
+
+## Design the First View
+
+Use the first view to establish orientation, relevance, and a plausible next move.
+
+Include only what this document needs:
+
+- A specific title
+- A concise statement of purpose or result
+- A critical prerequisite or warning
+- The main action, recommendation, or navigation choice
+- Context needed to interpret what follows
+
+Do not require a summary block on every page. A short reference entry may need only a precise title and signature. A proposal may need its recommendation first. A tutorial may need a goal and setup. A runbook may need an emergency warning before context.
+
+Avoid ceremonial openings such as "This document will discuss." Use the space to clarify scope or help the reader begin.
+
+## Create Semantic Chunks
+
+Group content by meaning and task, not by a fixed item count.
+
+A chunk should answer one recognizable question or support one coherent action. Its boundaries should help readers predict what belongs together.
+
+Useful chunk boundaries include:
+
+- A change in reader goal
+- A new stage in a process
+- A switch from rule to exception
+- A distinct option or platform path
+- A move from explanation to execution
+- A new lookup category
+
+Keep tightly coupled information together even when the section becomes long. Split a section when readers need different labels, can skip one part independently, or would benefit from a direct link to one part.
+
+Do not treat memory research as a mandate for a universal number of sections or list items. Complexity, familiarity, and task context determine useful grouping.
+
+## Make Headings Carry Information Scent
+
+Write headings that predict the content and help readers choose a path.
+
+Weak headings:
+
+- Overview
+- Details
+- Other
+- Advanced
+
+Stronger headings:
+
+- How Lease Revocation Prevents Duplicate Writes
+- Rotate Credentials Without Interrupting Traffic
+- Errors Caused by an Expired Signing Key
+- Optional Controls for Regulated Workloads
+
+Use a consistent hierarchy. Do not skip levels for visual styling. Let heading levels express containment, then use CSS to control appearance.
+
+Prefer headings that match reader vocabulary. Include literal product names, error text, commands, or concepts when readers are likely to search for them.
+
+Apply the heading-only test: scan the headings in order and determine whether they reveal the page's scope and path. Do not demand that headings reproduce the entire argument; require them to make navigation predictable.
+
+## Select Prose, Lists, or Tables Deliberately
+
+Choose the form that matches the relationship among ideas.
+
+| Content relationship | Preferred form |
+| --- | --- |
+| Reasoning, causality, or narrative | Prose |
+| Ordered actions or ranked sequence | Numbered list |
+| Parallel choices or attributes | Bulleted list |
+| Comparison across shared dimensions | Table |
+| Term-to-definition lookup | Definition list or compact reference entries |
+| Branching decision | Decision table, flowchart, or conditional subsections |
+| Spatial or system relationship | Diagram with text alternative |
+
+Keep connected reasoning in prose. Lists expose parallelism but can hide causality and qualification.
+
+Use numbered lists only when order matters or when readers must refer to step numbers. Use bullets when items are peers and sequence is irrelevant.
+
+Use tables when readers compare cells across rows or columns. Avoid tables for long narrative text, sequential procedures, or content that becomes unusable on narrow screens.
+
+Give each list a grammatical lead-in. Keep list items parallel enough that readers can compare them without reinterpreting the syntax.
+
+## Sequence Procedures Around the Task
+
+Place prerequisites before the first step, but include only conditions that must be true before the reader begins.
+
+Distinguish prerequisite types:
+
+| Type | Example |
+| --- | --- |
+| Access | Permission to deploy the service |
+| Environment | CLI connected to the production project |
+| State | Migration completed in the primary region |
+| Knowledge | Familiarity with the service's traffic model |
+| Input | Revision name and rollback target |
+
+Move optional preparation into the relevant branch instead of blocking all readers with it.
+
+For each consequential step, consider four elements:
+
+1. Action: what the reader does.
+2. Context: where or under which condition.
+3. Result: what should become visible.
+4. Recovery: what to do when the result differs.
+
+Place verification near the action it verifies. Do not collect all expected results at the distant end of a long procedure.
+
+Separate alternative paths before their steps diverge. Label the choice with the condition that determines it, such as "If traffic is already split" rather than "Option B."
+
+## Use Callouts for Interruptions With Consequence
+
+Reserve callouts for content that must stand apart from the main flow.
+
+| Callout purpose | Use when |
+| --- | --- |
+| Note | Context helps interpretation but does not alter the action |
+| Tip | An optional technique improves efficiency or quality |
+| Warning | A plausible action can cause loss, exposure, or difficult recovery |
+| Important | A condition changes whether the procedure succeeds |
+| Example | A concrete case benefits from visual separation |
+
+Label callouts with words, not color or icons alone. State the consequence before elaboration in warnings.
+
+Place a warning before the hazardous action. Keep a prerequisite in the prerequisite flow rather than disguising it as a callout.
+
+Avoid stacking callouts. If several adjacent notices are essential, revise the main structure so the information becomes part of the task path.
+
+Use this accessible HTML pattern when custom markup is appropriate:
 
 ```html
-<div class="admonition note">
-  <strong>ℹ Note:</strong>
-  <p>This operation is idempotent — you can safely retry it.</p>
-</div>
-
-<div class="admonition warning">
-  <strong>⚠ Warning:</strong>
-  <p>This deletes all data. No undo.</p>
-</div>
+<aside class="callout callout-warning" aria-labelledby="delete-warning">
+  <h3 id="delete-warning">Warning: deletion cannot be undone</h3>
+  <p>Export the audit records before removing the workspace.</p>
+</aside>
 ```
 
-### Callout Placement Rules
+## Present Code Samples According to Purpose
 
-- Before the action they warn about (never after)
-- Never more than one callout per section (diminishing returns)
-- Keep text under 3 lines (if longer, it belongs in the main content)
+Decide what each sample demonstrates.
 
-## Progressive Disclosure with HTML
+| Sample purpose | Include |
+| --- | --- |
+| Command to execute | Exact command, required substitutions, expected signal |
+| Focused API pattern | Relevant context and omitted-code markers |
+| Complete starter | Imports, setup, execution, and dependency versions |
+| Configuration fragment | File location, surrounding key path, valid syntax |
+| Diagnostic output | Command that produced it and lines that matter |
+| Concept illustration | Minimal code plus an explicit non-production label |
 
-### `<details>/<summary>` for Optional Depth
+Do not require every code block to run independently. A focused fragment can explain an idea more clearly than a complete application. Mark omissions and dependencies so readers understand the boundary.
+
+Annotate fenced blocks with the language when supported. Identify the file or shell context when ambiguity is likely.
+
+Keep explanations beside the relevant lines. Highlight sparingly and provide a text explanation; do not depend on color alone.
+
+Show expected output when it helps readers verify success or distinguish states. Omit predictable output that adds noise.
+
+Test executable samples in the environment they claim to support. Treat illustrative pseudocode as illustration, not as a tested command.
+
+## Add Tables of Contents Conditionally
+
+Use a table of contents when it reduces navigation cost.
+
+Add one when readers are likely to:
+
+- Jump among independent sections
+- Revisit the page as reference
+- Share links to subsections
+- Encounter a long or branching page
+- Need a quick map of unfamiliar territory
+
+Omit one when the page is short, strictly sequential, or already has a compact local navigation system.
+
+Keep TOC labels synchronized with headings. Link only to destinations worth choosing independently. Avoid a TOC that is nearly as long as the content it precedes.
+
+Use a local mini-TOC for a dense section when a page-level TOC would not help.
+
+## Build Links That Preserve Context
+
+Write link text that predicts the destination or action.
+
+Prefer:
+
+> Review the `Token rotation failure modes` section in the product documentation.
+
+Avoid:
+
+> For more information, open the related page.
+
+Link at the point of need. Do not interrupt every term with a link if the destination is optional and the repeated visual noise harms reading.
+
+Distinguish related purposes:
+
+- Prerequisite link: read or complete before proceeding
+- Supporting link: consult for deeper explanation
+- Reference link: verify exact syntax or values
+- Next-step link: continue a workflow
+
+Preserve stable anchors for frequently shared sections. Check internal and external links as part of maintenance.
+
+## Apply Progressive Disclosure Carefully
+
+Keep the primary path visible. Hide only optional depth that readers can identify accurately from its label.
+
+Good candidates for disclosure controls include verbose traces, platform-specific variants, background derivations, and uncommon edge cases.
+
+Poor candidates include safety warnings, required steps, core definitions, and information readers do not know they need.
+
+Use native controls when possible:
 
 ```html
-## Configuration Options
-
 <details>
-<summary>Advanced: Custom timeout settings</summary>
-
-The default timeout is 30 seconds. For long-running operations, override with:
-
-```js
-fetch('/api', { timeout: 120000 })
-```
-
+  <summary>Show the full timeout trace</summary>
+  <pre><code>...</code></pre>
 </details>
 ```
 
-Use for: advanced configuration, verbose examples, edge cases, verbose error messages, platform-specific differences.
+Make the summary describe the hidden content. Ensure controls work by keyboard, expose state to assistive technology, and remain understandable when printing or exporting.
 
-### Tabbed Content for Parallel Paths
+Use tabs only for genuinely parallel paths. Keep shared steps outside tabs, use persistent labels, and ensure each path can be linked and copied without losing context.
 
-```
-### Installation
+## Use Visual Design to Reinforce Relationships
 
-<div class="tabs">
-  <div class="tab" data-tab="npm">npm install package</div>
-  <div class="tab" data-tab="yarn">yarn add package</div>
-  <div class="tab" data-tab="pnpm">pnpm add package</div>
-</div>
-```
+Retain four adaptable principles from Robin Williams:
 
-Use for: installation methods, language-specific examples, OS-specific instructions.
+| Principle | Apply it by |
+| --- | --- |
+| Contrast | Making heading, body, code, and warning roles visibly distinct |
+| Repetition | Reusing patterns for the same semantic role |
+| Alignment | Placing elements on a coherent visual axis |
+| Proximity | Keeping labels, examples, captions, and consequences near what they describe |
 
-## Scannability Techniques
+Do not convert these principles into fixed whitespace percentages or decorative rules. Evaluate whether the layout reveals grouping, priority, and sequence.
 
-Research shows users scan, they don't read. Design for scanning:
+Use whitespace to separate semantic groups. Reduce spacing inside a group and increase it across a boundary. Maintain enough density for lookup-heavy pages without turning them into an undifferentiated wall.
 
-### Visual Hierarchy of Text Elements
+Keep emphasis scarce and consistent. If bold, color, borders, and callouts all compete, simplify the hierarchy.
 
-Readers process in this order:
-1. Headings (H1-H4)
-2. Bold text within paragraphs
-3. First sentence of each paragraph
-4. Lists (numbered > bulleted)
-5. Code blocks (developers read code before prose)
-6. Body text
+## Design for Responsive Reading
 
-### Lists > Paragraphs
+Test the actual document at narrow and wide widths, with zoom, and with increased text size.
 
-When you have 3+ related items, use a list instead of prose:
+Use flexible patterns:
 
-**Bad (wall of text):**
-The system supports three authentication methods. You can use API keys, which are simple but less secure. You can use OAuth 2.0, which is more secure but requires more setup. You can use JWT tokens, which are stateless and good for microservices.
+- Set media with responsive dimensions and preserve aspect ratios.
+- Give SVGs a `viewBox` and meaningful text alternatives.
+- Allow code blocks to scroll without shrinking text into illegibility.
+- Wrap wide tables in a labeled scroll region or provide a stacked alternative.
+- Keep controls large enough to operate by touch and keyboard.
+- Avoid layouts that depend on hover or precise pointing.
+- Prevent side navigation from obscuring the main reading path.
 
-**Good (scannable list):**
-- **API Keys**: Simple, less secure. Good for server-to-server.
-- **OAuth 2.0**: Secure, requires setup. Good for user-facing apps.
-- **JWT Tokens**: Stateless, no DB lookup. Good for microservices.
+Do not assume wrapping code is always wrong or always right. Preserve significant whitespace and long tokens where wrapping would alter meaning; offer line wrapping where it improves reading without corrupting the sample.
 
-### Paragraph Design
+Ensure anchor navigation does not hide headings beneath sticky headers.
 
-- Opening sentence = the paragraph's thesis. Everything after = support.
-- Keep paragraphs to 3-5 sentences.
-- Bold key terms on first use (and define them).
-- Use one paragraph per idea.
+## Build Accessibility Into Structure
 
-## Tables for Comparison and Reference
+Use semantic HTML before adding ARIA.
 
-Tables outperform prose for:
-- Feature comparisons (A vs B vs C)
-- Configuration options (parameter / type / default / description)
-- Error codes (code / meaning / action)
-- Method signatures (method / params / returns / description)
+- Provide one descriptive page title and a logical heading hierarchy.
+- Use real lists for lists and real tables for tabular relationships.
+- Associate table headers with their data cells.
+- Give images and diagrams alternatives that convey their purpose.
+- Keep link text meaningful outside its surrounding sentence.
+- Preserve visible keyboard focus.
+- Avoid conveying meaning through color, position, or shape alone.
+- Identify the language of the page and unusual language changes.
+- Support reflow and text enlargement without loss of content or function.
 
-```markdown
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `timeout` | number | 30000 | Request timeout in ms |
-```
+Write diagram alternatives at the level the task requires. A decorative image may need empty alternative text. A system diagram may need a concise summary plus a structured description of nodes, direction, and exceptions.
 
-## Code Block Best Practices
+Check exported PDF and print views when readers rely on them. Interactive disclosure, sticky navigation, and color-coded states may disappear outside the browser.
 
-### Always Include Language Annotation
+## Strengthen Information Scent
 
-```python  ← Not ``` alone
-def hello():
-    print("hi")
-```
+Give readers cues that accurately predict where a path leads.
 
-### Show File Name When Useful
+Use task language in navigation labels. Distinguish "Configure retries" from "Retry behavior" when one destination is procedural and the other conceptual.
 
-```
-```javascript title="src/auth/login.js"
-```
-```
+Place high-value choices where readers expect them. Keep terminology aligned across page titles, navigation, search results, and in-page headings.
 
-### Highlight Key Lines
+Avoid vague clusters such as "Resources," "Learn more," and "Miscellaneous" when specific labels are possible.
 
-```javascript {3,6-8}
-// The important lines are highlighted for scanning
-function process(data) {       // ← highlighted
-  validate(data)
-  return transform(data)
-}
-```
+Cross-link sibling paths when readers commonly arrive at the wrong one. Explain the distinction briefly:
 
-### Prefer Working Examples
+> To retry a failed job, use this runbook. To change automatic retry policy, open the `Configure retry limits` guide.
 
-Every code block should be copy-paste runnable. If the reader needs to fill in gaps, you've made them think. Add the boilerplate.
+## Test the First View
 
-## Cognitive Load Management
+Show representative readers only the initial viewport or rendered opening, without explaining it.
 
-From Jeff Johnson's "Designing with the Mind in Mind":
+Ask:
 
-### Principle of Chunking
+- What is this document for?
+- Who is it for?
+- What would you do next?
+- What risk or prerequisite is visible?
+- Where would you go for your specific case?
 
-Break complex information into chunks of 5-9 items (Miller's Law). This applies to:
-- Steps in a procedure
-- Items in a list
-- Sections on a page
-- Options in a decision
+Do not impose a universal time limit. Observe whether readers orient confidently under realistic conditions. Record incorrect interpretations, not merely speed.
 
-### White Space as a Cognitive Tool
+Revise the title, lead, labels, or priority when readers choose the wrong path. Do not add more elements automatically; often the fix is to remove competing signals.
 
-Generous spacing between sections gives the reader's brain time to process. Crowded content forces simultaneous processing — the reader must scan, filter, and prioritize all at once.
+## Run Task and Retrieval Tests
 
-Rule of thumb: between 30-50% of the visible area should be white space.
+Give readers realistic goals and let the document carry the interaction.
 
-### Line Length (Measure)
+For a task test, observe whether they can:
 
-Optimal line length for readability: 50-75 characters. Longer lines make it harder for the eye to find the next line. Shorter lines break reading rhythm. For code, 80-100 characters is standard.
+1. Choose the correct path.
+2. Satisfy the prerequisites.
+3. Complete the actions in order.
+4. Recognize success or failure.
+5. Recover from a plausible problem.
 
-## Mobile-Responsive Documentation
+For a lookup test, ask them to find a known parameter, limit, error, or exception. Note where they begin, which labels they follow, and whether the answer includes enough context to use safely.
 
-- SVGs: use `viewBox` (never fixed `width`/`height`)
-- Tables: horizontal scroll wrapper for narrow screens, or collapse to key-value on mobile
-- Code blocks: horizontal scroll, never wrap
-- Callouts: full-width, padding adjusts with viewport
-- Font size: minimum 16px for body text on mobile (prevents iOS zoom on focus)
+For a scan test, ask them to identify which sections apply without reading every paragraph.
 
-## CRAP Principles for Document Design
+Test on the target medium. Include mobile, keyboard-only, screen reader, print, or constrained operational contexts when those surfaces matter.
 
-From Robin Williams' "The Non-Designer's Design Book":
+Distinguish structural failures from prose failures. If readers cannot find the right paragraph, change navigation or grouping. If they find it but misunderstand it, revise the writing using `writing-clarity.md`.
 
-| Principle | Meaning | Applied to Docs |
-|-----------|---------|-----------------|
-| **Contrast** | Make different things look very different | Heading sizes clearly distinct; callout colors clearly different from body |
-| **Repetition** | Repeat visual elements for cohesion | Same admonition style throughout; consistent code block styling; consistent link color |
-| **Alignment** | Every element visually connected to something | Left-align body text; consistent indent for code and lists; aligned callout borders |
-| **Proximity** | Related items close together | TL;DR directly below title; code example immediately after its explanation; prerequisites near the top |
+## Review Structural Quality
 
-## Navigation and Wayfinding
+- [ ] Define the page purpose and primary reader path before arranging it.
+- [ ] Match the organization to the document type and reader intent.
+- [ ] Support scanning, close reading, and lookup where each is needed.
+- [ ] Make the first view establish orientation and a useful next move.
+- [ ] Group content by semantic relationship rather than fixed quotas.
+- [ ] Use headings with accurate information scent and logical hierarchy.
+- [ ] Choose prose, lists, tables, and diagrams by relationship.
+- [ ] Put prerequisites, warnings, verification, and recovery near the action.
+- [ ] Scope code samples according to what they teach or enable.
+- [ ] Add TOCs, links, and disclosure controls only when they reduce effort.
+- [ ] Preserve responsive behavior, semantic HTML, and accessible alternatives.
+- [ ] Test first-view orientation, task completion, scanning, and retrieval.
 
-### Table of Contents
+## Relationship to Writing Clarity
 
-For documents longer than 3 scroll-screens, include a TOC after the TL;DR:
-
-```markdown
-- [Quick Start](#quick-start)
-- [How It Works](#how-it-works)
-- [Configuration](#configuration)
-- [Error Handling](#error-handling)
-- [Advanced Usage](#advanced-usage)
-```
-
-### Internal Links
-
-Link to related concepts when the reader might need context. A developer reading about "JWT refresh tokens" might also need to know about "token rotation" — link to it.
-
-### Breadcrumbs (for multi-page docs)
-
-```
-Home > Authentication > JWT Tokens > Refresh Token Flow
-```
-
-Gives the reader spatial context within the documentation system.
-
-### "What's Next" Section
-
-End every page with:
-- Where to go next (logical next step)
-- Related documentation (tangential but relevant)
-- "Still stuck?" → support channels
-
-## Anti-Patterns
-
-| Anti-pattern | Why it fails | Fix |
-|-------------|-------------|-----|
-| Generic headings ("Overview", "Details", "More") | Labels on opaque boxes — no predictive value | Specific, information-dense headings |
-| Walls of text | Readers scan, they don't read | Break into lists, tables, diagrams |
-| No TL;DR | Reader must read to determine relevance | One sentence at the top that captures the essence |
-| Overuse of bold/emphasis | When everything is emphasized, nothing is | Bold only key terms, first-sentence thesis |
-| Code without output | Reader can't verify behavior | Show expected output or screenshot |
-| Unlabeled diagrams | Reader must decode visual without guidance | Every diagram has a caption explaining what it shows |
-| Hiding key info in scroll depth | Mobile users miss content | Critical info above the fold; progressive disclosure for detail |
+Use this reference after defining what the reader should achieve and drafting the necessary ideas. Use `writing-clarity.md` to improve reader outcomes, sentence geometry, coherence, concrete language, action friction, and behavioral testing within each structural unit.

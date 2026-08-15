@@ -1,314 +1,353 @@
-# Writing for Clarity: Words and Comparisons
+# Behavioral Writing and Cognitive Prose
 
-Sources: Strunk & White (The Elements of Style, 1918), William Zinsser (On Writing Well, 1976), Google Technical Writing Course (One), Steve Krug (Don't Make Me Think — Chapter 5: Omit Needless Words), Robert Horn (Information Mapping).
+Sources: Todd Rogers and Jessica Lasky-Fink (Writing for Busy Readers), Steven Pinker (The Sense of Style), Google Technical Writing Courses, and Steve Krug (Don't Make Me Think).
 
-Covers: Word-level and sentence-level techniques for crystal-clear technical writing. Active voice, eliminating jargon, sentence construction, comparison patterns, worked examples, and the MECE framework for structuring arguments.
+Covers: Shape prose around the reader's desired action and limited attention. State the topic and point early, write concrete and coherent sentences, reduce action friction, edit without rigid word quotas, and test whether readers understand and act.
 
-## The Core Principle
+## Begin With the Reader Outcome
 
-**Every word must earn its place.** If removing a word changes nothing, remove it. If a simpler word works, use it. Clarity is not about dumbing down — it's about respecting the reader's time and attention.
+Define what the reader should know, decide, feel, or do after reading.
 
-## Omit Needless Words (Krug + Strunk & White)
+Write the outcome as an observable result:
 
-Before:
-> "In order to successfully authenticate the user's credentials, it is necessary for the system to verify the provided password against the hashed value that has been previously stored in the database."
+> After reading, an on-call engineer can identify the failing dependency and choose the safe recovery command.
 
-After:
-> "The system checks the password against the stored hash."
+Avoid outcomes that describe only the document:
 
-Technique: Write the sentence. Delete every word. Re-add only what's essential to convey the meaning. You will re-add about 40% of the original.
+> This page provides an overview of incident recovery.
 
-## Active Voice
+Use the outcome to decide what belongs. Keep information that changes the reader's understanding, choice, or action. Remove information that serves only the writer's wish to appear complete.
 
-Active voice makes actors visible and responsibility clear.
+Ask these questions before drafting:
 
-| Passive | Active |
-|---------|--------|
-| "The configuration file should be updated." | "Update the configuration file." |
-| "Errors are logged to the console." | "The server logs errors to the console." |
-| "The token is verified before access is granted." | "The API verifies the token before granting access." |
+- Who will read this in the moment that matters?
+- What prompted them to open it?
+- What do they already know?
+- What uncertainty blocks them?
+- What action or judgment should become easier?
+- What could they misunderstand with serious consequences?
 
-**When passive voice is acceptable**: The actor is irrelevant or unknown ("The server was compromised"), or you want to emphasize the recipient over the actor.
+Treat the reader's situation as part of the writing problem. A calm learner, an executive choosing an option, and an engineer responding to an outage need different prose even when the facts are identical.
 
-## Define Terms on First Use
+## Respect the Attention Budget
 
-Every new or unfamiliar term gets defined the first time it appears. Definition goes in the same sentence or the very next one.
+For operational, workplace, and action-oriented documents, assume attention may be scarce, interrupted, and goal-directed. Deliberate study and specification review permit deeper reading but still benefit from visible structure.
 
-**Good**:
-> "The system uses JWT (JSON Web Token) — a compact, URL-safe token that proves identity without server-side session storage."
+Do not demand attention before delivering value. Put the information that helps the reader orient or act where they can encounter it early.
 
-**Bad**:
-> "The system uses JWT."
-> *(reader Googles "JWT" and doesn't come back)*
+Spend attention deliberately:
 
-## Eliminating Jargon
+| Reader cost | Justify it with |
+| --- | --- |
+| A new term | Greater precision or a reusable concept |
+| A long explanation | A decision that depends on the reasoning |
+| An exception | A likely or costly failure it prevents |
+| A cross-reference | Useful depth that would distract from the current task |
+| A qualification | Accuracy that materially changes interpretation |
 
-Jargon is domain-specific vocabulary your reader may not know. The test: would your next-door neighbor understand this term?
+Formatting supports prose; it does not rescue weak prose. Use short sections, descriptive labels, and selective emphasis to expose meaning, not to decorate the page.
 
-| Jargon | Plain Alternative |
-|--------|-------------------|
-| "Implement a pub/sub pattern" | "Set up a message system where one service publishes and others subscribe" |
-| "Utilize a monorepo architecture" | "Keep all code in a single repository" |
-| "Leverage horizontal scaling" | "Add more servers instead of bigger servers" |
-| "Idempotent operation" | "Safe to retry — running it twice has the same effect as running it once" |
+Make the first visible text earn continued attention. Tell readers what subject they have reached, why it matters to them, and what the central point is.
 
-**Exception for developer docs**: Domain-appropriate jargon is fine IF defined on first use. Developers know "idempotent" — but still define it. Your more junior readers don't know it yet.
+## Put the Topic and Point Early
 
-## Sentence Construction
+Name the topic before discussing its attributes. State the point before presenting the trail of reasoning when readers need the conclusion to interpret the evidence.
 
-### Length
+Weak opening:
 
-- Core sentences: 15-20 words
-- Limit: 25 words maximum
-- If a sentence runs longer, split it. If splitting loses meaning, use a list.
+> After several weeks of analysis across teams, during which we reviewed latency, cost, and operational burden, a number of findings emerged about the current queue design.
 
-### Structure
+Stronger opening:
 
-Lead with the subject and verb. Don't make readers hold context while you set up.
+> The current queue design cannot meet the recovery target. It loses too much time retrying permanent failures. The analysis below explains the evidence and the replacement options.
 
-**Before**:
-> "After considering the various authentication approaches available, including OAuth 2.0, API keys, and session-based auth, and weighing their respective tradeoffs in terms of security, implementation complexity, and user experience, the team decided to implement JWT-based authentication."
+Use an early point to create a frame, not to erase nuance. Add the most important condition in the same opening when it changes the recommendation.
 
-**After**:
-> "The team chose JWT-based authentication. It balances security, implementation simplicity, and user experience better than OAuth 2.0, API keys, or session-based auth."
+For a request, lead with the requested action:
 
-## Comparison Patterns
+> Approve the database maintenance window by Thursday so the migration can run before the release freeze.
 
-### Side-by-Side Table — for multiple options, multiple criteria
+For an explanation, lead with the governing idea:
 
-| Feature | Method A | Method B | Method C |
-|---------|----------|----------|----------|
-| Speed | Fast | Medium | Slow |
-| Setup | Simple | Complex | Medium |
-| Security | Basic | Enterprise | Standard |
-| **Best for** | Prototypes | Production | Internal tools |
+> Token rotation limits the damage from a stolen refresh token by invalidating its predecessor after use.
 
-### Pros/Cons List — for evaluating a single option
+For a warning, lead with the consequence:
 
-```
-### JWT Authentication
+> Do not retry this command after a timeout; the first request may still be deleting records.
 
-**Pros**
-- Stateless — no server-side session storage
-- Works across domains (no CORS issues)
-- Compact (URL-safe)
+Delay the point only when discovery is the intended experience or when readers must inspect evidence without being anchored by a conclusion. Treat that choice as deliberate, not habitual.
 
-**Cons**
-- Cannot revoke individual tokens
-- Token size grows with claims
-- Requires token refresh mechanism
-```
+## Make Value Truthful and Visible
 
-### When to Use Which
+Describe the value the document actually provides. Do not inflate convenience into certainty, imply safety without evidence, or promise simplicity while hiding necessary work.
 
-| Situation | Format |
-|-----------|--------|
-| Choosing between 2+ options | Side-by-side table |
-| Evaluating whether to use X | Pros/Cons list |
-| Contrasting old vs new approach | Before/After paired boxes |
-| Showing step-by-step difference | Numbered old flow vs numbered new flow |
+Replace promotional claims with useful specifics:
 
-## Worked Examples
+| Vague claim | Truthful value |
+| --- | --- |
+| "Seamlessly integrates" | "Uses the existing OAuth connection; no second login is required" |
+| "Instant results" | "Returns cached results in under a second in the common path" |
+| "Easy to configure" | "Requires one environment variable and no code changes" |
+| "Production ready" | "Supports retries, idempotency, and regional failover tested in staging" |
 
-A worked example takes a realistic scenario (not a contrived toy) and walks through it completely. It includes: the setup, the happy path, common errors, and the final state.
+State tradeoffs beside benefits. Readers trust guidance that identifies where it stops being useful.
 
-### Structure of a Good Worked Example
+Prefer evidence over intensifiers. Replace "very reliable" with the observed failure rate, tested condition, or recovery behavior that supports the claim.
 
-```
-### Example: Adding Authentication to a REST API
+## Use Concrete Language
 
-**The scenario**: You have an existing Express API for a todo app.
-Currently, anyone can read or modify any todo. You need to add
-user-specific authentication.
+Make actors, actions, objects, and conditions visible.
 
-**Step 1**: Install and configure the auth library.
-[Code block with exactly what to run]
+Abstract:
 
-**Step 2**: Add the auth middleware to protected routes.
-[Code block showing before/after]
+> Appropriate optimization of resource utilization should be undertaken.
 
-**Step 3**: Test that unauthenticated requests are rejected.
-[Terminal output showing 401 response]
+Concrete:
 
-**Step 4**: Test that authenticated requests succeed.
-[Terminal output showing 200 response]
+> Reduce each worker from 2 GB to 1 GB after its peak memory stays below 700 MB for seven days.
 
-**What just happened**: [Explanation of the mechanism]
+Prefer verbs that show what changes: `delete`, `compare`, `encrypt`, `retry`, `approve`, and `measure`. Question noun-heavy phrases such as "implementation of," "facilitation of," and "performance of."
 
-**Common pitfalls**:
-- Forgetting to add the middleware to ALL protected routes → use router-level middleware
-- Storing tokens in localStorage → use httpOnly cookies instead
-```
+Name the actor when responsibility matters:
 
-### Why Worked Examples Work
+> The deployment workflow creates the revision. The service owner approves traffic migration.
 
-1. Readers learn by doing, not reading about doing
-2. A realistic example surfaces real-world edge cases
-3. They validate the documentation (if the example doesn't work, the docs are wrong)
+Use passive voice when the actor is unknown, irrelevant, or intentionally backgrounded:
 
-## MECE Framework for Structuring Arguments
+> The signing key was exposed in a public log.
 
-From Barbara Minto's Pyramid Principle: arguments should be **M**utually **E**xclusive and **C**ollectively **E**xhaustive.
+Choose examples with realistic names, values, constraints, and consequences. A concrete example should illuminate the rule rather than introduce accidental complexity.
 
-- **Mutually Exclusive**: No overlap between categories. Each item appears in exactly one place.
-- **Collectively Exhaustive**: Together, the categories cover everything. Nothing is left out.
+Define unfamiliar terms in the context where the reader needs them. Do not interrupt experts with definitions of ordinary domain language, but do not make newcomers leave the page to decode a critical instruction.
 
-Applied to documentation:
+## Counter the Curse of Knowledge
 
-**Non-MECE** (overlap + gaps):
-- Authentication methods: API keys, OAuth, JWT, Bearer tokens
-- Problem: JWT and Bearer tokens overlap
+Assume expertise has hidden steps from you.
 
-**MECE**:
-- Authentication methods:
-  - Server-side: Session cookies, API keys stored in DB
-  - Client-side: JWT tokens
-  - Delegated: OAuth 2.0
+Look for knowledge that became invisible through repetition:
 
-## BLUF: Bottom Line Up Front
+- A tool the reader may not have installed
+- A permission the writer already possesses
+- A state transition omitted between two commands
+- A term used differently across teams
+- A reason an apparently simpler option is unsafe
+- A cue experts notice but novices do not
 
-Military communication principle: state the conclusion first, then provide supporting reasoning. This is the written equivalent of the inverted pyramid.
+Do not solve the curse of knowledge by explaining everything. Identify the minimum background required for this reader outcome, then supply or link that background at the point of need.
 
-In practice:
-- The document's first sentence IS the conclusion
-- Supporting evidence follows
-- The reader never wonders "where is this going?"
+Use a fresh reader to reveal hidden assumptions. Ask them to mark every point where they guess, reread, search elsewhere, or wonder whether a step succeeded.
 
-## Anticipating Reader Questions
+When no representative reader is available, simulate their path:
 
-The best technical writing answers questions before they're asked. For every claim, ask:
+1. Start from the stated prerequisites, not your own environment.
+2. Follow each reference and command in order.
+3. Record every unstated choice.
+4. Check whether the visible result confirms progress.
+5. Rewrite assumptions as prerequisites, instructions, or verification cues.
 
-- **"So what?"** — Why does this matter to the reader? If you can't answer, cut it.
-- **"Why is that true?"** — What's the evidence? If you can't provide it, the claim is weak.
-- **"What could go wrong?"** — What happens if the reader makes the wrong choice? Warn them.
+## Shape Sentence Geometry
 
-## Quality Checklist for Clarity
+Judge sentences by how their parts fit, not by a universal word limit.
 
-- [ ] Every term defined on first use (with a single sentence, in context)
-- [ ] Zero passive voice where active voice would be clearer
-- [ ] Every sentence under 25 words (or split/listed)
-- [ ] No word can be removed without losing meaning
-- [ ] Every code block is copy-paste runnable
-- [ ] Every "why" question the reader might ask is answered (or linked)
-- [ ] First paragraph tells the reader exactly what they'll get
+Let a sentence carry one governing relationship that readers can hold in working memory. Add detail when it remains attached to a clear subject and verb. Split the sentence when qualifications compete, the subject disappears, or the reader must retain one clause while decoding another.
 
-## Information Mapping (Robert Horn)
+Overloaded:
 
-A framework for breaking content into structured, reusable blocks based on the type of information. Every block of content should be classified as one of these types, and each type should follow a consistent format:
+> Because the migration, which was designed before regional replicas were available and therefore assumes a single writer, can replay events while traffic remains live, operators who begin the cutover before replication catches up may create duplicate records that are not removed automatically.
 
-| Block Type | Purpose | Format Pattern |
-|-----------|---------|----------------|
-| **Concept** | Define or explain an idea | Definition → Examples → Non-examples → Related concepts |
-| **Procedure** | Steps to complete a task | Prerequisites → Ordered Steps (numbered) → Expected Result → Troubleshooting |
-| **Process** | How something works (system behavior) | Overview → Stages (sequential) → Feedback at each stage → Output |
-| **Principle** | Rules, guidelines, best practices | Rule statement → Rationale → When to apply → Exceptions |
-| **Fact** | Reference data, specifications | Data point → Context → Source → Caveats |
+Reshaped:
 
-Each block should be self-contained and labeled so readers can identify the type at a glance. This lets them skip procedure blocks when they want concepts, or skip concepts when they want to execute.
+> The migration assumes a single writer because it predates regional replicas. It can replay events while traffic remains live. If operators start the cutover before replication catches up, the replay may create duplicate records. Cleanup is not automatic.
 
-## The Three-Pass Editing Process
+Vary sentence length to match thought. Use a short sentence for a decision, warning, or transition. Use a longer sentence when its internal structure makes a relationship easier to understand than several disconnected statements would.
 
-From Google's Technical Writing course and Zinsser:
+Keep modifiers near what they modify. Put conditions before an instruction when readers must know the condition before acting. Put secondary qualifications after the main clause when they should not delay comprehension.
 
-### Pass 1: Structure
-- Does the document open with a TL;DR that answers "what is this about?"
-- Are sections in logical order?
-- Do headings accurately compress their content?
-- Can a reader self-select their depth?
+## Manage Given and New Information
 
-### Pass 2: Clarity
-- Replace every passive voice construction with active (where possible)
-- Split every sentence over 25 words
-- Convert every 3-item prose list to a bulleted or numbered list
-- Define every jargon term on first use
-- Bold every key term exactly once (on first mention)
+Begin a sentence with information readers already recognize, then move toward what is new or important.
 
-### Pass 3: Conciseness
-- Read each sentence. Delete every word. Re-add only what's essential.
-- Remove: "It should be noted that", "In order to", "The fact that", "Due to the fact that"
-- Replace: "utilize" → "use", "implement" → "build", "leverage" → "use", "facilitate" → "help"
-- Delete any sentence repeating what the code block already shows
-- Cut adjectives and adverbs that don't add precision (most don't)
+Disconnected:
 
-## The Curse of Knowledge
+> A regional lease protects each write. The recovery controller may revoke it. Split-brain writes are prevented by the lease token.
 
-The single biggest obstacle to clear technical writing: you know too much. Once you understand something deeply, you cannot imagine what it's like not to understand it. This causes three specific failures:
+Coherent:
 
-1. **Unexplained prerequisites**: You assume the reader knows X, but they don't.
-2. **Jargon without context**: You use terms fluently without defining them.
-3. **Skipped steps**: You leap from A to C because B is so obvious to you.
+> Each write carries a regional lease token. The recovery controller can revoke that token during failover. This revocation prevents split-brain writes.
 
-**Counter-measures**:
-- Write the prerequisites section BEFORE the content. Be ruthlessly explicit.
-- Have a non-expert read your draft. Every place they pause or ask "what's that?" — add explanation.
-- Run your TL;DR through the Up-Goer Five test: can you explain the core idea in only common words?
+Use familiar information as a handhold. Repeat a key noun when a pronoun could point to several things. Avoid unnecessary synonym changes that make one concept look like several concepts.
 
-## Handling Different Audience Levels
+Place emphasis near the end of a sentence or paragraph when possible. Readers naturally treat the ending as the destination of the thought.
 
-Most technical documents have a split audience: beginners who need everything explained, and experts who just need the reference. Structure accommodates both:
+## Build Coherence Across Paragraphs
 
-| Section | Serves | Content |
-|---------|--------|---------|
-| TL;DR + Quickstart | Both | Answer; simplest working example |
-| Overview / Concepts | Beginners | What it is, why it exists, core ideas |
-| How-To Guides | Intermediate | Task-based, realistic workflows |
-| API Reference | Experts | Complete, exhaustive parameter/type docs |
-| Architecture / Internals | Advanced | Design decisions, tradeoffs, implementation details |
+Give each paragraph a discernible job: make a claim, explain a mechanism, present evidence, qualify a rule, or derive a consequence.
 
-The key: a beginner reads top-to-bottom. An expert jumps to API Reference. Neither is forced to wade through content they don't need.
+Open with enough context to identify that job. Keep supporting sentences attached to it. Start a new paragraph when the discourse function changes, not when a numeric sentence target has been reached.
 
-## Error Messages as Documentation
+Maintain a visible line of reasoning:
 
-Error messages are the most-read documentation you'll ever write. A good error message:
+1. State the claim or question.
+2. Supply the reason, mechanism, or evidence.
+3. Address the condition that changes it.
+4. Connect the result to the reader's decision or action.
 
-1. **Says what happened** — in plain language, not error codes
-2. **Says why it happened** — what condition caused it
-3. **Says what to do** — the specific action that fixes it
+Use repeated key terms, parallel syntax, and explicit references to keep the subject stable. Do not rely on visual proximity alone to imply a logical relationship.
 
-**Bad**: `Error: EACCES: permission denied`
-**Good**: `Cannot write to /etc/config.json — you don't have permission. Run with sudo or change the file owner: chown $USER /etc/config.json`
+## Use Connectives to Expose Logic
 
-### Error Message Template
+Add connectives when the relationship between ideas is not already obvious.
 
-```
-[What happened]: [plain language description]
-[Symptoms]: [what the user sees]
-[Cause]: [why this happened]
-[Fix]: [specific action to resolve]
-[If that doesn't work]: [fallback / support link]
-```
+| Relationship | Useful signals |
+| --- | --- |
+| Cause | because, since, as a result |
+| Contrast | but, however, whereas |
+| Condition | if, unless, only when |
+| Evidence | for example, specifically, in the trace |
+| Consequence | therefore, so, which means |
+| Sequence | first, after, once, while |
+| Qualification | usually, except, in this case |
 
-## Formatting References and Further Reading
+Choose the connective that states the actual logic. Do not use "however" merely to vary prose or "therefore" when the conclusion does not follow.
 
-Every document should end with clear paths forward. Three levels:
+Remove connective clutter when order and syntax already make the relationship plain. Clarity comes from visible logic, not from filling every transition slot.
 
-1. **Next logical step**: If the reader completed this document, what should they do next?
-2. **Related topics**: Tangential documentation that provides context or alternatives.
-3. **External references**: Official docs, RFCs, seminal blog posts that informed the content.
+## Reduce Action Friction
 
-Format:
-```markdown
-## What's Next
+Writing for action requires more than explaining accurately. Make the desired behavior easy to identify, begin, complete, and verify.
 
-- **[Next Step: Add Role-Based Authorization](./authorization.md)** — now that authentication works, restrict what each user can do.
-- **[Alternative: OAuth 2.0](./oauth.md)** — if you need delegated auth instead of JWT.
-- **See also**: [JWT RFC 7519](https://tools.ietf.org/html/rfc7519), [jwt.io debugger](https://jwt.io)
-```
+Specify:
 
-## Voice and Tone
+- The action and responsible person
+- The object or location affected
+- The deadline or triggering condition
+- The required inputs
+- The expected result
+- The recovery path when the result differs
 
-Technical documentation is not academic writing. The best docs sound like a knowledgeable colleague explaining something to you directly. The voice is:
+High friction:
 
-- **Confident, not cold**: "Here's how it works" not "The system operates in the following manner"
-- **Direct, not distant**: Use "you" for the reader. "You'll need to install..." not "The user must install..."
-- **Honest about tradeoffs**: "This approach is simpler but slower" not "This approach may have performance implications"
-- **Respectful of the reader's intelligence**: Assume competence. Don't condescend. Don't over-explain the obvious.
+> Teams should consider updating ownership information where appropriate.
 
-## The 30-Second Test
+Lower friction:
 
-A reader should be able to determine, within 30 seconds of opening your document:
-1. What this page is about
-2. Whether it's relevant to them
-3. What they need to do
+> Service owners: update the `Owner` field in the catalog before Friday. The catalog displays a green check when the change is saved.
 
-If they cannot, the document has failed regardless of how good the deep content is.
+Put links at the action point. Name links by destination or task rather than "click here." Preserve context so readers know what will happen before selecting a link or running a command.
+
+Ask for the smallest meaningful next action. Separate required actions from optional improvements.
+
+## Write Instructions That Support Judgment
+
+Use imperative verbs for procedures: "Open," "Select," "Run," and "Verify."
+
+Explain why when the reason changes how readers execute the step, choose among paths, or recover from failure. Avoid narrating obvious interface mechanics.
+
+Pair consequential actions with boundaries:
+
+> Run the backfill once in each region. Do not rerun a completed region; the script does not deduplicate billing events.
+
+Show success cues after steps whose outcome may be ambiguous:
+
+> Wait until the revision reports `Ready: True`, then send traffic.
+
+Keep warnings before the hazardous action. State the consequence and the safer alternative.
+
+## Calibrate Voice and Tone
+
+Sound like a competent colleague who respects the reader's time.
+
+Use direct address when it clarifies responsibility. Use "we" only for a real shared actor, not as a vague institutional voice.
+
+Be confident about established facts and explicit about uncertainty:
+
+> The cache invalidates within 60 seconds under normal operation. We have not measured invalidation time during a regional failover.
+
+Avoid blame. Describe the state, cause, and remedy without labeling the reader careless or the task easy.
+
+Match urgency to consequence. Reserve forceful language for genuine risk so warnings remain credible.
+
+## Format for Cognitive Access
+
+Use formatting to reveal the prose's structure.
+
+- Use descriptive headings to expose questions, claims, and tasks.
+- Use lists for genuinely parallel items or steps.
+- Use tables when readers compare values across shared dimensions.
+- Use bold sparingly to surface a decisive phrase during scanning.
+- Use code style for literal names, values, commands, and symbols.
+- Keep related explanation beside the object it explains.
+
+Do not fragment a connected argument into bullets solely to make it look shorter. Do not bold complete paragraphs. Do not create visual variety that competes with the reading path.
+
+Treat line length, spacing, and paragraph shape as contextual design decisions. Test the actual rendering on the devices and surfaces readers use.
+
+## Edit in Behavioral Passes
+
+Separate editing goals so one pass does not hide another.
+
+### Outcome Pass
+
+Check whether the draft enables the intended knowledge, decision, or action. Remove interesting material that does not serve that outcome.
+
+### Point Pass
+
+Move the topic, recommendation, request, or consequence earlier. Confirm that qualifications remain visible and truthful.
+
+### Coherence Pass
+
+Trace the subjects and logic from sentence to sentence. Repair unexplained jumps, ambiguous pronouns, unstable terminology, and missing connectives.
+
+### Sentence Pass
+
+Find buried verbs, distant modifiers, overloaded clauses, empty abstractions, and false emphasis. Reshape the sentence rather than enforcing a word quota.
+
+### Friction Pass
+
+Follow every requested action. Add missing inputs, ownership, links, success cues, and recovery instructions.
+
+### Compression Pass
+
+Cut repetition, throat-clearing, redundant metadata, and detail readers can infer safely. Preserve necessary reasoning and conditions.
+
+Read the result aloud. Listen for breathless structures, accidental ambiguity, monotonous rhythm, and phrases that no colleague would naturally say.
+
+## Test With Readers
+
+Test comprehension and behavior, not preference alone.
+
+Give representative readers a realistic task without explaining the draft. Observe what they do.
+
+Ask them to:
+
+- State the document's point in their own words
+- Identify what applies to their situation
+- Predict what an instruction will do
+- Complete the target task
+- Explain how they know they succeeded
+- Find a specific fact later without rereading everything
+
+Record hesitations, wrong turns, repeated reading, external searches, and confidently wrong interpretations. These behaviors reveal more than a general rating.
+
+Avoid leading questions such as "Was the warning clear?" Ask "What risks do you see before running this command?"
+
+Revise the prose where several readers fail. Revise navigation or layout when they understand the words but cannot find them. Revise the product when the documentation accurately exposes unnecessary complexity.
+
+## Clarity Review Checklist
+
+- [ ] Name the intended reader and observable outcome.
+- [ ] Put the topic and central point where readers encounter them early.
+- [ ] Describe value with evidence and material conditions.
+- [ ] Use concrete actors, verbs, objects, and consequences.
+- [ ] Supply hidden prerequisites without explaining irrelevant basics.
+- [ ] Shape sentences around clear relationships rather than numeric limits.
+- [ ] Move from given information to new information.
+- [ ] Keep terminology stable and references unambiguous.
+- [ ] Use connectives where readers need the logic made explicit.
+- [ ] Make requested actions specific, located, and verifiable.
+- [ ] Use formatting to reveal meaning rather than decorate it.
+- [ ] Test whether representative readers understand and act.
+
+## Relationship to Document Structure
+
+Use this reference to decide what each sentence and paragraph must accomplish. Use `document-structure.md` after purpose and prose responsibilities are clear to arrange content for scanning, close reading, lookup, and task completion.
