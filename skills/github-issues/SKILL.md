@@ -1,15 +1,13 @@
 ---
 name: "@tank/github-issues"
 description: |
-  Expert management of GitHub Issues via the gh CLI and GitHub platform.
-  Covers the full issue lifecycle: creating, triaging, editing, closing,
-  and linking issues to PRs. Includes issue templates (classic .md and
-  modern YAML forms), search and filtering, label taxonomy design,
-  milestones, Projects v2 integration, gh api scripting for bulk
-  operations, GitHub Actions automation (stale, labeler, auto-assign,
-  welcome bot), and issue-driven development workflows. Synthesizes
-  GitHub CLI documentation, GitHub REST/GraphQL API reference, GitHub
-  Actions marketplace, and production OSS issue management patterns.
+  Expert management of GitHub Issues via the gh CLI. Covers the full
+  issue lifecycle: creating, triaging, editing, closing, and linking
+  issues to PRs. Includes issue templates (.md and YAML forms), search,
+  label taxonomy, milestones, Projects v2, gh api bulk operations,
+  GitHub Actions automation (stale, labeler, auto-assign), and
+  issue-driven development. Synthesizes GitHub CLI docs, the GitHub
+  REST/GraphQL API reference, and production OSS issue management.
 
   Trigger phrases: "github issue", "gh issue", "create issue",
   "close issue", "issue template", "issue form", "ISSUE_TEMPLATE",
