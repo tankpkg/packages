@@ -1,0 +1,20 @@
+{
+  "name": "@tank/design-bible",
+  "version": "1.0.0",
+  "description": "Create a design bible that keeps AI-generated images consistent: palette roles, light, lens, medium, subject rules, do-not-do list, and cross-context checks, with portable style anchors for GPT Image (Codex, ChatGPT), Midjourney, Google Nano Banana, and open pipelines. Triggers: design bible, art bible, image style guide, consistent image style, style anchor, Codex image generation, Midjourney style guide, Nano Banana style, image drift, off-model images.",
+  "permissions": {
+    "network": {
+      "outbound": []
+    },
+    "filesystem": {
+      "read": [
+        "**/*"
+      ],
+      "write": [
+        "docs/design/**"
+      ]
+    },
+    "subprocess": true
+  },
+  "repository": "https://github.com/tankpkg/skills"
+}
