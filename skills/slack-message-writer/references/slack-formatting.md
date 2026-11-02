@@ -31,9 +31,9 @@ strongly prefers it for user-defined formatted text in Block Kit payloads.
 
 ### Default for this skill
 
-Use composer markup for ordinary requests because the output must survive a
-plain-text clipboard. Keep the message understandable even if the recipient's
-composer displays the delimiters before sending.
+Use pasted Markdown (see below) for ordinary requests: the message is copied as
+plain text and pasted into the default composer, which converts standard Markdown
+on paste. Keep the message understandable even if a composer shows the delimiters.
 
 Use API formats only when the user asks for a payload, app message, webhook,
 Block Kit structure, Slack SDK call, or explicit API special syntax.
@@ -60,7 +60,27 @@ When markup mode is enabled:
 That behavior is why clipboard output should carry explicit, conservative
 markup and should not depend on copied rich-text attributes.
 
-### Official composer markup
+### Pasted Markdown (default composer, clipboard default)
+
+Verified 2026-11-02 in the Slack desktop app with the default composer: pasted
+plain text is parsed as **standard Markdown**, and the composer ignores the
+clipboard's HTML version. Typed composer markup does not apply to pasted text.
+
+| Intent | Pasted syntax | Pasted result |
+|---|---|---|
+| Bold | `**text**` | Bold |
+| Italic | `_text_` | Italic |
+| Single asterisks | `*text*` | **Italic**, not bold: never use for bold when pasting |
+| Strikethrough | `~~text~~` | Strikethrough |
+| Bulleted list | `- item` | List |
+| Link | `[label](URL)` | Link |
+
+Pasted `@Name` text does not become a mention; the user must re-type mentions.
+
+### Official composer markup (typed, or markup preference on)
+
+Use this only when the user types the message or has **Format messages with
+markup** enabled; in that mode pasted text stays plain and markup applies on send.
 
 | Intent | Syntax | Example |
 |---|---|---|
@@ -91,13 +111,16 @@ lines between conceptual sections, not between every sentence.
 Use this order when the message needs structure:
 
 1. Bold headline stating the outcome, request, or state.
-2. One short context paragraph if necessary.
+2. One short context line if necessary.
 3. Parallel facts as a list with bold labels.
 4. One action, deadline, or next update.
 5. One source-of-truth link.
 
-Do not copy HTML. Slack's composer is not an HTML paste target, and the clipboard
-helper intentionally writes a validated UTF-8 string as macOS plain text.
+Keep the whole message to about 5 lines, and bold 1 to 3 key words per line
+(actions, owners, dates, statuses, numbers) so the bold text alone reads as a
+summary. Use bold, not italics or underline, for emphasis.
+
+In clipboard messages, write bold as `**text**` (pasted Markdown), never `*text*`.
 
 ## API `mrkdwn`
 
@@ -345,6 +368,8 @@ emoji, image alt text, visual columns, or button placement.
 Accessibility checks:
 
 - Do not encode meaning only through emoji.
+- Bold key words so the message scans; use bold, not italics or underline, for
+  emphasis (dyslexia style guidance).
 - Give links descriptive labels.
 - Put critical content in reading order.
 - Avoid side-by-side fields when sequence matters.
