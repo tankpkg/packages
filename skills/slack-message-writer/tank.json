@@ -1,7 +1,7 @@
 {
   "name": "@tank/slack-message-writer",
-  "version": "1.0.0",
-  "description": "Write concise, smartly formatted Slack messages and automatically copy the final text to the macOS clipboard. Covers composer markup, API mrkdwn, Markdown blocks, special mentions, localized dates, accessibility, announcements, status and incident updates, decisions, handoffs, and review requests. Triggers: write a Slack message, draft a Slack message, Slack copy, copy to clipboard, Slack announcement, Slack update, Slack incident, Slack review request, format for Slack, make Slack-ready.",
+  "version": "1.1.0",
+  "description": "Write short, scannable Slack messages with key words in bold (dyslexia and ADHD friendly) and copy them to the macOS clipboard. Covers pasted Markdown, composer markup, API mrkdwn, Markdown blocks, mentions, dates, accessibility, announcements, status and incident updates, decisions, handoffs, and review requests. Triggers: write a Slack message, draft a Slack message, Slack copy, Slack announcement, Slack update, Slack incident, Slack review request, format for Slack.",
   "permissions": {
     "network": {
       "outbound": []
