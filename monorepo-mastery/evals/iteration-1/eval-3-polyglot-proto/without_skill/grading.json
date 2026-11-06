@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Recommends a polyglot-capable orchestrator (Bazel, Pants, or Moon) — not Turborepo",
+      "passed": false,
+      "evidence": "Recommends 'turbo or nx, plus make/task' as root task runner. Turborepo is JS-only and not a polyglot orchestrator. Makefile is used as a workaround but lacks dependency graph, caching, and affected detection across languages."
+    },
+    {
+      "text": "Provides a directory structure showing all three languages coexisting",
+      "passed": true,
+      "evidence": "Full tree: services/ (Go), apps/web (React), ml/pipeline (Python), proto/, gen/"
+    },
+    {
+      "text": "Addresses protobuf sharing with a shared definitions directory and per-language codegen",
+      "passed": true,
+      "evidence": "Excellent proto/ setup with buf.yaml, buf.gen.yaml generating Go, TypeScript, and Python stubs into gen/"
+    },
+    {
+      "text": "Mentions CODEOWNERS or ownership model",
+      "passed": false,
+      "evidence": "Mentions 'Keep protobuf ownership clear: one team/review path for proto/' but does not provide a CODEOWNERS file or explicit ownership model"
+    },
+    {
+      "text": "Includes at least one config example for the chosen orchestrator",
+      "passed": false,
+      "evidence": "Provides turbo.json (JS-only orchestrator config) and a Makefile. Neither constitutes a polyglot orchestrator config. Turbo cannot orchestrate Go or Python builds natively."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 3,
+    "total": 5,
+    "pass_rate": 0.4
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "eval_id": 3,
+  "eval_name": "polyglot-proto",
+  "prompt": "Setting up a monorepo with Go backend services, a React frontend, and Python ML pipeline. These need to share protobuf definitions. What's the best structure and tooling?",
+  "assertions": [
+    "Recommends a polyglot-capable orchestrator (Bazel, Pants, or Moon) — not Turborepo",
+    "Provides a directory structure showing all three languages coexisting",
+    "Addresses protobuf sharing with a shared definitions directory and per-language codegen",
+    "Mentions CODEOWNERS or ownership model",
+    "Includes at least one config example for the chosen orchestrator"
+  ]
+}

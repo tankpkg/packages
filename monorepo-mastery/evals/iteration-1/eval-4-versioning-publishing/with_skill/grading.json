@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Recommends a specific versioning tool (Changesets, Lerna, or semantic-release)",
+      "passed": true,
+      "evidence": "Recommends Changesets as primary tool, explicitly mapped to skill decision tree: 'Mix of both -> Hybrid (grouped Changesets)'"
+    },
+    {
+      "text": "Explains grouped/fixed versioning for coupled packages vs independent for others",
+      "passed": true,
+      "evidence": "Clear model: 'Independent versioning for standalone libraries' + 'Fixed version group for the coupled UI suite (@acme/ui, @acme/theme, @acme/icons)'"
+    },
+    {
+      "text": "Provides Changesets config or equivalent showing package grouping",
+      "passed": true,
+      "evidence": "Full .changeset/config.json with 'fixed': [['@acme/ui', '@acme/theme', '@acme/icons']]"
+    },
+    {
+      "text": "Mentions automated CI publishing workflow",
+      "passed": true,
+      "evidence": "Full .github/workflows/release.yml with changesets/action, npm trusted publishing, OIDC provenance"
+    },
+    {
+      "text": "Addresses changelog generation",
+      "passed": true,
+      "evidence": "Changesets auto-generates changelogs; also mentions .changeset/*.md format for contributor workflow"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  }
+}

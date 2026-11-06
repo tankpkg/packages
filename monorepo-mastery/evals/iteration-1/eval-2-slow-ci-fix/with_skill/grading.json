@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "text": "Identifies affected-only builds as the primary fix",
+      "passed": true,
+      "evidence": "Section 1 titled 'Run affected-only Turborepo tasks (biggest win)', explicitly labeled as #1"
+    },
+    {
+      "text": "Provides turbo --filter command or GitHub Actions conditional logic",
+      "passed": true,
+      "evidence": "turbo run build test lint --filter=...[origin/main] plus dorny/paths-filter for docs-only fast path"
+    },
+    {
+      "text": "Mentions remote caching with setup instructions",
+      "passed": true,
+      "evidence": "Section 2 with TURBO_TOKEN/TURBO_TEAM env vars, plus dry-run verification command"
+    },
+    {
+      "text": "Includes shallow clone (fetch-depth) recommendation for CI",
+      "passed": true,
+      "evidence": "Section 4: recommends fetch-depth: 50 for affected-detection jobs (informed middle ground from skill), fetch-depth: 1 for non-diff jobs"
+    },
+    {
+      "text": "Provides at least one concrete YAML or config snippet",
+      "passed": true,
+      "evidence": "Full CI YAML with docs-only fast path, turbo.json with input exclusions, parallel workflow YAML, sparse checkout YAML"
+    },
+    {
+      "text": "Orders recommendations by impact (highest first)",
+      "passed": true,
+      "evidence": "Numbered 1-6: affected-only > remote cache > input exclusions > git checkout > parallelization > merge queue"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  }
+}

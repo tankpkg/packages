@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Recommends a polyglot-capable orchestrator (Bazel, Pants, or Moon) — not Turborepo",
+      "passed": true,
+      "evidence": "Recommends Pants: 'Pants is the best match when Python is meaningful in the stack... while still supporting Go and JS/TS workflows'. Also mentions Moon and Bazel as alternatives."
+    },
+    {
+      "text": "Provides a directory structure showing all three languages coexisting",
+      "passed": true,
+      "evidence": "Full tree: apps/web (React), services/ (Go), pipelines/training (Python), packages/ (per-language SDKs), proto/, gen/"
+    },
+    {
+      "text": "Addresses protobuf sharing with a shared definitions directory and per-language codegen",
+      "passed": true,
+      "evidence": "proto/ directory with buf.yaml + buf.gen.yaml generating into gen/go, gen/python, gen/typescript. Full Buf config provided."
+    },
+    {
+      "text": "Mentions CODEOWNERS or ownership model",
+      "passed": true,
+      "evidence": "Full CODEOWNERS file with per-directory ownership: /proto/ @org/platform @org/backend, /pipelines/ @org/ml, /apps/web/ @org/frontend"
+    },
+    {
+      "text": "Includes at least one config example for the chosen orchestrator",
+      "passed": true,
+      "evidence": "Full pants.toml with backend_packages for Python, Go, JavaScript, source roots, Python resolves, Go version, and changed-since config"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  }
+}

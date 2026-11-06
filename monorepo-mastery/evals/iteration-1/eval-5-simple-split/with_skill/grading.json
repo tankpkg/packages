@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Recommends npm workspaces or pnpm workspaces (not a heavy orchestrator)",
+      "passed": true,
+      "evidence": "Recommends npm workspaces: 'For a 2-package split, this is the lowest-friction setup (no orchestrator, no extra monorepo tooling)'"
+    },
+    {
+      "text": "Does NOT recommend Bazel, Pants, Buck2, or Rush for 2 packages",
+      "passed": true,
+      "evidence": "None of these tools are mentioned. Only mentions pnpm as an optional later upgrade."
+    },
+    {
+      "text": "Provides a minimal workspace config (package.json or pnpm-workspace.yaml)",
+      "passed": true,
+      "evidence": "Root package.json with 'workspaces': ['apps/*', 'packages/*']"
+    },
+    {
+      "text": "Shows basic project structure with shared lib and app",
+      "passed": true,
+      "evidence": "Directory tree with apps/main-app and packages/shared, plus full package.json and source files for both"
+    },
+    {
+      "text": "Keeps the solution simple — no unnecessary tooling",
+      "passed": true,
+      "evidence": "121 lines total, npm-only, no build step for plain JS, explains 'Uses only what ships with Node'"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "eval_id": 1,
+  "eval_name": "ts-monorepo-setup",
+  "prompt": "I have 8 TypeScript packages (shared utils, 3 microservices, 2 React apps, a CLI, and a types package). Currently they're all separate repos with duplicated CI configs and version drift. I want to consolidate them into a monorepo. What tool should I use and how do I set it up? Also need CI that only builds what changed.",
+  "assertions": [
+    "Recommends a specific workspace manager (pnpm, npm, or yarn) with reasoning",
+    "Recommends a specific orchestrator (Turborepo or Nx) with reasoning for this scale",
+    "Provides actual pnpm-workspace.yaml or equivalent config content",
+    "Provides turbo.json or nx.json pipeline/task config content",
+    "Includes CI workflow snippet with affected-only builds",
+    "Mentions migration strategy for preserving git history",
+    "Mentions remote caching (Vercel Remote Cache or Nx Cloud)"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "expectations": [
+    {
+      "text": "Recommends npm workspaces or pnpm workspaces (not a heavy orchestrator)",
+      "passed": true,
+      "evidence": "Recommends npm workspaces: 'No Bazel/Rush/Pants/etc. needed'"
+    },
+    {
+      "text": "Does NOT recommend Bazel, Pants, Buck2, or Rush for 2 packages",
+      "passed": true,
+      "evidence": "Explicitly states 'No Bazel/Rush/Pants/etc. needed'"
+    },
+    {
+      "text": "Provides a minimal workspace config (package.json or pnpm-workspace.yaml)",
+      "passed": true,
+      "evidence": "Root package.json with 'workspaces': ['packages/*']"
+    },
+    {
+      "text": "Shows basic project structure with shared lib and app",
+      "passed": true,
+      "evidence": "Directory tree with packages/shared and packages/app, plus full package.json and source files"
+    },
+    {
+      "text": "Keeps the solution simple — no unnecessary tooling",
+      "passed": true,
+      "evidence": "126 lines total, npm-only, mentions future upgrades (TypeScript, ESLint, Changesets) as 'only when you actually need them'"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "total": 5,
+    "pass_rate": 1.0
+  }
+}
